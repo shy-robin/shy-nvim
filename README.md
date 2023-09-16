@@ -12,6 +12,16 @@ nvim --cmd "set rtp+=xxx"
 
 :lua require("xxx")
 
+### lazy-nvim
+
+
+### neo-tree
+
+直接查看配置文档：
+:h Neotree
+
+### nvim-window-picker
+
 ## lua 教程
 
 ## 资源
