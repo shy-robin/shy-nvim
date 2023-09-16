@@ -26,3 +26,22 @@ del("v", "<A-k>")
 -- move lines
 set("v", "J", ":move '>+1<cr>gv=gv", { desc = "Move down", silent = true })
 set("v", "K", ":move '<-2<cr>gv=gv", { desc = "Move up", silent = true })
+
+-- clear highlight search
+del({ "i", "n" }, "<esc>")
+set("n", "<leader>nh", "<cmd>nohl<cr>", { desc = "Clear hlsearch" })
+
+-- file
+del("n", "<leader>fn")
+set("n", "<leader>fs", ":w!<cr>", { desc = "Save and format" })
+set("n", "<leader>fq", ":wq<cr>", { desc = "Save and format and Quit" })
+set("n", "<leader>fn", ":noa w!<cr>", { desc = "Save but Not format" })
+set("n", "<leader>fN", "<cmd>enew<cr>", { desc = "New File" })
+
+-- edit
+set("n", "d", '"_d', { desc = "Delete with no register" })
+set("n", "dd", '"_dd', { desc = "Delete a line with no register" })
+set("n", "D", '"_D', { desc = "Delete backward with no register" })
+set("n", "c", '"_c', { desc = "Change with no register" })
+set("n", "cc", '"_cc', { desc = "Change a line with no register" })
+set("n", "C", '"_C', { desc = "Change backward with no register" })
