@@ -19,13 +19,16 @@ return {
   opts = {
     window = {
       mappings = {
-        ["H"] = "prev_source",
-        ["L"] = "next_source",
         ["l"] = "open_with_window_picker",
         ["h"] = "close_node",
         ["s"] = "vsplit_with_window_picker",
         ["S"] = "split_with_window_picker",
+        ["<cr>"] = "focus_preview",
       },
+    },
+    source_selector = {
+      winbar = true,
+      statusline = true,
     },
   },
 }
