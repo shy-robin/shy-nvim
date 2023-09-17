@@ -61,6 +61,8 @@ return {
               removed = icons.git.removed,
             },
           },
+          "encoding",
+          "fileformat",
         },
         lualine_y = {
           "progress",
