@@ -5,6 +5,10 @@ return {
     current_line_blame_opts = {
       delay = 500,
     },
+    signs = {
+      delete = { text = "󰘡" },
+      topdelete = { text = "󰘣" },
+    },
     current_line_blame_formatter = "(<author> <author_time:%R>) <summary>",
     on_attach = function(buffer)
       local gs = package.loaded.gitsigns
