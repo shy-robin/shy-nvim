@@ -38,3 +38,8 @@ nvim --cmd "set rtp+=xxx"
 在 mason.lua 里添加自动安装的 lsp 并保存，下次启动 nvim 时会自动安装；
 使用 <leader>cm 查看安装进度；
 在打开对应的文件，使用 <leader>cl 查看对应的 lsp 是否生效。
+
+
+## lua-snip
+
+教程：<https://www.ejmastnak.com/tutorials/vim-latex/luasnip/#tips> 
