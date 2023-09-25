@@ -34,9 +34,9 @@ set("n", "<leader>nh", "<cmd>nohl<cr>", { desc = "Clear hlsearch" })
 -- file
 del("n", "<leader>fn")
 set("n", "<leader>fs", ":w!<cr>", { desc = "Save and format", silent = true })
-set("n", "<leader>fq", ":wq<cr>", { desc = "Save and format and Quit" })
-set("n", "<leader>fn", ":noa w!<cr>", { desc = "Save but Not format" })
-set("n", "<leader>fN", "<cmd>enew<cr>", { desc = "New File" })
+set("n", "<leader>fq", ":wq<cr>", { desc = "Save and format and Quit", silent = true })
+set("n", "<leader>fn", ":noa w!<cr>", { desc = "Save but Not format", silent = true })
+set("n", "<leader>fN", "<cmd>enew<cr>", { desc = "New File", silent = true })
 
 -- edit
 set({ "n", "v" }, "d", '"_d', { desc = "Delete with no register" })
