@@ -8,6 +8,8 @@ TODO
 - [] 添加 markdown 快捷键
 - [] git sign 位置，以及 图标重合问题
 - [] theme
+- [] telescope 搜索全局，monorepo 项目子项目路径自动切换，如何搜根目录？
+- [] format eslint
 
 ## 插件
 
