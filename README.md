@@ -20,6 +20,8 @@ TODO
 - [ ] eslint autofix
 - [ ] color not work
 - [ ] code fold
+- [ ] current cursor not underline
+- [ ] multi cursor
 
 ## 插件
 

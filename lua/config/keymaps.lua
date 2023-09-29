@@ -37,6 +37,10 @@ set("n", "<leader>fs", ":w!<cr>", { desc = "Save and format", silent = true })
 set("n", "<leader>fq", ":wq<cr>", { desc = "Save and format and Quit", silent = true })
 set("n", "<leader>fn", ":noa w!<cr>", { desc = "Save but Not format", silent = true })
 set("n", "<leader>fN", "<cmd>enew<cr>", { desc = "New File", silent = true })
+set("n", "<leader>fe", "<cmd>EslintFixAll<cr>", {
+  desc = "EslintFixAll",
+  silent = true,
+})
 
 -- edit
 set({ "n", "v" }, "d", '"_d', { desc = "Delete with no register" })

@@ -1,6 +1,18 @@
 return {
   "neovim/nvim-lspconfig",
   opts = {
+    diagnostics = {
+      virtual_text = {
+        -- 显示诊断的来源，如 eslint
+        source = true,
+      },
+      float = {
+        border = "rounded",
+        suffix = function(diagnostic)
+          return string.format(" %s[%s]", diagnostic.source, diagnostic.code)
+        end,
+      },
+    },
     autoformat = false,
     format_notify = true,
     -- 这里声明的 server 会自动安装，作用和 mason.lua 里的配置相同
