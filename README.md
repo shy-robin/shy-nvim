@@ -15,6 +15,11 @@ TODO
     - [ ] leader f m eslint autofix
 - [ ] buffer 切换快捷键，多 tab
 - [ ] tmux server error
+- [ ] event = very lazy
+- [ ] linter
+- [ ] eslint autofix
+- [ ] color not work
+- [ ] code fold
 
 ## 插件
 
