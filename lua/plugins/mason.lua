@@ -9,6 +9,7 @@ return {
       "html-lsp",
       "css-lsp",
       "svelte-language-server",
+      "prettier",
     },
   },
 }

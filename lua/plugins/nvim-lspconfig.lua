@@ -1,5 +1,8 @@
 return {
   "neovim/nvim-lspconfig",
+  opts = {
+    autoformat = false,
+  },
   init = function()
     local format = function()
       require("lazyvim.plugins.lsp.format").format({ force = true })
