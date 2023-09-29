@@ -2,6 +2,15 @@ return {
   "neovim/nvim-lspconfig",
   opts = {
     autoformat = false,
+    format_notify = true,
+    -- 这里声明的 server 会自动安装，作用和 mason.lua 里的配置相同
+    servers = {
+      eslint = {},
+      volar = {
+        -- 开启 takeover 模式（在 js 或 ts 文件使用 volar）
+        filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
+      },
+    },
   },
   init = function()
     local format = function()
