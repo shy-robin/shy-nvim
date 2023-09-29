@@ -10,6 +10,11 @@ TODO
 - [] theme
 - [] telescope 搜索全局，monorepo 项目子项目路径自动切换，如何搜根目录？
 - [] format eslint
+    - leader f n 
+    - leader f s 自动格式化
+    - leader f m eslint autofix
+- [] buffer 切换快捷键，多 tab
+- [] tmux server error
 
 ## 插件
 
