@@ -5,6 +5,7 @@
 -- 当开启 volar takeover 模式后，js 或 ts 文件会有两个 lsp 服务：volar + tsserver；
 -- 这会导致一些问题，例如 ts 无法识别 import 的 vue 文件；
 -- 解决办法是使用 autocmd，如果监测到 volar 和 tsserver 同时开启，则只使用 tsserver。
+-- https://www.reddit.com/r/neovim/comments/117gopv/disable_tsserver_if_using_volar_takeover_mode/
 local tsserverAttached = false
 local volarAttached = false
 
