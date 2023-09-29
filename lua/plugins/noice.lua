@@ -6,4 +6,11 @@ return {
       lsp_doc_border = true, -- add a border to hover docs and signature help
     },
   },
+  keys = {
+    -- 禁用滚动快捷键
+    -- 使用 gh 或 K 聚焦到文档窗口，再通过 vim 移动文档
+    -- 使用 q 退出文档窗口
+    { "<C-f>", false, mode = { "i", "n", "s" } },
+    { "<C-b>", false, mode = { "i", "n", "s" } },
+  },
 }
