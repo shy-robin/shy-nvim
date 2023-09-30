@@ -27,6 +27,7 @@ TODO
 - [ ] ufo
 - [ ] statuscolumn
 - [ ] eslint fix all bug 需要调出 lazygit 才能刷新buffer
+- [ ] cspell
 
 ## 插件
 
