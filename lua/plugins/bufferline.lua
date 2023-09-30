@@ -22,14 +22,14 @@ return {
     { "tp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle pin" },
     { "tP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete non-pinned buffers" },
     {
-      "td",
+      "tw",
       function()
         require("mini.bufremove").delete(0, false)
       end,
       desc = "Delete Buffer",
     },
     {
-      "tD",
+      "tW",
       "<cmd>bd!<cr>",
       desc = "Delete Buffer (Force)",
     },
