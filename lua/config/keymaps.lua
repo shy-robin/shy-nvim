@@ -49,3 +49,7 @@ set({ "n", "v" }, "s", '"_s', { desc = "Replace with no register" })
 set({ "n", "v" }, "S", '"_S', { desc = "Replace a line with no register" })
 set("n", "X", "yydd", { desc = "Cut a line" })
 set("v", "p", '"_dp', { desc = "Paste with no register" })
+
+-- cmdline
+set("c", "<C-j>", "<C-n>", { desc = "Select Next Item", remap = true })
+set("c", "<C-k>", "<C-p>", { desc = "Select Prev Item", remap = true })
