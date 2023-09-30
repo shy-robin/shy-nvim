@@ -10,6 +10,7 @@ return {
       "css-lsp",
       "svelte-language-server",
       "prettier",
+      "eslint_d",
     },
   },
 }

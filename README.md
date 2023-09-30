@@ -7,21 +7,26 @@ TODO
 
 - [ ] 添加 markdown 快捷键
 - [ ] git sign 位置，以及 图标重合问题
-- [ ] theme
+- [x] theme
 - [ ] telescope 搜索全局，monorepo 项目子项目路径自动切换，如何搜根目录？
-- [ ] format eslint
-  - [ ] leader f n
-  - [ ] leader f s 自动格式化
-  - [ ] leader f m eslint autofix
+- [x] format eslint
+  - [x] leader f n
+  - [x] leader f s 自动格式化
+  - [x] leader f e eslint autofix
 - [ ] buffer 切换快捷键，多 tab
 - [ ] tmux server error
 - [ ] event = very lazy
-- [ ] linter
-- [ ] eslint autofix
+- [x] linter
+- [x] eslint autofix
 - [ ] color not work
 - [ ] code fold
 - [ ] current cursor not underline
 - [ ] multi cursor
+- [ ] mark
+- [ ] eslint_d
+- [ ] ufo
+- [ ] statuscolumn
+- [ ] eslint fix all 
 
 ## 插件
 
