@@ -155,7 +155,7 @@ return {
             },
             prettier = {
               -- installed globally, or "./node_modules/.bin/prettier" for local install
-              command = 'prettier',
+              command = 'prettierd',
               args = { '--stdin-filepath', '%filepath' },
               rootPatterns = {
                 ".prettierrc",
