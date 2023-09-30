@@ -18,7 +18,7 @@ TODO
 - [ ] event = very lazy
 - [x] linter
 - [x] eslint autofix
-- [ ] color not work
+- [x] color not work
 - [ ] code fold
 - [ ] current cursor not underline
 - [ ] multi cursor
@@ -26,7 +26,7 @@ TODO
 - [ ] eslint_d
 - [ ] ufo
 - [ ] statuscolumn
-- [ ] eslint fix all 
+- [ ] eslint fix all bug 需要调出 lazygit 才能刷新buffer
 
 ## 插件
 
