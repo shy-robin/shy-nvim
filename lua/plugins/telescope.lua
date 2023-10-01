@@ -1,5 +1,12 @@
 return {
   "nvim-telescope/telescope.nvim",
+  keys = {
+    -- 这里的 root dir 是指当前 buffer 所在的根目录
+    { "<leader>sf", require('lazyvim.util').telescope("files"),                      desc = "Find Files (root dir)" },
+    -- 这里的 cwd 是指用 vim 进入编辑所在的目录
+    { "<leader>sF", require('lazyvim.util').telescope("files", { cwd = false }),     desc = "Find Files (cwd)" },
+    { "<leader>?",  require('lazyvim.util').telescope("live_grep", { cwd = false }), desc = "Grep (cwd)" },
+  },
   opts = {
     defaults = {
       prompt_prefix = "  ",

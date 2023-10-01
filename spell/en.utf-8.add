@@ -9,3 +9,5 @@ lsp
 tsserver
 neovim
 autocmds
+dir
+cwd
