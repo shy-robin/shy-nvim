@@ -53,6 +53,11 @@ return {
     vim.o.foldlevelstart = 99
     vim.o.foldenable = true
 
+    -- 清除折叠侧边栏所在列的高亮
+    vim.api.nvim_set_hl(0, "FoldColumn", {})
+    -- 高亮折叠的行
+    vim.api.nvim_set_hl(0, "Folded", { bg = "#01579B" })
+
     require("ufo").setup({
       enable_get_fold_virt_text = true,
       open_fold_hl_timeout = 150,
