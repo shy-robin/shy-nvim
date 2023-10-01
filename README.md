@@ -27,7 +27,7 @@ TODO
 - [x] ufo
 - [x] statuscolumn
 - [ ] eslint fix all bug 需要调出 lazygit 才能刷新buffer
-- [ ] cspell
+- [x] spell check
 - [ ] clipboard history
 - [ ] line wrap
 

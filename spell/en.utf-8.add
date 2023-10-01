@@ -11,3 +11,12 @@ neovim
 autocmds
 dir
 cwd
+monorepo
+eslint
+autofix
+tmux
+linter
+ufo
+statuscolumn
+lazygit
+cmd

@@ -108,8 +108,13 @@ return {
     },
     {
       "<leader>gg",
-      "<cmd>FloatermNew lazygit<cr>",
+      "<cmd>FloatermNew --cwd=<buffer> lazygit<cr>", -- 选择距离当前 buffer 最近的仓库
       desc = "Lazygit (root dir)",
+    },
+    {
+      "<leader>gG",
+      "<cmd>FloatermNew lazygit<cr>", -- 选择进入 vim 时路径的仓库
+      desc = "Lazygit (cwd)",
     },
   },
   config = function()
