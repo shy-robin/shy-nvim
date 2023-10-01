@@ -19,15 +19,17 @@ TODO
 - [x] linter
 - [x] eslint autofix
 - [x] color not work
-- [ ] code fold
-- [ ] current cursor not underline
-- [ ] multi cursor
+- [x] code fold
+- [x] current cursor not underline
+- [x] multi cursor
 - [ ] mark
-- [ ] eslint_d
-- [ ] ufo
-- [ ] statuscolumn
+- [x] eslint_d
+- [x] ufo
+- [x] statuscolumn
 - [ ] eslint fix all bug 需要调出 lazygit 才能刷新buffer
 - [ ] cspell
+- [ ] clipboard history
+- [ ] line wrap
 
 ## 插件
 
