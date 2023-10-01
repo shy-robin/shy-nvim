@@ -53,3 +53,7 @@ set("v", "p", '"_dp', { desc = "Paste with no register" })
 -- cmdline
 set("c", "<C-j>", "<C-n>", { desc = "Select Next Item", remap = true })
 set("c", "<C-k>", "<C-p>", { desc = "Select Prev Item", remap = true })
+
+-- spell check
+set("n", "gns", "]s", { desc = "Next misspelled word", remap = true, silent = true })
+set("n", "gNs", "[s", { desc = "Prev misspelled word", remap = true, silent = true })
