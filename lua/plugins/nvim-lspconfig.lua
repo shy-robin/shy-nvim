@@ -39,6 +39,17 @@ end
 return {
   "neovim/nvim-lspconfig",
   opts = {
+    capabilities = {
+      -- Tell the server the capability of foldingRange,
+      -- Neovim hasn't added foldingRange to default capabilities, users must add it manually
+      -- https://github.com/kevinhwang91/nvim-ufo#minimal-configuration
+      textDocument = {
+        foldingRange = {
+          dynamicRegistration = false,
+          lineFoldingOnly = true,
+        }
+      }
+    },
     diagnostics = {
       virtual_text = {
         -- 显示诊断的来源，如 eslint
@@ -184,7 +195,7 @@ return {
     local keys = require("lazyvim.plugins.lsp.keymaps").get()
     -- change a keymap
     -- https://www.lazyvim.org/plugins/lsp#%EF%B8%8F-customizing-lsp-keymaps
-    keys[#keys + 1] = { "gh", vim.lsp.buf.hover, desc = "Hover" }
+    -- keys[#keys + 1] = { "gh", vim.lsp.buf.hover, desc = "Hover" }
     keys[#keys + 1] = { "gj", "]d", desc = "Next Diagnostic", remap = true }
     keys[#keys + 1] = { "gk", "[d", desc = "Prev Diagnostic", remap = true }
     keys[#keys + 1] = { "gl", vim.diagnostic.open_float, desc = "Line Diagnostics" }
