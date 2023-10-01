@@ -34,11 +34,19 @@ vim.api.nvim_create_autocmd("LspAttach", {
 -- 拼写检查支持驼峰
 vim.api.nvim_create_autocmd("BufReadPre", {
   callback = function()
+    -- spell check
     vim.cmd('set spelloptions=camel')
 
     vim.api.nvim_set_hl(0, 'SpellBad', { fg = '#F44336', underdashed = true })
     vim.api.nvim_set_hl(0, 'SpellCap', { fg = '#F44336', underdashed = true })
     vim.api.nvim_set_hl(0, 'SpellRare', { fg = '#F44336', underdashed = true })
     vim.api.nvim_set_hl(0, 'SpellLocal', { fg = '#F44336', underdashed = true })
+
+
+    -- vim-illuminate
+    -- 高亮相同的单词，highlight 链接到 Visual
+    vim.api.nvim_set_hl(0, "IlluminatedWordText", { link = "Visual" })
+    vim.api.nvim_set_hl(0, "IlluminatedWordRead", { link = "Visual" })
+    vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { link = "Visual" })
   end,
 })
