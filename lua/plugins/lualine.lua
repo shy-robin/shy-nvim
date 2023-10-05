@@ -34,22 +34,49 @@ return {
           },
         },
         lualine_x = {
-          -- stylua: ignore
-          {
-            function() return require("noice").api.status.command.get() end,
-            cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
-            color = Util.fg("Statement"),
+          { -- Setup lsp-progress component
+            function()
+              return require("lsp-progress").progress({
+                max_size = 80,
+                format = function(messages)
+                  local active_clients =
+                      vim.lsp.get_active_clients()
+                  if #messages > 0 then
+                    return table.concat(messages, " ")
+                  end
+                  local client_names = {}
+                  for _, client in ipairs(active_clients) do
+                    if client and client.name ~= "" then
+                      table.insert(
+                        client_names,
+                        1,
+                        client.name
+                      )
+                    end
+                  end
+                  return table.concat(client_names, "/")
+                end,
+              })
+            end,
+            icon = { "", align = "right" },
           },
           -- stylua: ignore
-          {
-            function() return require("noice").api.status.mode.get() end,
-            cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
-            color = Util.fg("Constant"),
-          },
+          -- 显示按下的键位
+          -- {
+          --   function() return require("noice").api.status.command.get() end,
+          --   cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
+          --   color = Util.fg("Statement"),
+          -- },
+          -- stylua: ignore
+          -- {
+          --   function() return require("noice").api.status.mode.get() end,
+          --   cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
+          --   color = Util.fg("Constant"),
+          -- },
           -- stylua: ignore
           {
             function() return "  " .. require("dap").status() end,
-            cond = function () return package.loaded["dap"] and require("dap").status() ~= "" end,
+            cond = function() return package.loaded["dap"] and require("dap").status() ~= "" end,
             color = Util.fg("Debug"),
           },
           { require("lazy.status").updates, cond = require("lazy.status").has_updates, color = Util.fg("Special") },

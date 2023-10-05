@@ -5,6 +5,11 @@ return {
       bottom_search = false, -- use a classic bottom cmdline for search
       lsp_doc_border = true, -- add a border to hover docs and signature help
     },
+    lsp = {
+      progress = {
+        enabled = false
+      }
+    }
   },
   keys = {
     -- 禁用滚动快捷键
