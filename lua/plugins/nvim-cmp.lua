@@ -1,8 +1,6 @@
 return {
   "hrsh7th/nvim-cmp",
   opts = function()
-    vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
-
     local defaults = require("cmp.config.default")()
     local cmp = require("cmp")
 
@@ -47,11 +45,6 @@ return {
           end
           return item
         end,
-      },
-      experimental = {
-        ghost_text = {
-          hl_group = "CmpGhostText",
-        },
       },
       sorting = defaults.sorting,
     }

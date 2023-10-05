@@ -37,11 +37,13 @@ TODO
 - [ ] format lose content
 - [ ] remove notify use cmdline
 - [ ] in vue import not cmp
-- [ ] 美化加边框，which key  or  mason lsp
+- [x] 美化加边框，which key  or  mason lsp
 - [ ] use cmdline
 - [ ] cmp format 加来源，close ghost text
 - [ ] cmp cmdline 加 cmdline source
 - [ ] cmp search 加 buffer source
+- [ ] easy-commands https://www.bilibili.com/video/BV1EV411G7UK/?spm_id_from=333.788.recommend_more_video.1&vd_source=4ef7b6657238565af69458e77de87682
+- [ ] diff-view
 
 ## 插件
 
