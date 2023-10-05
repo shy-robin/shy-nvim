@@ -13,5 +13,8 @@ return {
       "eslint_d",
       "emmet-ls"
     },
+    ui = {
+      border = "rounded"
+    }
   },
 }
