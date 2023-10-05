@@ -37,6 +37,11 @@ TODO
 - [ ] format lose content
 - [ ] remove notify use cmdline
 - [ ] in vue import not cmp
+- [ ] 美化加边框，which key  or  mason lsp
+- [ ] use cmdline
+- [ ] cmp format 加来源，close ghost text
+- [ ] cmp cmdline 加 cmdline source
+- [ ] cmp search 加 buffer source
 
 ## 插件
 

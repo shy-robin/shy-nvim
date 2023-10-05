@@ -11,6 +11,7 @@ return {
       "svelte-language-server",
       "prettierd",
       "eslint_d",
+      "emmet-ls"
     },
   },
 }
