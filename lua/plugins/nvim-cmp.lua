@@ -1,5 +1,12 @@
 return {
   "hrsh7th/nvim-cmp",
+  dependencies = {
+    "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-path",
+    "saadparwaiz1/cmp_luasnip",
+    "hrsh7th/cmp-cmdline"
+  },
   opts = function()
     local defaults = require("cmp.config.default")()
     local cmp = require("cmp")
@@ -49,4 +56,39 @@ return {
       sorting = defaults.sorting,
     }
   end,
+  config = function()
+    local cmp = require("cmp")
+    -- `/` cmdline setup.
+    ---@diagnostic disable-next-line: missing-fields
+    cmp.setup.cmdline('/', {
+      window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+      },
+      mapping = cmp.mapping.preset.cmdline(),
+      sources = {
+        { name = 'buffer' }
+      }
+    })
+
+    -- `:` cmdline setup.
+    ---@diagnostic disable-next-line: missing-fields
+    cmp.setup.cmdline(':', {
+      window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+      },
+      mapping = cmp.mapping.preset.cmdline(),
+      sources = cmp.config.sources({
+        { name = 'path' }
+      }, {
+        {
+          name = 'cmdline',
+          option = {
+            ignore_cmds = { 'Man', '!' }
+          }
+        }
+      })
+    })
+  end
 }
