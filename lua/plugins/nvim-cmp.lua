@@ -80,10 +80,17 @@ return {
         { name = "path" },
       }),
       formatting = {
-        format = function(_, item)
+        format = function(entry, item)
           local icons = require("lazyvim.config").icons.kinds
           if icons[item.kind] then
             item.kind = icons[item.kind] .. item.kind
+            item.menu = ({
+              nvim_lsp = "[LSP]",
+              luasnip = "[Snippet]",
+              buffer = "[Buffer]",
+              spell = "[Spell]",
+              path = "[Path]"
+            })[entry.source.name]
           end
           return item
         end,
