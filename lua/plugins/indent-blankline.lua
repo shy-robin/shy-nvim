@@ -7,14 +7,13 @@ return {
         "Whitespace"
       },
       char = "",
-      context_char = "",
     },
     whitespace = {
       highlight = {
         "CursorColumn",
         "Whitespace"
       },
-      remove_blankline_trail = true
+      remove_blankline_trail = false
     },
     exclude = {
       filetypes = {
