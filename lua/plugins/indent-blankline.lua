@@ -1,24 +1,35 @@
 return {
   "lukas-reineke/indent-blankline.nvim",
-  config = function()
-    local highlight = {
-      "CursorColumn",
-      "Whitespace"
-    }
-
-    require("ibl").setup {
-      indent = {
-        highlight = highlight,
-        char = "",
-        context_char = "",
+  opts = {
+    indent = {
+      highlight = {
+        "CursorColumn",
+        "Whitespace"
       },
-      whitespace = {
-        highlight = highlight,
-        remove_blankline_trail = true
+      char = "",
+      context_char = "",
+    },
+    whitespace = {
+      highlight = {
+        "CursorColumn",
+        "Whitespace"
       },
-      scope = {
-        enabled = false
-      }
-    }
-  end
+      remove_blankline_trail = true
+    },
+    exclude = {
+      filetypes = {
+        "help",
+        "alpha",
+        "dashboard",
+        "neo-tree",
+        "Trouble",
+        "lazy",
+        "mason",
+        "notify",
+        "toggleterm",
+        "lazyterm",
+        "floaterm"
+      },
+    },
+  },
 }

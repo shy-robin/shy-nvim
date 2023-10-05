@@ -30,6 +30,13 @@ TODO
 - [x] spell check
 - [ ] clipboard history
 - [ ] line wrap
+- [ ] vue template emmet div.region-recommend
+- [ ] lua snip <div cl></div cl>
+- [ ] import @ 
+- [ ] tag new line
+- [ ] format lose content
+- [ ] remove notify use cmdline
+- [ ] in vue import not cmp
 
 ## 插件
 

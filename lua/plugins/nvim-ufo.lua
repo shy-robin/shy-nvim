@@ -35,6 +35,9 @@ return {
     "kevinhwang91/promise-async",
   },
   event = "BufRead",
+  opts = {
+    filetype_exclude = { 'help', 'alpha', 'dashboard', 'neo-tree', 'Trouble', 'lazy', 'mason' },
+  },
   keys = {
     { "zR", function() require("ufo").openAllFolds() end },
     { "zM", function() require("ufo").closeAllFolds() end },

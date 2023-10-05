@@ -2,8 +2,22 @@ return {
   "luukvbaal/statuscol.nvim",
   config = function()
     local builtin = require("statuscol.builtin")
+
     require("statuscol").setup({
       relculright = true,
+      ft_ignore = {
+        "help",
+        "alpha",
+        "dashboard",
+        "neo-tree",
+        "Trouble",
+        "lazy",
+        "mason",
+        "notify",
+        "toggleterm",
+        "lazyterm",
+        "floaterm"
+      },
       segments = {
         { text = { builtin.foldfunc },      click = "v:lua.ScFa" },
         {
@@ -16,7 +30,7 @@ return {
             -- 当没有 sign 时的占位符
             fillchar = " "
           },
-          click = "v:lua.ScSa"
+          click = "v:lua.ScSa",
         },
         { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
         {
