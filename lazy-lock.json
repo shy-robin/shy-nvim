@@ -57,6 +57,7 @@
   "plenary.nvim": { "branch": "master", "commit": "9ce85b0f7dcfe5358c0be937ad23e456907d410b" },
   "promise-async": { "branch": "main", "commit": "e94f35161b8c5d4a4ca3b6ff93dd073eb9214c0e" },
   "sonokai": { "branch": "master", "commit": "17308ee6d9c764bfc1e0fa97213e7a99701b4144" },
+  "sqlite.lua": { "branch": "master", "commit": "b7e28c8463254c46a8e61c52d27d6a2040492fc3" },
   "statuscol.nvim": { "branch": "main", "commit": "a73fff31cce19a34605d18ffd076520ac8256f84" },
   "telescope.nvim": { "branch": "master", "commit": "8c69f58427f98b2ca39a90a36db830c06e30351c" },
   "todo-comments.nvim": { "branch": "main", "commit": "3094ead8edfa9040de2421deddec55d3762f64d1" },
@@ -67,5 +68,6 @@
   "vim-startuptime": { "branch": "master", "commit": "454b3de856b7bd298700de33d79774ca9b9e3875" },
   "vim-visual-multi": { "branch": "master", "commit": "724bd53adfbaf32e129b001658b45d4c5c29ca1a" },
   "which-key.nvim": { "branch": "main", "commit": "7ccf476ebe0445a741b64e36c78a682c1c6118b7" },
-  "window-picker": { "branch": "main", "commit": "fd5d3348b3e254ca3134f97793b4a8c702c4ad1d" }
+  "window-picker": { "branch": "main", "commit": "fd5d3348b3e254ca3134f97793b4a8c702c4ad1d" },
+  "yanky.nvim": { "branch": "main", "commit": "538af19b7fafcdb295a943b8b84bae8bb8fc9bb7" }
 }
