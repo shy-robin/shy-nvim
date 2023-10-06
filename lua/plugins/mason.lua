@@ -11,7 +11,9 @@ return {
       "svelte-language-server",
       "prettierd",
       "eslint_d",
-      "emmet-ls"
+      -- emmet-ls 存在一些问题：
+      -- https://github.com/aca/emmet-ls/issues/42
+      "emmet-language-server"
     },
     ui = {
       border = "rounded"
