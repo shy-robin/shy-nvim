@@ -36,6 +36,14 @@ return {
       mode = "i"
     },
     {
+      "<c-e>",
+      [[coc#pum#visible() ? coc#pum#cancel() : "\<c-e>"]],
+      expr = true,
+      silent = true,
+      desc = "Coc Cancel Cmp",
+      mode = "i"
+    },
+    {
       "gk",
       "<Plug>(coc-diagnostic-prev)",
       silent = true,

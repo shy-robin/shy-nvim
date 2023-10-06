@@ -51,6 +51,7 @@ TODO
 - [ ] coc lua neodev not work
 - [ ] coc lsp progress
 - [ ] coc cmdline cmp
+- [ ] bufferline top Always show
 
 ## 插件
 
