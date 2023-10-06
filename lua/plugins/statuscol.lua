@@ -23,7 +23,9 @@ return {
         { text = { builtin.foldfunc },      click = "v:lua.ScFa" },
         {
           sign = {
-            name = { "Diagnostic" },
+            -- 使用 :sign list 即可查看所有 sign
+            -- .* 是代表任意 sign
+            name = { ".*" },
             -- 最多展示 sign 的数量
             maxwidth = 1,
             auto = false,
@@ -36,7 +38,7 @@ return {
         { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
         {
           sign = {
-            name = { ".*" },
+            name = { "GitSigns*" },
             maxwidth = 1,
             colwidth = 1,
             auto = false,
