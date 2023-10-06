@@ -1,6 +1,5 @@
 return {
   "williamboman/mason.nvim",
-  enabled = false,
   opts = {
     -- 自动安装 lsp
     ensure_installed = {
