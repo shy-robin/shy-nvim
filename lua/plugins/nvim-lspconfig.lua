@@ -38,6 +38,7 @@ end
 
 return {
   "neovim/nvim-lspconfig",
+  enabled = false,
   opts = {
     capabilities = {
       -- Tell the server the capability of foldingRange,
