@@ -45,6 +45,8 @@ TODO
 - [ ] easy-commands https://www.bilibili.com/video/BV1EV411G7UK/?spm_id_from=333.788.recommend_more_video.1&vd_source=4ef7b6657238565af69458e77de87682
 - [ ] diff-view
 - [ ] startup time optimize
+- [ ] undo tree
+- [ ] coc
 
 ## 插件
 
