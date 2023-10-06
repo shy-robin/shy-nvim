@@ -5,6 +5,8 @@ return {
     current_line_blame_opts = {
       delay = 500,
     },
+    -- 覆盖默认配置，使其能出现在 sign list 中
+    _extmark_signs = false,
     signs = {
       delete = { text = "󰘡" },
       topdelete = { text = "󰘣" },
