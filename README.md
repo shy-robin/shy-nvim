@@ -47,6 +47,8 @@ TODO
 - [ ] startup time optimize
 - [ ] undo tree
 - [ ] coc
+- [ ] coc expand snippet c-j?
+- [ ] coc lua neodev not work
 
 ## 插件
 

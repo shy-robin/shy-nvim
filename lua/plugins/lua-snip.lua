@@ -11,30 +11,33 @@ return {
     store_selection_keys = "<tab>",
     enable_autosnippets = true,
   },
-  keys = {
-    {
-      "<C-l>",
-      function()
-        local ls = require("luasnip")
-        if ls.jumpable(1) then
-          ls.jump(1)
-        end
-      end,
-      -- for INSERT and SELECT mode
-      mode = { "i", "s" },
-    },
-    {
-      "<C-k>",
-      function()
-        local ls = require("luasnip")
-        if ls.jumpable(-1) then
-          ls.jump(-1)
-        end
-      end,
-      -- for INSERT and SELECT mode
-      mode = { "i", "s" },
-    },
-  },
+  keys = function()
+    return {
+      {
+        "<C-l>",
+        function()
+          local ls = require("luasnip")
+          if ls.jumpable(1) then
+            ls.jump(1)
+          end
+        end,
+        -- for INSERT and SELECT mode
+        mode = { "i", "s" },
+      },
+      -- TODO: conflict with coc
+      -- {
+      --   "<C-k>",
+      --   function()
+      --     local ls = require("luasnip")
+      --     if ls.jumpable(-1) then
+      --       ls.jump(-1)
+      --     end
+      --   end,
+      --   -- for INSERT and SELECT mode
+      --   mode = { "i", "s" },
+      -- },
+  }
+  end,
   config = function(_, opts)
     require("luasnip.loaders.from_lua").lazy_load({ paths = "~/.config/nvim/lua/snippets" })
     -- config 函数默认会将 opts 传入插件的 setup 函数里；

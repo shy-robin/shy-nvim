@@ -17,25 +17,26 @@ return {
     -- 使用 q 退出文档窗口
     { "<C-f>", false, mode = { "i", "n", "s" } },
     { "<C-b>", false, mode = { "i", "n", "s" } },
-    {
-      "<C-d>",
-      function()
-        if not require("noice.lsp").scroll(4) then return "<C-d>" end
-      end,
-      silent = true,
-      expr = true,
-      desc = "Scroll forward",
-      mode = { "i", "n", "s" }
-    },
-    {
-      "<C-u>",
-      function()
-        if not require("noice.lsp").scroll(-4) then return "<C-u>" end
-      end,
-      silent = true,
-      expr = true,
-      desc = "Scroll backward",
-      mode = { "i", "n", "s" }
-    },
+    -- TODO: conflict with coc
+    -- {
+    --   "<C-d>",
+    --   function()
+    --     if not require("noice.lsp").scroll(4) then return "<C-d>" end
+    --   end,
+    --   silent = true,
+    --   expr = true,
+    --   desc = "Scroll forward",
+    --   mode = { "i", "n", "s" }
+    -- },
+    -- {
+    --   "<C-u>",
+    --   function()
+    --     if not require("noice.lsp").scroll(-4) then return "<C-u>" end
+    --   end,
+    --   silent = true,
+    --   expr = true,
+    --   desc = "Scroll backward",
+    --   mode = { "i", "n", "s" }
+    -- },
   },
 }

@@ -42,12 +42,16 @@ return {
     { "zR", function() require("ufo").openAllFolds() end },
     { "zM", function() require("ufo").closeAllFolds() end },
     -- 注意不要设置为 K，因为会被 LazyVim 设置的 K 覆盖
-    { "gh", function()
-      local winid = require('ufo').peekFoldedLinesUnderCursor()
-      if not winid then
-        vim.lsp.buf.hover()
-      end
-    end }
+    -- TODO: conflict with coc
+    { "gp",
+      function()
+        local winid = require('ufo').peekFoldedLinesUnderCursor()
+        if not winid then
+          vim.lsp.buf.hover()
+        end
+      end,
+      desc = "Preview Fold"
+    }
   },
   config = function()
     vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
@@ -72,8 +76,9 @@ return {
           winblend = 0
         },
         mappings = {
-          scrollU = '<C-u>',
-          scrollD = '<C-d>',
+          -- TODO: conflict with coc
+          -- scrollU = '<C-u>',
+          -- scrollD = '<C-d>',
           jumpTop = '[',
           jumpBot = ']'
         }
