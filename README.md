@@ -49,6 +49,8 @@ TODO
 - [ ] coc
 - [ ] coc expand snippet c-j?
 - [ ] coc lua neodev not work
+- [ ] coc lsp progress
+- [ ] coc cmdline cmp
 
 ## 插件
 

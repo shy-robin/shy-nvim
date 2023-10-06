@@ -203,6 +203,24 @@ return {
     vim.g.coc_global_extensions = {
       "coc-lua",
       "coc-stylua",
+      "coc-json",
+      "coc-marketplace",
+      "coc-spell-checker",
+      "coc-html",
+      "coc-css",
+      "coc-emmet",
+      "coc-prettier",
+      "@yaegassy/coc-volar",
+      "coc-tsserver",
+      "coc-cssmodules",
+      "coc-diagnostic",
+      "coc-eslint",
+      "coc-htmlhint",
+      "coc-html-css-support",
+      "coc-stylua",
+      "coc-sumneko-lua",
+      "coc-styled-components",
+      "coc-svelte",
     }
 
     -- Some servers have issues with backup files, see #649

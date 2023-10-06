@@ -28,4 +28,8 @@
   "diagnostic.warningSign": " ",
   "diagnostic.hintSign": " ",
   "diagnostic.infoSign": " ",
+  // Words of the current buffer.
+  "coc.source.around.shortcut": "Around",
+  "coc.source.buffer.shortcut": "Buffer",
+  "coc.source.file.shortcut": "File",
 }
