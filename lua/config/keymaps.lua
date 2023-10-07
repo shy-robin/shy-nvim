@@ -33,9 +33,10 @@ set("n", "<leader>nh", "<cmd>nohl<cr>", { desc = "Clear hlsearch" })
 
 -- file
 del("n", "<leader>fn")
-set("n", "<leader>fs", ":w!<cr>", { desc = "Save and format", silent = true })
-set("n", "<leader>fq", ":wq<cr>", { desc = "Save and format and Quit", silent = true })
-set("n", "<leader>fn", ":noa w!<cr>", { desc = "Save but Not format", silent = true })
+-- 注意，避免写 : 加命令的形式执行命令，不然底部栏会切换到 command 模式而导致闪烁
+set("n", "<leader>fs", "<cmd>w!<cr>", { desc = "Save and format", silent = true })
+set("n", "<leader>fq", "<cmd>wq<cr>", { desc = "Save and format and Quit", silent = true })
+set("n", "<leader>fn", "<cmd>noa w!<cr>", { desc = "Save but Not format", silent = true })
 set("n", "<leader>fN", "<cmd>enew<cr>", { desc = "New File", silent = true })
 
 -- edit
