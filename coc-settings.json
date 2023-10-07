@@ -66,5 +66,5 @@
     "kind",
     "shortcut"
   ],
-  a
+  "coc.preferences.formatOnSave": true
 }
