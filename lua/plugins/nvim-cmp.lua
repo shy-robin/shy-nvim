@@ -50,6 +50,8 @@ return {
         completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),
       },
+      -- see: https://github.com/f3fora/cmp-spell/issues/10
+      preselect = cmp.PreselectMode.None,
       completion = {
         completeopt = "menu,menuone,noinsert",
       },
@@ -73,11 +75,11 @@ return {
         }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
       }),
       sources = cmp.config.sources({
-        { name = "nvim_lsp" },
-        { name = "luasnip" },
-        { name = "buffer" },
-        -- { name = "spell" },
-        { name = "path" },
+        { name = "nvim_lsp", priority = 10 },
+        { name = "luasnip",  priority = 8 },
+        { name = "buffer",   priority = 6 },
+        { name = "spell",    priority = 4 },
+        { name = "path",     priority = 2 },
       }),
       formatting = {
         format = function(entry, item)
@@ -95,7 +97,20 @@ return {
           return item
         end,
       },
-      sorting = defaults.sorting,
+      sorting = {
+        priority_weight = 2,
+        comparators = {
+          cmp.config.compare.locality,
+          cmp.config.compare.recently_used,
+          cmp.config.compare.score, -- final_score = orig_score + ((#sources - (source_index - 1)) * sorting.priority_weight) (priority_weight = sources[n].priority
+          cmp.config.compare.offset,
+          cmp.config.compare.exact,
+          -- cmp.config.compare.kind,
+          cmp.config.compare.sort_text,
+          -- cmp.config.compare.length,
+          -- cmp.config.compare.order,
+        },
+      },
     }
   end,
 }
