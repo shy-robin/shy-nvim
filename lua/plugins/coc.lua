@@ -89,7 +89,7 @@ return {
       "gh",
       function()
         local cw = vim.fn.expand('<cword>')
-        if vim.fn.index({'vim', 'help'}, vim.bo.filetype) >= 0 then
+        if vim.fn.index({ 'vim', 'help' }, vim.bo.filetype) >= 0 then
           vim.api.nvim_command('h ' .. cw)
         elseif vim.api.nvim_eval('coc#rpc#ready()') then
           vim.fn.CocActionAsync('doHover')
@@ -206,6 +206,16 @@ return {
       desc = "CocList Resume",
       mode = "n"
     },
+    {
+      "<cr>",
+      -- coc enter 会在标签内换行后自动缩进
+      -- see：https://www.reddit.com/r/neovim/comments/k530h1/auto_indent_in_html_files_on_new_lines_after/
+      [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]],
+      expr = true,
+      silent = true,
+      desc = "Coc Enter",
+      mode = "i"
+    },
   },
   config = function()
     vim.g.coc_global_extensions = {
@@ -229,6 +239,7 @@ return {
       "coc-sumneko-lua",
       "coc-styled-components",
       "coc-svelte",
+      "coc-pairs"
     }
 
     -- Some servers have issues with backup files, see #649
@@ -246,8 +257,8 @@ return {
     local keyset = vim.keymap.set
     -- Autocomplete
     function _G.check_back_space()
-        local col = vim.fn.col('.') - 1
-        return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
+      local col = vim.fn.col('.') - 1
+      return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
     end
 
     -- Use <c-j> to trigger snippets
@@ -256,30 +267,30 @@ return {
     -- Highlight the symbol and its references on a CursorHold event(cursor is idle)
     vim.api.nvim_create_augroup("CocGroup", {})
     vim.api.nvim_create_autocmd("CursorHold", {
-        group = "CocGroup",
-        command = "silent call CocActionAsync('highlight')",
-        desc = "Highlight symbol under cursor on CursorHold"
+      group = "CocGroup",
+      command = "silent call CocActionAsync('highlight')",
+      desc = "Highlight symbol under cursor on CursorHold"
     })
 
     -- Setup formatexpr specified filetype(s)
     vim.api.nvim_create_autocmd("FileType", {
-        group = "CocGroup",
-        pattern = "typescript,json",
-        command = "setl formatexpr=CocAction('formatSelected')",
-        desc = "Setup formatexpr specified filetype(s)."
+      group = "CocGroup",
+      pattern = "typescript,json",
+      command = "setl formatexpr=CocAction('formatSelected')",
+      desc = "Setup formatexpr specified filetype(s)."
     })
 
     -- Update signature help on jump placeholder
     vim.api.nvim_create_autocmd("User", {
-        group = "CocGroup",
-        pattern = "CocJumpPlaceholder",
-        command = "call CocActionAsync('showSignatureHelp')",
-        desc = "Update signature help on jump placeholder"
+      group = "CocGroup",
+      pattern = "CocJumpPlaceholder",
+      command = "call CocActionAsync('showSignatureHelp')",
+      desc = "Update signature help on jump placeholder"
     })
 
     -- Apply codeAction to the selected region
     -- Example: `<leader>aap` for current paragraph
-    local opts = {silent = true, nowait = true}
+    local opts = { silent = true, nowait = true }
     keyset("x", "<leader>a", "<Plug>(coc-codeaction-selected)", opts)
     keyset("n", "<leader>a", "<Plug>(coc-codeaction-selected)", opts)
 
@@ -312,15 +323,15 @@ return {
 
     -- Use CTRL-S for selections ranges
     -- Requires 'textDocument/selectionRange' support of language server
-    keyset("n", "<C-s>", "<Plug>(coc-range-select)", {silent = true})
-    keyset("x", "<C-s>", "<Plug>(coc-range-select)", {silent = true})
+    keyset("n", "<C-s>", "<Plug>(coc-range-select)", { silent = true })
+    keyset("x", "<C-s>", "<Plug>(coc-range-select)", { silent = true })
 
 
     -- Add `:Format` command to format current buffer
     vim.api.nvim_create_user_command("Format", "call CocAction('format')", {})
 
     -- " Add `:Fold` command to fold current buffer
-    vim.api.nvim_create_user_command("Fold", "call CocAction('fold', <f-args>)", {nargs = '?'})
+    vim.api.nvim_create_user_command("Fold", "call CocAction('fold', <f-args>)", { nargs = '?' })
 
     -- Add `:OR` command for organize imports of the current buffer
     vim.api.nvim_create_user_command("OR", "call CocActionAsync('runCommand', 'editor.action.organizeImport')", {})
