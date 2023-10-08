@@ -32,8 +32,8 @@ TODO
 - [ ] line wrap
 - [ ] vue template emmet div.region-recommend
 - [ ] lua snip <div cl></div cl>
-- [ ] import @ 
-- [ ] tag new line
+- [x] import @ 
+- [x] tag new line, see: vim.g.formatoptions
 - [ ] format lose content
 - [x] remove notify use cmdline
 - [ ] in vue import not cmp
