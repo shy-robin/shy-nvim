@@ -66,5 +66,14 @@
     "kind",
     "shortcut"
   ],
-  "coc.preferences.formatOnSave": true
+  "coc.preferences.formatOnSave": true,
+  "cSpell.userWords": [
+    "Neovim",
+    "autofix",
+    "bufferline",
+    "cmdline",
+    "lazygit",
+    "nvim",
+    "statuscolumn"
+  ]
 }
