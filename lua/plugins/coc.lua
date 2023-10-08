@@ -115,12 +115,65 @@ return {
       desc = "Coc Rename Symbol",
       mode = { "n" }
     },
+    -- Apply codeAction to the selected region
+    -- Example: `<leader>aap` for current paragraph
     {
-      "<leader>ca",
+      "<leader>cav",
       "<Plug>(coc-codeaction-selected)",
       silent = true,
       nowait = true,
-      desc = "Coc Code Action",
+      desc = "Coc Code Action Selected",
+      mode = { "n", "x" }
+    },
+    -- Remap keys for apply code actions at the cursor position.
+    {
+      "<leader>caa",
+      "<Plug>(coc-codeaction-cursor)",
+      silent = true,
+      nowait = true,
+      desc = "Coc Code Action Cursor",
+      mode = "n"
+    },
+    -- Remap keys for apply source code actions for current file.
+    {
+      "<leader>caf",
+      "<Plug>(coc-codeaction-source)",
+      silent = true,
+      nowait = true,
+      desc = "Coc Code Action File",
+      mode = "n"
+    },
+    -- Apply the most preferred quickfix action on the current line.
+    {
+      "<leader>qf",
+      "<Plug>(coc-fix-current)",
+      silent = true,
+      nowait = true,
+      desc = "Coc Quick Fix",
+      mode = "n"
+    },
+    -- Run the Code Lens actions on the current line
+    {
+      "<leader>cl",
+      "<Plug>(coc-codelens-action)",
+      silent = true,
+      nowait = true,
+      desc = "Coc Code Lens",
+      mode = "n"
+    },
+    -- Remap keys for apply refactor code actions.
+    {
+      "<leader>re",
+      "<Plug>(coc-codeaction-refactor)",
+      silent = true,
+      desc = "Coc Refactor",
+      mode = "n"
+    },
+    {
+      "<leader>r",
+      "<Plug>(coc-codeaction-refactor-selected)",
+      silent = true,
+      desc = "Coc Refactor",
       mode = { "n", "x" }
     },
     -- Remap <C-f> and <C-b> to scroll float windows/popups
@@ -216,6 +269,13 @@ return {
       desc = "Coc Enter",
       mode = "i"
     },
+    {
+      "<leader>fa",
+      "<cmd>CocCommand eslint.executeAutofix<cr>",
+      silent = true,
+      desc = "Coc Eslint Auto Fix",
+      mode = "n"
+    },
   },
   config = function()
     vim.g.coc_global_extensions = {
@@ -288,27 +348,7 @@ return {
       desc = "Update signature help on jump placeholder"
     })
 
-    -- Apply codeAction to the selected region
-    -- Example: `<leader>aap` for current paragraph
     local opts = { silent = true, nowait = true }
-    keyset("x", "<leader>a", "<Plug>(coc-codeaction-selected)", opts)
-    keyset("n", "<leader>a", "<Plug>(coc-codeaction-selected)", opts)
-
-    -- Remap keys for apply code actions at the cursor position.
-    keyset("n", "<leader>ac", "<Plug>(coc-codeaction-cursor)", opts)
-    -- Remap keys for apply source code actions for current file.
-    keyset("n", "<leader>as", "<Plug>(coc-codeaction-source)", opts)
-    -- Apply the most preferred quickfix action on the current line.
-    keyset("n", "<leader>qf", "<Plug>(coc-fix-current)", opts)
-
-    -- Remap keys for apply refactor code actions.
-    keyset("n", "<leader>re", "<Plug>(coc-codeaction-refactor)", { silent = true })
-    keyset("x", "<leader>r", "<Plug>(coc-codeaction-refactor-selected)", { silent = true })
-    keyset("n", "<leader>r", "<Plug>(coc-codeaction-refactor-selected)", { silent = true })
-
-    -- Run the Code Lens actions on the current line
-    keyset("n", "<leader>cl", "<Plug>(coc-codelens-action)", opts)
-
 
     -- Map function and class text objects
     -- NOTE: Requires 'textDocument.documentSymbol' support from the language server
