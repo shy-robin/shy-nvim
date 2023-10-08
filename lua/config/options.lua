@@ -4,10 +4,12 @@
 
 local opt = vim.opt
 
--- 指定拼写检查的语言
-opt.spelllang = { 'en', 'cjk' }
+-- 指定拼写检查的语言 (use coc-spell-checker instead)
+--opt.spelllang = { 'en', 'cjk' }
 -- 开启拼写检查
-opt.spell = true
+-- opt.spell = true
+
+opt.spelllang = nil
 
 -- 滚动边距，影响 zt zb
 opt.scrolloff = 0     -- Lines of context
