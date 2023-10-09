@@ -1,5 +1,6 @@
 return {
   "nvim-lualine/lualine.nvim",
+  event = "VeryLazy",
   opts = function()
     local icons = require("lazyvim.config").icons
     local Util = require("lazyvim.util")
@@ -34,32 +35,34 @@ return {
           },
         },
         lualine_x = {
-          { -- Setup lsp-progress component
-            function()
-              return require("lsp-progress").progress({
-                max_size = 80,
-                format = function(messages)
-                  local active_clients =
-                      vim.lsp.get_active_clients()
-                  if #messages > 0 then
-                    return table.concat(messages, " ")
-                  end
-                  local client_names = {}
-                  for _, client in ipairs(active_clients) do
-                    if client and client.name ~= "" then
-                      table.insert(
-                        client_names,
-                        1,
-                        client.name
-                      )
-                    end
-                  end
-                  return table.concat(client_names, "/")
-                end,
-              })
-            end,
-            icon = { "", align = "right" },
+          -- see: https://github.com/nvim-lualine/lualine.nvim/issues/906
+          {
+            "%{coc#status()} %{get(b:,'coc_current_function','')}",
+            -- color = { fg = "#97C379", gui = "bold" },
+            icon = { "", align = "left" },
           },
+          -- Setup lsp-progress component (use coc#status instead)
+          -- {
+          --   function()
+          --     return require("lsp-progress").progress({
+          --       max_size = 80,
+          --       format = function(messages)
+          --         local active_clients = vim.lsp.get_active_clients()
+          --         if #messages > 0 then
+          --           return table.concat(messages, " ")
+          --         end
+          --         local client_names = {}
+          --         for _, client in ipairs(active_clients) do
+          --           if client and client.name ~= "" then
+          --             table.insert(client_names, 1, client.name)
+          --           end
+          --         end
+          --         return table.concat(client_names, "/")
+          --       end,
+          --     })
+          --   end,
+          --   icon = { "", align = "right" },
+          -- },
           -- stylua: ignore
           -- 显示按下的键位
           -- {
