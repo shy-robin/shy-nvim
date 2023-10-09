@@ -299,7 +299,8 @@ return {
       "coc-sumneko-lua",
       "coc-styled-components",
       "coc-svelte",
-      "coc-pairs"
+      "coc-pairs",
+      "coc-snippets",
     }
 
     -- Some servers have issues with backup files, see #649

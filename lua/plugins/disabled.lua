@@ -8,7 +8,9 @@ local plugins = {
   "neovim/nvim-lspconfig",
   "nvim-treesitter/nvim-treesitter",
   -- 禁用这个插件，使用 coc-pair
-  "echasnovski/mini.pairs"
+  "echasnovski/mini.pairs",
+  -- use coc-snippets instead
+  "L3MON4D3/LuaSnip",
 }
 
 local disabled_plugins = {}
