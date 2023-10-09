@@ -71,5 +71,7 @@
     "lazygit",
     "nvim",
     "statuscolumn"
-  ]
+  ],
+  "sumneko-lua.enableNvimLuaDev": true,
+  "Lua.diagnostics.globals": ["vim"]
 }
