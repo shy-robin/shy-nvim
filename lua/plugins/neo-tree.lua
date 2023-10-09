@@ -1,5 +1,6 @@
 return {
   "nvim-neo-tree/neo-tree.nvim",
+  event = "VeryLazy",
   keys = {
     {
       "<leader>fe",

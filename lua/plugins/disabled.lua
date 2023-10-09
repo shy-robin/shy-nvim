@@ -11,6 +11,7 @@ local plugins = {
   "echasnovski/mini.pairs",
   -- use coc-snippets instead
   "L3MON4D3/LuaSnip",
+  "linrongbin16/lsp-progress.nvim",
 }
 
 local disabled_plugins = {}
