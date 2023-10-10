@@ -335,6 +335,10 @@ return {
     -- diagnostics appeared/became resolved
     vim.opt.signcolumn = "yes"
 
+    -- coc snippets
+    vim.g.coc_snippet_next = "<c-l>"
+    vim.g.coc_snippet_prev = "<c-h>"
+
     local keyset = vim.keymap.set
     -- Autocomplete
     function _G.check_back_space()
