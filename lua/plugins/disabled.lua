@@ -12,6 +12,9 @@ local plugins = {
   -- use coc-snippets instead
   "L3MON4D3/LuaSnip",
   "linrongbin16/lsp-progress.nvim",
+  -- use vim native operations instead
+  -- see: https://medium.com/@schtoeffel/you-don-t-need-more-than-one-cursor-in-vim-2c44117d51db
+  "mg979/vim-visual-multi",
 }
 
 local disabled_plugins = {}

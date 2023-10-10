@@ -1,7 +1,7 @@
 return {
   "neoclide/coc.nvim",
-  branch = 'release',
-  event = 'VeryLazy',
+  branch = "release",
+  event = "VeryLazy",
   keys = {
     {
       "<c-j>",
@@ -9,7 +9,7 @@ return {
       expr = true,
       silent = true,
       desc = "Coc Select Next",
-      mode = "i"
+      mode = "i",
     },
     {
       "<c-k>",
@@ -17,7 +17,7 @@ return {
       expr = true,
       silent = true,
       desc = "Coc Select Prev",
-      mode = "i"
+      mode = "i",
     },
     {
       "<tab>",
@@ -25,7 +25,7 @@ return {
       expr = true,
       silent = true,
       desc = "Coc Select cur",
-      mode = "i"
+      mode = "i",
     },
     {
       "<c-space>",
@@ -33,7 +33,7 @@ return {
       expr = true,
       silent = true,
       desc = "Coc Trigger Cmp",
-      mode = "i"
+      mode = "i",
     },
     {
       "<c-e>",
@@ -41,79 +41,79 @@ return {
       expr = true,
       silent = true,
       desc = "Coc Cancel Cmp",
-      mode = "i"
+      mode = "i",
     },
     {
       "gk",
       "<Plug>(coc-diagnostic-prev)",
       silent = true,
       desc = "Coc Prev Diagnostic",
-      mode = "n"
+      mode = "n",
     },
     {
       "gj",
       "<Plug>(coc-diagnostic-next)",
       silent = true,
       desc = "Coc Next Diagnostic",
-      mode = "n"
+      mode = "n",
     },
     {
       "gd",
       "<Plug>(coc-definition)",
       silent = true,
       desc = "Coc Go definition",
-      mode = "n"
+      mode = "n",
     },
     {
       "gt",
       "<Plug>(coc-type-definition)",
       silent = true,
       desc = "Coc Go Type Definition",
-      mode = "n"
+      mode = "n",
     },
     {
       "gi",
       "<Plug>(coc-implementation)",
       silent = true,
       desc = "Coc Go Implementation",
-      mode = "n"
+      mode = "n",
     },
     {
       "gr",
       "<Plug>(coc-references)",
       silent = true,
       desc = "Coc Go References",
-      mode = "n"
+      mode = "n",
     },
     {
       "gh",
       function()
-        local cw = vim.fn.expand('<cword>')
-        if vim.fn.index({ 'vim', 'help' }, vim.bo.filetype) >= 0 then
-          vim.api.nvim_command('h ' .. cw)
-        elseif vim.api.nvim_eval('coc#rpc#ready()') then
-          vim.fn.CocActionAsync('doHover')
+        local cw = vim.fn.expand("<cword>")
+        if vim.fn.index({ "vim", "help" }, vim.bo.filetype) >= 0 then
+          vim.api.nvim_command("h " .. cw)
+        elseif vim.api.nvim_eval("coc#rpc#ready()") then
+          vim.fn.CocActionAsync("doHover")
         else
-          vim.api.nvim_command('!' .. vim.o.keywordprg .. ' ' .. cw)
+          vim.api.nvim_command("!" .. vim.o.keywordprg .. " " .. cw)
         end
       end,
       silent = true,
       desc = "Coc Hover Symbol",
-      mode = "n"
+      mode = "n",
     },
     {
       "<leader>fv",
       "<Plug>(coc-format-selected)",
       silent = true,
       desc = "Coc Format Selected",
-      mode = { "n", "x" }
+      mode = { "n", "x" },
     },
     {
       "<leader>rn",
       "<Plug>(coc-rename)",
       silent = true,
       desc = "Coc Rename Symbol",
-      mode = { "n" }
+      mode = { "n" },
     },
     -- Apply codeAction to the selected region
     -- Example: `<leader>aap` for current paragraph
@@ -123,7 +123,7 @@ return {
       silent = true,
       nowait = true,
       desc = "Coc Code Action Selected",
-      mode = { "n", "x" }
+      mode = { "n", "x" },
     },
     -- Remap keys for apply code actions at the cursor position.
     {
@@ -132,7 +132,7 @@ return {
       silent = true,
       nowait = true,
       desc = "Coc Code Action Cursor",
-      mode = "n"
+      mode = "n",
     },
     -- Remap keys for apply source code actions for current file.
     {
@@ -141,7 +141,7 @@ return {
       silent = true,
       nowait = true,
       desc = "Coc Code Action File",
-      mode = "n"
+      mode = "n",
     },
     -- Apply the most preferred quickfix action on the current line.
     {
@@ -150,7 +150,7 @@ return {
       silent = true,
       nowait = true,
       desc = "Coc Quick Fix",
-      mode = "n"
+      mode = "n",
     },
     -- Run the Code Lens actions on the current line
     {
@@ -159,7 +159,7 @@ return {
       silent = true,
       nowait = true,
       desc = "Coc Code Lens",
-      mode = "n"
+      mode = "n",
     },
     -- Remap keys for apply refactor code actions.
     {
@@ -167,14 +167,14 @@ return {
       "<Plug>(coc-codeaction-refactor)",
       silent = true,
       desc = "Coc Refactor",
-      mode = "n"
+      mode = "n",
     },
     {
       "<leader>r",
       "<Plug>(coc-codeaction-refactor-selected)",
       silent = true,
       desc = "Coc Refactor",
-      mode = { "n", "x" }
+      mode = { "n", "x" },
     },
     -- Remap <C-f> and <C-b> to scroll float windows/popups
     {
@@ -184,7 +184,7 @@ return {
       silent = true,
       nowait = true,
       desc = "Coc Scroll Up",
-      mode = { "n", "v", "i" }
+      mode = { "n", "v", "i" },
     },
     {
       "<c-d>",
@@ -193,7 +193,7 @@ return {
       silent = true,
       nowait = true,
       desc = "Coc Scroll Down",
-      mode = { "n", "v", "i" }
+      mode = { "n", "v", "i" },
     },
     {
       "<leader>cd",
@@ -201,7 +201,7 @@ return {
       silent = true,
       nowait = true,
       desc = "CocList Diagnostics",
-      mode = "n"
+      mode = "n",
     },
     {
       "<leader>ce",
@@ -209,7 +209,7 @@ return {
       silent = true,
       nowait = true,
       desc = "CocList Extensions",
-      mode = "n"
+      mode = "n",
     },
     {
       "<leader>cc",
@@ -217,7 +217,7 @@ return {
       silent = true,
       nowait = true,
       desc = "CocList Commands",
-      mode = "n"
+      mode = "n",
     },
     {
       "<leader>co",
@@ -225,7 +225,7 @@ return {
       silent = true,
       nowait = true,
       desc = "CocList Outline",
-      mode = "n"
+      mode = "n",
     },
     {
       "<leader>cs",
@@ -233,7 +233,7 @@ return {
       silent = true,
       nowait = true,
       desc = "CocList Symbols",
-      mode = "n"
+      mode = "n",
     },
     {
       "<leader>cj",
@@ -241,7 +241,7 @@ return {
       silent = true,
       nowait = true,
       desc = "CocList Next Action",
-      mode = "n"
+      mode = "n",
     },
     {
       "<leader>ck",
@@ -249,7 +249,7 @@ return {
       silent = true,
       nowait = true,
       desc = "CocList Prev Action",
-      mode = "n"
+      mode = "n",
     },
     {
       "<leader>cp",
@@ -257,7 +257,7 @@ return {
       silent = true,
       nowait = true,
       desc = "CocList Resume",
-      mode = "n"
+      mode = "n",
     },
     {
       "<cr>",
@@ -267,15 +267,35 @@ return {
       expr = true,
       silent = true,
       desc = "Coc Enter",
-      mode = "i"
+      mode = "i",
     },
     {
       "<leader>fa",
       "<cmd>CocCommand eslint.executeAutofix<cr>",
       silent = true,
       desc = "Coc Eslint Auto Fix",
-      mode = "n"
+      mode = "n",
     },
+    -- {
+    --   "<c-y>",
+    --   "<Plug>(coc-cursors-word)*",
+    --   silent = true,
+    --   desc = "Coc Eslint Auto Fix",
+    --   mode = "n",
+    -- },
+    -- {
+    --   "<c-y>",
+    --   "y/V<C-r>=escape(@\",'/\')<CR><CR>gN<Plug>(coc-cursors-range)gn",
+    --   expr = true,
+    --   silent = true,
+    --   desc = "Coc Eslint Auto Fix",
+    --   mode = "x",
+    -- },
+    -- nmap <silent> <C-c> <Plug>(coc-cursors-position)
+    -- nmap <silent> <C-d> <Plug>(coc-cursors-word)
+    -- xmap <silent> <C-d> <Plug>(coc-cursors-range)
+    -- " use normal command like `<leader>xi(`
+    -- nmap <leader>x  <Plug>(coc-cursors-operator)
   },
   config = function()
     vim.g.coc_global_extensions = {
@@ -318,8 +338,8 @@ return {
     local keyset = vim.keymap.set
     -- Autocomplete
     function _G.check_back_space()
-      local col = vim.fn.col('.') - 1
-      return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
+      local col = vim.fn.col(".") - 1
+      return col == 0 or vim.fn.getline("."):sub(col, col):match("%s") ~= nil
     end
 
     -- Use <c-j> to trigger snippets
@@ -330,7 +350,7 @@ return {
     vim.api.nvim_create_autocmd("CursorHold", {
       group = "CocGroup",
       command = "silent call CocActionAsync('highlight')",
-      desc = "Highlight symbol under cursor on CursorHold"
+      desc = "Highlight symbol under cursor on CursorHold",
     })
 
     -- Setup formatexpr specified filetype(s)
@@ -338,7 +358,7 @@ return {
       group = "CocGroup",
       pattern = "typescript,json",
       command = "setl formatexpr=CocAction('formatSelected')",
-      desc = "Setup formatexpr specified filetype(s)."
+      desc = "Setup formatexpr specified filetype(s).",
     })
 
     -- Update signature help on jump placeholder
@@ -346,7 +366,7 @@ return {
       group = "CocGroup",
       pattern = "CocJumpPlaceholder",
       command = "call CocActionAsync('showSignatureHelp')",
-      desc = "Update signature help on jump placeholder"
+      desc = "Update signature help on jump placeholder",
     })
 
     local opts = { silent = true, nowait = true }
@@ -367,12 +387,11 @@ return {
     keyset("n", "<C-s>", "<Plug>(coc-range-select)", { silent = true })
     keyset("x", "<C-s>", "<Plug>(coc-range-select)", { silent = true })
 
-
     -- Add `:Format` command to format current buffer
     vim.api.nvim_create_user_command("Format", "call CocAction('format')", {})
 
     -- " Add `:Fold` command to fold current buffer
-    vim.api.nvim_create_user_command("Fold", "call CocAction('fold', <f-args>)", { nargs = '?' })
+    vim.api.nvim_create_user_command("Fold", "call CocAction('fold', <f-args>)", { nargs = "?" })
 
     -- Add `:OR` command for organize imports of the current buffer
     vim.api.nvim_create_user_command("OR", "call CocActionAsync('runCommand', 'editor.action.organizeImport')", {})
@@ -381,5 +400,5 @@ return {
     -- NOTE: Please see `:h coc-status` for integrations with external plugins that
     -- provide custom statusline: lightline.vim, vim-airline
     vim.opt.statusline:prepend("%{coc#status()}%{get(b:,'coc_current_function','')}")
-  end
+  end,
 }
