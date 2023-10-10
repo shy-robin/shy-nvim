@@ -33,14 +33,14 @@ return {
             function() return require("nvim-navic").get_location() end,
             cond = function() return package.loaded["nvim-navic"] and require("nvim-navic").is_available() end,
           },
-        },
-        lualine_x = {
           -- see: https://github.com/nvim-lualine/lualine.nvim/issues/906
           {
-            "%{coc#status()} %{get(b:,'coc_current_function','')}",
-            -- color = { fg = "#97C379", gui = "bold" },
+            "%{get(g:, 'coc_status', '')}",
+            color = { fg = "#97C379", gui = "bold" },
             icon = { "", align = "left" },
           },
+        },
+        lualine_x = {
           -- Setup lsp-progress component (use coc#status instead)
           -- {
           --   function()

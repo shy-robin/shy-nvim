@@ -1,6 +1,6 @@
 return {
   "luukvbaal/statuscol.nvim",
-  event = "BufEnter",
+  event = "VeryLazy",
   config = function()
     local builtin = require("statuscol.builtin")
 
@@ -17,10 +17,10 @@ return {
         "notify",
         "toggleterm",
         "lazyterm",
-        "floaterm"
+        "floaterm",
       },
       segments = {
-        { text = { builtin.foldfunc },      click = "v:lua.ScFa" },
+        { text = { builtin.foldfunc }, click = "v:lua.ScFa" },
         {
           sign = {
             -- 使用 :sign list 即可查看所有 sign
@@ -31,7 +31,7 @@ return {
             auto = false,
             wrap = false,
             -- 当没有 sign 时的占位符
-            fillchar = " "
+            fillchar = " ",
           },
           click = "v:lua.ScSa",
         },
@@ -44,10 +44,10 @@ return {
             colwidth = 1,
             auto = false,
             wrap = false,
-            fillchar = " "
+            fillchar = " ",
           },
-          click = "v:lua.ScSa"
-        }
+          click = "v:lua.ScSa",
+        },
       },
     })
   end,
