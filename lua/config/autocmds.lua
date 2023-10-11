@@ -28,12 +28,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
       end
     end
 
-    require('lspconfig.ui.windows').default_options = {
-      border = "rounded"
+    require("lspconfig.ui.windows").default_options = {
+      border = "rounded",
     }
   end,
 })
-
 
 -- 拼写检查支持驼峰
 vim.api.nvim_create_autocmd("BufReadPre", {
@@ -46,7 +45,6 @@ vim.api.nvim_create_autocmd("BufReadPre", {
     -- vim.api.nvim_set_hl(0, 'SpellRare', { fg = '#F44336', underdashed = true })
     -- vim.api.nvim_set_hl(0, 'SpellLocal', { fg = '#F44336', underdashed = true })
 
-
     -- vim-illuminate
     -- 高亮相同的单词，highlight 链接到 Visual
     vim.api.nvim_set_hl(0, "IlluminatedWordText", { link = "Visual" })
@@ -54,3 +52,72 @@ vim.api.nvim_create_autocmd("BufReadPre", {
     vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { link = "Visual" })
   end,
 })
+
+-- see: https://www.reddit.com/r/neovim/comments/v719ic/lorem_picsum_random_images_and_strings/
+local function parseInt(str)
+  return str:match("^%-?%d+$")
+end
+
+function appendLoremPicsumUrl()
+  local width = parseInt(vim.fn.input("width: "))
+  local height = parseInt(vim.fn.input("height: "))
+
+  if width and height then
+    local curl = require("plenary.curl")
+
+    local res = curl.get("https://picsum.photos/" .. width .. "/" .. height, {})
+    local url = res.headers[3]:sub(11)
+
+    local cursor = vim.api.nvim_win_get_cursor(0)
+    local line = vim.api.nvim_get_current_line()
+    local nline = line:sub(0, cursor[2] + 1) .. url .. line:sub(cursor[2] + 2)
+
+    vim.api.nvim_set_current_line(nline)
+    vim.api.nvim_win_set_cursor(0, { cursor[1], cursor[2] + url:len() })
+  end
+end
+
+vim.cmd("command LoremPicsum silent lua appendLoremPicsumUrl()")
+
+local charset = {}
+do -- [0-9a-zA-Z]
+  for c = 48, 57 do
+    table.insert(charset, string.char(c))
+  end
+  for c = 65, 90 do
+    table.insert(charset, string.char(c))
+  end
+  for c = 97, 122 do
+    table.insert(charset, string.char(c))
+  end
+end
+
+local function randomString(length)
+  local res = ""
+
+  for i = 1, length do
+    -- math.randomseed(os.clock()^5)
+    res = res .. charset[math.random(1, #charset)]
+  end
+
+  return res
+end
+
+function appendRandomString()
+  local length = tonumber(vim.fn.input("length: "))
+
+  if length and length > 0 then
+    local str = randomString(length)
+
+    local cursor = vim.api.nvim_win_get_cursor(0)
+    local line = vim.api.nvim_get_current_line()
+    local nline = line:sub(0, cursor[2] + 1) .. str .. line:sub(cursor[2] + 2)
+
+    vim.api.nvim_set_current_line(nline)
+    vim.api.nvim_win_set_cursor(0, { cursor[1], cursor[2] + str:len() })
+  end
+end
+
+vim.cmd("command RandomString silent lua appendRandomString()")
+
+

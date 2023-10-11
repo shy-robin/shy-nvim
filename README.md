@@ -53,6 +53,7 @@ TODO
 - [ ] coc cmdline cmp
 - [ ] bufferline top Always show
 - [ ] lualine sometimes show
+- [ ] random plugin (autocmd ??)
 
 ## 插件
 
