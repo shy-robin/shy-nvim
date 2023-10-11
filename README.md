@@ -26,18 +26,18 @@ TODO
 - [x] eslint_d
 - [x] ufo
 - [x] statuscolumn
-- [ ] eslint fix all bug 需要调出 lazygit 才能刷新buffer
+- [ ] eslint fix all bug 需要调出 lazygit 才能刷新 buffer
 - [x] spell check
 - [ ] clipboard history
 - [ ] line wrap
 - [ ] vue template emmet div.region-recommend
 - [ ] lua snip <div cl></div cl>
-- [x] import @ 
+- [x] import @
 - [x] tag new line, see: vim.g.formatoptions
 - [ ] format lose content
 - [x] remove notify use cmdline
 - [ ] in vue import not cmp
-- [x] 美化加边框，which key  or  mason lsp
+- [x] 美化加边框，which key or mason lsp
 - [x] use cmdline
 - [x] cmp format 加来源，close ghost text
 - [x] cmp cmdline 加 cmdline source
@@ -49,9 +49,10 @@ TODO
 - [ ] coc
 - [ ] coc expand snippet c-j?
 - [ ] coc lua neodev not work
-- [ ] coc lsp progress
+- [x] coc lsp progress
 - [ ] coc cmdline cmp
 - [ ] bufferline top Always show
+- [ ] lualine sometimes show
 
 ## 插件
 
