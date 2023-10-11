@@ -9,7 +9,10 @@ return {
       options = {
         theme = "auto",
         globalstatus = true,
-        disabled_filetypes = { statusline = { "dashboard", "alpha" } },
+        disabled_filetypes = {
+          statusline = { "dashboard", "alpha" },
+          winbar = { "dashboard", "alpha" },
+        },
         component_separators = "",
         section_separators = { left = "", right = "" },
       },
@@ -95,9 +98,11 @@ return {
           "fileformat",
         },
         lualine_y = {
-          "progress",
+          "filesize",
+          "selectioncount",
         },
         lualine_z = {
+          "progress",
           "location",
         },
       },
