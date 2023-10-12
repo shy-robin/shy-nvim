@@ -1,6 +1,6 @@
 return {
   "nvim-lualine/lualine.nvim",
-  event = "VeryLazy",
+  event = "UIEnter",
   opts = function()
     local icons = require("lazyvim.config").icons
     local Util = require("lazyvim.util")
