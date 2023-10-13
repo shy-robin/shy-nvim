@@ -54,6 +54,7 @@ TODO
 - [ ] bufferline top Always show
 - [ ] lualine sometimes show
 - [ ] random plugin (autocmd ??)
+- [ ] telescope live grep args
 
 ## 插件
 
