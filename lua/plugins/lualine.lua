@@ -20,6 +20,8 @@ return {
         lualine_a = { "mode" },
         lualine_b = { "branch" },
         lualine_c = {
+          { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+          { "filename", symbols = { modified = "󰳻", readonly = "󰍁", unnamed = "󰡯" } },
           {
             "diagnostics",
             symbols = {
@@ -29,13 +31,12 @@ return {
               hint = icons.diagnostics.Hint,
             },
           },
-          { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-          { "filename", symbols = { modified = "󰳻", readonly = "󰍁", unnamed = "󰡯" } },
           -- stylua: ignore
-          {
-            function() return require("nvim-navic").get_location() end,
-            cond = function() return package.loaded["nvim-navic"] and require("nvim-navic").is_available() end,
-          },
+          -- useless because using coc
+          -- {
+          --   function() return require("nvim-navic").get_location() end,
+          --   cond = function() return package.loaded["nvim-navic"] and require("nvim-navic").is_available() end,
+          -- },
           -- see: https://github.com/nvim-lualine/lualine.nvim/issues/906
           {
             "%{get(g:, 'coc_status', '')}",
