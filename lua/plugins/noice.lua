@@ -1,5 +1,6 @@
 return {
   "folke/noice.nvim",
+  event = "UIEnter",
   opts = {
     presets = {
       bottom_search = false, -- use a classic bottom cmdline for search
@@ -7,9 +8,9 @@ return {
     },
     lsp = {
       progress = {
-        enabled = false
-      }
-    }
+        enabled = false,
+      },
+    },
   },
   keys = {
     -- 禁用滚动快捷键

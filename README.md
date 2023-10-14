@@ -55,6 +55,9 @@ TODO
 - [ ] lualine sometimes show
 - [ ] random plugin (autocmd ??)
 - [ ] telescope live grep args
+- [ ] markup
+- [ ] comment error
+- [ ] tab
 
 ## 插件
 

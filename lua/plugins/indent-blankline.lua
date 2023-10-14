@@ -4,16 +4,16 @@ return {
     indent = {
       highlight = {
         "CursorColumn",
-        "Whitespace"
+        "Whitespace",
       },
       char = "",
     },
     whitespace = {
       highlight = {
         "CursorColumn",
-        "Whitespace"
+        "Whitespace",
       },
-      remove_blankline_trail = false
+      remove_blankline_trail = false,
     },
     exclude = {
       filetypes = {
@@ -27,7 +27,8 @@ return {
         "notify",
         "toggleterm",
         "lazyterm",
-        "floaterm"
+        "floaterm",
+        "NvimTree",
       },
     },
   },

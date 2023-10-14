@@ -15,6 +15,8 @@ local plugins = {
   -- use vim native operations instead
   -- see: https://medium.com/@schtoeffel/you-don-t-need-more-than-one-cursor-in-vim-2c44117d51db
   "mg979/vim-visual-multi",
+  -- use nvim-tree instead
+  "nvim-neo-tree/neo-tree.nvim",
 }
 
 local disabled_plugins = {}

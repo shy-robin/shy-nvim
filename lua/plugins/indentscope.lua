@@ -13,7 +13,8 @@ return {
         "notify",
         "toggleterm",
         "lazyterm",
-        "floaterm"
+        "floaterm",
+        "NvimTree",
       },
       callback = function()
         vim.b.miniindentscope_disable = true
