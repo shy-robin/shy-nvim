@@ -57,7 +57,7 @@ TODO
 - [ ] telescope live grep args
 - [ ] markup
 - [ ] comment error
-- [ ] tab
+- [ ] vim native tab
 - [ ] dap
 
 ## 插件
