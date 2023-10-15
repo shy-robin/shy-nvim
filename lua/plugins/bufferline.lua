@@ -3,9 +3,10 @@ return {
   opts = {
     options = {
       always_show_bufferline = false,
+      diagnostics = "coc",
       offsets = {
         {
-          filetype = "neo-tree",
+          filetype = "NvimTree",
           text = "File Explorer",
           highlight = "Directory",
           text_align = "center",
