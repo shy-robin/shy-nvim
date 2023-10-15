@@ -139,11 +139,6 @@ return {
   },
   opts = {
     sort_by = "case_sensitive",
-    view = {
-      width = {
-        padding = 3,
-      },
-    },
     renderer = {
       special_files = {
         "README.md",
