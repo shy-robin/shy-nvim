@@ -18,6 +18,7 @@ return {
         "toggleterm",
         "lazyterm",
         "floaterm",
+        "NvimTree",
       },
       segments = {
         { text = { builtin.foldfunc }, click = "v:lua.ScFa" },
