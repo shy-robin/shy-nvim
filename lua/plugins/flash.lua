@@ -3,6 +3,9 @@ return {
   opts = {
     label = {
       uppercase = false,
+      rainbow = {
+        enabled = true,
+      },
     },
     modes = {
       char = {
