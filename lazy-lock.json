@@ -15,7 +15,7 @@
   "indent-blankline.nvim": { "branch": "master", "commit": "0fe34b4c1b926e106d105d3ae88ef6cbf6743572" },
   "lazy.nvim": { "branch": "main", "commit": "1c16e4236f0937e8955865a0e5e046c7dafbc4b5" },
   "lualine.nvim": { "branch": "master", "commit": "45e27ca739c7be6c49e5496d14fcf45a303c3a63" },
-  "markdown-preview.nvim": { "branch": "master", "commit": "7546cdca48f8cde5ca7f4e5842057c7fa4207718" },
+  "markdown-preview.nvim": { "branch": "master", "commit": "a79fc0246c5ae4bed92eec69361ded1348e32215" },
   "material.nvim": { "branch": "main", "commit": "6989f7e0076f4fa4e01056bd62c785cf0fef4caf" },
   "mini.ai": { "branch": "main", "commit": "10ad2ed049fb681a829b44aeb23443c0a9c910ae" },
   "mini.animate": { "branch": "main", "commit": "6e6f2ee99fec91985d3817bfc74fbb4a0aff1c44" },
