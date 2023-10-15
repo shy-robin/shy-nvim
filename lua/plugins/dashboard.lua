@@ -1,10 +1,11 @@
 return {
-  'glepnir/dashboard-nvim',
-  event = 'VimEnter',
+  "nvimdev/dashboard-nvim",
+  event = "VimEnter",
   opts = {
+    theme = "hyper",
     config = {
       week_header = {
-        enable = true
+        enable = true,
       },
       shortcut = {
         {
@@ -31,6 +32,10 @@ return {
         { action = 'lua require("persistence").load()', desc = "Restore", icon = "󰦛 ", key = "r" },
         { action = "qa", desc = "Quit", icon = " ", key = "q" },
       },
+      footer = {
+        "",
+        " 🚀 Sharp tools make good work.",
+      },
     },
     hide = {
       statusline = false,
@@ -38,5 +43,5 @@ return {
       winbar = false,
     },
   },
-  dependencies = { { 'nvim-tree/nvim-web-devicons' } }
+  dependencies = { { "nvim-tree/nvim-web-devicons" } },
 }

@@ -6,7 +6,6 @@ local plugins = {
   "williamboman/mason-lspconfig.nvim",
   "hrsh7th/nvim-cmp",
   "neovim/nvim-lspconfig",
-  "nvim-treesitter/nvim-treesitter",
   -- 禁用这个插件，使用 coc-pair
   "echasnovski/mini.pairs",
   -- use coc-snippets instead
