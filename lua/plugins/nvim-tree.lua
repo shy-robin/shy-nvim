@@ -31,6 +31,18 @@ local function vsplit_preview()
   api.tree.focus()
 end
 
+-- see: https://www.reddit.com/r/neovim/comments/xj784v/telescope_live_grep_inside_certain_folders/
+local function grep_at_current_tree_node()
+  local node = require("nvim-tree.lib").get_node_at_cursor()
+  if not node then
+    return
+  end
+  require("telescope.builtin").live_grep({
+    search_dirs = { node.absolute_path },
+    prompt_title = string.format("Live Grep in [%s]", vim.fs.basename(node.absolute_path)),
+  })
+end
+
 local function my_on_attach(bufnr)
   local api = require("nvim-tree.api")
   local function opts(desc)
@@ -121,6 +133,9 @@ local function my_on_attach(bufnr)
   -- resize
   set("n", "wl", "<cmd>NvimTreeResize +10<cr>", opts("Increase Width"))
   set("n", "wh", "<cmd>NvimTreeResize -10<cr>", opts("Decrease Width"))
+
+  -- grep in directory
+  set("n", "<C-f>", grep_at_current_tree_node, opts("Grep Current Node"))
 end
 
 return {
