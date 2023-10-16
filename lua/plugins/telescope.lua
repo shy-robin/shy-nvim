@@ -66,6 +66,12 @@ return {
           ["<C-p>"] = function(...)
             return require("telescope.actions").preview_scrolling_up(...)
           end,
+          ["<C-a>"] = function()
+            local action_state = require("telescope.actions.state")
+            local line = action_state.get_current_line()
+            -- show all files
+            require("lazyvim.util").telescope("find_files", { no_ignore = true, hidden = true, default_text = line })()
+          end,
         },
         n = {
           ["<C-h>"] = function(...)
@@ -85,6 +91,12 @@ return {
           end,
           ["<C-p>"] = function(...)
             return require("telescope.actions").preview_scrolling_up(...)
+          end,
+          ["<C-a>"] = function()
+            local action_state = require("telescope.actions.state")
+            local line = action_state.get_current_line()
+            -- find all files
+            require("lazyvim.util").telescope("find_files", { no_ignore = true, hidden = true, default_text = line })()
           end,
         },
       },
