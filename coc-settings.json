@@ -70,7 +70,8 @@
     "cmdline",
     "lazygit",
     "nvim",
-    "statuscolumn"
+    "statuscolumn",
+    "typeof"
   ],
   "sumneko-lua.enableNvimLuaDev": true,
   "Lua.diagnostics.globals": [

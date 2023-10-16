@@ -29,6 +29,11 @@ end
 
 return {
   "nvim-telescope/telescope.nvim",
+  dependencies = {
+    {
+      "nvim-telescope/telescope-live-grep-args.nvim",
+    },
+  },
   event = "VeryLazy",
   keys = {
     -- 这里的 root dir 是指当前 buffer 所在的根目录
@@ -36,6 +41,13 @@ return {
     -- 这里的 cwd 是指用 vim 进入编辑所在的目录
     { "<leader>sF", require("lazyvim.util").telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
     { "<leader>?", require("lazyvim.util").telescope("live_grep", { cwd = false }), desc = "Grep (cwd)" },
+    {
+      "<leader>sg",
+      function()
+        require("telescope").extensions.live_grep_args.live_grep_args()
+      end,
+      desc = "Live Grep Args",
+    },
   },
   opts = {
     defaults = {
@@ -137,10 +149,26 @@ return {
         },
       },
     },
+    extensions = {
+      live_grep_args = {
+        auto_quoting = true,
+        mappings = {
+          i = {
+            ["<C-y>"] = function(...)
+              return require("telescope-live-grep-args.actions").quote_prompt()(...)
+            end,
+            ["<C-i>"] = function(...)
+              return require("telescope-live-grep-args.actions").quote_prompt({ postfix = " --iglob " })(...)
+            end,
+          },
+        },
+      },
+    },
   },
   config = function(_, opts)
     local telescope = require("telescope")
     telescope.setup(opts)
     telescope.load_extension("file_browser")
+    telescope.load_extension("live_grep_args")
   end,
 }
