@@ -16,6 +16,8 @@ local plugins = {
   "mg979/vim-visual-multi",
   -- use nvim-tree instead
   "nvim-neo-tree/neo-tree.nvim",
+  -- use picker in nvim-tree instead
+  "s1n7ax/nvim-window-picker",
 }
 
 local disabled_plugins = {}
