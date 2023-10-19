@@ -6,7 +6,7 @@ TODO
 <https://www.reddit.com/r/neovim/comments/123mf4g/neovim_config_switcher/>
 
 - [ ] 添加 markdown 快捷键
-- [ ] git sign 位置，以及 图标重合问题
+- [x] git sign 位置，以及 图标重合问题
 - [x] theme
 - [ ] telescope 搜索全局，monorepo 项目子项目路径自动切换，如何搜根目录？
 - [x] format eslint
@@ -15,7 +15,7 @@ TODO
   - [x] leader f e eslint autofix
 - [ ] buffer 切换快捷键，多 tab
 - [ ] tmux server error
-- [ ] event = very lazy
+- [x] event = very lazy
 - [x] linter
 - [x] eslint autofix
 - [x] color not work
@@ -26,37 +26,37 @@ TODO
 - [x] eslint_d
 - [x] ufo
 - [x] statuscolumn
-- [ ] eslint fix all bug 需要调出 lazygit 才能刷新 buffer
+- [x] eslint fix all bug 需要调出 lazygit 才能刷新 buffer
 - [x] spell check
-- [ ] clipboard history
+- [x] clipboard history
 - [ ] line wrap
-- [ ] vue template emmet div.region-recommend
-- [ ] lua snip <div cl></div cl>
+- [x] vue template emmet div.region-recommend
+- [x] lua snip <div cl></div cl>
 - [x] import @
 - [x] tag new line, see: vim.g.formatoptions
-- [ ] format lose content
+- [x] format lose content
 - [x] remove notify use cmdline
-- [ ] in vue import not cmp
+- [x] in vue import not cmp
 - [x] 美化加边框，which key or mason lsp
 - [x] use cmdline
 - [x] cmp format 加来源，close ghost text
 - [x] cmp cmdline 加 cmdline source
 - [x] cmp search 加 buffer source
 - [ ] easy-commands https://www.bilibili.com/video/BV1EV411G7UK/?spm_id_from=333.788.recommend_more_video.1&vd_source=4ef7b6657238565af69458e77de87682
-- [ ] diff-view
+- [x] diff-view
 - [ ] startup time optimize
 - [ ] undo tree
-- [ ] coc
-- [ ] coc expand snippet c-j?
+- [x] coc
+- [x] coc expand snippet c-j?
 - [ ] coc lua neodev not work
 - [x] coc lsp progress
-- [ ] coc cmdline cmp
-- [ ] bufferline top Always show
-- [ ] lualine sometimes show
+- [x] coc cmdline cmp
+- [x] bufferline top Always show
+- [x] lualine sometimes show
 - [ ] random plugin (autocmd ??)
-- [ ] telescope live grep args
+- [x] telescope live grep args
 - [ ] markup
-- [ ] comment error
+- [x] comment error
 - [ ] vim native tab
 - [ ] dap
 
