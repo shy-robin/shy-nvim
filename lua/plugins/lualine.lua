@@ -43,6 +43,12 @@ return {
             color = { fg = "#97C379", gui = "bold" },
             icon = { "", align = "left" },
           },
+          -- 显示 macro 记录
+          {
+            require("noice").api.statusline.mode.get,
+            cond = require("noice").api.statusline.mode.has,
+            color = { fg = "#ff9e64" },
+          },
         },
         lualine_x = {
           -- Setup lsp-progress component (use coc#status instead)
