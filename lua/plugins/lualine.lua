@@ -2,6 +2,17 @@ return {
   "nvim-lualine/lualine.nvim",
   event = "UIEnter",
   opts = function()
+    local function diff_source()
+      local gitsigns = vim.b.gitsigns_status_dict
+      if gitsigns then
+        return {
+          added = gitsigns.added,
+          modified = gitsigns.changed,
+          removed = gitsigns.removed,
+        }
+      end
+    end
+
     local icons = require("lazyvim.config").icons
     local Util = require("lazyvim.util")
 
@@ -100,6 +111,7 @@ return {
               modified = icons.git.modified,
               removed = icons.git.removed,
             },
+            source = diff_source,
           },
           "encoding",
           "fileformat",
