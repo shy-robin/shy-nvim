@@ -12,8 +12,11 @@ local opt = vim.opt
 opt.spelllang = nil
 
 -- 滚动边距，影响 zt zb
-opt.scrolloff = 0     -- Lines of context
+opt.scrolloff = 0 -- Lines of context
 opt.sidescrolloff = 0 -- Columns of context
 
 -- so that `` is visible in markdown files
 opt.conceallevel = 0
+
+-- 影响 html 标签换行
+opt.formatoptions = "tcqj"
