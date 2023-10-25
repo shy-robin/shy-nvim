@@ -2,7 +2,8 @@
 
 ## 切换不同配置文件
 
-TODO
+## TODO
+
 <https://www.reddit.com/r/neovim/comments/123mf4g/neovim_config_switcher/>
 
 - [ ] 添加 markdown 快捷键
@@ -93,3 +94,48 @@ nvim --cmd "set rtp+=xxx"
 ## lua-snip
 
 教程：<https://www.ejmastnak.com/tutorials/vim-latex/luasnip/#tips>
+
+## Vim Register
+
+https://www.brianstorti.com/vim-registers/
+
+### 使用寄存器
+
+1. Normal Mode: `"`
+2. Insert/Command Mode: `Control + r`
+
+### 寄存器种类
+
+1. 匿名寄存器（unnamed register)
+   `""`
+2. 数字寄存器 (numbered registers)
+   `"0-9`
+   0 存储最近一次复制的文本
+   1-9 存储最近操作的文本
+3. 字母寄存器
+   `"a-z`
+   使用大写字母可以向对应的小写字母寄存器里增加内容
+4. 只读寄存器 (read-only registers)
+
+- `".` 存储上一次插入的文本
+- `"%` 存储当前文件路径
+- `"#` 存储上一个文件路径
+- `":` 存储最近一次命令
+- `"/` 存储最近一次搜索文本
+
+### 修改寄存器内容
+
+`let @j='xxx'`
+`let @j=@+`
+
+### 宏
+
+1. 记录宏 qj ... q
+2. 应用宏 @j
+
+使用宏的内容 "j
+
+记录的宏也是作为文本存储到寄存器里。
+也可以通过修改寄存器的方法，修改宏的内容。
+
+`let @j='xxxx'`

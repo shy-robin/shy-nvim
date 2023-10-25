@@ -40,16 +40,16 @@ set("n", "<leader>fn", "<cmd>noa w!<cr>", { desc = "Save but Not format", silent
 set("n", "<leader>fN", "<cmd>enew<cr>", { desc = "New File", silent = true })
 
 -- edit
-set({ "n", "v" }, "d", '"_d', { desc = "Delete with no register" })
-set({ "n", "v" }, "dd", '"_dd', { desc = "Delete a line with no register" })
-set({ "n", "v" }, "D", '"_D', { desc = "Delete backward with no register" })
-set({ "n", "v" }, "c", '"_c', { desc = "Change with no register" })
-set({ "n", "v" }, "cc", '"_cc', { desc = "Change a line with no register" })
-set({ "n", "v" }, "C", '"_C', { desc = "Change backward with no register" })
-set({ "n", "v" }, "s", '"_s', { desc = "Replace with no register" })
-set({ "n", "v" }, "S", '"_S', { desc = "Replace a line with no register" })
-set("n", "X", "yydd", { desc = "Cut a line" })
-set("v", "p", '"_dp', { desc = "Paste with no register" })
+-- set({ "n", "v" }, "d", '"_d', { desc = "Delete with no register" })
+-- set({ "n", "v" }, "dd", '"_dd', { desc = "Delete a line with no register" })
+-- set({ "n", "v" }, "D", '"_D', { desc = "Delete backward with no register" })
+-- set({ "n", "v" }, "c", '"_c', { desc = "Change with no register" })
+-- set({ "n", "v" }, "cc", '"_cc', { desc = "Change a line with no register" })
+-- set({ "n", "v" }, "C", '"_C', { desc = "Change backward with no register" })
+-- set({ "n", "v" }, "s", '"_s', { desc = "Replace with no register" })
+-- set({ "n", "v" }, "S", '"_S', { desc = "Replace a line with no register" })
+-- set("n", "X", "yydd", { desc = "Cut a line" })
+-- set("v", "p", '"_dp', { desc = "Paste with no register" })
 
 -- cmdline
 set("c", "<C-j>", "<C-n>", { desc = "Select Next Item", remap = true })
