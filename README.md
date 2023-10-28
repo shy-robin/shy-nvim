@@ -60,6 +60,8 @@
 - [x] comment error
 - [ ] vim native tab
 - [ ] dap
+- [ ] nvim-tree auto center
+- [ ] fix gitsigns not show
 
 ## 插件
 

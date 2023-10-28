@@ -71,6 +71,7 @@
     "lazygit",
     "nvim",
     "pinia",
+    "rgba",
     "statuscolumn",
     "typeof"
   ],
