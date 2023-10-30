@@ -68,6 +68,7 @@
     "autofix",
     "bufferline",
     "cmdline",
+    "keymap",
     "lazygit",
     "nvim",
     "pinia",
