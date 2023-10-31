@@ -4,6 +4,9 @@ return {
   opts = {
     default_mappings = false,
     force_write_shada = true,
+    cyclic = true,
+    -- 显示内置 marks
+    -- builtin_marks = { ".", "<", ">", "^", "'" },
   },
   init = function()
     local hl = vim.api.nvim_set_hl

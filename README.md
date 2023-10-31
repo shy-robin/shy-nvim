@@ -62,6 +62,9 @@
 - [ ] dap
 - [ ] nvim-tree auto center
 - [ ] fix gitsigns not show
+- [ ] bookmark
+- [ ] outline
+- [ ] gitsigns vs fugitive
 
 ## 插件
 
