@@ -69,6 +69,7 @@
     "bufferline",
     "cmdline",
     "keymap",
+    "keymaps",
     "lazygit",
     "nvim",
     "pinia",
