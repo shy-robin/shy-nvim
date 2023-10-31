@@ -43,12 +43,13 @@ return {
       desc = "Last Floaterm",
       mode = "t",
     },
-    {
-      "<C-n>",
-      "<C-\\><C-n>",
-      desc = "Enter Normal Mode",
-      mode = "t",
-    },
+    -- use <esc><esc> of LazyVim instead
+    -- {
+    --   "<C-n>",
+    --   "<C-\\><C-n>",
+    --   desc = "Enter Normal Mode",
+    --   mode = "t",
+    -- },
     {
       "<C-j>",
       function()
