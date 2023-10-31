@@ -67,5 +67,11 @@ return {
       silent = true,
       desc = "Marks Preview",
     },
+    {
+      "<leader>ml",
+      "<cmd>MarksListAll<cr>",
+      silent = true,
+      desc = "Marks List All",
+    },
   },
 }
