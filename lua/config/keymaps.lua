@@ -71,3 +71,15 @@ set("n", "<leader>dt", "<cmd>diffthis<cr>", { desc = "Diff This", silent = true 
 set("n", "<leader>ds", "<cmd>windo diffthis<cr>", { desc = "Diff Split", silent = true })
 -- 退出 diff
 set("n", "<leader>do", "<cmd>diffoff<cr>", { desc = "Diff Off", silent = true })
+
+local is_background_transparent = 0
+
+set("n", "<leader>ub", function()
+  if is_background_transparent == 0 then
+    vim.api.nvim_command("highlight Normal ctermbg=NONE guibg=NONE")
+    is_background_transparent = 1
+  else
+    vim.api.nvim_command("set background=dark")
+    is_background_transparent = 0
+  end
+end, { desc = "Toggle Transparent Background" })
