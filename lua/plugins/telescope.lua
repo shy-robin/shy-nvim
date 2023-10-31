@@ -48,6 +48,11 @@ return {
       end,
       desc = "Live Grep Args",
     },
+    -- git
+    { "<leader>gc", false },
+    { "<leader>gs", false },
+    { "<leader>gfc", "<cmd>Telescope git_commits<CR>", desc = "Git Find Commits" },
+    { "<leader>gfs", "<cmd>Telescope git_status<CR>", desc = "Git Find Status" },
   },
   opts = {
     defaults = {

@@ -65,6 +65,7 @@
 - [x] bookmark
 - [ ] outline
 - [ ] gitsigns vs fugitive
+- [ ] hop
 
 ## 插件
 
