@@ -205,5 +205,8 @@ return {
       enable = true,
     },
     on_attach = my_on_attach,
+    view = {
+      centralize_selection = true,
+    },
   },
 }

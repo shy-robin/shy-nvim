@@ -56,13 +56,13 @@
 - [x] lualine sometimes show
 - [ ] random plugin (autocmd ??)
 - [x] telescope live grep args
-- [ ] markup
+- [x] markup
 - [x] comment error
 - [ ] vim native tab
 - [ ] dap
-- [ ] nvim-tree auto center
+- [x] nvim-tree auto center
 - [ ] fix gitsigns not show
-- [ ] bookmark
+- [x] bookmark
 - [ ] outline
 - [ ] gitsigns vs fugitive
 
