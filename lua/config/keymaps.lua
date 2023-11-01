@@ -49,7 +49,6 @@ set({ "n", "v" }, "cc", '"_cc', { desc = "Change a line with no register" })
 set({ "n", "v" }, "C", '"_C', { desc = "Change backward with no register" })
 set({ "n", "v" }, "s", '"_s', { desc = "Replace with no register" })
 set({ "n", "v" }, "S", '"_S', { desc = "Replace a line with no register" })
-set({ "n", "v" }, "x", '"_x', { desc = "Delete with no register" })
 set("n", "X", "yydd", { desc = "Cut a line" })
 set("v", "p", '"_dp', { desc = "Paste with no register" })
 
