@@ -64,6 +64,7 @@
   "coc.preferences.formatOnSave": true,
   "snippets.textmateSnippetsRoots": ["~/.config/nvim/snippets"],
   "cSpell.userWords": [
+    "KCDN",
     "Neovim",
     "autofix",
     "bufferline",
@@ -118,5 +119,6 @@
     "yaml",
     "yml",
     "vue"
-  ]
+  ],
+  "eslint.validate": ["svelte"]
 }
