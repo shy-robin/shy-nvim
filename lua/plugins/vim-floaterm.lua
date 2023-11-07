@@ -14,7 +14,7 @@ return {
       mode = "t",
     },
     {
-      "<C-k>",
+      "<C-n>",
       "<cmd>FloatermNew<cr>",
       desc = "New Floaterm",
       mode = "t",
