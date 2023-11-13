@@ -76,7 +76,8 @@
     "pinia",
     "rgba",
     "statuscolumn",
-    "typeof"
+    "typeof",
+    "weblogger"
   ],
   "sumneko-lua.enableNvimLuaDev": true,
   "Lua.diagnostics.globals": ["vim"],
