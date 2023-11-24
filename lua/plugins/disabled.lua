@@ -18,6 +18,7 @@ local plugins = {
   "nvim-neo-tree/neo-tree.nvim",
   -- use picker in nvim-tree instead
   "s1n7ax/nvim-window-picker",
+  "kevinhwang91/nvim-ufo",
 }
 
 local disabled_plugins = {}

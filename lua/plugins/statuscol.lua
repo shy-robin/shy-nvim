@@ -21,7 +21,7 @@ return {
         "NvimTree",
       },
       segments = {
-        { text = { builtin.foldfunc }, click = "v:lua.ScFa" },
+        -- { text = { builtin.foldfunc }, click = "v:lua.ScFa" },
         {
           sign = {
             -- 使用 :sign list 即可查看所有 sign
