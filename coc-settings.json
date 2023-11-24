@@ -81,6 +81,7 @@
     "sveltejs",
     "typeof",
     "vite",
+    "vitest",
     "weblogger"
   ],
   "sumneko-lua.enableNvimLuaDev": true,
