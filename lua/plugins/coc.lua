@@ -276,6 +276,14 @@ return {
       desc = "Coc Eslint Auto Fix",
       mode = "n",
     },
+    {
+      "<leader>cR",
+      "<cmd>CocRestart<cr>",
+      silent = true,
+      nowait = true,
+      desc = "Coc Restart",
+      mode = "n",
+    },
     -- {
     --   "<c-y>",
     --   "<Plug>(coc-cursors-word)*",
