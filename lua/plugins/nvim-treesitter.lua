@@ -35,6 +35,7 @@ return {
       "svelte",
       "css",
       "scss",
+      "http",
     },
   },
 }
