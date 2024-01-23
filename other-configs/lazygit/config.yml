@@ -1,0 +1,14 @@
+customCommands:
+  - key: "N"
+    command: git commit --no-verify
+    context: "files"
+    description: "Commit no verify"
+    subprocess: true
+
+# 在 lazygit 中按下 e 编辑文件，使用 nvim 打开
+# 参考：https://github.com/jesseduffield/lazygit/issues/996#issuecomment-1624329763
+os:
+  edit: 'nvim --server "$NVIM" --remote-tab {{filename}}'
+  editAtLine: 'nvim --server "$NVIM" --remote-tab {{filename}}; [ -z "$NVIM" ] || nvim --server "$NVIM" --remote-send ":{{line}}<CR>"'
+  editAtLineAndWait: "nvim +{{line}} {{filename}}"
+promptToReturnFromSubprocess: false
