@@ -11,6 +11,22 @@ return {
         enabled = false,
       },
     },
+    commands = {
+      history = {
+        -- options for the message history that you get with `:Noice`
+        filter = {
+          any = {
+            { event = "notify" },
+            { error = true },
+            { warning = true },
+            { event = "msg_show", kind = { "echo", "echomsg", "echoerr" } },
+            { event = "lsp", kind = "message" },
+            { cmdline = true },
+          },
+        },
+        filter_opts = { reverse = true },
+      },
+    },
   },
   keys = {
     -- 禁用滚动快捷键
@@ -18,6 +34,13 @@ return {
     -- 使用 q 退出文档窗口
     { "<C-f>", false, mode = { "i", "n", "s" } },
     { "<C-b>", false, mode = { "i", "n", "s" } },
+    {
+      "<leader>sne",
+      function()
+        require("noice").cmd("errors")
+      end,
+      desc = "Noice Errors",
+    },
     -- TODO: conflict with coc
     -- {
     --   "<C-d>",
@@ -41,3 +64,7 @@ return {
     -- },
   },
 }
+
+-- TODO: 
+-- show all error
+-- show all message
