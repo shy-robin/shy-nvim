@@ -9,10 +9,10 @@ return {
   end,
   keys = {
     {
-      "<leader>ra",
+      "<leader>rr",
       "<Plug>RestNvim",
       silent = true,
-      desc = "Rest Nvim",
+      desc = "Rest Nvim Run",
     },
     {
       "<leader>rp",
