@@ -82,3 +82,10 @@ set("n", "<leader>ub", function()
     is_background_transparent = 0
   end
 end, { desc = "Toggle Transparent Background" })
+
+-- tab
+-- reference: https://neovim.io/doc/user/tabpage.html
+set("n", "<leader>th", "<cmd>tabprevious<cr>", { desc = "Tab Previous", silent = true })
+set("n", "<leader>tl", "<cmd>tabnext<cr>", { desc = "Tab Next", silent = true })
+set("n", "<leader>tc", "<cmd>tabclose<cr>", { desc = "Tab Close", silent = true })
+set("n", "<leader>tn", "<cmd>tabnew<cr>", { desc = "Tab New", silent = true })

@@ -45,6 +45,7 @@
   "persistence.nvim": { "branch": "main", "commit": "4982499c1636eac254b72923ab826ee7827b3084" },
   "plenary.nvim": { "branch": "master", "commit": "663246936325062427597964d81d30eaa42ab1e4" },
   "rest.nvim": { "branch": "main", "commit": "84e81a19ab24ccf05c9233d34d4dfce61c233abe" },
+  "scope.nvim": { "branch": "main", "commit": "cd27af77ad61a7199af5c28d27013fb956eb0e3e" },
   "sonokai": { "branch": "master", "commit": "bdce098fc9e7202d3c555e2dc98c755ca1c23835" },
   "statuscol.nvim": { "branch": "main", "commit": "3b629754420919575a9e5758027d6e1831dbf2aa" },
   "telescope-file-browser.nvim": { "branch": "master", "commit": "6f735a63dc24b9aed527cd505a31864223c8a6d8" },
