@@ -6,6 +6,7 @@
 
 <https://www.reddit.com/r/neovim/comments/123mf4g/neovim_config_switcher/>
 
+- [ ] 整理快捷键，group -> +group, item -> Item
 - [ ] 添加 markdown 快捷键
 - [x] git sign 位置，以及 图标重合问题
 - [x] theme

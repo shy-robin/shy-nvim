@@ -16,7 +16,7 @@ return {
         },
         {
           "n",
-          "<leader>dck",
+          "<leader>Dck",
           function()
             local actions = require("diffview.actions")
             return actions.prev_conflict()
@@ -25,7 +25,7 @@ return {
         },
         {
           "n",
-          "<leader>dcj",
+          "<leader>Dcj",
           function()
             local actions = require("diffview.actions")
             return actions.next_conflict()
@@ -39,7 +39,7 @@ return {
         },
         {
           "n",
-          "<leader>dco",
+          "<leader>Dco",
           function()
             local actions = require("diffview.actions")
             return actions.conflict_choose("ours")()
@@ -53,7 +53,7 @@ return {
         },
         {
           "n",
-          "<leader>dct",
+          "<leader>Dct",
           function()
             local actions = require("diffview.actions")
             return actions.conflict_choose("theirs")()
@@ -67,7 +67,7 @@ return {
         },
         {
           "n",
-          "<leader>dcb",
+          "<leader>Dcb",
           function()
             local actions = require("diffview.actions")
             return actions.conflict_choose("base")()
@@ -81,7 +81,7 @@ return {
         },
         {
           "n",
-          "<leader>dca",
+          "<leader>Dca",
           function()
             local actions = require("diffview.actions")
             return actions.conflict_choose("all")()
@@ -90,7 +90,7 @@ return {
         },
         {
           "n",
-          "<leader>dcx",
+          "<leader>Dcx",
           function()
             local actions = require("diffview.actions")
             return actions.conflict_choose("none")()
@@ -104,7 +104,7 @@ return {
         },
         {
           "n",
-          "<leader>dcO",
+          "<leader>DcO",
           function()
             local actions = require("diffview.actions")
             return actions.conflict_choose_all("ours")()
@@ -118,7 +118,7 @@ return {
         },
         {
           "n",
-          "<leader>dcT",
+          "<leader>DcT",
           function()
             local actions = require("diffview.actions")
             return actions.conflict_choose_all("theirs")()
@@ -132,7 +132,7 @@ return {
         },
         {
           "n",
-          "<leader>dcB",
+          "<leader>DcB",
           function()
             local actions = require("diffview.actions")
             return actions.conflict_choose_all("base")()
@@ -146,7 +146,7 @@ return {
         },
         {
           "n",
-          "<leader>dcA",
+          "<leader>DcA",
           function()
             local actions = require("diffview.actions")
             return actions.conflict_choose_all("all")()
@@ -160,7 +160,7 @@ return {
         },
         {
           "n",
-          "<leader>dcX",
+          "<leader>DcX",
           function()
             local actions = require("diffview.actions")
             return actions.conflict_choose_all("none")()
@@ -172,22 +172,22 @@ return {
   },
   keys = {
     {
-      "<leader>dd",
+      "<leader>Dd",
       "<cmd>DiffviewOpen<cr>",
       desc = "DiffviewOpen",
     },
     {
-      "<leader>dq",
+      "<leader>Dq",
       "<cmd>tabclose<cr>",
       desc = "Diffview Quit",
     },
     {
-      "<leader>db",
+      "<leader>Db",
       "<cmd>DiffviewFileHistory<cr>",
       desc = "DiffviewFileHistory (Branch)",
     },
     {
-      "<leader>df",
+      "<leader>Df",
       "<cmd>DiffviewFileHistory %<cr>",
       desc = "DiffviewFileHistory (Current File)",
     },

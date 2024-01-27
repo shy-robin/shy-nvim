@@ -65,11 +65,11 @@ set("n", "<leader>rh", "<cmd>syntax sync fromstart<cr>", { desc = "Reload Syntax
 
 -- diff file
 -- 标记一个 buffer，当标记到两个及以上 buffer 后，开启 diff
-set("n", "<leader>dt", "<cmd>diffthis<cr>", { desc = "Diff This", silent = true })
+set("n", "<leader>Dt", "<cmd>diffthis<cr>", { desc = "Diff This", silent = true })
 -- 当有 split 时，直接开启 diff
-set("n", "<leader>ds", "<cmd>windo diffthis<cr>", { desc = "Diff Split", silent = true })
+set("n", "<leader>Ds", "<cmd>windo diffthis<cr>", { desc = "Diff Split", silent = true })
 -- 退出 diff
-set("n", "<leader>do", "<cmd>diffoff<cr>", { desc = "Diff Off", silent = true })
+set("n", "<leader>Do", "<cmd>diffoff<cr>", { desc = "Diff Off", silent = true })
 
 local is_background_transparent = 0
 

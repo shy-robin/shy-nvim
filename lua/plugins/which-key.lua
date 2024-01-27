@@ -4,6 +4,9 @@ return {
     window = {
       border = "rounded",
     },
+    defaults = {
+      ["<leader>D"] = { name = "+diffview" },
+    },
   },
   config = function(_, opts)
     local wk = require("which-key")
