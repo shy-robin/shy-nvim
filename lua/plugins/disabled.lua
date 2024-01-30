@@ -2,7 +2,7 @@ local plugins = {
   "nvimtools/none-ls.nvim",
   "goolord/alpha-nvim",
   "RRethy/vim-illuminate",
-  "williamboman/mason.nvim",
+  -- "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
   "hrsh7th/nvim-cmp",
   "neovim/nvim-lspconfig",
