@@ -14,6 +14,7 @@ set("n", "<leader>wk", "5<C-W>+", { desc = "Increase window height", remap = tru
 set("n", "<leader>wj", "5<C-W>-", { desc = "Decrease window height", remap = true })
 set("n", "<leader>wh", "5<C-W><", { desc = "Decrease window width", remap = true })
 set("n", "<leader>wl", "5<C-W>>", { desc = "Increase window width", remap = true })
+set("n", "<leader>wm", "<C-W>_<C-W>|", { desc = "Maximize window", remap = true })
 
 -- remove default Move lines
 del("n", "<A-j>")
