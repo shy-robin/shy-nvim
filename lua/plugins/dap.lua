@@ -1,6 +1,40 @@
+-- 参考：https://github.com/nikolovlazar/dotfiles/blob/main/.config/nvim/lua/plugins/dap.lua
+local js_based_languages = {
+  "typescript",
+  "javascript",
+  "typescriptreact",
+  "javascriptreact",
+  "vue",
+  "svelte",
+}
+
 return {
   "mfussenegger/nvim-dap",
   lazy = true,
+  keys = {
+    {
+      "<leader>dc",
+      function()
+        if vim.fn.filereadable(".vscode/launch.json") then
+          -- 参考：https://github.com/mfussenegger/nvim-dap/blob/master/doc/dap.txt
+          local dap_vscode = require("dap.ext.vscode")
+          dap_vscode.load_launchjs(nil, {
+            -- launch.json 中 type 对应的文件类型
+            -- 需要指定，否则无法识别 launch.json 文件
+            ["chrome"] = js_based_languages,
+            ["msedge"] = js_based_languages,
+            ["node"] = js_based_languages,
+            ["node-terminal"] = js_based_languages,
+            ["pwa-chrome"] = js_based_languages,
+            ["pwa-msedge"] = js_based_languages,
+            ["pwa-node"] = js_based_languages,
+          })
+        end
+        require("dap").continue()
+      end,
+      desc = "Run with Args",
+    },
+  },
   dependencies = {
     -- mason.nvim integration
     -- vscode-js-debug 安装构建会报错，所以使用 mason 安装 js adapter
@@ -31,17 +65,24 @@ return {
     {
       "mxsdev/nvim-dap-vscode-js",
       -- vscode-js-debug 安装不了，所以使用 mason 安装 js adapter
-      -- dependencies = {
-      --   -- Install the vscode-js-debug adapter
-      --   {
-      --     "microsoft/vscode-js-debug",
-      --     -- After install, build it and rename the dist directory to out
-      --     build = "npm install --legacy-peer-deps --no-save && npx gulp vsDebugServerBundle && rm -rf out && mv dist out",
-      --     version = "1.*",
-      --   },
-      -- },
+      dependencies = {
+        --   -- Install the vscode-js-debug adapter
+        --   {
+        --     "microsoft/vscode-js-debug",
+        --     -- After install, build it and rename the dist directory to out
+        --     build = "npm install --legacy-peer-deps --no-save && npx gulp vsDebugServerBundle && rm -rf out && mv dist out",
+        --     version = "1.*",
+        --   },
+        -- 支持 json5 （注释等新特性）
+        -- {
+        --   "Joakker/lua-json5",
+        --   -- 构建错误，待解决
+        --   build = "./install.sh",
+        -- },
+      },
       config = function()
-        print(vim.fn.stdpath("data"))
+        require("dap.ext.vscode").json_decode = require("json5").parse
+
         require("dap-vscode-js").setup({
           -- node_path = "node", -- Path of node executable. Defaults to $NODE_PATH, and then "node"
           debugger_path = vim.fn.stdpath("data") .. "/mason/packages/js-debug-adapter", -- 手动指定 mason 安装的 js adapter
@@ -64,15 +105,6 @@ return {
           -- log_console_level = vim.log.levels.ERROR -- Logging level for output to console. Set to false to disable console output.
         })
 
-        -- 参考：https://github.com/nikolovlazar/dotfiles/blob/main/.config/nvim/lua/plugins/dap.lua
-        local js_based_languages = {
-          "typescript",
-          "javascript",
-          "typescriptreact",
-          "javascriptreact",
-          "vue",
-          "svelte",
-        }
         for _, language in ipairs(js_based_languages) do
           require("dap").configurations[language] = {
             -- Debug single Node.js files
@@ -128,10 +160,5 @@ return {
         end
       end,
     },
-    -- 支持 json5 （注释等新特性）
-    -- {
-    --   "Joakker/lua-json5",
-    --   build = "./install.sh",
-    -- },
   },
 }
