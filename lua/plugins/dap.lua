@@ -112,7 +112,10 @@ return {
               type = "pwa-node",
               request = "launch",
               name = "Launch file",
+              --  program字段用于指定你的程序入口文件，${workspaceFolder}表示当前项目根路径
+              --  ${file} 指当前当开的文件
               program = "${file}",
+              -- 用来寻找依赖和其他文件的当前工作目录
               cwd = vim.fn.getcwd(),
               sourceMaps = true,
             },
