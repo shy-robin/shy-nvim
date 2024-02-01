@@ -65,7 +65,14 @@ return {
         })
 
         -- 参考：https://github.com/nikolovlazar/dotfiles/blob/main/.config/nvim/lua/plugins/dap.lua
-        local js_based_languages = { "typescript", "javascript", "typescriptreact", "javascriptreact", "vue", "svelte" }
+        local js_based_languages = {
+          "typescript",
+          "javascript",
+          "typescriptreact",
+          "javascriptreact",
+          "vue",
+          "svelte",
+        }
         for _, language in ipairs(js_based_languages) do
           require("dap").configurations[language] = {
             -- Debug single Node.js files
