@@ -49,6 +49,7 @@
   "oceanic-next": { "branch": "master", "commit": "09833f72d5ba23de2e8bcae18f479f326f5f677a" },
   "one-nvim": { "branch": "main", "commit": "faf6fb3f98fccbe009c3466f657a8fff84a5f956" },
   "onedark.nvim": { "branch": "master", "commit": "14e5de43cf1ff761c280d1ff5b9980897f5b46c7" },
+  "outline.nvim": { "branch": "main", "commit": "a8d40aecb799196303ff3521c0e31c87bba57198" },
   "persistence.nvim": { "branch": "main", "commit": "4982499c1636eac254b72923ab826ee7827b3084" },
   "plenary.nvim": { "branch": "master", "commit": "663246936325062427597964d81d30eaa42ab1e4" },
   "rest.nvim": { "branch": "main", "commit": "2d7bd3d398940ce2692941e6cd052c072207b9f9" },
