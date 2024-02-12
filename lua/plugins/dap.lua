@@ -56,6 +56,7 @@ return {
         ensure_installed = {
           -- Update this to ensure that you have the debuggers for the langs you want
           -- 指定这个版本，不然无法调试，参考：https://github.com/mxsdev/nvim-dap-vscode-js/issues/31#issuecomment-1676971275
+          -- 若安装失败，指定 npm 代理，参考：https://github.com/npm/npm/issues/7945#issuecomment-140382071
           "js@v1.76.1",
         },
       },
