@@ -97,6 +97,8 @@ return {
             "pwa-msedge",
             "node-terminal",
             "pwa-extensionHost",
+            "node",
+            "chrome",
           }, -- which adapters to register in nvim-dap
 
           -- log_file_path = "(stdpath cache)/dap_vscode_js.log" -- Path for file logging
@@ -149,7 +151,9 @@ return {
                   end)
                 end)
               end,
-              webRoot = vim.fn.getcwd(),
+              webRoot = "${workspaceFolder}",
+              program = "${file}",
+              cwd = vim.fn.getcwd(),
               protocol = "inspector",
               sourceMaps = true,
               userDataDir = false,
@@ -162,6 +166,9 @@ return {
             },
           }
         end
+
+        -- 查看错误日志：~/.cache/nvim/dap.log
+        require("dap").set_log_level("TRACE")
       end,
     },
   },
