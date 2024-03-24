@@ -79,6 +79,7 @@
     "keydown",
     "keymap",
     "keymaps",
+    "keyof",
     "keyup",
     "lazygit",
     "maxlength",
