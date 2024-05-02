@@ -1,5 +1,11 @@
 # ShyRobin's Neovim configuration
 
+## 使用
+
+本配置依赖：[lazyvim](https://www.lazyvim.org/)
+
+**需要安装 lazyvim 文档中提到的前置依赖环境。**
+
 ## 切换不同配置文件
 
 ## TODO
