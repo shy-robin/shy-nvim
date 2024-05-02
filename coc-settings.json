@@ -24,9 +24,9 @@
     "rounded": true,
     "borderhighlight": "Comment"
   },
-  "diagnostic.errorSign": " ",
+  "diagnostic.errorSign": " ",
   "diagnostic.warningSign": " ",
-  "diagnostic.hintSign": " ",
+  "diagnostic.hintSign": " ",
   "diagnostic.infoSign": " ",
   // Words of the current buffer.
   "coc.source.around.shortcut": "A",
