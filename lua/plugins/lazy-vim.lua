@@ -4,9 +4,9 @@ return {
     opts = {
       icons = {
         diagnostics = {
-          Error = " ",
+          Error = " ",
           Warn = " ",
-          Hint = " ",
+          Hint = " ",
           Info = " ",
         },
       },
