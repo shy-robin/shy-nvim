@@ -24,7 +24,7 @@
     "rounded": true,
     "borderhighlight": "Comment"
   },
-  "diagnostic.errorSign": " ",
+  "diagnostic.errorSign": " ",
   "diagnostic.warningSign": " ",
   "diagnostic.hintSign": " ",
   "diagnostic.infoSign": " ",
