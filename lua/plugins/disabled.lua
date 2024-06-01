@@ -19,6 +19,7 @@ local plugins = {
   -- use picker in nvim-tree instead
   "s1n7ax/nvim-window-picker",
   "kevinhwang91/nvim-ufo",
+  -- 初始化会报错缺少依赖，先禁用这个插件
   "rest-nvim/rest.nvim"
 }
 
