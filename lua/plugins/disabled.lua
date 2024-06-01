@@ -19,6 +19,7 @@ local plugins = {
   -- use picker in nvim-tree instead
   "s1n7ax/nvim-window-picker",
   "kevinhwang91/nvim-ufo",
+  "rest-nvim/rest.nvim"
 }
 
 local disabled_plugins = {}
