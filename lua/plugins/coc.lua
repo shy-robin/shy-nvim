@@ -89,6 +89,22 @@ return {
       "gh",
       function()
         local cw = vim.fn.expand("<cword>")
+
+        -- 如果当前光标在浮动窗口内，则将浮动窗口关闭（也可以使用 <C-w><C-w> 跳转）
+        if vim.api.nvim_win_get_config(0).zindex then
+          vim.api.nvim_command("call coc#float#close_all()")
+          return
+        end
+
+        -- 如果当前窗口内有浮动窗口，则将光标移动到浮动窗口内（也可以使用 <C-w><C-w> 跳转）
+        for _, winid in pairs(vim.api.nvim_tabpage_list_wins(0)) do
+          if vim.api.nvim_win_get_config(winid).zindex then
+            vim.api.nvim_command("call coc#float#jump()")
+            return
+          end
+        end
+
+        -- 否则，唤起浮动窗口
         if vim.fn.index({ "vim", "help" }, vim.bo.filetype) >= 0 then
           vim.api.nvim_command("h " .. cw)
         elseif vim.api.nvim_eval("coc#rpc#ready()") then
