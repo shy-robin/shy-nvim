@@ -41,6 +41,7 @@ return {
     {
       "jay-babu/mason-nvim-dap.nvim",
       dependencies = "mason.nvim",
+      -- NOTE: 需要手动调用 :DapInstall 安装，并通过 :Mason 唤起 mason 面板查看安装进度
       cmd = { "DapInstall", "DapUninstall" },
       opts = {
         -- Makes a best effort to setup the various debuggers with
