@@ -40,8 +40,8 @@ return {
         {
           sign = {
             -- see: https://github.com/lewis6991/gitsigns.nvim/issues/902
-            -- namespace = { "gitsigns" },
-            name = { "GitSigns*" },
+            namespace = { "gitsigns" },
+            -- name = { "GitSigns*" },
             maxwidth = 1,
             colwidth = 1,
             auto = false,

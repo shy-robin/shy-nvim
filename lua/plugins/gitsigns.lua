@@ -7,7 +7,7 @@ return {
     },
     -- 覆盖默认配置，使其能出现在 sign list 中
     -- see: https://github.com/lewis6991/gitsigns.nvim/issues/902
-    _extmark_signs = false,
+    -- _extmark_signs = false,
     signs = {
       delete = { text = "󰘡" },
       topdelete = { text = "󰘣" },
