@@ -19,6 +19,13 @@ return {
         "lazyterm",
         "floaterm",
         "NvimTree",
+        -- 可以通过 :lua print(vim.bo.filetype) 获取 buffer 的 filetype
+        "dapui_scopes",
+        "dapui_breakpoints",
+        "dapui_stacks",
+        "dapui_watches",
+        "dap-repl",
+        "dapui_console"
       },
       segments = {
         -- { text = { builtin.foldfunc }, click = "v:lua.ScFa" },
