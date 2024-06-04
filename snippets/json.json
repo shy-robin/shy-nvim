@@ -1,0 +1,21 @@
+{
+  "createDebug": {
+    "prefix": "debug",
+    "body": [
+      "{",
+      "  \"configurations\": [",
+      "    {",
+      "      \"type\": \"pwa-chrome\",",
+      "      \"request\": \"launch\",",
+      "      \"name\": \"${1:debugProject}\",",
+      "      \"runtimeArgs\": [\"--auto-open-devtools-for-tabs\"],",
+      "      \"url\": \"http://localhost:${2:5173}\",",
+      "      \"webRoot\": \"\\${workspaceFolder}\"",
+      "    }",
+      "  ]",
+      "}",
+      ""
+    ],
+    "description": "创建调试片段"
+  }
+}
