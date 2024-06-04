@@ -71,9 +71,19 @@
     "body": ["/**", " * ${1}", " */"],
     "description": "Create jsdoc."
   },
-  "Log": {
+  "ConsoleLog": {
     "prefix": ["csl"],
     "body": ["console.log(${1});"],
     "description": "Create console.log."
+  },
+  "ConsoleWarn": {
+    "prefix": ["csw"],
+    "body": ["console.warn(${1});"],
+    "description": "Create console.warn."
+  },
+  "ConsoleError": {
+    "prefix": ["cse"],
+    "body": ["console.error(${1});"],
+    "description": "Create console.error."
   }
 }
