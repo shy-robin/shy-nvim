@@ -21,14 +21,16 @@ return {
       end
 
       -- stylua: ignore start
-      map("n", "<leader>gj", gs.next_hunk, "Next Hunk")
-      map("n", "<leader>gk", gs.prev_hunk, "Prev Hunk")
-      map({ "n", "v" }, "<leader>ghs", "<cmd>Gitsigns stage_hunk<cr>", { desc = "Stage Hunk", silent = true })
-      map({ "n", "v" }, "<leader>ghr", "<cmd>Gitsigns reset_hunk<cr>", { desc = "Reset Hunk", silent = true })
-      map("n", "<leader>ghS", gs.stage_buffer, { desc = "Stage Buffer", silent = true })
-      map("n", "<leader>ghu", gs.undo_stage_hunk, { desc = "Undo Stage Hunk", silent = true })
-      map("n", "<leader>ghR", gs.reset_buffer, { desc = "Reset Buffer", silent = true })
-      map("n", "<leader>ghp", gs.preview_hunk, "Preview Hunk")
+      map("n", "<leader>gj", function() gs.nav_hunk('next') end, "Next Hunk")
+      map("n", "<leader>gk", function() gs.nav_hunk('prev') end, "Prev Hunk")
+      map("n", "<leader>gJ", function() gs.nav_hunk('last') end, "Last Hunk")
+      map("n", "<leader>gK", function() gs.nav_hunk('first') end, "First Hunk")
+      map({ "n", "v" }, "<leader>ghs", "<cmd>Gitsigns stage_hunk<cr>", "Stage Hunk")
+      map({ "n", "v" }, "<leader>ghr", "<cmd>Gitsigns reset_hunk<cr>", "Reset Hunk")
+      map("n", "<leader>ghS", gs.stage_buffer, "Stage Buffer")
+      map("n", "<leader>ghu", gs.undo_stage_hunk, "Undo Stage Hunk")
+      map("n", "<leader>ghR", gs.reset_buffer, "Reset Buffer")
+      map("n", "<leader>ghp", gs.preview_hunk_inline, "Preview Hunk Inline")
       map("n", "<leader>ghb", function() gs.blame_line({ full = true }) end, "Blame Line")
       map("n", "<leader>ghd", gs.diffthis, "Diff This")
       map("n", "<leader>ghD", function() gs.diffthis("~") end, "Diff This ~")
@@ -41,13 +43,13 @@ return {
       -- sign color
       local hl = vim.api.nvim_set_hl
 
-      hl(0, "GitSignsAdd", { fg = "#0EAA00"  })
-      hl(0, "GitSignsChange", { fg = "#E5C07B"  })
-      hl(0, "GitSignsDelete", { fg = "#E06C75"  })
-      hl(0, "GitSignsTopdelete", { fg = "#E06C75"  })
-      hl(0, "GitSignsChangedelete", { fg = "#E5C07B"  })
-      hl(0, "GitSignsUntracked", { fg = "#E06C75"  })
-      hl(0, 'GitsignsCurrentLineBlame', { fg = "#62686E"  })
+      hl(0, "GitSignsAdd", { fg = "#0EAA00" })
+      hl(0, "GitSignsChange", { fg = "#E5C07B" })
+      hl(0, "GitSignsDelete", { fg = "#E06C75" })
+      hl(0, "GitSignsTopdelete", { fg = "#E06C75" })
+      hl(0, "GitSignsChangedelete", { fg = "#E5C07B" })
+      hl(0, "GitSignsUntracked", { fg = "#E06C75" })
+      hl(0, 'GitsignsCurrentLineBlame', { fg = "#62686E" })
     end,
   },
 }
