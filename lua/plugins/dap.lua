@@ -37,7 +37,7 @@ return {
   },
   dependencies = {
     -- mason.nvim integration
-    -- vscode-js-debug 安装构建会报错，所以使用 mason 安装 js adapter
+    -- 如果 vscode-js-debug 安装构建会报错，可以使用 mason 安装 js adapter（但是只能安装 1.76.1 版本）
     {
       "jay-babu/mason-nvim-dap.nvim",
       dependencies = "mason.nvim",
@@ -66,15 +66,15 @@ return {
     -- for Javascript / Typescript
     {
       "mxsdev/nvim-dap-vscode-js",
-      -- vscode-js-debug 安装不了，所以使用 mason 安装 js adapter
+      -- NOTE: 如果 vscode-js-debug 安装不了，可以使用 mason 安装 js adapter
       dependencies = {
-        --   -- Install the vscode-js-debug adapter
-        --   {
-        --     "microsoft/vscode-js-debug",
-        --     -- After install, build it and rename the dist directory to out
-        --     build = "npm install --legacy-peer-deps --no-save && npx gulp vsDebugServerBundle && rm -rf out && mv dist out",
-        --     version = "1.*",
-        --   },
+        -- Install the vscode-js-debug adapter
+        {
+          "microsoft/vscode-js-debug",
+          -- After install, build it and rename the dist directory to out
+          build = "npm install --legacy-peer-deps --no-save && npx gulp vsDebugServerBundle && rm -rf out && mv dist out",
+          -- version = "1.*",
+        },
         -- 支持 json5 （注释等新特性）
         -- {
         --   "Joakker/lua-json5",
@@ -87,9 +87,13 @@ return {
 
         require("dap-vscode-js").setup({
           -- node_path = "node", -- Path of node executable. Defaults to $NODE_PATH, and then "node"
-          debugger_path = vim.fn.stdpath("data") .. "/mason/packages/js-debug-adapter", -- 手动指定 mason 安装的 js adapter
 
-          debugger_cmd = { "js-debug-adapter" }, -- Command to use to launch the debug server. Takes precedence over `node_path` and `debugger_path`.
+          -- debugger_path = vim.fn.stdpath("data") .. "/mason/packages/js-debug-adapter", -- 手动指定 mason 安装的 js adapter
+          -- NOTE: 使用 mason 安装的最新版 js adapter 会有问题，所以直接使用 lazy 安装
+          debugger_path = vim.fn.stdpath("data") .. "/lazy/vscode-js-debug", -- 手动指定 lazy 安装的 js adapter
+
+          -- debugger_cmd 优先级更高，这里不设置，而是使用 debugger_path
+          -- debugger_cmd = { "js-debug-adapter" }, -- Command to use to launch the debug server. Takes precedence over `node_path` and `debugger_path`.
 
           adapters = {
             "chrome",
