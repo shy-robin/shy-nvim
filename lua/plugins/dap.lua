@@ -113,42 +113,28 @@ return {
           -- log_console_level = vim.log.levels.ERROR -- Logging level for output to console. Set to false to disable console output.
         })
 
+        --      ╭────────────────────────────────────────────────────────────────╮
+        --      │                           配置参考：                           │
+        --      │https://github.com/ecosse3/nvim/blob/master/lua/plugins/dap.lua │
+        --      ╰────────────────────────────────────────────────────────────────╯
         for _, language in ipairs(js_based_languages) do
           require("dap").configurations[language] = {
-            -- Debug single Node.js files
-            {
-              type = "pwa-node",
-              request = "launch",
-              name = "Launch file",
-              --  program字段用于指定你的程序入口文件，${workspaceFolder}表示当前项目根路径
-              --  ${file} 指当前当开的文件
-              program = "${file}",
-              -- 用来寻找依赖和其他文件的当前工作目录
-              cwd = vim.fn.getcwd(),
-              sourceMaps = true,
-            },
-            -- Debug node processes like express applications (make sure to add --inspect when you run the process)
-            {
-              type = "pwa-node",
-              request = "attach",
-              name = "Attach",
-              processId = require("dap.utils").pick_process,
-              cwd = vim.fn.getcwd(),
-              sourceMaps = true,
-            },
-            -- Debug web applications (client side)
+            --          ╭─────────────────────────────────────────────────────────╮
+            --          │                       唤起浏览器                        │
+            --          ╰─────────────────────────────────────────────────────────╯
+            -- 首先需要开启本地服务，然后输入运行服务的端口号，唤起一个浏览器
             {
               type = "pwa-chrome",
               request = "launch",
-              name = "Launch & Debug Chrome",
+              name = "Launch Chrome",
               url = function()
                 local co = coroutine.running()
                 return coroutine.create(function()
                   vim.ui.input({
-                    prompt = "Enter URL: ",
-                    default = "http://localhost:3000",
+                    prompt = 'Enter URL: ',
+                    default = 'http://localhost:3000'
                   }, function(url)
-                    if url == nil or url == "" then
+                    if url == nil or url == '' then
                       return
                     else
                       coroutine.resume(co, url)
@@ -156,12 +142,89 @@ return {
                   end)
                 end)
               end,
-              webRoot = "${workspaceFolder}",
-              program = "${file}",
-              cwd = vim.fn.getcwd(),
-              protocol = "inspector",
+              webRoot = vim.fn.getcwd(),
+              protocol = 'inspector',
               sourceMaps = true,
               userDataDir = false,
+              resolveSourceMapLocations = {
+                "${workspaceFolder}/**",
+                "!**/node_modules/**",
+              },
+              runtimeArgs = {
+                -- 自动打开调试面板
+                "--auto-open-devtools-for-tabs"
+              }
+            },
+            --          ╭─────────────────────────────────────────────────────────╮
+            --          │                       关联浏览器                        │
+            --          ╰─────────────────────────────────────────────────────────╯
+            -- 首先需要手动运行 chrome：<chrome 运行文件路径> --remote-debugging-port=9222 --user-data-dir=<用户创建的目录>
+            -- 通过 localhost:9222/json 可以查看所有 ws 服务的地址
+            {
+              type = "pwa-chrome",
+              request = "attach",
+              name = "Attach Chrome",
+              program = "${file}",
+              cwd = vim.fn.getcwd(),
+              sourceMaps = true,
+              protocol = 'inspector',
+              port = function()
+                return vim.fn.input("Select port: ", 9222)
+              end,
+              webRoot = "${workspaceFolder}",
+            },
+            --          ╭─────────────────────────────────────────────────────────╮
+            --          │                     调试 node 文件                      │
+            --          ╰─────────────────────────────────────────────────────────╯
+            -- 通过运行 node --inspect-brk ${file} 启动调试模式并在首行断住
+            -- 默认端口为 9229
+            {
+              type = "pwa-node",
+              request = "launch",
+              name = "Launch Node (current file)",
+              cwd = vim.fn.getcwd(),
+              runtimeArgs = { "--inspect-brk", "${file}" },
+              runtimeExecutable = "node",
+              attachSimplePort = 9229,
+            },
+            --          ╭─────────────────────────────────────────────────────────╮
+            --          │                      调试 npm 脚本                      │
+            --          ╰─────────────────────────────────────────────────────────╯
+            -- 本质是运行 npm run xxx 脚本命令，需要在脚本文件内打上断点
+            {
+              type = "pwa-node",
+              request = "launch",
+              name = "Launch Node (npm scripts)",
+              cwd = vim.fn.getcwd(),
+              args = { "${file}" },
+              sourceMaps = true,
+              protocol = "inspector",
+              runtimeExecutable = "npm",
+              -- npm run start
+              runtimeArgs = {
+                "run-script", function()
+                return vim.fn.input("npm run ", 'start')
+              end
+              },
+              resolveSourceMapLocations = {
+                "${workspaceFolder}/**",
+                "!**/node_modules/**",
+              }
+            },
+            -- TODO:
+            {
+              type = "pwa-node",
+              request = "launch",
+              name = "Launch Node (node xxx)",
+              cwd = vim.fn.getcwd(),
+              runtimeArgs = { "${workspaceFolder}/node_modules/.bin/react-scripts" },
+              runtimeExecutable = "node",
+              args = { "start" },
+              rootPath = "${workspaceFolder}",
+              sourceMaps = true,
+              console = "integratedTerminal",
+              internalConsoleOptions = "neverOpen",
+              skipFiles = { "<node_internals>/**", "node_modules/**" },
             },
             -- Divider for the launch.json derived configs
             {
