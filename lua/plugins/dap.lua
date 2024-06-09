@@ -176,14 +176,45 @@ return {
             --          ╭─────────────────────────────────────────────────────────╮
             --          │                     调试 node 文件                      │
             --          ╰─────────────────────────────────────────────────────────╯
+            {
+              type = "pwa-node",
+              request = "launch",
+              name = "Launch Node (use node)",
+              cwd = vim.fn.getcwd(),
+              runtimeArgs = { "${file}", },
+              runtimeExecutable = "node",
+              rootPath = "${workspaceFolder}",
+              sourceMaps = true,
+              console = "integratedTerminal",
+              skipFiles = { "<node_internals>/**", },
+            },
+            --          ╭─────────────────────────────────────────────────────────╮
+            --          │                     调试 node 文件                      │
+            --          ╰─────────────────────────────────────────────────────────╯
+            {
+              type = "pwa-node",
+              request = "launch",
+              name = "Launch Node (use ts-node)",
+              cwd = vim.fn.getcwd(),
+              runtimeArgs = { "${file}", },
+              runtimeExecutable = "ts-node",
+              rootPath = "${workspaceFolder}",
+              sourceMaps = true,
+              console = "integratedTerminal",
+              skipFiles = { "<node_internals>/**", },
+            },
+            --          ╭─────────────────────────────────────────────────────────╮
+            --          │                     调试 node 文件                      │
+            --          ╰─────────────────────────────────────────────────────────╯
             -- 通过运行 `node --inspect-brk ${file}` 启动调试模式并在首行断住
             -- 默认端口为 9229
             {
               type = "pwa-node",
               request = "launch",
-              name = "Launch Node (current file)",
+              name = "Launch Node (by Port)",
               cwd = vim.fn.getcwd(),
               runtimeArgs = { "--inspect-brk", "${file}" },
+              console = "integratedTerminal",
               runtimeExecutable = "node",
               attachSimplePort = 9229,
             },
@@ -195,7 +226,7 @@ return {
             {
               type = "pwa-node",
               request = "attach",
-              name = "Attach Node (current file)",
+              name = "Attach Node (by Port)",
               program = "${file}",
               cwd = vim.fn.getcwd(),
               sourceMaps = true,
@@ -204,7 +235,12 @@ return {
                 return vim.fn.input("Select port: ", 9229)
               end,
               webRoot = "${workspaceFolder}",
-              skipFiles = { "<node_internals>/**" },
+              console = "integratedTerminal",
+              -- 跳过的文件将不会在调用栈中展示
+              skipFiles = {
+                -- 精简调用栈（跳过 node 内部的文件）
+                "<node_internals>/**"
+              },
               -- 失败后 1s 重试⼀次，最多 3 次
               restart = {
                 delay = 1000,
@@ -220,12 +256,13 @@ return {
             {
               type = "pwa-node",
               request = "attach",
-              name = "Attach Node (current file, by ProcessId)",
+              name = "Attach Node (by ProcessId)",
               program = "${file}",
               cwd = vim.fn.getcwd(),
               sourceMaps = true,
               protocol = 'inspector',
               webRoot = "${workspaceFolder}",
+              console = "integratedTerminal",
               skipFiles = { "<node_internals>/**" },
               -- 失败后 1s 重试⼀次，最多 3 次
               restart = {
@@ -241,7 +278,7 @@ return {
             {
               type = "pwa-node",
               request = "launch",
-              name = "Launch Node (npm scripts)",
+              name = "Launch Node (npm run scripts)",
               cwd = vim.fn.getcwd(),
               args = { "${file}" },
               sourceMaps = true,
