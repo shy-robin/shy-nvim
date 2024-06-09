@@ -158,7 +158,7 @@ return {
             --          ╭─────────────────────────────────────────────────────────╮
             --          │                       关联浏览器                        │
             --          ╰─────────────────────────────────────────────────────────╯
-            -- 首先需要手动运行 chrome：<chrome 运行文件路径> --remote-debugging-port=9222 --user-data-dir=<用户创建的目录>
+            -- 首先需要手动运行 `chrome：<chrome 运行文件路径> --remote-debugging-port=9222 --user-data-dir=<用户创建的目录>`
             -- 通过 localhost:9222/json 可以查看所有 ws 服务的地址
             {
               type = "pwa-chrome",
@@ -176,7 +176,7 @@ return {
             --          ╭─────────────────────────────────────────────────────────╮
             --          │                     调试 node 文件                      │
             --          ╰─────────────────────────────────────────────────────────╯
-            -- 通过运行 node --inspect-brk ${file} 启动调试模式并在首行断住
+            -- 通过运行 `node --inspect-brk ${file}` 启动调试模式并在首行断住
             -- 默认端口为 9229
             {
               type = "pwa-node",
@@ -188,9 +188,56 @@ return {
               attachSimplePort = 9229,
             },
             --          ╭─────────────────────────────────────────────────────────╮
+            --          │                     调试 node 文件                      │
+            --          ╰─────────────────────────────────────────────────────────╯
+            -- 手动运行 `node --inspect-brk ${file}` 启动调试模式，并获取到监听的端口号
+            -- 通过端口号连接到调试进程中
+            {
+              type = "pwa-node",
+              request = "attach",
+              name = "Attach Node (current file)",
+              program = "${file}",
+              cwd = vim.fn.getcwd(),
+              sourceMaps = true,
+              protocol = 'inspector',
+              port = function()
+                return vim.fn.input("Select port: ", 9229)
+              end,
+              webRoot = "${workspaceFolder}",
+              skipFiles = { "<node_internals>/**" },
+              -- 失败后 1s 重试⼀次，最多 3 次
+              restart = {
+                delay = 1000,
+                maxAttempts = 3
+              }
+            },
+            --          ╭─────────────────────────────────────────────────────────╮
+            --          │                     调试 node 文件                      │
+            --          ╰─────────────────────────────────────────────────────────╯
+            -- 手动运行 `node --inspect-brk ${file}` 启动调试模式，并获取到监听的端口号
+            -- 通过 `lsof -i:${port}` 获取对应端口号的进程 id
+            -- 通过进程 id 连接到调试进程中
+            {
+              type = "pwa-node",
+              request = "attach",
+              name = "Attach Node (current file, by ProcessId)",
+              program = "${file}",
+              cwd = vim.fn.getcwd(),
+              sourceMaps = true,
+              protocol = 'inspector',
+              webRoot = "${workspaceFolder}",
+              skipFiles = { "<node_internals>/**" },
+              -- 失败后 1s 重试⼀次，最多 3 次
+              restart = {
+                delay = 1000,
+                maxAttempts = 3
+              },
+              processId = require('dap.utils').pick_process
+            },
+            --          ╭─────────────────────────────────────────────────────────╮
             --          │                      调试 npm 脚本                      │
             --          ╰─────────────────────────────────────────────────────────╯
-            -- 本质是运行 npm run xxx 脚本命令，需要在脚本文件内打上断点
+            -- 本质是运行 `npm run xxx` 脚本命令，需要在脚本文件内打上断点
             {
               type = "pwa-node",
               request = "launch",
@@ -200,6 +247,8 @@ return {
               sourceMaps = true,
               protocol = "inspector",
               runtimeExecutable = "npm",
+              -- 打印到 dap-terminal 中
+              console = "integratedTerminal",
               -- npm run start
               runtimeArgs = {
                 "run-script", function()
