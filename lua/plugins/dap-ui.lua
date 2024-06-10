@@ -11,6 +11,26 @@ return {
       desc = "Reset Dapui Layout",
       mode = "n",
     },
+    {
+      "<leader>dw",
+      function()
+        require('dapui').float_element(
+          'watches',
+          { enter = true }
+        )
+      end,
+      desc = "Dap Watches"
+    },
+    {
+      "<leader>ds",
+      function()
+        require('dapui').float_element(
+          'scopes',
+          { enter = true }
+        )
+      end,
+      desc = "Dap Scopes"
+    }
   },
   opts = {
     icons = {
