@@ -37,22 +37,22 @@ return {
   event = "VeryLazy",
   keys = {
     -- 这里的 root dir 是指当前 buffer 所在的根目录
-    { "<leader>sf", require("lazyvim.util").telescope("files"), desc = "Find Files (root dir)" },
+    -- { "<leader>sf", require("lazyvim.util").telescope("files"), desc = "Find Files (root dir)" },
     -- 这里的 cwd 是指用 vim 进入编辑所在的目录
-    { "<leader>sF", require("lazyvim.util").telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
-    { "<leader>?", require("lazyvim.util").telescope("live_grep", { cwd = false }), desc = "Grep (cwd)" },
-    {
-      "<leader>sg",
-      function()
-        require("telescope").extensions.live_grep_args.live_grep_args()
-      end,
-      desc = "Live Grep Args",
-    },
+    -- { "<leader>sF", require("lazyvim.util").telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
+    -- { "<leader>?", require("lazyvim.util").telescope("live_grep", { cwd = false }), desc = "Grep (cwd)" },
+    -- {
+    --   "<leader>sg",
+    --   function()
+    --     require("telescope").extensions.live_grep_args.live_grep_args()
+    --   end,
+    --   desc = "Live Grep Args",
+    -- },
     -- git
-    { "<leader>gc", false },
-    { "<leader>gs", false },
-    { "<leader>gfc", "<cmd>Telescope git_commits<CR>", desc = "Git Find Commits" },
-    { "<leader>gfs", "<cmd>Telescope git_status<CR>", desc = "Git Find Status" },
+    -- { "<leader>gc", false },
+    -- { "<leader>gs", false },
+    -- { "<leader>gfc", "<cmd>Telescope git_commits<CR>", desc = "Git Find Commits" },
+    -- { "<leader>gfs", "<cmd>Telescope git_status<CR>", desc = "Git Find Status" },
   },
   opts = {
     defaults = {
