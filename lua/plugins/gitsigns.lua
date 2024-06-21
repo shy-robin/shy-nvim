@@ -39,6 +39,10 @@ return {
       -- vih 选中 hunk 内容
       -- 其中，o 对应 operator-pending 模式，x 对应 visual 模式
       map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
+      map({"n", "v"}, "<leader>gr", function()
+        gs.detach()
+        gs.attach()
+      end, "Gitsigns Reload")
 
       -- sign color
       local hl = vim.api.nvim_set_hl
