@@ -3,7 +3,7 @@ return {
   event = "BufReadPost",
   opts = {
     pattern = function(bufnr)
-      local max_size = 800 * 1024
+      local max_size = 400 * 1024
       local buf_name = vim.api.nvim_buf_get_name(bufnr)
       local file_size = vim.api.nvim_call_function("getfsize", { buf_name })
 
