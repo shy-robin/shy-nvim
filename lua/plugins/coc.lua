@@ -90,6 +90,22 @@ return {
       function()
         local cw = vim.fn.expand("<cword>")
 
+        -- 否则，唤起浮动窗口
+        if vim.fn.index({ "vim", "help" }, vim.bo.filetype) >= 0 then
+          vim.api.nvim_command("h " .. cw)
+        elseif vim.api.nvim_eval("coc#rpc#ready()") then
+          vim.fn.CocActionAsync("doHover")
+        else
+          vim.api.nvim_command("!" .. vim.o.keywordprg .. " " .. cw)
+        end
+      end,
+      silent = true,
+      desc = "Coc Hover Symbol",
+      mode = "n",
+    },
+    {
+      "gw",
+      function()
         -- 如果当前光标在浮动窗口内，则将浮动窗口关闭（也可以使用 <C-w><C-w> 跳转）
         if vim.api.nvim_win_get_config(0).zindex then
           vim.api.nvim_command("call coc#float#close_all()")
@@ -103,18 +119,9 @@ return {
             return
           end
         end
-
-        -- 否则，唤起浮动窗口
-        if vim.fn.index({ "vim", "help" }, vim.bo.filetype) >= 0 then
-          vim.api.nvim_command("h " .. cw)
-        elseif vim.api.nvim_eval("coc#rpc#ready()") then
-          vim.fn.CocActionAsync("doHover")
-        else
-          vim.api.nvim_command("!" .. vim.o.keywordprg .. " " .. cw)
-        end
       end,
       silent = true,
-      desc = "Coc Hover Symbol",
+      desc = "Coc Focus Float Window",
       mode = "n",
     },
     {
