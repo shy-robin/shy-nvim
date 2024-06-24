@@ -331,6 +331,7 @@ return {
   config = function()
     vim.g.coc_global_extensions = {
       "coc-lua",
+      -- 注意，如果有找不到 stylua 文件夹的报错，需要手动创建 stylua 数据文件夹：/home/shyrobin/.config/coc/extensions/coc-stylua-data/stylua
       "coc-stylua",
       "coc-json",
       "coc-marketplace",
