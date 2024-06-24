@@ -89,6 +89,9 @@ end, { desc = "Toggle Transparent Background" })
 set("n", "<leader>th", "<cmd>tabprevious<cr>", { desc = "Tab Previous", silent = true })
 set("n", "<leader>tl", "<cmd>tabnext<cr>", { desc = "Tab Next", silent = true })
 set("n", "<leader>tc", "<cmd>tabclose<cr>", { desc = "Tab Close", silent = true })
+set("n", "<leader>tO", "<cmd>tabonly<cr>", { desc = "Tab Close Other", silent = true })
+set("n", "<leader>tH", "<cmd>tabfirst<cr>", { desc = "Tab First", silent = true })
+set("n", "<leader>tL", "<cmd>tablast<cr>", { desc = "Tab Last", silent = true })
 -- 新建一个 tab 时，不创建一个新的 buffer 而是使用当前 buffer
 -- https://vi.stackexchange.com/questions/6746/how-can-i-open-a-buffer-in-a-new-tab-leaving-the-current-window-and-buffer-intac
 set("n", "<leader>tn", "<cmd>tabe %<cr>", { desc = "Tab New", silent = true })
