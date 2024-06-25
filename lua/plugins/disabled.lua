@@ -9,6 +9,7 @@ local plugins = {
   -- 禁用这个插件，使用 coc-pair
   "echasnovski/mini.pairs",
   -- use coc-snippets instead
+  -- coc 不支持 LuaSnip (https://github.com/neoclide/coc.nvim/discussions/4477)
   "L3MON4D3/LuaSnip",
   "linrongbin16/lsp-progress.nvim",
   -- use vim native operations instead
@@ -20,7 +21,7 @@ local plugins = {
   "s1n7ax/nvim-window-picker",
   "kevinhwang91/nvim-ufo",
   -- 初始化会报错缺少依赖，先禁用这个插件
-  "rest-nvim/rest.nvim"
+  "rest-nvim/rest.nvim",
 }
 
 local disabled_plugins = {}
