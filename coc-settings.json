@@ -64,6 +64,12 @@
   "coc.preferences.formatOnSave": true,
   "snippets.textmateSnippetsRoots": ["~/.config/nvim/snippets/vscode"],
   "snippets.userSnippetsDirectory": "~/.config/nvim/snippets/ultisnips",
+  "snippets.extends": {
+    "cpp": ["c"],
+    "jsonc": ["json"],
+    "typescript": ["javascript"],
+    "typescriptreact": ["javascriptreact"]
+  },
   "cSpell.userWords": [
     "KCDN",
     "Neovim",
