@@ -24,8 +24,16 @@ return {
       [[coc#pum#visible() ? coc#pum#confirm() : "\<tab>"]],
       expr = true,
       silent = true,
-      desc = "Coc Select cur",
+      desc = "Coc Select Cur",
       mode = "i",
+    },
+    -- visual mode 下，按下 Tab 键选中文本（参考 UltiSnips 的 Visual Placeholder）
+    {
+      "<tab>",
+      "<Plug>(coc-snippets-select)",
+      silent = true,
+      desc = "Coc Snippet Select",
+      mode = "v",
     },
     {
       "<c-space>",
@@ -257,6 +265,14 @@ return {
       nowait = true,
       desc = "CocList Symbols",
       mode = "n",
+    },
+    {
+      "<leader>cs",
+      "<Plug>(coc-convert-snippet)",
+      silent = true,
+      nowait = true,
+      desc = "Coc Convert snippet",
+      mode = "x",
     },
     {
       "<leader>cj",
