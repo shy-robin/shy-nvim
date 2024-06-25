@@ -62,7 +62,8 @@
   },
   "suggest.formatItems": ["abbr", "menu", "kind", "shortcut"],
   "coc.preferences.formatOnSave": true,
-  "snippets.textmateSnippetsRoots": ["~/.config/nvim/snippets"],
+  "snippets.textmateSnippetsRoots": ["~/.config/nvim/snippets/vscode"],
+  "snippets.userSnippetsDirectory": "~/.config/nvim/snippets/ultisnips",
   "cSpell.userWords": [
     "KCDN",
     "Neovim",
