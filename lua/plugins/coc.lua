@@ -27,6 +27,13 @@ return {
       desc = "Coc Select Cur",
       mode = "i",
     },
+    {
+      "<c-f>",
+      "<Plug>(coc-snippets-expand-jump)",
+      silent = true,
+      desc = "Coc Snippet Expand Or Jump",
+      mode = "i",
+    },
     -- visual mode 下，按下 Tab 键选中文本（参考 UltiSnips 的 Visual Placeholder）
     -- 使用 ctrl-i 同样能触发
     {
