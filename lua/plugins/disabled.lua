@@ -22,6 +22,7 @@ local plugins = {
   "kevinhwang91/nvim-ufo",
   -- 初始化会报错缺少依赖，先禁用这个插件
   "rest-nvim/rest.nvim",
+  "folke/trouble.nvim",
 }
 
 local disabled_plugins = {}

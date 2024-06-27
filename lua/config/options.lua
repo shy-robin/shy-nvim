@@ -20,3 +20,6 @@ opt.conceallevel = 0
 
 -- 影响 html 标签换行
 opt.formatoptions = "tcqj"
+
+-- 取消 lualine 对 trouble.nvim 的依赖（https://www.lazyvim.org/plugins/ui#lualinenvim）
+vim.g.trouble_lualine = false
