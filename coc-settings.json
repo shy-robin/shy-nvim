@@ -64,6 +64,9 @@
   "coc.preferences.formatOnSave": true,
   "snippets.textmateSnippetsRoots": ["~/.config/nvim/snippets/vscode"],
   "snippets.userSnippetsDirectory": "~/.config/nvim/snippets/ultisnips",
+  "snippets.excludePatterns": [
+    "~/.config/coc/extensions/node_modules/coc-tsserver/snippets/*"
+  ],
   "snippets.extends": {
     "cpp": ["c"],
     "jsonc": ["json"],
