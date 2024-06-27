@@ -12,6 +12,8 @@
 
 <https://www.reddit.com/r/neovim/comments/123mf4g/neovim_config_switcher/>
 
+- [ ] common snippets eg. markdown
+- [ ] nvim tree open from cwd
 - [ ] quit session so slow
 - [ ] 整理快捷键，group -> +group, item -> Item
 - [ ] 添加 markdown 快捷键
