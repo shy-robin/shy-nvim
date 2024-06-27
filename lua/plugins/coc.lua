@@ -28,6 +28,7 @@ return {
       mode = "i",
     },
     -- visual mode 下，按下 Tab 键选中文本（参考 UltiSnips 的 Visual Placeholder）
+    -- 使用 ctrl-i 同样能触发
     {
       "<tab>",
       "<Plug>(coc-snippets-select)",
@@ -185,7 +186,7 @@ return {
     },
     -- Run the Code Lens actions on the current line
     {
-      "<leader>cl",
+      "<leader>Cl",
       "<Plug>(coc-codelens-action)",
       silent = true,
       nowait = true,
@@ -231,11 +232,11 @@ return {
       ":<C-u>CocList diagnostics<cr>",
       silent = true,
       nowait = true,
-      desc = "CocList Diagnostics",
+      desc = "Diagnostics (CocList)",
       mode = "n",
     },
     {
-      "<leader>ce",
+      "<leader>Ce",
       ":<C-u>CocList extensions<cr>",
       silent = true,
       nowait = true,
@@ -243,7 +244,7 @@ return {
       mode = "n",
     },
     {
-      "<leader>cc",
+      "<leader>Cc",
       ":<C-u>CocList commands<cr>",
       silent = true,
       nowait = true,
@@ -251,7 +252,7 @@ return {
       mode = "n",
     },
     {
-      "<leader>co",
+      "<leader>Co",
       ":<C-u>CocList outline<cr>",
       silent = true,
       nowait = true,
@@ -259,7 +260,7 @@ return {
       mode = "n",
     },
     {
-      "<leader>cs",
+      "<leader>Cs",
       ":<C-u>CocList -I symbols<cr>",
       silent = true,
       nowait = true,
@@ -267,15 +268,47 @@ return {
       mode = "n",
     },
     {
-      "<leader>cs",
+      "<leader>csc",
       "<Plug>(coc-convert-snippet)",
       silent = true,
       nowait = true,
-      desc = "Coc Convert snippet",
+      desc = "Convert (Coc Snippets)",
       mode = "x",
     },
     {
-      "<leader>cj",
+      "<leader>csl",
+      ":<C-u>CocList snippets<cr>",
+      silent = true,
+      nowait = true,
+      desc = "List (Coc Snippets)",
+      mode = "n",
+    },
+    {
+      "<leader>csf",
+      ":<C-u>CocCommand snippets.openSnippetFiles<cr>",
+      silent = true,
+      nowait = true,
+      desc = "Files (Coc Snippets)",
+      mode = "n",
+    },
+    {
+      "<leader>cse",
+      ":<C-u>CocCommand snippets.editSnippets<cr>",
+      silent = true,
+      nowait = true,
+      desc = "Edit (Coc Snippets)",
+      mode = "n",
+    },
+    {
+      "<leader>cso",
+      ":<C-u>CocCommand snippets.openOutput<cr>",
+      silent = true,
+      nowait = true,
+      desc = "Output (Coc Snippets)",
+      mode = "n",
+    },
+    {
+      "<leader>Cj",
       ":<C-u>CocNext<cr>",
       silent = true,
       nowait = true,
@@ -283,7 +316,7 @@ return {
       mode = "n",
     },
     {
-      "<leader>ck",
+      "<leader>Ck",
       ":<C-u>CocPrev<cr>",
       silent = true,
       nowait = true,
@@ -291,7 +324,7 @@ return {
       mode = "n",
     },
     {
-      "<leader>cp",
+      "<leader>Cp",
       ":<C-u>CocListResume<cr>",
       silent = true,
       nowait = true,
@@ -316,7 +349,7 @@ return {
       mode = "n",
     },
     {
-      "<leader>cR",
+      "<leader>CR",
       "<cmd>CocRestart<cr>",
       silent = true,
       nowait = true,

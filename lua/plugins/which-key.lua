@@ -6,6 +6,10 @@ return {
     },
     defaults = {
       ["<leader>D"] = { name = "+diffview" },
+      ["<leader>C"] = { name = "+coc" },
+      ["<leader>ca"] = { name = "+code-action" },
+      ["<leader>cb"] = { name = "+comment-box" },
+      ["<leader>cs"] = { name = "+snippets" },
     },
   },
   config = function(_, opts)
