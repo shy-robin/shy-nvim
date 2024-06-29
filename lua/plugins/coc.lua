@@ -427,6 +427,10 @@ return {
     vim.g.coc_snippet_next = "<c-l>"
     vim.g.coc_snippet_prev = "<c-h>"
 
+    -- coc-snippets 中 utlisnips 会用到的一些变量
+    vim.g.snips_author = "ShyRobin"
+    vim.g.snips_author_email = "shy_robin@163.com"
+
     local keyset = vim.keymap.set
     -- Autocomplete
     function _G.check_back_space()
