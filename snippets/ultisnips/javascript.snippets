@@ -99,10 +99,24 @@ ${1:class_name}.prototype.${2:method_name} = function`!p snip.rv = space_before_
 
 endsnippet
 
+snippet im "import { a } from b" b
+import { $2 } from '${1}'`!p snip.rv = semi(snip)`
+endsnippet
+
+snippet id "import a from b" b
+import $2 from '${1}'`!p snip.rv = semi(snip)`
+endsnippet
+
 snippet fun "function (named)" b
-function ${1:function_name}`!p snip.rv = space_before_function_paren(snip)`(${2:argument}) {
+${3}${3/(a).*/(?1:sync)/} function ${1:function_name}`!p snip.rv = space_before_function_paren(snip)`(${2}) {
 	${VISUAL}$0
 }
+endsnippet
+
+snippet afc "const name = () => {" b
+const ${1:function_name} =  ${3}${3/(a).*/(?1:sync)/} (${2}) => {
+	${VISUAL}$0
+}`!p snip.rv = semi(snip)`
 endsnippet
 
 snippet vf "function (assigned to var)"
