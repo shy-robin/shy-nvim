@@ -14,12 +14,12 @@
 
 - [x] zf 无效（使用 nvim-ufo 解决）
 - [ ] 自定义折叠区域，#region #endregion
-- [ ] 快速聚焦到 nvim-tree
-- [ ] common snippets eg. markdown
+- [x] 快速聚焦到 nvim-tree（使用 <leader>e 切换）
+- [x] common snippets eg. markdown
 - [ ] nvim tree open from cwd
 - [ ] quit session so slow
 - [ ] 整理快捷键，group -> +group, item -> Item
-- [ ] 添加 markdown 快捷键
+- [x] 添加 markdown 快捷键
 - [x] git sign 位置，以及 图标重合问题
 - [x] theme
 - [ ] telescope 搜索全局，monorepo 项目子项目路径自动切换，如何搜根目录？
@@ -27,7 +27,7 @@
   - [x] leader f n
   - [x] leader f s 自动格式化
   - [x] leader f e eslint autofix
-- [ ] buffer 切换快捷键，多 tab
+- [x] buffer 切换快捷键，多 tab
 - [ ] tmux server error
 - [x] event = very lazy
 - [x] linter
@@ -58,8 +58,8 @@
 - [x] cmp search 加 buffer source
 - [ ] easy-commands https://www.bilibili.com/video/BV1EV411G7UK/?spm_id_from=333.788.recommend_more_video.1&vd_source=4ef7b6657238565af69458e77de87682
 - [x] diff-view
-- [ ] startup time optimize
-- [ ] undo tree
+- [x] startup time optimize
+- [x] undo tree
 - [x] coc
 - [x] coc expand snippet c-j?
 - [ ] coc lua neodev not work
@@ -71,14 +71,14 @@
 - [x] telescope live grep args
 - [x] markup
 - [x] comment error
-- [ ] vim native tab
-- [ ] dap
+- [x] vim native tab
+- [x] dap
 - [x] nvim-tree auto center
-- [ ] fix gitsigns not show
+- [x] fix gitsigns not show
 - [x] bookmark
-- [ ] outline
-- [ ] gitsigns vs fugitive
-- [ ] hop
+- [x] outline
+- [x] gitsigns vs fugitive
+- [x] hop
 
 ## 插件
 
