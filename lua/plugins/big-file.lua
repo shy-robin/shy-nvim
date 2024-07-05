@@ -1,5 +1,5 @@
 return {
-  'LunarVim/bigfile.nvim',
+  "LunarVim/bigfile.nvim",
   event = "BufReadPost",
   opts = {
     pattern = function(bufnr)
@@ -21,6 +21,6 @@ return {
       end
 
       return false
-    end
+    end,
   },
 }

@@ -23,3 +23,6 @@ opt.formatoptions = "tcqj"
 
 -- 取消 lualine 对 trouble.nvim 的依赖（https://www.lazyvim.org/plugins/ui#lualinenvim）
 vim.g.trouble_lualine = false
+
+-- 超过设置大小，只会开启 vim 本身的语法高亮，避免卡顿
+vim.g.bigfile_size = 1024 * 1024 * 0.4 -- 0.4 MB
