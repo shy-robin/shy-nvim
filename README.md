@@ -12,6 +12,7 @@
 
 <https://www.reddit.com/r/neovim/comments/123mf4g/neovim_config_switcher/>
 
+- [x] zf 无效（使用 nvim-ufo 解决）
 - [ ] 自定义折叠区域，#region #endregion
 - [ ] 快速聚焦到 nvim-tree
 - [ ] common snippets eg. markdown

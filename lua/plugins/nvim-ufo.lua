@@ -3,7 +3,7 @@
 -- Adding number suffix of folded lines instead of the default ellipsis
 local handler = function(virtText, lnum, endLnum, width, truncate)
   local newVirtText = {}
-  local suffix = (' 󰁂 %d '):format(endLnum - lnum)
+  local suffix = (" 󰁂 %d "):format(endLnum - lnum)
   local sufWidth = vim.fn.strdisplaywidth(suffix)
   local targetWidth = width - sufWidth
   local curWidth = 0
@@ -19,13 +19,13 @@ local handler = function(virtText, lnum, endLnum, width, truncate)
       chunkWidth = vim.fn.strdisplaywidth(chunkText)
       -- str width returned from truncate() may less than 2nd argument, need padding
       if curWidth + chunkWidth < targetWidth then
-        suffix = suffix .. (' '):rep(targetWidth - curWidth - chunkWidth)
+        suffix = suffix .. (" "):rep(targetWidth - curWidth - chunkWidth)
       end
       break
     end
     curWidth = curWidth + chunkWidth
   end
-  table.insert(newVirtText, { suffix, 'MoreMsg' })
+  table.insert(newVirtText, { suffix, "MoreMsg" })
   return newVirtText
 end
 
@@ -36,26 +36,38 @@ return {
   },
   event = "BufRead",
   opts = {
-    filetype_exclude = { 'help', 'alpha', 'dashboard', 'neo-tree', 'Trouble', 'lazy', 'mason' },
+    filetype_exclude = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy", "mason" },
   },
   keys = {
-    { "zR", function() require("ufo").openAllFolds() end },
-    { "zM", function() require("ufo").closeAllFolds() end },
+    {
+      "zR",
+      function()
+        require("ufo").openAllFolds()
+      end,
+    },
+    {
+      "zM",
+      function()
+        require("ufo").closeAllFolds()
+      end,
+    },
     -- 注意不要设置为 K，因为会被 LazyVim 设置的 K 覆盖
     -- TODO: conflict with coc
-    { "gp",
+    {
+      "gp",
       function()
-        local winid = require('ufo').peekFoldedLinesUnderCursor()
+        local winid = require("ufo").peekFoldedLinesUnderCursor()
         if not winid then
           vim.lsp.buf.hover()
         end
       end,
-      desc = "Preview Fold"
-    }
+      desc = "Preview Fold",
+    },
   },
   config = function()
     vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
-    vim.o.foldcolumn = '1'
+    -- 不需要设置，否则会有多余的间隙
+    -- vim.o.foldcolumn = "1"
     vim.o.foldlevel = 99
     vim.o.foldlevelstart = 99
     vim.o.foldenable = true
@@ -68,22 +80,22 @@ return {
     require("ufo").setup({
       enable_get_fold_virt_text = true,
       open_fold_hl_timeout = 150,
-      close_fold_kinds = { 'imports', 'comment' },
+      close_fold_kinds = { "imports", "comment" },
       preview = {
         win_config = {
-          border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
-          winhighlight = 'Normal:Folded',
-          winblend = 0
+          border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+          winhighlight = "Normal:Folded",
+          winblend = 0,
         },
         mappings = {
           -- TODO: conflict with coc
           -- scrollU = '<C-u>',
           -- scrollD = '<C-d>',
-          jumpTop = '[',
-          jumpBot = ']'
-        }
+          jumpTop = "[",
+          jumpBot = "]",
+        },
       },
-      fold_virt_text_handler = handler
+      fold_virt_text_handler = handler,
     })
   end,
 }
