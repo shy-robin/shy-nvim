@@ -379,6 +379,14 @@ return {
       desc = "Coc Markdown Preview",
       mode = "n",
     },
+    {
+      "<leader>cy",
+      "<cmd>CocList -A --normal yank<cr>",
+      silent = true,
+      nowait = true,
+      desc = "Coc Yank List",
+      mode = "n",
+    },
     -- {
     --   "<c-y>",
     --   "<Plug>(coc-cursors-word)*",
@@ -428,6 +436,7 @@ return {
       "coc-markdownlint",
       "coc-markdown-preview-enhanced",
       "coc-webview",
+      "coc-yank",
     }
 
     -- Some servers have issues with backup files, see #649
