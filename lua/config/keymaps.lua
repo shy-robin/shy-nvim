@@ -16,14 +16,6 @@ set("n", "<leader>wh", "5<C-W><", { desc = "Decrease window width", remap = true
 set("n", "<leader>wl", "5<C-W>>", { desc = "Increase window width", remap = true })
 set("n", "<leader>wm", "<C-W>_<C-W>|", { desc = "Maximize window", remap = true })
 
--- remove default Move lines
-del("n", "<A-j>")
-del("n", "<A-k>")
-del("i", "<A-j>")
-del("i", "<A-k>")
-del("v", "<A-j>")
-del("v", "<A-k>")
-
 -- move lines
 set("v", "J", ":move '>+1<cr>gv=gv", { desc = "Move down", silent = true })
 set("v", "K", ":move '<-2<cr>gv=gv", { desc = "Move up", silent = true })
