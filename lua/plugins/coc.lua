@@ -267,6 +267,14 @@ return {
       mode = "n",
     },
     {
+      "<leader>Cm",
+      ":<C-u>CocList marketplace<cr>",
+      silent = true,
+      nowait = true,
+      desc = "CocList Marketplace",
+      mode = "n",
+    },
+    {
       "<leader>Cs",
       ":<C-u>CocList -I symbols<cr>",
       silent = true,
@@ -363,6 +371,14 @@ return {
       desc = "Coc Restart",
       mode = "n",
     },
+    {
+      "gom",
+      "<cmd>CocCommand markdown-preview-enhanced.openPreview<cr>",
+      silent = true,
+      nowait = true,
+      desc = "Coc Markdown Preview",
+      mode = "n",
+    },
     -- {
     --   "<c-y>",
     --   "<Plug>(coc-cursors-word)*",
@@ -409,6 +425,9 @@ return {
       "coc-svelte",
       "coc-pairs",
       "coc-snippets",
+      "coc-markdownlint",
+      "coc-markdown-preview-enhanced",
+      "coc-webview",
     }
 
     -- Some servers have issues with backup files, see #649

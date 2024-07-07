@@ -24,6 +24,8 @@ local plugins = {
   "rest-nvim/rest.nvim",
   "folke/trouble.nvim",
   "LunarVim/bigfile.nvim",
+  -- 使用 coc-markdown-preview-enhanced 代替
+  "iamcco/markdown-preview.nvim",
 }
 
 local disabled_plugins = {}
