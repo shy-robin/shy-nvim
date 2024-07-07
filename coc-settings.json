@@ -151,5 +151,12 @@
     "yml",
     "vue"
   ],
-  "eslint.validate": ["svelte"]
+  "eslint.validate": ["svelte"],
+  "translator.engines": [
+    // 接口超时，因此禁用
+    // "bing",
+    // "google",
+    "youdao",
+    "haici"
+  ]
 }

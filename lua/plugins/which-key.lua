@@ -10,6 +10,7 @@ return {
       ["<leader>ca"] = { name = "+code-action" },
       ["<leader>cb"] = { name = "+comment-box" },
       ["<leader>cs"] = { name = "+snippets" },
+      ["<leader>Ct"] = { name = "+translator" },
     },
   },
   config = function(_, opts)
