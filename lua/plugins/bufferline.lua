@@ -15,11 +15,10 @@ return {
     },
   },
   keys = {
-    { "t", "", desc = "+buffer" },
+    { "<leader>bh", "<cmd>bprevious<cr>", desc = "Prev Buffer" },
+    { "<leader>bl", "<cmd>bnext<cr>", desc = "Next Buffer" },
     { "tt", "<cmd>BufferLinePick<cr>", desc = "Pick buffer" },
     { "tn", "<cmd>enew<cr>", desc = "New buffer" },
-    { "th", "<cmd>bprevious<cr>", desc = "Move buffer left" },
-    { "tl", "<cmd>bnext<cr>", desc = "Next Buffer" },
     { "tH", "<cmd>BufferLineMovePrev<cr>", desc = "Move buffer left" },
     { "tL", "<cmd>BufferLineMoveNext<cr>", desc = "Move buffer right" },
     { "tp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle pin" },

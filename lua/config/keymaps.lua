@@ -87,8 +87,3 @@ set("n", "<leader>tL", "<cmd>tablast<cr>", { desc = "Tab Last", silent = true })
 -- 新建一个 tab 时，不创建一个新的 buffer 而是使用当前 buffer
 -- https://vi.stackexchange.com/questions/6746/how-can-i-open-a-buffer-in-a-new-tab-leaving-the-current-window-and-buffer-intac
 set("n", "<leader>tn", "<cmd>tabe %<cr>", { desc = "Tab New", silent = true })
-
-del("n", "<S-h>")
-del("n", "<S-l>")
-set("n", "<leader>bh", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
-set("n", "<leader>bl", "<cmd>bnext<cr>", { desc = "Next Buffer" })
