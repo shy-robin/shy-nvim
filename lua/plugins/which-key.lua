@@ -50,9 +50,9 @@ return {
         group = "+refactor",
       },
     },
-    modes = {
+    triggers = {
       -- terminal 模式下禁用，否则按 esc 无法退出一些功能
-      t = false,
+      { "<auto>", mode = "nixsoc" },
     },
     icons = {
       rules = false,
