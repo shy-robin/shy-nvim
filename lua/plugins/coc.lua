@@ -379,14 +379,14 @@ return {
       desc = "Coc Markdown Preview",
       mode = "n",
     },
-    {
-      "<leader>cy",
-      "<cmd>CocList -A --normal yank<cr>",
-      silent = true,
-      nowait = true,
-      desc = "Coc Yank List",
-      mode = "n",
-    },
+    -- {
+    --   "<leader>cy",
+    --   "<cmd>CocList -A --normal yank<cr>",
+    --   silent = true,
+    --   nowait = true,
+    --   desc = "Coc Yank List",
+    --   mode = "n",
+    -- },
     {
       "<leader>ct",
       "<Plug>(coc-translator-p)",
@@ -507,8 +507,8 @@ return {
       "coc-snippets",
       "coc-markdownlint",
       "coc-markdown-preview-enhanced",
+      -- "coc-yank",
       "coc-webview",
-      "coc-yank",
       "coc-translator",
     }
 
