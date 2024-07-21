@@ -371,14 +371,14 @@ return {
       desc = "Coc Restart",
       mode = "n",
     },
-    {
-      "gom",
-      "<cmd>CocCommand markdown-preview-enhanced.openPreview<cr>",
-      silent = true,
-      nowait = true,
-      desc = "Coc Markdown Preview",
-      mode = "n",
-    },
+    -- {
+    --   "gom",
+    --   "<cmd>CocCommand markdown-preview-enhanced.openPreview<cr>",
+    --   silent = true,
+    --   nowait = true,
+    --   desc = "Coc Markdown Preview",
+    --   mode = "n",
+    -- },
     -- {
     --   "<leader>cy",
     --   "<cmd>CocList -A --normal yank<cr>",
@@ -506,9 +506,9 @@ return {
       "coc-pairs",
       "coc-snippets",
       "coc-markdownlint",
-      "coc-markdown-preview-enhanced",
+      -- "coc-markdown-preview-enhanced",
       -- "coc-yank",
-      "coc-webview",
+      -- "coc-webview",
       "coc-translator",
     }
 
