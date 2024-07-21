@@ -14,7 +14,8 @@ set("n", "<leader>wk", "5<C-W>+", { desc = "Increase window height", remap = tru
 set("n", "<leader>wj", "5<C-W>-", { desc = "Decrease window height", remap = true })
 set("n", "<leader>wh", "5<C-W><", { desc = "Decrease window width", remap = true })
 set("n", "<leader>wl", "5<C-W>>", { desc = "Increase window width", remap = true })
-set("n", "<leader>wm", "<C-W>_<C-W>|", { desc = "Maximize window", remap = true })
+-- 移除，LazyVim 已支持
+-- set("n", "<leader>wm", "<C-W>_<C-W>|", { desc = "Maximize window", remap = true })
 
 -- move lines
 set("v", "J", ":move '>+1<cr>gv=gv", { desc = "Move down", silent = true })
