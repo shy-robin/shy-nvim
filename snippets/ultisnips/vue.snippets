@@ -49,3 +49,13 @@ const emit = defineEmits<{
 	(e: '${1:update:modelValue}', val: ${2:boolean}): void;
 }>();
 endsnippet
+
+snippet ref "ref" b
+const $1 = ref($2);
+endsnippet
+
+snippet watch "watch" b
+watch($1, (newVal) => {
+	$2
+});
+endsnippet
