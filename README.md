@@ -6,6 +6,8 @@
 
 **需要安装 lazyvim 文档中提到的前置依赖环境。**
 
+tips: 安装 watchman：`brew install watchman`（https://github.com/yaegassy/coc-volar?tab=readme-ov-file#recommended-additional-installation-of-watchman）
+
 ## 切换不同配置文件
 
 ## TODO
