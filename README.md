@@ -6,7 +6,7 @@
 
 **需要安装 lazyvim 文档中提到的前置依赖环境。**
 
-tips: 安装 watchman：`brew install watchman`（https://github.com/yaegassy/coc-volar?tab=readme-ov-file#recommended-additional-installation-of-watchman）
+tips: 安装 watchman：`brew install watchman`（<https://github.com/yaegassy/coc-volar?tab=readme-ov-file#recommended-additional-installation-of-watchman>）
 
 ## 切换不同配置文件
 
@@ -58,7 +58,7 @@ tips: 安装 watchman：`brew install watchman`（https://github.com/yaegassy/co
 - [x] cmp format 加来源，close ghost text
 - [x] cmp cmdline 加 cmdline source
 - [x] cmp search 加 buffer source
-- [ ] easy-commands https://www.bilibili.com/video/BV1EV411G7UK/?spm_id_from=333.788.recommend_more_video.1&vd_source=4ef7b6657238565af69458e77de87682
+- [ ] easy-commands <https://www.bilibili.com/video/BV1EV411G7UK/?spm_id_from=333.788.recommend_more_video.1&vd_source=4ef7b6657238565af69458e77de87682>
 - [x] diff-view
 - [x] startup time optimize
 - [x] undo tree
@@ -118,7 +118,7 @@ nvim --cmd "set rtp+=xxx"
 
 ## Vim Register
 
-https://www.brianstorti.com/vim-registers/
+<https://www.brianstorti.com/vim-registers/>
 
 ### 使用寄存器
 
@@ -160,3 +160,4 @@ https://www.brianstorti.com/vim-registers/
 也可以通过修改寄存器的方法，修改宏的内容。
 
 `let @j='xxxx'`
+
