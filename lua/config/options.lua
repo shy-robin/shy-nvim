@@ -26,3 +26,6 @@ vim.g.trouble_lualine = false
 
 -- 超过设置大小，只会开启 vim 本身的语法高亮，避免卡顿
 vim.g.bigfile_size = 1024 * 1024 * 0.4 -- 0.4 MB
+
+-- lazygit 不使用当前主题颜色
+vim.g.lazygit_config = false
