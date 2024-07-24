@@ -1,18 +1,22 @@
 # ShyRobin's Neovim configuration
 
-## 使用
+## 一、安装
 
-本配置依赖：[lazyvim](https://www.lazyvim.org/)
+- 安装 Neovim：`brew install neovim`
+- 安装配置：`git clone https://github.com/shy-robin/shy-nvim.git ~/.config/nvim`
 
-**需要安装 lazyvim 文档中提到的前置依赖环境。**
+## 二、前置依赖
 
-tips: 安装 watchman：`brew install watchman`（<https://github.com/yaegassy/coc-volar?tab=readme-ov-file#recommended-additional-installation-of-watchman>）
+- 此配置依赖 [LazyVim](https://www.lazyvim.org/)，需要安装 LazyVim 的前置依赖（<https://www.lazyvim.org/#%EF%B8%8F-requirements>)
+  - Nerd Font（安装并在 kitty 中配置使用）
+  - lazygit（`brew install lazygit`）
+  - ripgrep（`brew install ripgrep`）
+  - fd（`brew install fd`）
+- lsp 依赖 coc.nvim，需要安装 Node 环境
+  - Nodejs（`brew install node`）
+  - watchman（`brew install watchman`），volar 服务会用到，具体参考：<https://github.com/yaegassy/coc-volar?tab=readme-ov-file#recommended-additional-installation-of-watchman>
 
-## 切换不同配置文件
-
-## TODO
-
-<https://www.reddit.com/r/neovim/comments/123mf4g/neovim_config_switcher/>
+## TODO List
 
 - [x] zf 无效（使用 nvim-ufo 解决）
 - [ ] 自定义折叠区域，#region #endregion
@@ -160,4 +164,3 @@ nvim --cmd "set rtp+=xxx"
 也可以通过修改寄存器的方法，修改宏的内容。
 
 `let @j='xxxx'`
-
