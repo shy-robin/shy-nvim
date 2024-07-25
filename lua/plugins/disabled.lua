@@ -26,6 +26,8 @@ local plugins = {
   "LunarVim/bigfile.nvim",
   -- 使用 coc-markdown-preview-enhanced 代替
   -- "iamcco/markdown-preview.nvim",
+  "stevearc/conform.nvim",
+  "mfussenegger/nvim-lint",
 }
 
 local disabled_plugins = {}

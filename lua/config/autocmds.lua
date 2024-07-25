@@ -45,6 +45,14 @@ vim.api.nvim_create_autocmd("BufReadPre", {
     -- vim.api.nvim_set_hl(0, 'SpellRare', { fg = '#F44336', underdashed = true })
     -- vim.api.nvim_set_hl(0, 'SpellLocal', { fg = '#F44336', underdashed = true })
 
+    -- markdown.nvim
+    vim.api.nvim_set_hl(0, "RenderMarkdownH1Bg", { bg = "#395b65" })
+    vim.api.nvim_set_hl(0, "RenderMarkdownH2Bg", { bg = "#395b65" })
+    vim.api.nvim_set_hl(0, "RenderMarkdownH3Bg", { bg = "#395b65" })
+    vim.api.nvim_set_hl(0, "RenderMarkdownH4Bg", { bg = "#395b65" })
+    vim.api.nvim_set_hl(0, "RenderMarkdownH5Bg", { bg = "#395b65" })
+    vim.api.nvim_set_hl(0, "RenderMarkdownH6Bg", { bg = "#395b65" })
+
     -- vim-illuminate
     -- 高亮相同的单词，highlight 链接到 Visual
     vim.api.nvim_set_hl(0, "IlluminatedWordText", { link = "Visual" })
@@ -119,5 +127,3 @@ function appendRandomString()
 end
 
 vim.cmd("command RandomString silent lua appendRandomString()")
-
-
