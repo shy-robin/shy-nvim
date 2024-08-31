@@ -74,6 +74,7 @@
     "typescriptreact": ["javascriptreact"]
   },
   "cSpell.userWords": [
+    "Draggable",
     "KCDN",
     "Neovim",
     "Sider",
@@ -106,6 +107,8 @@
     "statuscolumn",
     "sveltejs",
     "typeof",
+    "ungroup",
+    "ungrouped",
     "vite",
     "vitest",
     "weblogger"
