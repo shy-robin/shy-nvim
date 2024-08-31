@@ -19,7 +19,7 @@
 ## TODO List
 
 - [ ] 自动上传剪切板图片到图库（[nvim-picgo](https://github.com/askfiy/nvim-picgo)）
-- [ ] 生成代码图片（[carbon-now.nvim](https://github.com/ellisonleao/carbon-now.nvim)）
+- [x] 生成代码图片（[carbon-now.nvim](https://github.com/ellisonleao/carbon-now.nvim)）
 - [x] 跳转链接（使用 gx）
 - [ ] api 请求（[rest.nvim](https://github.com/rest-nvim/rest.nvim) 或 [kulala.nvim](https://github.com/mistweaverco/kulala.nvim))
 - [ ] 翻译（[translate.nvim](https://github.com/uga-rosa/translate.nvim)）
