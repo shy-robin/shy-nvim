@@ -3,6 +3,7 @@
   "SchemaStore.nvim": { "branch": "main", "commit": "6d3ba6ad250538446b2727e352e15a425d6692ef" },
   "boo-colorscheme-nvim": { "branch": "main", "commit": "f329950b54d2a9462dd8169bb9cf0adbddef70b4" },
   "bufferline.nvim": { "branch": "main", "commit": "0b2fd861eee7595015b6561dade52fb060be10c4" },
+  "carbon-now.nvim": { "branch": "main", "commit": "f13c3c611a6aa22cca028bfe2cec63c7f67f2c87" },
   "catppuccin": { "branch": "main", "commit": "4fd72a9ab64b393c2c22b168508fd244877fec96" },
   "coc.nvim": { "branch": "release", "commit": "ae1a5576936f78ae46a51964db1b2293b40ff27f" },
   "comment-box.nvim": { "branch": "main", "commit": "06bb771690bc9df0763d14769b779062d8f12bc5" },
