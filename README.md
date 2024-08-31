@@ -18,6 +18,12 @@
 
 ## TODO List
 
+- [ ] 自动上传剪切板图片到图库（[nvim-picgo](https://github.com/askfiy/nvim-picgo)）
+- [ ] 生成代码图片（[vim-carbon-now-sh](https://github.com/kristijanhusak/vim-carbon-now-sh)）
+- [x] 跳转链接（使用 gx）
+- [ ] api 请求（[rest.nvim](https://github.com/rest-nvim/rest.nvim) 或 [kulala.nvim](https://github.com/mistweaverco/kulala.nvim))
+- [ ] 翻译（[translate.nvim](https://github.com/uga-rosa/translate.nvim)）
+- [ ] 注释画图（[venn.nvim](https://github.com/jbyuki/venn.nvim)）
 - [x] zf 无效（使用 nvim-ufo 解决）
 - [ ] 自定义折叠区域，#region #endregion
 - [x] 快速聚焦到 nvim-tree（使用 <leader>e 切换）
