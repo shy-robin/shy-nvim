@@ -15,6 +15,11 @@
 - lsp 依赖 coc.nvim，需要安装 Node 环境
   - Nodejs（`brew install node`）
   - watchman（`brew install watchman`），volar 服务会用到，具体参考：<https://github.com/yaegassy/coc-volar?tab=readme-ov-file#recommended-additional-installation-of-watchman>
+- python 依赖
+  - ultisnips 需要依赖 python，因此需要提前安装 python，否则无法正常使用代码片段
+    1. 安装 python：`brew install python`，检查是否安装成功：`python3 --version`
+    2. 安装 pynvim：`pip3 install pynvim`，如果安装提示 ssl 的报错，需要断开 vpn 进行安装，检查是否安装成功：`python3` -> `import pynvim` -> `print(pynvim.__vesion__)`
+    3. 检查 nvim 是否安装 python 环境：`:echo has('python3')`，若返回 1 则有，若为 0 则无
 
 ## TODO List
 
