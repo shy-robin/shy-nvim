@@ -2,7 +2,7 @@ return {
   "akinsho/bufferline.nvim",
   opts = {
     options = {
-      always_show_bufferline = true,
+      always_show_bufferline = false,
       diagnostics = "coc",
       offsets = {
         {

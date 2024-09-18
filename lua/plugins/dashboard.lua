@@ -38,9 +38,9 @@ return {
       },
     },
     hide = {
-      statusline = false,
-      tabline = false,
-      winbar = false,
+      statusline = true,
+      tabline = true,
+      winbar = true,
     },
   },
   dependencies = { { "nvim-tree/nvim-web-devicons" } },
