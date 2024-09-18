@@ -23,6 +23,12 @@
 
 ## TODO List
 
+- [ ] Toggle wrap Leader + uw
+- [ ] Change line numbering Leader + un
+- [ ] Dismiss notifications leader + uD
+- [ ] session manage https://docs.astronvim.com/mappings#session-manager-mappings
+- [ ] nvim-tree focus leader + ?
+- [x] Dashboard(home) leader + h
 - [ ] 自动上传剪切板图片到图库（[nvim-picgo](https://github.com/askfiy/nvim-picgo)）
 - [x] 生成代码图片（[carbon-now.nvim](https://github.com/ellisonleao/carbon-now.nvim)）
 - [x] 跳转链接（使用 gx）

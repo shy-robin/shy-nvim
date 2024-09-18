@@ -1,6 +1,13 @@
 return {
   "nvimdev/dashboard-nvim",
   event = "VimEnter",
+  keys = {
+    {
+      "<leader>h",
+      "<cmd>Dashboard<cr>",
+      desc = "Home (Dashboard)",
+    },
+  },
   opts = {
     theme = "hyper",
     config = {
