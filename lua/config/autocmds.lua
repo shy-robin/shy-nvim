@@ -127,3 +127,22 @@ function appendRandomString()
 end
 
 vim.cmd("command RandomString silent lua appendRandomString()")
+
+-- 当 ColorScheme 变化时自动触发
+vim.api.nvim_create_autocmd("ColorScheme", {
+  pattern = "*",
+  callback = function()
+    -- 设置高亮组 CocMenuSel 的背景颜色
+    -- NOTE: 切换背景透明时，CocMenuSel 颜色会变化，需要重置（https://github.com/neoclide/coc.nvim/issues/4123）
+    vim.cmd("hi CocMenuSel ctermbg=23 guibg=#3e4d52")
+
+    local hl = vim.api.nvim_set_hl
+    hl(0, "GitSignsAdd", { fg = "#0EAA00" })
+    hl(0, "GitSignsChange", { fg = "#E5C07B" })
+    hl(0, "GitSignsDelete", { fg = "#E06C75" })
+    hl(0, "GitSignsTopdelete", { fg = "#E06C75" })
+    hl(0, "GitSignsChangedelete", { fg = "#E5C07B" })
+    hl(0, "GitSignsUntracked", { fg = "#E06C75" })
+    hl(0, "GitsignsCurrentLineBlame", { fg = "#62686E" })
+  end,
+})

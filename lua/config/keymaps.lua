@@ -65,17 +65,19 @@ set("n", "<leader>Ds", "<cmd>windo diffthis<cr>", { desc = "Diff Split", silent 
 -- 退出 diff
 set("n", "<leader>Do", "<cmd>diffoff<cr>", { desc = "Diff Off", silent = true })
 
-local is_background_transparent = 0
-
-set("n", "<leader>ub", function()
-  if is_background_transparent == 0 then
-    vim.api.nvim_command("highlight Normal ctermbg=NONE guibg=NONE")
-    is_background_transparent = 1
-  else
-    vim.api.nvim_command("set background=dark")
-    is_background_transparent = 0
-  end
-end, { desc = "Toggle Transparent Background" })
+LazyVim.toggle.map("<leader>ub", {
+  name = "Transparent Background",
+  get = function()
+    return vim.g.transparent_enabled == true
+  end,
+  set = function(enabled)
+    if enabled then
+      vim.api.nvim_command("TransparentEnable")
+    else
+      vim.api.nvim_command("TransparentDisable")
+    end
+  end,
+})
 
 -- Tab page
 -- reference: https://neovim.io/doc/user/tabpage.html
