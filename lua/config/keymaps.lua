@@ -88,3 +88,9 @@ set("n", "<leader>tL", "<cmd>tablast<cr>", { desc = "Tab Last", silent = true })
 -- 新建一个 tab 时，不创建一个新的 buffer 而是使用当前 buffer
 -- https://vi.stackexchange.com/questions/6746/how-can-i-open-a-buffer-in-a-new-tab-leaving-the-current-window-and-buffer-intac
 set("n", "<leader>tn", "<cmd>tabe %<cr>", { desc = "Tab New", silent = true })
+
+set("n", "<leader>qq", function()
+  -- 退出之前，关闭所有 floaterm
+  vim.api.nvim_command("FloatermKill!")
+  vim.api.nvim_command("qa")
+end, { desc = "Quit All" })
