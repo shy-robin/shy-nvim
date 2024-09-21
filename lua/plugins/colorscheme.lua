@@ -50,8 +50,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      -- colorscheme = "material-oceanic",
-      colorscheme = "vscode",
+      colorscheme = "material-oceanic",
     },
   },
 }
