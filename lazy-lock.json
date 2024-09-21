@@ -71,5 +71,6 @@
   "vim-floaterm": { "branch": "master", "commit": "4e28c8dd0271e10a5f55142fb6fe9b1599ee6160" },
   "vim-gtfo": { "branch": "master", "commit": "21a5e0292dabccba7363a6e508029d078a74504b" },
   "vscode-js-debug": { "branch": "main", "commit": "1d104b5184736677ab5cc280c70bbd227403850c" },
+  "vscode.nvim": { "branch": "main", "commit": "7de58b7a6d55fe48475d0ba2fddbcec871717761" },
   "which-key.nvim": { "branch": "main", "commit": "6c1584eb76b55629702716995cca4ae2798a9cca" }
 }

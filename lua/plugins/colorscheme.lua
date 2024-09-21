@@ -44,9 +44,14 @@ return {
     event = "VeryLazy",
   },
   {
+    "Mofiqul/vscode.nvim",
+    event = "VeryLazy",
+  },
+  {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "material-oceanic",
+      -- colorscheme = "material-oceanic",
+      colorscheme = "vscode",
     },
   },
 }
