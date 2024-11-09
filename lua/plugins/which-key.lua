@@ -49,6 +49,10 @@ return {
         "<leader>r",
         group = "+refactor",
       },
+      {
+        "<leader>p",
+        group = "+picgo",
+      },
     },
     triggers = {
       -- terminal 模式下禁用，否则按 esc 无法退出一些功能
