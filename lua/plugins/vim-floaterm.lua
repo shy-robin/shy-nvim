@@ -44,12 +44,13 @@ return {
       mode = "t",
     },
     -- use <esc><esc> of LazyVim instead
-    -- {
-    --   "<C-n>",
-    --   "<C-\\><C-n>",
-    --   desc = "Enter Normal Mode",
-    --   mode = "t",
-    -- },
+    -- NOTE: 13 版本 LazyVim 去掉了，需要手动加上
+    {
+      "<esc><esc>",
+      "<C-\\><C-n>",
+      desc = "Enter Normal Mode",
+      mode = "t",
+    },
     {
       "<C-j>",
       function()
