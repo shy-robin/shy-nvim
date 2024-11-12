@@ -23,6 +23,7 @@
 
 ## TODO List
 
+- [ ] 打开 nvim-tree，此时打开 floaterm，使用 <C-h> 或 <C-l> 切换会报错
 - [ ] session manage https://docs.astronvim.com/mappings#session-manager-mappings
 - [x] Dashboard(home) leader + h
 - [ ] 自动上传剪切板图片到图库（[nvim-picgo](https://github.com/askfiy/nvim-picgo)）
