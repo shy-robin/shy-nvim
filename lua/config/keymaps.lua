@@ -25,7 +25,8 @@ set("v", "K", ":move '<-2<cr>gv=gv", { desc = "Move up", silent = true })
 
 -- clear highlight search
 del({ "i", "n" }, "<esc>")
-set("n", "<leader>nh", "<cmd>nohl<cr>", { desc = "Clear hlsearch" })
+-- 使用默认的 <leader>ur
+-- set("n", "<leader>nh", "<cmd>nohl<cr>", { desc = "Clear hlsearch" })
 
 -- file
 del("n", "<leader>fn")
