@@ -60,5 +60,11 @@ return {
         vim.b.minianimate_disable = true
       end,
     },
+    scratch = {
+      win = {
+        -- 设置浮动窗口边框透明
+        backdrop = 100,
+      },
+    },
   },
 }
