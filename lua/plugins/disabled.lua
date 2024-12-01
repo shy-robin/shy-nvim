@@ -32,6 +32,8 @@ local plugins = {
   "nvimdev/dashboard-nvim",
   -- 使用 LazyVim 提供的 Snacks.bigfile
   "LunarVim/bigfile.nvim",
+  -- 使用 LazyVim 提供的 Snacks.statuscolumn
+  "luukvbaal/statuscol.nvim",
 }
 
 local disabled_plugins = {}

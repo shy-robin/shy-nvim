@@ -522,7 +522,8 @@ return {
 
     -- Always show the signcolumn, otherwise it would shift the text each time
     -- diagnostics appeared/became resolved
-    vim.opt.signcolumn = "yes"
+    -- NOTE: 设置这个会导致 dashboard 变化
+    -- vim.opt.signcolumn = "yes"
 
     -- coc snippets
     vim.g.coc_snippet_next = "<c-l>"
