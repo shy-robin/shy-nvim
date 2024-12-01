@@ -30,6 +30,8 @@ local plugins = {
   "mfussenegger/nvim-lint",
   -- 使用 LazyVim 提供的 Snacks.dashboard
   "nvimdev/dashboard-nvim",
+  -- 使用 LazyVim 提供的 Snacks.bigfile
+  "LunarVim/bigfile.nvim",
 }
 
 local disabled_plugins = {}

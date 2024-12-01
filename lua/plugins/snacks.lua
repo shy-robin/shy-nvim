@@ -16,5 +16,11 @@ return {
         { icon = " ", title = "Projects", section = "projects", indent = 3, padding = 2 },
       },
     },
+    bigfile = {
+      -- 超过最大限制，不使用任何渲染，防止卡顿
+      setup = function()
+        vim.b.minianimate_disable = true
+      end,
+    },
   },
 }
