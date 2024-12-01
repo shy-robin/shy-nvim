@@ -65,7 +65,8 @@ set("n", "<leader>Ds", "<cmd>windo diffthis<cr>", { desc = "Diff Split", silent 
 -- 退出 diff
 set("n", "<leader>Do", "<cmd>diffoff<cr>", { desc = "Diff Off", silent = true })
 
-LazyVim.toggle.map("<leader>ub", {
+-- 用法参考 LazyVim（https://github.dev/LazyVim/LazyVim）搜索 snacks.toggle
+Snacks.toggle({
   name = "Transparent Background",
   get = function()
     return vim.g.transparent_enabled == true
@@ -77,7 +78,7 @@ LazyVim.toggle.map("<leader>ub", {
       vim.api.nvim_command("TransparentDisable")
     end
   end,
-})
+}):map("<leader>ub")
 
 -- Tab page
 -- reference: https://neovim.io/doc/user/tabpage.html
