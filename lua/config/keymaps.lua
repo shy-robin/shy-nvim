@@ -6,6 +6,8 @@ local set = vim.keymap.set
 local del = vim.keymap.del
 
 -- windows
+-- 删除默认配置，不然快速按下 <leader>wr 不会触发
+del("n", "<leader>w")
 set("n", "<leader>wb", "<C-W>s", { desc = "Split window below", remap = true })
 set("n", "<leader>wr", "<C-W>v", { desc = "Split window right", remap = true })
 set("n", "<leader>wo", "<C-W>o", { desc = "Only keep current window", remap = true })
