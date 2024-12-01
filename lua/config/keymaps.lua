@@ -100,3 +100,9 @@ set("n", "<leader>qq", function()
   vim.api.nvim_command("FloatermKill!")
   vim.api.nvim_command("qa")
 end, { desc = "Quit All" })
+
+--lazygit
+set("n", "<leader>gb", function()
+  -- 设置浮动窗口样式
+  Snacks.git.blame_line({ win = { backdrop = 100, width = 0.9, height = 0.9 } })
+end, { desc = "Git Blame Line" })
