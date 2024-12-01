@@ -28,6 +28,8 @@ local plugins = {
   -- "iamcco/markdown-preview.nvim",
   "stevearc/conform.nvim",
   "mfussenegger/nvim-lint",
+  -- 使用 LazyVim 提供的 Snacks.dashboard
+  "nvimdev/dashboard-nvim",
 }
 
 local disabled_plugins = {}

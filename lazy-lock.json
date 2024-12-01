@@ -58,7 +58,7 @@
   "promise-async": { "branch": "main", "commit": "119e8961014c9bfaf1487bf3c2a393d254f337e2" },
   "render-markdown.nvim": { "branch": "main", "commit": "1b5d11734122d9451d2e5e2e567fd61a62822293" },
   "scope.nvim": { "branch": "main", "commit": "932102696ead2b7ab9ff65017767b57e2722fdde" },
-  "snacks.nvim": { "branch": "main", "commit": "3b75f0f529f82af1f4fd80a60ed7a9aa55d39772" },
+  "snacks.nvim": { "branch": "main", "commit": "d023bf70344ed4f5f53885384df4bc2dceb4ea49" },
   "sonokai": { "branch": "master", "commit": "fd42b20963c34dfc1744ac31f6a6efe78f4edad2" },
   "statuscol.nvim": { "branch": "main", "commit": "8822f76e105549620ef9c0d96e7b95aedf14c490" },
   "telescope-file-browser.nvim": { "branch": "master", "commit": "626998e5c1b71c130d8bc6cf7abb6709b98287bb" },
