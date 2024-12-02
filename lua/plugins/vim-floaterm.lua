@@ -119,6 +119,25 @@ return {
       "<cmd>FloatermNew lazygit<cr>", -- 选择进入 vim 时路径的仓库
       desc = "Lazygit (cwd)",
     },
+    -- 覆盖 LazyVim 默认的快捷键，防止样式被默认的覆盖
+    {
+      "<leader>gl",
+      "<cmd>FloatermNew --cwd=<buffer> lazygit log<cr>",
+      desc = "Lazygit Log",
+    },
+    {
+      "<leader>gL",
+      "<cmd>FloatermNew lazygit log<cr>",
+      desc = "Lazygit Log (cwd)",
+    },
+    {
+      "<leader>gf",
+      function()
+        local file = vim.trim(vim.api.nvim_buf_get_name(0))
+        vim.api.nvim_command("FloatermNew lazygit log -f " .. file)
+      end,
+      desc = "Lazygit Current File History",
+    },
   },
   config = function()
     vim.g.floaterm_borderchars = "─│─│╭╮╯╰"
