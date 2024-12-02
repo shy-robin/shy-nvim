@@ -45,7 +45,7 @@ return {
         { key = "l", action = ":Lazy", enabled = package.loaded.lazy ~= nil, hidden = true },
         { key = "q", action = ":qa", hidden = true },
 
-        { icon = " ", title = "Recent Files", section = "recent_files", indent = 3, padding = { 2, 2 } },
+        { icon = " ", title = "Recent Files", section = "recent_files", indent = 3, padding = 2 },
         { icon = " ", title = "Projects", section = "projects", indent = 3, padding = 2 },
         { section = "startup", padding = 1 },
         {
