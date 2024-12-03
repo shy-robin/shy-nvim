@@ -107,6 +107,7 @@ set("n", "<leader>gb", function()
   Snacks.git.blame_line({ win = { backdrop = 100, width = 0.9, height = 0.9 } })
 end, { desc = "Git Blame Line" })
 
+-- 使用 coc 的能力进行重写
 Snacks.toggle({
   name = "Coc Diagnostic",
   get = function()
@@ -120,3 +121,18 @@ Snacks.toggle({
     end
   end,
 }):map("<leader>ud")
+
+-- 使用 coc 的能力进行重写
+Snacks.toggle({
+  name = "Coc Auto Format (Global)",
+  get = function()
+    return vim.fn["coc#util#get_config"]("coc.preferences").formatOnSave
+  end,
+  set = function(enabled)
+    if enabled then
+      vim.fn["coc#config"]("coc.preferences.formatOnSave", true)
+    else
+      vim.fn["coc#config"]("coc.preferences.formatOnSave", false)
+    end
+  end,
+}):map("<leader>uf")
