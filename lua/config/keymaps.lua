@@ -136,3 +136,20 @@ Snacks.toggle({
     end
   end,
 }):map("<leader>uf")
+
+-- 使用 coc 的能力进行重写
+Snacks.toggle({
+  name = "Inlay Hints",
+  get = function()
+    return vim.fn["coc#util#get_config"]("inlayHint").enable and vim.fn["coc#util#get_config"]("inlayHint").display
+  end,
+  set = function(enabled)
+    if enabled then
+      vim.fn["coc#config"]("inlayHint.enable", true)
+      vim.fn["coc#config"]("inlayHint.display", true)
+    else
+      vim.fn["coc#config"]("inlayHint.enable", false)
+      vim.fn["coc#config"]("inlayHint.display", false)
+    end
+  end,
+}):map("<leader>uh")

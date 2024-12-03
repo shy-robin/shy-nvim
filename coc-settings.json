@@ -62,6 +62,26 @@
   },
   "suggest.formatItems": ["abbr", "menu", "kind", "shortcut"],
   "coc.preferences.formatOnSave": true,
+
+  // inlay hint
+  "inlayHint.enable": false,
+  "inlayHint.display": false,
+  "typescript.inlayHints.variableTypes.enabled": true,
+  "typescript.inlayHints.parameterNames.enabled": "all",
+  "typescript.inlayHints.parameterTypes.enabled": true,
+  "typescript.inlayHints.enumMemberValues.enabled": true,
+  "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
+  "typescript.inlayHints.propertyDeclarationTypes.enabled": true,
+  "vue.inlayHints.missingProps": true,
+  "vue.inlayHints.optionsWrapper": true,
+  "vue.inlayHints.inlineHandlerLeading": true,
+  "javascript.inlayHints.variableTypes.enabled": true,
+  "javascript.inlayHints.parameterNames.enabled": "all",
+  "javascript.inlayHints.parameterTypes.enabled": true,
+  "javascript.inlayHints.enumMemberValues.enabled": true,
+  "javascript.inlayHints.functionLikeReturnTypes.enabled": true,
+  "javascript.inlayHints.propertyDeclarationTypes.enabled": true,
+
   "snippets.textmateSnippetsRoots": ["~/.config/nvim/snippets/vscode"],
   "snippets.userSnippetsDirectory": "~/.config/nvim/snippets/ultisnips",
   "snippets.excludePatterns": [
