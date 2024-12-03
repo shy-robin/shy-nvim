@@ -153,3 +153,18 @@ Snacks.toggle({
     end
   end,
 }):map("<leader>uh")
+
+-- 使用 coc 的能力进行重写
+Snacks.toggle({
+  name = "Coc Spell Checker",
+  get = function()
+    return vim.fn["coc#util#get_config"]("cSpell").enabled
+  end,
+  set = function(enabled)
+    if enabled then
+      vim.fn["coc#config"]("cSpell.enabled", true)
+    else
+      vim.fn["coc#config"]("cSpell.enabled", false)
+    end
+  end,
+}):map("<leader>uS")
