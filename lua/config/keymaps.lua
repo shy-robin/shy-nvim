@@ -106,3 +106,17 @@ set("n", "<leader>gb", function()
   -- 设置浮动窗口样式
   Snacks.git.blame_line({ win = { backdrop = 100, width = 0.9, height = 0.9 } })
 end, { desc = "Git Blame Line" })
+
+Snacks.toggle({
+  name = "Coc Diagnostic",
+  get = function()
+    return vim.fn["coc#util#get_config"]("diagnostic").enable
+  end,
+  set = function(enabled)
+    if enabled then
+      vim.fn["coc#config"]("diagnostic.enable", true)
+    else
+      vim.fn["coc#config"]("diagnostic.enable", false)
+    end
+  end,
+}):map("<leader>ud")
