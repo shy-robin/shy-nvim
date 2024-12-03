@@ -598,5 +598,25 @@ return {
     -- NOTE: Please see `:h coc-status` for integrations with external plugins that
     -- provide custom statusline: lightline.vim, vim-airline
     vim.opt.statusline:prepend("%{coc#status()}%{get(b:,'coc_current_function','')}")
+
+    -- 切换 coc 的状态
+    Snacks.toggle({
+      name = "Coc",
+      get = function()
+        if vim.g.is_coc_enabled == nil then
+          vim.g.is_coc_enabled = vim.g.coc_process_pid and vim.g.coc_process_pid ~= 0
+        end
+        return vim.g.is_coc_enabled
+      end,
+      set = function(enabled)
+        if enabled then
+          vim.api.nvim_command("CocEnable")
+          vim.g.is_coc_enabled = true
+        else
+          vim.api.nvim_command("CocDisable")
+          vim.g.is_coc_enabled = false
+        end
+      end,
+    }):map("<leader>CC")
   end,
 }
