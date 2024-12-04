@@ -90,6 +90,13 @@ nvim
 - [neovimcraft](https://neovimcraft.com/)
 - [awesome-neovim](https://github.com/rockerBOO/awesome-neovim)
 
+## 🛠️ 其他工具
+
+- [kitty](https://sw.kovidgoyal.net/kitty/)
+  - 0.37 版本支持鼠标追随动画（参考：[Cursor trails](https://sw.kovidgoyal.net/kitty/changelog/#cursor-trails-0-37)）
+- [neovide](https://neovide.dev/)
+  - 基于 Rust 编写，提供丝滑流程的 GUI 动画
+
 ## 📋 待办事项
 
 ### 功能
@@ -109,3 +116,4 @@ nvim
 ### 问题
 
 - [ ] `<leader>e` 打开 nvim-tree，此时 `<C-o>` 打开 floaterm，使用 `<C-h>` 或 `<C-l>` 切换会报错
+- [ ] `<leader>ub` 切换透明背景后，有些对话框的背景颜色和边框颜色不透明
