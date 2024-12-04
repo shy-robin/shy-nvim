@@ -107,8 +107,8 @@ nvim
 - [x] 自动上传剪切板图片到图库（[nvim-picgo](https://github.com/askfiy/nvim-picgo)）
 - [x] 生成代码图片（[carbon-now.nvim](https://github.com/ellisonleao/carbon-now.nvim)）
 - [ ] 生成随机的字符（人名、邮箱、诗句等）
-- [ ] easy-commands <https://www.bilibili.com/video/BV1EV411G7UK/?spm_id_from=333.788.recommend_more_video.1&vd_source=4ef7b6657238565af69458e77de87682>
-- [ ] 会话管理 <https://docs.astronvim.com/mappings#session-manager-mappings>
+- [ ] easy-commands（<https://www.bilibili.com/video/BV1EV411G7UK/?spm_id_from=333.788.recommend_more_video.1&vd_source=4ef7b6657238565af69458e77de87682>）
+- [ ] 会话管理（<https://docs.astronvim.com/mappings#session-manager-mappings>）
 - [ ] api 请求（[rest.nvim](https://github.com/rest-nvim/rest.nvim) 或 [kulala.nvim](https://github.com/mistweaverco/kulala.nvim))
 - [ ] 翻译（[translate.nvim](https://github.com/uga-rosa/translate.nvim)）
 - [ ] 注释画图（[venn.nvim](https://github.com/jbyuki/venn.nvim)）
