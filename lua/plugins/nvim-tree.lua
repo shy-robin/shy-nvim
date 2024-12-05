@@ -31,7 +31,8 @@ local function vsplit_preview()
   api.tree.focus()
 end
 
--- see: <https://www.reddit.com/r/neovim/comments/xj784v/telescope_live_grep_inside_certain_folders/>
+-- 参考: <https://www.reddit.com/r/neovim/comments/xj784v/comment/ipbxysp/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button>
+-- 判断当前节点是文件夹则在这个文件夹下查询，否则到父目录下查询
 local function grep_at_current_tree_node()
   local api = require("nvim-tree.api")
   local node = api.tree.get_node_under_cursor()
@@ -39,9 +40,15 @@ local function grep_at_current_tree_node()
   if not node then
     return
   end
+
+  local path = node.absolute_path or uv.cwd()
+  if node.type ~= "directory" and node.parent then
+    path = node.parent.absolute_path
+  end
+
   require("telescope.builtin").live_grep({
-    search_dirs = { node.absolute_path },
-    prompt_title = string.format("Live Grep in [%s]", vim.fs.basename(node.absolute_path)),
+    search_dirs = { path },
+    prompt_title = string.format("Live Grep in [%s]", vim.fs.basename(path)),
   })
 end
 
