@@ -54,122 +54,161 @@ return {
     -- { "<leader>gfc", "<cmd>Telescope git_commits<CR>", desc = "Git Find Commits" },
     -- { "<leader>gfs", "<cmd>Telescope git_status<CR>", desc = "Git Find Status" },
   },
-  opts = {
-    defaults = {
-      prompt_prefix = "   ",
-      selection_caret = " 󱞩 ",
-      entry_prefix = "   ",
-      sorting_strategy = "ascending",
-      layout_config = {
-        prompt_position = "top",
-      },
-      mappings = {
-        i = {
-          ["<C-h>"] = function(...)
-            return require("telescope.actions").cycle_history_prev(...)
-          end,
-          ["<C-l>"] = function(...)
-            return require("telescope.actions").cycle_history_next(...)
-          end,
-          ["<C-j>"] = function(...)
-            return require("telescope.actions").move_selection_next(...)
-          end,
-          ["<C-k>"] = function(...)
-            return require("telescope.actions").move_selection_previous(...)
-          end,
-          ["<C-n>"] = function(...)
-            return require("telescope.actions").preview_scrolling_down(...)
-          end,
-          ["<C-p>"] = function(...)
-            return require("telescope.actions").preview_scrolling_up(...)
-          end,
-          ["<C-a>"] = function()
-            local action_state = require("telescope.actions.state")
-            local line = action_state.get_current_line()
-            -- show all files
-            require("lazyvim.util").telescope("find_files", { no_ignore = true, hidden = true, default_text = line })()
-          end,
+  opts = function()
+    local actions = require("telescope.actions")
+
+    local find_files_no_ignore = function()
+      local action_state = require("telescope.actions.state")
+      local line = action_state.get_current_line()
+      LazyVim.pick("find_files", { no_ignore = true, default_text = line })()
+    end
+    local find_files_with_hidden = function()
+      local action_state = require("telescope.actions.state")
+      local line = action_state.get_current_line()
+      LazyVim.pick("find_files", { hidden = true, default_text = line })()
+    end
+
+    local function find_command()
+      if 1 == vim.fn.executable("rg") then
+        return { "rg", "--files", "--color", "never", "-g", "!.git" }
+      elseif 1 == vim.fn.executable("fd") then
+        return { "fd", "--type", "f", "--color", "never", "-E", ".git" }
+      elseif 1 == vim.fn.executable("fdfind") then
+        return { "fdfind", "--type", "f", "--color", "never", "-E", ".git" }
+      elseif 1 == vim.fn.executable("find") and vim.fn.has("win32") == 0 then
+        return { "find", ".", "-type", "f" }
+      elseif 1 == vim.fn.executable("where") then
+        return { "where", "/r", ".", "*" }
+      end
+    end
+
+    return {
+      defaults = {
+        prompt_prefix = "   ",
+        selection_caret = " 󱞩 ",
+        entry_prefix = "   ",
+        sorting_strategy = "ascending",
+        layout_config = {
+          prompt_position = "top",
         },
-        n = {
-          ["<C-h>"] = function(...)
-            return require("telescope.actions").cycle_history_prev(...)
-          end,
-          ["<C-l>"] = function(...)
-            return require("telescope.actions").cycle_history_next(...)
-          end,
-          ["<C-j>"] = function(...)
-            return require("telescope.actions").move_selection_next(...)
-          end,
-          ["<C-k>"] = function(...)
-            return require("telescope.actions").move_selection_previous(...)
-          end,
-          ["<C-n>"] = function(...)
-            return require("telescope.actions").preview_scrolling_down(...)
-          end,
-          ["<C-p>"] = function(...)
-            return require("telescope.actions").preview_scrolling_up(...)
-          end,
-          ["<C-a>"] = function()
-            local action_state = require("telescope.actions.state")
-            local line = action_state.get_current_line()
-            -- find all files
-            require("lazyvim.util").telescope("find_files", { no_ignore = true, hidden = true, default_text = line })()
-          end,
-        },
-      },
-      preview = {
-        mime_hook = function(filepath, bufnr, opts)
-          local is_image = function(filepath)
-            local image_extensions = { "png", "jpg" } -- Supported image formats
-            local split_path = vim.split(filepath:lower(), ".", { plain = true })
-            local extension = split_path[#split_path]
-            return vim.tbl_contains(image_extensions, extension)
-          end
-          if is_image(filepath) then
-            local term = vim.api.nvim_open_term(bufnr, {})
-            local function send_output(_, data, _)
-              for _, d in ipairs(data) do
-                vim.api.nvim_chan_send(term, d .. "\r\n")
-              end
+        -- open files in the first window that is an actual file.
+        -- use the current window if no other window is available.
+        get_selection_window = function()
+          local wins = vim.api.nvim_list_wins()
+          table.insert(wins, 1, vim.api.nvim_get_current_win())
+          for _, win in ipairs(wins) do
+            local buf = vim.api.nvim_win_get_buf(win)
+            if vim.bo[buf].buftype == "" then
+              return win
             end
-            vim.fn.jobstart({
-              "catimg",
-              filepath, -- Terminal image viewer command
-            }, { on_stdout = send_output, stdout_buffered = true, pty = true })
-          else
-            require("telescope.previewers.utils").set_preview_message(bufnr, opts.winid, "Binary cannot be previewed")
           end
+          return 0
         end,
-      },
-    },
-    pickers = {
-      live_grep = {
         mappings = {
           i = {
-            ["<C-f>"] = ts_select_dir_for_grep,
+            ["<C-h>"] = function(...)
+              return require("telescope.actions").cycle_history_prev(...)
+            end,
+            ["<C-l>"] = function(...)
+              return require("telescope.actions").cycle_history_next(...)
+            end,
+            ["<C-j>"] = function(...)
+              return require("telescope.actions").move_selection_next(...)
+            end,
+            ["<C-k>"] = function(...)
+              return require("telescope.actions").move_selection_previous(...)
+            end,
+            ["<C-n>"] = function(...)
+              return require("telescope.actions").preview_scrolling_down(...)
+            end,
+            ["<C-p>"] = function(...)
+              return require("telescope.actions").preview_scrolling_up(...)
+            end,
+            -- 切换为查询被忽略的文件（如 node_modules/ 下的文件））
+            ["<C-i>"] = find_files_no_ignore,
+            -- 切换为查询被隐藏的文件（如 .git/ 下的文件）
+            ["<C-u>"] = find_files_with_hidden,
           },
           n = {
-            ["<C-f>"] = ts_select_dir_for_grep,
+            ["<C-h>"] = function(...)
+              return require("telescope.actions").cycle_history_prev(...)
+            end,
+            ["<C-l>"] = function(...)
+              return require("telescope.actions").cycle_history_next(...)
+            end,
+            ["<C-j>"] = function(...)
+              return require("telescope.actions").move_selection_next(...)
+            end,
+            ["<C-k>"] = function(...)
+              return require("telescope.actions").move_selection_previous(...)
+            end,
+            ["<C-n>"] = function(...)
+              return require("telescope.actions").preview_scrolling_down(...)
+            end,
+            ["<C-p>"] = function(...)
+              return require("telescope.actions").preview_scrolling_up(...)
+            end,
+          },
+        },
+        preview = {
+          mime_hook = function(filepath, bufnr, opts)
+            local is_image = function(filepath)
+              local image_extensions = { "png", "jpg" } -- Supported image formats
+              local split_path = vim.split(filepath:lower(), ".", { plain = true })
+              local extension = split_path[#split_path]
+              return vim.tbl_contains(image_extensions, extension)
+            end
+            if is_image(filepath) then
+              local term = vim.api.nvim_open_term(bufnr, {})
+              local function send_output(_, data, _)
+                for _, d in ipairs(data) do
+                  vim.api.nvim_chan_send(term, d .. "\r\n")
+                end
+              end
+              vim.fn.jobstart({
+                "catimg",
+                filepath, -- Terminal image viewer command
+              }, { on_stdout = send_output, stdout_buffered = true, pty = true })
+            else
+              require("telescope.previewers.utils").set_preview_message(bufnr, opts.winid, "Binary cannot be previewed")
+            end
+          end,
+        },
+      },
+      pickers = {
+        find_files = {
+          find_command = find_command,
+          hidden = true,
+        },
+        live_grep = {
+          mappings = {
+            i = {
+              -- 切换为查询所在目录下的字符
+              ["<C-f>"] = ts_select_dir_for_grep,
+            },
+            n = {
+              ["<C-f>"] = ts_select_dir_for_grep,
+            },
           },
         },
       },
-    },
-    extensions = {
-      live_grep_args = {
-        auto_quoting = true,
-        mappings = {
-          i = {
-            ["<C-y>"] = function(...)
-              return require("telescope-live-grep-args.actions").quote_prompt()(...)
-            end,
-            ["<C-i>"] = function(...)
-              return require("telescope-live-grep-args.actions").quote_prompt({ postfix = " --iglob " })(...)
-            end,
+      extensions = {
+        live_grep_args = {
+          auto_quoting = true,
+          mappings = {
+            i = {
+              ["<C-y>"] = function(...)
+                return require("telescope-live-grep-args.actions").quote_prompt()(...)
+              end,
+              ["<C-i>"] = function(...)
+                return require("telescope-live-grep-args.actions").quote_prompt({ postfix = " --iglob " })(...)
+              end,
+            },
           },
         },
       },
-    },
-  },
+    }
+  end,
   config = function(_, opts)
     local telescope = require("telescope")
     telescope.setup(opts)
