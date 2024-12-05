@@ -32,10 +32,21 @@ return {
   dependencies = {
     {
       "nvim-telescope/telescope-live-grep-args.nvim",
+      -- This will not install any breaking changes.
+      -- For major updates, this must be adjusted manually.
+      version = "^1.0.0",
     },
   },
   event = "VeryLazy",
   keys = {
+    -- 自定义查询，支持增加筛选参数
+    {
+      "<leader>/",
+      function()
+        require("telescope").extensions.live_grep_args.live_grep_args()
+      end,
+      desc = "Grep with Args (Root Dir)",
+    },
     -- 这里的 root dir 是指当前 buffer 所在的根目录
     -- { "<leader>sf", require("lazyvim.util").telescope("files"), desc = "Find Files (root dir)" },
     -- 这里的 cwd 是指用 vim 进入编辑所在的目录
@@ -194,15 +205,15 @@ return {
       },
       extensions = {
         live_grep_args = {
-          auto_quoting = true,
+          auto_quoting = true, -- enable/disable auto-quoting
           mappings = {
             i = {
-              ["<C-y>"] = function(...)
-                return require("telescope-live-grep-args.actions").quote_prompt()(...)
-              end,
-              ["<C-i>"] = function(...)
-                return require("telescope-live-grep-args.actions").quote_prompt({ postfix = " --iglob " })(...)
-              end,
+              ["<C-y>"] = require("telescope-live-grep-args.actions").quote_prompt(),
+              --iglob 通常表示启用广义匹配（glob matching），并且可能是“不区分大小写”（case insensitive）匹配的意思
+              --例如：**/bar/**，这是一个 glob 模式，表示在任何层级的目录中查找名为 bar 的目录
+              ["<C-i>"] = require("telescope-live-grep-args.actions").quote_prompt({ postfix = " --iglob " }),
+              -- freeze the current list and start a fuzzy search in the frozen list
+              ["<C-space>"] = actions.to_fuzzy_refine,
             },
           },
         },
