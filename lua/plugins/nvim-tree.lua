@@ -31,9 +31,11 @@ local function vsplit_preview()
   api.tree.focus()
 end
 
--- see: https://www.reddit.com/r/neovim/comments/xj784v/telescope_live_grep_inside_certain_folders/
+-- see: <https://www.reddit.com/r/neovim/comments/xj784v/telescope_live_grep_inside_certain_folders/>
 local function grep_at_current_tree_node()
-  local node = require("nvim-tree.lib").get_node_at_cursor()
+  local api = require("nvim-tree.api")
+  local node = api.tree.get_node_under_cursor()
+
   if not node then
     return
   end
