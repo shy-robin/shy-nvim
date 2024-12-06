@@ -53,6 +53,15 @@ return {
         ["Session:Close"] = { mode = "n", key = "<esc>" },
       },
 
+      spinner = {
+        text = {
+          "",
+          "",
+          "",
+          "",
+        },
+        hl = "Title",
+      },
       app_handler = {
         OptimizeCode = {
           handler = tools.side_by_side_handler,
@@ -63,18 +72,27 @@ return {
         Translate = {
           handler = tools.qa_handler,
         },
+        FlexibleTranslate = {
+          handler = tools.flexi_handler,
+          prompt = "如果下列文案是中文那么把它翻译成英文，如果是英文或者其他语言则翻译成中文，请只返回翻译结果。",
+          opts = {
+            exit_on_move = false,
+            enter_flexible_window = true,
+          },
+        },
       },
     })
   end,
   keys = {
     { "<leader>ac", mode = "n", "<cmd>LLMSessionToggle<cr>", desc = "Chat" },
     { "<leader>ae", mode = "v", "<cmd>LLMSelectedTextHandler 请解释下面这段代码<cr>", desc = "Explain" },
-    {
-      "<leader>at",
-      mode = "x",
-      "<cmd>LLMSelectedTextHandler 如果是英文则翻译成中文，如果是中文则翻译成英文<cr>",
-      desc = "Translate",
-    },
+    -- {
+    --   "<leader>at",
+    --   mode = "x",
+    --   "<cmd>LLMSelectedTextHandler 如果是英文则翻译成中文，如果是中文则翻译成英文<cr>",
+    --   desc = "Translate",
+    -- },
+    { "<leader>at", mode = "x", "<cmd>LLMAppHandler FlexibleTranslate<cr>", desc = "Translate" },
     { "<leader>aT", mode = "n", "<cmd>LLMAppHandler Translate<cr>", desc = "Translator" },
     -- 浮动窗口优化代码。按 y 键复制优化后的代码，按 n 键忽略。
     { "<leader>ao", mode = "x", "<cmd>LLMAppHandler OptimizeCode<cr>", desc = "Optimize Code in Float" },
