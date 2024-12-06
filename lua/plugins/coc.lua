@@ -499,7 +499,6 @@ return {
       "coc-eslint",
       "coc-htmlhint",
       "coc-html-css-support",
-      "coc-stylua",
       "coc-sumneko-lua",
       "coc-styled-components",
       "coc-svelte",

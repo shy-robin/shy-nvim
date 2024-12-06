@@ -184,5 +184,6 @@
     "youdao",
     "haici"
   ],
-  "yank.highlight.duration": 0
+  // 不需要自动检查更新
+  "stylua.checkUpdate": false
 }
