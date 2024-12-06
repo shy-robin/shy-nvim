@@ -1,8 +1,10 @@
 return {
   "Kurama622/llm.nvim",
   dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim" },
-  cmd = { "LLMSesionToggle", "LLMSelectedTextHandler" },
+  cmd = { "LLMSesionToggle", "LLMSelectedTextHandler", "LLMAppHandler" },
   config = function()
+    local tools = require("llm.common.tools")
+
     -- 获取当前用户名称，兼容不同操作系统
     local username
 
@@ -31,26 +33,37 @@ return {
       save_session = true,
       max_history = 15,
 
-        -- stylua: ignore
-        keys = {
-          -- The keyboard mapping for the input window.
-          ["Input:Submit"]      = { mode = "n", key = "<cr>" },
-          ["Input:Cancel"]      = { mode = "n", key = "<C-c>" },
-          ["Input:Resend"]      = { mode = "n", key = "<C-r>" },
+      keys = {
+        -- The keyboard mapping for the input window.
+        ["Input:Submit"] = { mode = "n", key = "<cr>" },
+        ["Input:Cancel"] = { mode = "n", key = "<C-c>" },
+        ["Input:Resend"] = { mode = "n", key = "<C-r>" },
 
-          -- only works when "save_session = true"
-          ["Input:HistoryNext"] = { mode = "n", key = "<C-j>" },
-          ["Input:HistoryPrev"] = { mode = "n", key = "<C-k>" },
+        -- only works when "save_session = true"
+        ["Input:HistoryNext"] = { mode = "n", key = "<C-j>" },
+        ["Input:HistoryPrev"] = { mode = "n", key = "<C-k>" },
 
-          -- The keyboard mapping for the output window in "split" style.
-          ["Output:Ask"]        = { mode = "n", key = "i" },
-          ["Output:Cancel"]     = { mode = "n", key = "<C-c>" },
-          ["Output:Resend"]     = { mode = "n", key = "<C-r>" },
+        -- The keyboard mapping for the output window in "split" style.
+        ["Output:Ask"] = { mode = "n", key = "i" },
+        ["Output:Cancel"] = { mode = "n", key = "<C-c>" },
+        ["Output:Resend"] = { mode = "n", key = "<C-r>" },
 
-          -- The keyboard mapping for the output and input windows in "float" style.
-          ["Session:Toggle"]    = { mode = "n", key = "<leader>ac" },
-          ["Session:Close"]     = { mode = "n", key = "<esc>" },
+        -- The keyboard mapping for the output and input windows in "float" style.
+        ["Session:Toggle"] = { mode = "n", key = "<leader>ac" },
+        ["Session:Close"] = { mode = "n", key = "<esc>" },
+      },
+
+      app_handler = {
+        OptimizeCode = {
+          handler = tools.side_by_side_handler,
         },
+        OptimCompare = {
+          handler = tools.action_handler,
+        },
+        Translate = {
+          handler = tools.qa_handler,
+        },
+      },
     })
   end,
   keys = {
@@ -62,5 +75,10 @@ return {
       "<cmd>LLMSelectedTextHandler 如果是英文则翻译成中文，如果是中文则翻译成英文<cr>",
       desc = "Translate",
     },
+    { "<leader>aT", mode = "n", "<cmd>LLMAppHandler Translate<cr>", desc = "Translator" },
+    -- 浮动窗口优化代码。按 y 键复制优化后的代码，按 n 键忽略。
+    { "<leader>ao", mode = "x", "<cmd>LLMAppHandler OptimizeCode<cr>", desc = "Optimize Code in Float" },
+    -- diff 窗口优化代码。按 y 键接受建议，按 n 键忽略。
+    { "<leader>aO", mode = "x", "<cmd>LLMAppHandler OptimCompare<cr>", desc = "Optimize Code in Split" },
   },
 }
