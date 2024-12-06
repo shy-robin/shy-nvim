@@ -1,3 +1,38 @@
+function get_format_time()
+  -- 获取当前时间戳
+  local timestamp = os.time()
+  -- 将时间戳转换为本地时间字符串
+  local local_time = os.date("%Y-%m-%d %H:%M:%S", timestamp)
+  -- 获取当前是周几的文本表示（例如 "Mon"）
+  local week = os.date("%A")
+
+  return ("%s %s"):format(local_time, week)
+end
+
+function get_user_title()
+  -- 获取当前用户名称，兼容不同操作系统
+  local username
+  if package.config:sub(1, 1) == "\\" then
+    -- Windows系统
+    username = os.getenv("USERNAME")
+  else
+    -- Unix-like系统
+    username = os.getenv("USER")
+  end
+  local time = get_format_time()
+  local user_title = ("  %s (%s)\n\n"):format(username, time)
+
+  return user_title
+end
+
+function get_robot_title()
+  local robot_name = "Assistant"
+  local time = get_format_time()
+  local robot_title = ("󱙺  %s (%s)\n\n"):format(robot_name, time)
+
+  return robot_title
+end
+
 return {
   "Kurama622/llm.nvim",
   dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim" },
@@ -5,21 +40,8 @@ return {
   config = function()
     local tools = require("llm.common.tools")
 
-    -- 获取当前用户名称，兼容不同操作系统
-    local username
-
-    if package.config:sub(1, 1) == "\\" then
-      -- Windows系统
-      username = os.getenv("USERNAME")
-    else
-      -- Unix-like系统
-      username = os.getenv("USER")
-    end
-
-    local robotName = "Assistant"
-
-    local userTitle = "  " .. username .. "\n\n"
-    local robotTitle = "󱙺  " .. robotName .. "\n\n"
+    local userTitle = get_user_title()
+    local robotTitle = get_robot_title()
 
     require("llm").setup({
       max_tokens = 512,
