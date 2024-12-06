@@ -3,13 +3,29 @@ return {
   dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim" },
   cmd = { "LLMSesionToggle", "LLMSelectedTextHandler" },
   config = function()
+    -- 获取当前用户名称，兼容不同操作系统
+    local username
+
+    if package.config:sub(1, 1) == "\\" then
+      -- Windows系统
+      username = os.getenv("USERNAME")
+    else
+      -- Unix-like系统
+      username = os.getenv("USER")
+    end
+
+    local robotName = "Assistant"
+
+    local userTitle = "  " .. username .. "\n\n"
+    local robotTitle = "󱙺  " .. robotName .. "\n\n"
+
     require("llm").setup({
       max_tokens = 512,
       url = "https://open.bigmodel.cn/api/paas/v4/chat/completions",
       model = "glm-4-flash",
       prefix = {
-        user = { text = "󱋊  ", hl = "Title" },
-        assistant = { text = "󱙺  ", hl = "Added" },
+        user = { text = userTitle, hl = "Title" },
+        assistant = { text = robotTitle, hl = "Added" },
       },
 
       save_session = true,
