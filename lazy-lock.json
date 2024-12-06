@@ -20,6 +20,7 @@
   "jsonc.vim": { "branch": "master", "commit": "6fb92460f9e50505c9b93181a00f27d10c9b383f" },
   "lazy.nvim": { "branch": "main", "commit": "7967abe55752aa90532e6bb4bd4663fe27a264cb" },
   "lazydev.nvim": { "branch": "main", "commit": "f59bd14a852ca43db38e3662395354cb2a9b13e0" },
+  "llm.nvim": { "branch": "main", "commit": "ffc8da5db748aaef0f14a8b1e12d0546cc560b98" },
   "lualine.nvim": { "branch": "master", "commit": "2a5bae925481f999263d6f5ed8361baef8df4f83" },
   "markdown-preview.nvim": { "branch": "master", "commit": "a923f5fc5ba36a3b17e289dc35dc17f66d0548ee" },
   "markdown.nvim": { "branch": "main", "commit": "61850bf7df4af8398e97559a35b62378ba8435b1" },
