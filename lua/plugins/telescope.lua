@@ -209,9 +209,11 @@ return {
           mappings = {
             i = {
               ["<C-y>"] = require("telescope-live-grep-args.actions").quote_prompt(),
+              -- 搜索包含 ignore 文件的内容
+              ["<C-i>"] = require("telescope-live-grep-args.actions").quote_prompt({ postfix = " --no-ignore " }),
               --iglob 通常表示启用广义匹配（glob matching），并且可能是“不区分大小写”（case insensitive）匹配的意思
               --例如：**/bar/**，这是一个 glob 模式，表示在任何层级的目录中查找名为 bar 的目录
-              ["<C-i>"] = require("telescope-live-grep-args.actions").quote_prompt({ postfix = " --iglob " }),
+              ["<C-g>"] = require("telescope-live-grep-args.actions").quote_prompt({ postfix = " --iglob " }),
               -- freeze the current list and start a fuzzy search in the frozen list
               ["<C-space>"] = actions.to_fuzzy_refine,
             },
