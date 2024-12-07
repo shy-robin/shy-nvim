@@ -57,6 +57,10 @@ return {
         "<leader>a",
         group = "+ai",
       },
+      {
+        "<leader>l",
+        group = "+lazy",
+      },
     },
     triggers = {
       -- terminal 模式下禁用，否则按 esc 无法退出一些功能

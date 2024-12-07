@@ -168,3 +168,13 @@ Snacks.toggle({
     end
   end,
 }):map("<leader>uS")
+
+-- lazy
+del("n", "<leader>l")
+del("n", "<leader>L")
+set("n", "<leader>ll", "<cmd>Lazy<cr>", { desc = "Lazy" })
+-- 将插件版本重置到 lock 版本
+set("n", "<leader>lr", "<cmd>Lazy restore<cr>", { desc = "Lazy Restore" })
+set("n", "<leader>lc", function()
+  LazyVim.news.changelog()
+end, { desc = "LazyVim Changelog" })
