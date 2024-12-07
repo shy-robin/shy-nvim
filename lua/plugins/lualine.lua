@@ -33,6 +33,23 @@ return {
         lualine_c = {
           { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
           { "filename", symbols = { modified = "󰳻", readonly = "󰍁", unnamed = "󰡯" } },
+          -- 显示 supermaven 的状态
+          {
+            function()
+              local api = require("supermaven-nvim.api")
+              if api.is_running() then
+                return "󱙺 "
+              end
+              return "󱚠 "
+            end,
+            color = function()
+              local api = require("supermaven-nvim.api")
+              if api.is_running() then
+                return Util.ui.fg("Special")
+              end
+              return Util.ui.fg("Comment")
+            end,
+          },
           {
             "diagnostics",
             symbols = {
