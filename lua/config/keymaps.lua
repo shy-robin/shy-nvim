@@ -178,3 +178,20 @@ set("n", "<leader>lr", "<cmd>Lazy restore<cr>", { desc = "Lazy Restore" })
 set("n", "<leader>lc", function()
   LazyVim.news.changelog()
 end, { desc = "LazyVim Changelog" })
+
+-- Supermaven 开关
+Snacks.toggle({
+  name = "Supermaven",
+  get = function()
+    local api = require("supermaven-nvim.api")
+    return api.is_running()
+  end,
+  set = function(enabled)
+    local api = require("supermaven-nvim.api")
+    if enabled then
+      api.start()
+    else
+      api.stop()
+    end
+  end,
+}):map("<leader>ast")
