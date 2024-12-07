@@ -90,6 +90,12 @@ nvim
 - [neovimcraft](https://neovimcraft.com/)
 - [awesome-neovim](https://github.com/rockerBOO/awesome-neovim)
 
+## 💬 其他问题
+
+- 如何使用某个 commit 版本的插件？
+
+  使用 `<leader>lr` 或者 `:Lazy restore` 命令将插件版本恢复到 lock 文件指定版本。
+
 ## 🛠️ 其他工具
 
 - [kitty](https://sw.kovidgoyal.net/kitty/)
