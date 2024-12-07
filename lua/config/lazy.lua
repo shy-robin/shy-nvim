@@ -27,6 +27,7 @@ require("lazy").setup({
   defaults = {
     -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
     -- If you know what you're doing, you can set this to `true` to have all your custom plugins lazy-loaded by default.
+    -- NOTE: 这里开启了默认所有插件懒加载，有些插件可能不生效，需要手动声明 event 值，比如 VeryLazy
     lazy = true,
     -- It's recommended to leave version=false for now, since a lot the plugin that support versioning,
     -- have outdated releases, which may break your Neovim install.
