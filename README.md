@@ -74,6 +74,32 @@ rm -rf ~/.config/nvim/.git
 nvim
 ```
 
+## 📄 功能指南
+
+### 搜索文件
+
+| 功能                 | 快捷键                                                                                   | 描述                                                           |
+| -------------------- | ---------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| 搜索文件（Root Dir） | <kbd>leader</kbd> + <kbd>leader</kbd> 或 <kbd>leader</kbd> + <kbd>f</kbd> + <kbd>f</kbd> | 搜索当前 buffer 根目录下的文件（不包含 ignore 和 hidden 文件） |
+| 搜索文件（cwd）      | <kbd>leader</kbd> + <kbd>f</kbd> + <kbd>F</kbd>                                          | 搜索当前工作目录下的文件（不包含 ignore 和 hidden 文件）       |
+| 搜索隐藏文件         | 搜索框下按 <kbd>Ctrl</kbd> + <kbd>u</kbd>                                                | 搜索 hidden 文件（比如 `.git` 等）                             |
+| 搜索 git 忽略文件    | 搜索框下按 <kbd>Ctrl</kbd> + <kbd>i</kbd>                                                | 搜索 ignore 文件（比如 `.gitignore` 里的文件等）               |
+
+> Root Dir 是指当前 buffer 的根目录，cwd 是指当前工作目录。
+> 比如，在 `~/.config/nvim/` 打开 nvim 时，cwd 为 `~/.config/nvim/`，Root Dir 为 `~/.config/nvim`，如果在项目内打开 `~/Projects/demo/index.js` 文件，
+> cwd 为 `~/.config/nvim/`，Root Dir 为 `~/Projects/demo/`。
+
+### 搜索文本
+
+| 功能                 | 快捷键                                                                              | 描述                                                                  |
+| -------------------- | ----------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| 搜索文本（Root Dir） | <kbd>leader</kbd> + <kbd>/</kbd> 或 <kbd>leader</kbd> + <kbd>s</kbd> + <kbd>g</kbd> | 搜索当前 buffer 根目录下的文本（不包含 ignore 和 hidden 文件）        |
+| 搜索文本（cwd）      | <kbd>leader</kbd> + <kbd>s</kbd> + <kbd>G</kbd>                                     | 搜索当前工作目录下的文本（不包含 ignore 和 hidden 文件）              |
+| 搜索 git 忽略文本    | 搜索框下按 <kbd>Ctrl</kbd> + <kbd>i</kbd>                                           | 搜索 ignore 文本（比如 `.gitignore` 里的文本等）                      |
+| glob 模式搜索        | 搜索框下按 <kbd>Ctrl</kbd> + <kbd>g</kbd>                                           | 搜索 glob 模式（比如 `**/*.js` 等）                                   |
+| 筛选路径             | 搜索框下按 <kbd>Ctrl</kbd> + <kbd>f</kbd>                                           | 筛选路径                                                              |
+| 冻结列表             | 搜索框下按 <kbd>Ctrl</kbd> + <kbd>space</kbd>                                       | 冻结列表，对列表进行二次搜索，比如可以使用 `!.lua` 排除指定的文件类型 |
+
 ## 🎓 入门教程
 
 本配置基于 LazyVim，如果你不了解它的用法，可以参考以下入门教程：
@@ -94,7 +120,7 @@ nvim
 
 - 如何使用某个 commit 版本的插件？
 
-  使用 `<leader>lr` 或者 `:Lazy restore` 命令将插件版本恢复到 lock 文件指定版本。
+  使用 <kbd>leader</kbd> + <kbd>l</kbd> + <kbd>r</kbd> 或者 `:Lazy restore` 命令将插件版本恢复到 lock 文件指定版本。
 
 ## 🛠️ 其他工具
 
