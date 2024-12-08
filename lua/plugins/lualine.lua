@@ -68,15 +68,19 @@ return {
           -- see: https://github.com/nvim-lualine/lualine.nvim/issues/906
           {
             "%{get(g:, 'coc_status', '')}",
-            color = { fg = "#97C379", gui = "bold" },
-            icon = { "", align = "left" },
+            color = function()
+              return Util.ui.fg("DiagnosticInfo")
+            end,
+            icon = { " ", align = "left" },
           },
           -- 显示 macro 记录
           {
             require("noice").api.statusline.mode.get,
             cond = require("noice").api.statusline.mode.has,
-            color = { fg = "#ff9e64" },
-            icon = { "", align = "left" },
+            color = function()
+              return Util.ui.fg("WarningMsg")
+            end,
+            icon = { " ", align = "left" },
           },
         },
         lualine_x = {
