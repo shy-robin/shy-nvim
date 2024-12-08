@@ -147,7 +147,8 @@ nvim
 
 ### 问题
 
-- [ ] `<leader>e` 打开 nvim-tree，此时 `<C-o>` 打开 floaterm，使用 `<C-h>` 或 `<C-l>` 切换会报错
+- [x] `<leader>e` 打开 nvim-tree，此时 `<C-o>` 打开 floaterm，使用 `<C-h>` 或 `<C-l>` 切换会报错
+  - [fix(#3018): error when focusing nvim-tree when in terminal mode (#3019)](https://github.com/nvim-tree/nvim-tree.lua/commit/db8d7ac1f524fc6f808764b29fa695c51e014aa6)
 - [x] 打开 lua 文件，会提示 `StyLua v2.0.1 is available to install.`，初步定位是 coc 的问题
   - `"stylua.checkUpdate": false` 关闭更新检查
 - [x] `<leader>ub` 切换透明背景后，有些对话框的背景颜色和边框颜色不透明
