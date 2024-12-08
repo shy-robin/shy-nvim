@@ -17,6 +17,26 @@
 - [ ] 翻译（[translate.nvim](https://github.com/uga-rosa/translate.nvim)）
 - [ ] 注释画图（[venn.nvim](https://github.com/jbyuki/venn.nvim)）
 
+## [1.0.3](https://github.com/shy-robin/shy-nvim/compare/v1.0.2...v1.0.3) (2024-12-08)
+
+### Added
+
+- 增加 Supermaven 插件，用于 AI 代码续写
+- 增加 CHANGELOG.md 文件
+- 增加 `<leader>ll` 快捷键组合，用于打开 LazyVim
+
+### Changed
+
+- 默认开启所有插件 lazy 加载
+- llm.nvim 修改交互样式
+- 修改 markdown-preview.nvim 的默认配置
+
+### Fixed
+
+- 修复 live greps 时无法使用 `<C-f>` 搜索文件的问题
+- `<leader>e` 打开 nvim-tree，此时 `<C-o>` 打开 floaterm，使用 `<C-h>` 或 `<C-l>` 切换会报错
+  - [fix(#3018): error when focusing nvim-tree when in terminal mode (#3019)](https://github.com/nvim-tree/nvim-tree.lua/commit/db8d7ac1f524fc6f808764b29fa695c51e014aa6)
+
 ## [1.0.2](https://github.com/shy-robin/shy-nvim/compare/v1.0.1...v1.0.2) (2024-12-06)
 
 ### Added
@@ -35,8 +55,6 @@
 - 修复 nvim-tree 打开时，无法使用 `<C-f>` 搜索文件的问题
 - 修复切换背景透明时，coc 弹窗，floaterm 和 lualine 的背景颜色和边框颜色不透明的问题
   - coc 弹窗未找到 highlight group ，暂时未清除
-- `<leader>e` 打开 nvim-tree，此时 `<C-o>` 打开 floaterm，使用 `<C-h>` 或 `<C-l>` 切换会报错
-  - [fix(#3018): error when focusing nvim-tree when in terminal mode (#3019)](https://github.com/nvim-tree/nvim-tree.lua/commit/db8d7ac1f524fc6f808764b29fa695c51e014aa6)
 
 ## [1.0.1](https://github.com/shy-robin/shy-nvim/compare/v1.0.0...v1.0.1) (2024-12-05)
 
