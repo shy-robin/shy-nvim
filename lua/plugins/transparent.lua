@@ -1,5 +1,6 @@
 return {
   "xiyaowong/transparent.nvim",
+  event = "VeryLazy",
   init = function()
     vim.g.transparent_groups =
       -- coc 弹窗未找到 highlight group ，暂时未清除
