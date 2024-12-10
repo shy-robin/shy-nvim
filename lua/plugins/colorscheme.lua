@@ -9,12 +9,12 @@ return {
     -- lazy = true,
     -- opts = { style = "night" },
   },
-  {
-    "navarasu/onedark.nvim",
-    event = "VeryLazy",
-    -- lazy = true,
-    -- opts = { style = "cool" },
-  },
+  -- {
+  --   "navarasu/onedark.nvim",
+  --   event = "VeryLazy",
+  --   lazy = true,
+  --   opts = { style = "cool" },
+  -- },
   {
     "catppuccin/nvim",
     event = "VeryLazy",
@@ -45,6 +45,25 @@ return {
   },
   {
     "Mofiqul/vscode.nvim",
+    event = "VeryLazy",
+  },
+  {
+    "rmehri01/onenord.nvim",
+    event = "VeryLazy",
+  },
+  {
+    "projekt0n/github-nvim-theme",
+    event = "VeryLazy",
+  },
+  {
+    "olimorris/onedarkpro.nvim",
+    event = "VeryLazy",
+    opts = {
+      transparency = false,
+    },
+  },
+  {
+    "shaunsingh/nord.nvim",
     event = "VeryLazy",
   },
   {
