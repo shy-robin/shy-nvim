@@ -8,6 +8,7 @@
   "coc.nvim": { "branch": "release", "commit": "ebe7a08ece39a7ea867cb43497ce83ad722b6f07" },
   "comment-box.nvim": { "branch": "main", "commit": "06bb771690bc9df0763d14769b779062d8f12bc5" },
   "conform.nvim": { "branch": "master", "commit": "25d48271e3d4404ba017cb92a37d3a681c1ad149" },
+  "darkplus.nvim": { "branch": "master", "commit": "c7fff5ce62406121fc6c9e4746f118b2b2499c4c" },
   "dashboard-nvim": { "branch": "master", "commit": "ae309606940d26d8c9df8b048a6e136b6bbec478" },
   "diffview.nvim": { "branch": "main", "commit": "4516612fe98ff56ae0415a259ff6361a89419b0a" },
   "dressing.nvim": { "branch": "master", "commit": "fc78a3ca96f4db9f8893bb7e2fd9823e0780451b" },
