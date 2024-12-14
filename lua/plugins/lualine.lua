@@ -1,6 +1,7 @@
+-- 部分样式参考：<https://github.dev/Parsifa1/nvim/tree/master/lua>
 return {
   "nvim-lualine/lualine.nvim",
-  event = "UIEnter",
+  event = "VeryLazy",
   opts = function()
     local function diff_source()
       local gitsigns = vim.b.gitsigns_status_dict
@@ -21,26 +22,42 @@ return {
         theme = "auto",
         globalstatus = true,
         disabled_filetypes = {
-          statusline = { "dashboard", "alpha" },
-          winbar = { "dashboard", "alpha" },
+          statusline = { "dashboard", "alpha", "snacks_dashboard" },
+          winbar = { "dashboard", "alpha", "snacks_dashboard" },
         },
         component_separators = "",
         section_separators = { left = "", right = "" },
       },
       sections = {
-        lualine_a = { "mode" },
-        lualine_b = { "branch" },
+        lualine_a = {
+          {
+            "mode",
+            separator = { left = "", right = "" },
+            padding = { left = 0, right = 0 },
+          },
+        },
+        lualine_b = {
+          "branch",
+        },
         lualine_c = {
-          { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-          { "filename", symbols = { modified = "󰳻", readonly = "󰍁", unnamed = "󰡯" } },
+          {
+            "filetype",
+            icon_only = true,
+            separator = "",
+            padding = { left = 1, right = 0 },
+          },
+          {
+            "filename",
+            symbols = { modified = "󰳻", readonly = "󰍁", unnamed = "󰡯" },
+          },
           -- 显示 supermaven 的状态
           {
             function()
               local api = require("supermaven-nvim.api")
               if api.is_running() then
-                return "󱙺 "
+                return " "
               end
-              return "󱚠 "
+              return " "
             end,
             color = function()
               local api = require("supermaven-nvim.api")
@@ -71,7 +88,6 @@ return {
             color = function()
               return Util.ui.fg("DiagnosticInfo")
             end,
-            icon = { " ", align = "left" },
           },
           -- 显示 macro 记录
           {
@@ -80,7 +96,7 @@ return {
             color = function()
               return Util.ui.fg("WarningMsg")
             end,
-            icon = { " ", align = "left" },
+            icon = { " ", align = "left" },
           },
         },
         lualine_x = {
@@ -144,10 +160,13 @@ return {
         },
         lualine_z = {
           "progress",
-          "location",
+          {
+            "location",
+            separator = { right = "" },
+          },
         },
       },
-      extensions = { "neo-tree", "lazy" },
+      extensions = { "lazy", "nvim-tree" },
     }
   end,
 }
