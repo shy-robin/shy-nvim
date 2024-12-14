@@ -169,4 +169,16 @@ return {
       extensions = { "lazy", "nvim-tree" },
     }
   end,
+  config = function(_, opts)
+    -- 将 lualine 的背景颜色设置为透明
+    local auto = require("lualine.themes.auto")
+    local lualine_modes = { "insert", "normal", "visual", "command", "replace", "inactive", "terminal" }
+    for _, field in ipairs(lualine_modes) do
+      if auto[field] and auto[field].c then
+        auto[field].c.bg = "NONE"
+      end
+    end
+    opts.options.theme = auto
+    require("lualine").setup(opts)
+  end,
 }
