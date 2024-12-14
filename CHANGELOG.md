@@ -5,7 +5,7 @@
 
 ## [unreleased]
 
-### Added
+### To be added
 
 - [x] 折叠代码区域，vscode 里的 #region #endregion 范围内折叠
   - 暂时无法实现（参考：<https://github.com/kevinhwang91/nvim-ufo/issues/233>）
@@ -16,6 +16,10 @@
 - [ ] api 请求（[rest.nvim](https://github.com/rest-nvim/rest.nvim) 或 [kulala.nvim](https://github.com/mistweaverco/kulala.nvim))
 - [ ] 翻译（[translate.nvim](https://github.com/uga-rosa/translate.nvim)）
 - [ ] 注释画图（[venn.nvim](https://github.com/jbyuki/venn.nvim)）
+
+### To be fixed
+
+- [ ] 初始化时，lualine 的背景色失效问题
 
 ## [1.0.3](https://github.com/shy-robin/shy-nvim/compare/v1.0.2...v1.0.3) (2024-12-08)
 
