@@ -6,15 +6,7 @@ return {
   {
     "folke/tokyonight.nvim",
     event = "VeryLazy",
-    -- lazy = true,
-    -- opts = { style = "night" },
   },
-  -- {
-  --   "navarasu/onedark.nvim",
-  --   event = "VeryLazy",
-  --   lazy = true,
-  --   opts = { style = "cool" },
-  -- },
   {
     "catppuccin/nvim",
     event = "VeryLazy",
@@ -28,19 +20,11 @@ return {
     event = "VeryLazy",
   },
   {
-    "Th3Whit3Wolf/one-nvim",
-    event = "VeryLazy",
-  },
-  {
     "rockerBOO/boo-colorscheme-nvim",
     event = "VeryLazy",
   },
   {
     "marko-cerovac/material.nvim",
-    event = "VeryLazy",
-  },
-  {
-    "RRethy/nvim-base16",
     event = "VeryLazy",
   },
   {
