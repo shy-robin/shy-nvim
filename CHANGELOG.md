@@ -7,6 +7,9 @@
 
 ### To be added
 
+- [ ] 主题持久化
+- [ ] colorizer
+- [ ] colorizer-picker
 - [x] 折叠代码区域，vscode 里的 #region #endregion 范围内折叠
   - 暂时无法实现（参考：<https://github.com/kevinhwang91/nvim-ufo/issues/233>）
   - 代替方法：visual mode 选中多行代码，使用 `zf` 折叠
