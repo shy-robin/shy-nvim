@@ -166,7 +166,7 @@ return {
           },
         },
       },
-      extensions = { "lazy", "nvim-tree" },
+      extensions = { "lazy" },
     }
   end,
   config = function(_, opts)
