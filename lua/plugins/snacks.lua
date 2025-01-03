@@ -60,6 +60,9 @@ return {
         vim.b.minianimate_disable = true
       end,
     },
+    scroll = {
+      enabled = false,
+    },
     win = {
       -- 设置所有浮动窗口边框透明
       backdrop = 100,
