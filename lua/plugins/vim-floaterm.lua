@@ -11,36 +11,42 @@ return {
       "<C-o>",
       "<cmd>FloatermToggle<cr>",
       desc = "Toggle Floaterm",
+      ft = "floaterm",
       mode = "t",
     },
     {
       "<C-n>",
       "<cmd>FloatermNew<cr>",
       desc = "New Floaterm",
+      ft = "floaterm",
       mode = "t",
     },
     {
       "<C-h>",
       "<cmd>FloatermPrev<cr>",
       desc = "Prev Floaterm",
+      ft = "floaterm",
       mode = "t",
     },
     {
       "<C-l>",
       "<cmd>FloatermNext<cr>",
       desc = "Next Floaterm",
+      ft = "floaterm",
       mode = "t",
     },
     {
       "<C-f>",
       "<cmd>FloatermFirst<cr>",
       desc = "First Floaterm",
+      ft = "floaterm",
       mode = "t",
     },
     {
       "<C-e>",
       "<cmd>FloatermLast<cr>",
       desc = "Last Floaterm",
+      ft = "floaterm",
       mode = "t",
     },
     -- use <esc><esc> of LazyVim instead
@@ -49,6 +55,7 @@ return {
       "<esc><esc>",
       "<C-\\><C-n>",
       desc = "Enter Normal Mode",
+      ft = "floaterm",
       mode = "t",
     },
     {
@@ -66,12 +73,14 @@ return {
         end
       end,
       desc = "Toggle Floaterm Size",
+      ft = "floaterm",
       mode = "t",
     },
     {
       "<C-q>",
       "<cmd>FloatermKill<cr>",
       desc = "Quit Floaterm",
+      ft = "floaterm",
       mode = "t",
     },
     {
