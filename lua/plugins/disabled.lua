@@ -36,6 +36,8 @@ local plugins = {
   "luukvbaal/statuscol.nvim",
   -- 使用 LazyVim 提供的 Snacks.indent-blankline
   "lukas-reineke/indent-blankline.nvim",
+  -- 与 coc 冲突，暂时禁用
+  "saghen/blink.cmp",
 }
 
 local disabled_plugins = {}
