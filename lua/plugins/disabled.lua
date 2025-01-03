@@ -34,6 +34,8 @@ local plugins = {
   "LunarVim/bigfile.nvim",
   -- 使用 LazyVim 提供的 Snacks.statuscolumn
   "luukvbaal/statuscol.nvim",
+  -- 使用 LazyVim 提供的 Snacks.indent-blankline
+  "lukas-reineke/indent-blankline.nvim",
 }
 
 local disabled_plugins = {}
