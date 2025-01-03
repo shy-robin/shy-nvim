@@ -15,7 +15,6 @@ return {
     end
 
     local icons = require("lazyvim.config").icons
-    local Util = require("lazyvim.util")
 
     return {
       options = {
@@ -62,9 +61,9 @@ return {
             color = function()
               local api = require("supermaven-nvim.api")
               if api.is_running() then
-                return Util.ui.fg("Special")
+                return { fg = Snacks.util.color("Special") }
               end
-              return Util.ui.fg("Comment")
+              return { fg = Snacks.util.color("Comment") }
             end,
           },
           {
@@ -86,7 +85,7 @@ return {
           {
             "%{get(g:, 'coc_status', '')}",
             color = function()
-              return Util.ui.fg("DiagnosticInfo")
+              return { fg = Snacks.util.color("DiagnosticInfo") }
             end,
           },
           -- 显示 macro 记录
@@ -94,7 +93,7 @@ return {
             require("noice").api.statusline.mode.get,
             cond = require("noice").api.statusline.mode.has,
             color = function()
-              return Util.ui.fg("WarningMsg")
+              return { fg = Snacks.util.color("WarningMsg") }
             end,
             icon = { " ", align = "left" },
           },
@@ -139,9 +138,13 @@ return {
           {
             function() return "  " .. require("dap").status() end,
             cond = function() return package.loaded["dap"] and require("dap").status() ~= "" end,
-            color = Util.ui.fg("Debug"),
+            color = { fg = Snacks.util.color("Debug") }
           },
-          { require("lazy.status").updates, cond = require("lazy.status").has_updates, color = Util.ui.fg("Special") },
+          {
+            require("lazy.status").updates,
+            cond = require("lazy.status").has_updates,
+            color = { fg = Snacks.util.color("Special") },
+          },
           {
             "diff",
             symbols = {
