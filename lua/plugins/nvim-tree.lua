@@ -46,9 +46,9 @@ local function grep_at_current_tree_node()
     path = node.parent.absolute_path
   end
 
-  require("telescope.builtin").live_grep({
-    search_dirs = { path },
-    prompt_title = string.format("Live Grep in [%s]", vim.fs.basename(path)),
+  require("fzf-lua").live_grep({
+    cwd = path,
+    prompt = string.format("[%s] ", vim.fs.basename(path)),
   })
 end
 
