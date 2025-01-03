@@ -38,6 +38,10 @@ local plugins = {
   "lukas-reineke/indent-blankline.nvim",
   -- 与 coc 冲突，暂时禁用
   "saghen/blink.cmp",
+  -- 使用 fzf.lua 代替
+  "nvim-telescope/telescope.nvim",
+  -- 使用 fzf.lua 代替
+  "nvim-telescope/telescope-file-browser.nvim",
 }
 
 local disabled_plugins = {}
