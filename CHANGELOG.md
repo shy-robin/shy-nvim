@@ -19,11 +19,28 @@
 - [ ] api 请求（[rest.nvim](https://github.com/rest-nvim/rest.nvim) 或 [kulala.nvim](https://github.com/mistweaverco/kulala.nvim))
 - [ ] 翻译（[translate.nvim](https://github.com/uga-rosa/translate.nvim)）
 - [ ] 注释画图（[venn.nvim](https://github.com/jbyuki/venn.nvim)）
+- [ ] lualine 闪烁问题（<https://github.com/nvim-lualine/lualine.nvim/issues/1280>）
 
 ### To be fixed
 
-- [x] 初始化时，lualine 的背景色失效问题
-  - [b66ad56]
+## [1.1.0](https://github.com/shy-robin/shy-nvim/compare/v1.0.3...v1.1.0) (2025-01-04)
+
+### Added
+
+- 增加 `leetcode.nvim` 插件
+
+### Changed
+
+- 升级 LazyVim 至 14.x
+- 使用 `Snacks.indent` 代替 `indent-blankline.nvim`
+- 禁用 LazyVim 默认的 `blink.cmp` （与 `coc` 冲突）
+- 使用 `fzf.lua` 代替 `telescope.nvim`
+- 移除不常用、异常的主题插件
+- 修改 lualine 的样式
+
+### Fixed
+
+- 初始化时，lualine 的背景色失效问题 [b66ad56]
 
 ## [1.0.3](https://github.com/shy-robin/shy-nvim/compare/v1.0.2...v1.0.3) (2024-12-08)
 
