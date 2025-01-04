@@ -1,3 +1,12 @@
+get_colorscheme = function()
+  local path = vim.fn.stdpath("data") .. "/shy-nvim_theme_cache"
+  local exists, lines = pcall(vim.fn.readfile, path)
+  if exists and lines[1] then
+    return lines[1]
+  end
+  return "material"
+end
+
 return {
   {
     "sainnhe/everforest",
@@ -59,7 +68,7 @@ return {
     lazy = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     opts = {
-      colorscheme = "material-oceanic",
+      colorscheme = get_colorscheme(),
     },
   },
 }

@@ -144,5 +144,10 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     hl(0, "GitSignsChangedelete", { fg = "#E5C07B" })
     hl(0, "GitSignsUntracked", { fg = "#E06C75" })
     hl(0, "GitsignsCurrentLineBlame", { fg = "#62686E" })
+
+    -- 缓存选中的主题
+    local cache_file = vim.fn.stdpath("data") .. "/shy-nvim_theme_cache"
+    local colorscheme = vim.g.colors_name
+    vim.fn.writefile({ tostring(colorscheme) }, cache_file)
   end,
 })
