@@ -7,7 +7,7 @@
 
 ### To be added
 
-- [ ] 主题持久化
+- [ ] fzf 持久化
 - [ ] colorizer
 - [ ] colorizer-picker
 - [x] 折叠代码区域，vscode 里的 #region #endregion 范围内折叠
@@ -22,6 +22,9 @@
 - [ ] lualine 闪烁问题（<https://github.com/nvim-lualine/lualine.nvim/issues/1280>）
 
 ### To be fixed
+
+- [x] 主题持久化 [b0cf6ac]
+- [x] 移除 markdown spell check [ab2da2a]
 
 ## [1.1.0](https://github.com/shy-robin/shy-nvim/compare/v1.0.3...v1.1.0) (2025-01-04)
 
