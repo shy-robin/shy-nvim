@@ -151,3 +151,12 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     vim.fn.writefile({ tostring(colorscheme) }, cache_file)
   end,
 })
+
+-- markdown 和 txt 文件不检查拼写
+-- 参考：<https://github.com/LazyVim/LazyVim/discussions/4021>
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "markdown", "txt" },
+  callback = function()
+    vim.opt_local.spell = false
+  end,
+})
