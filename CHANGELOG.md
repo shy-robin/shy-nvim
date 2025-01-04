@@ -8,7 +8,6 @@
 ### To be added
 
 - [ ] fzf 持久化
-- [ ] colorizer
 - [ ] colorizer-picker
 - [x] 折叠代码区域，vscode 里的 #region #endregion 范围内折叠
   - 暂时无法实现（参考：<https://github.com/kevinhwang91/nvim-ufo/issues/233>）
@@ -25,6 +24,7 @@
 
 - [x] 主题持久化 [b0cf6ac]
 - [x] 移除 markdown spell check [ab2da2a]
+- [x] colorizer [646ba4c]
 
 ## [1.1.0](https://github.com/shy-robin/shy-nvim/compare/v1.0.3...v1.1.0) (2025-01-04)
 
