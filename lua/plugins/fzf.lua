@@ -9,7 +9,8 @@ return {
         true,
         ["<Esc>"] = "hide", -- hide fzf-lua, `:FzfLua resume` to continue
         ["<C-h>"] = "toggle-help",
-        ["<C-m>"] = "toggle-fullscreen",
+        -- 不能使用 <C-m> 因为它是 enter 的等效快捷键
+        ["<C-l>"] = "toggle-fullscreen",
         ["<C-p>"] = "toggle-preview",
       },
     },
