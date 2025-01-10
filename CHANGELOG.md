@@ -7,7 +7,8 @@
 
 ### To be added
 
-- [ ] fzf 持久化
+- [ ] 回退上次跳转文件（使用 `<leader>sj` 查找 jump list）
+- [ ] fzf 持久化 (fzf 暂不支持)
 - [ ] colorizer-picker
 - [x] 折叠代码区域，vscode 里的 #region #endregion 范围内折叠
   - 暂时无法实现（参考：<https://github.com/kevinhwang91/nvim-ufo/issues/233>）
