@@ -147,6 +147,11 @@ return {
       end,
       desc = "Lazygit Current File History",
     },
+    {
+      "<leader>y",
+      "<cmd>FloatermNew yazi<cr>",
+      desc = "Open Yazi",
+    },
   },
   config = function()
     vim.g.floaterm_borderchars = "─│─│╭╮╯╰"
