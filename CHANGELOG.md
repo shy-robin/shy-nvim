@@ -8,7 +8,7 @@
 ### To be added
 
 - [ ] org-mode 支持 或者 neorg 支持
-- [ ] 生成注释，如 jsdoc，以及文件注释（如文件作者，描述等信息）
+- [ ] 生成注释（使用 neogen 或者 snippet），如 jsdoc，以及文件注释（如文件作者，描述等信息）
 - [ ] 回退上次跳转文件（使用 `<leader>sj` 查找 jump list）
 - [ ] fzf 持久化 (fzf 暂不支持)
 - [ ] colorizer-picker
