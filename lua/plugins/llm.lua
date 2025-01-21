@@ -51,6 +51,7 @@ return {
         user = { text = userTitle, hl = "Title" },
         assistant = { text = robotTitle, hl = "Added" },
       },
+      style = "right",
 
       save_session = true,
       max_history = 15,
