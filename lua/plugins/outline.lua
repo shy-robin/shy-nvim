@@ -3,7 +3,7 @@ return {
   lazy = true,
   cmd = { "Outline", "OutlineOpen" },
   keys = {
-    { "<leader>o", "<cmd>Outline<CR>", desc = "Toggle Outline" },
+    { "<leader>oo", "<cmd>Outline<CR>", desc = "Toggle Outline" },
   },
   opts = function()
     local defaults = require("outline.config").defaults
