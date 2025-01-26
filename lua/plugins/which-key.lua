@@ -65,6 +65,30 @@ return {
         "<leader>as",
         group = "+supermaven",
       },
+      {
+        "<leader>ob",
+        group = "+buffer",
+      },
+      {
+        "<leader>od",
+        group = "+date",
+      },
+      {
+        "<leader>oi",
+        group = "+insert",
+      },
+      {
+        "<leader>ol",
+        group = "+link",
+      },
+      {
+        "<leader>on",
+        group = "+note",
+      },
+      {
+        "<leader>ox",
+        group = "+clock",
+      },
     },
     triggers = {
       -- terminal 模式下禁用，否则按 esc 无法退出一些功能
