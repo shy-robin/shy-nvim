@@ -68,6 +68,15 @@ return {
       backdrop = 100,
     },
   },
+  keys = {
+    {
+      "<leader>N",
+      function()
+        Snacks.notifier.show_history()
+      end,
+      desc = "Notification History",
+    },
+  },
   init = function()
     -- 参考：https://github.com/folke/snacks.nvim/blob/main/docs/debug.md
     vim.api.nvim_create_autocmd("User", {

@@ -195,3 +195,6 @@ Snacks.toggle({
     end
   end,
 }):map("<leader>ast")
+
+-- 使用 <leader>N 代替，避免 org-roam 键位冲突
+del("n", "<leader>n")
