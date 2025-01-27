@@ -12,7 +12,13 @@ return {
       org_default_notes_file = "~/org-files/refile.org",
       org_startup_folded = "showeverything",
     })
-    require("org-bullets").setup()
+    require("org-bullets").setup({
+      symbols = {
+        checkboxes = {
+          done = { "", "@org.keyword.done" },
+        },
+      },
+    })
     require("org-roam").setup({
       directory = "~/org-files/roam",
     })
