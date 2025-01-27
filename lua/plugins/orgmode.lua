@@ -14,10 +14,7 @@ return {
     })
     require("org-bullets").setup()
     require("org-roam").setup({
-      directory = "~/org-roam-files",
-      org_files = {
-        "~/orgfiles/**/*.org",
-      },
+      directory = "~/org-files/roam",
     })
   end,
 }
