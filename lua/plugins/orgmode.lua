@@ -8,8 +8,8 @@ return {
   ft = { "org" },
   config = function()
     require("orgmode").setup({
-      org_agenda_files = "~/orgfiles/**/*",
-      org_default_notes_file = "~/orgfiles/refile.org",
+      org_agenda_files = "~/org-files/**/*",
+      org_default_notes_file = "~/org-files/refile.org",
       org_startup_folded = "showeverything",
     })
     require("org-bullets").setup()
