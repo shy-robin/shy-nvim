@@ -210,6 +210,7 @@
   // 不需要自动检查更新
   "stylua.checkUpdate": false,
   "markdownlint.config": {
-    "line-length": false
+    "line-length": false,
+    "no-duplicate-heading": false
   }
 }
