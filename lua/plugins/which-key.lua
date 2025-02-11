@@ -66,6 +66,10 @@ return {
         group = "+supermaven",
       },
       {
+        "<leader>o",
+        group = "+org/outline",
+      },
+      {
         "<leader>ob",
         group = "+buffer",
       },
@@ -88,6 +92,10 @@ return {
       {
         "<leader>ox",
         group = "+clock",
+      },
+      {
+        "<leader>n",
+        group = "+org-roam",
       },
       {
         "<leader>na",
