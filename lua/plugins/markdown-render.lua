@@ -1,6 +1,6 @@
 return {
-  "MeanderingProgrammer/markdown.nvim",
-  main = "render-markdown",
+  "MeanderingProgrammer/render-markdown.nvim",
+  dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.icons" }, -- if you use standalone mini plugins
   opts = {
     heading = {
       -- Turn on / off heading icon & background rendering
@@ -37,5 +37,4 @@ return {
       },
     },
   },
-  dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.icons" }, -- if you use standalone mini plugins
 }
