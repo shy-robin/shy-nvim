@@ -38,7 +38,7 @@ return {
   dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim" },
   cmd = { "LLMSesionToggle", "LLMSelectedTextHandler", "LLMAppHandler" },
   config = function()
-    local tools = require("llm.common.tools")
+    local tools = require("llm.tools")
 
     local userTitle = get_user_title()
     local robotTitle = get_robot_title()
