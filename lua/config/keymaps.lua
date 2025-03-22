@@ -198,3 +198,19 @@ Snacks.toggle({
 
 -- 使用 <leader>N 代替，避免 org-roam 键位冲突
 del("n", "<leader>n")
+
+
+-- 显示最大字数竖线
+Snacks.toggle({
+  name = "Char Boundary",
+  get = function()
+    return vim.opt.colorcolumn._value ~= ""
+  end,
+  set = function(enabled)
+    if enabled then
+      vim.opt.colorcolumn = "80"
+    else
+      vim.opt.colorcolumn = ""
+    end
+  end,
+}):map("<leader>uB")
