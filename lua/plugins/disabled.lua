@@ -42,6 +42,7 @@ local plugins = {
   "nvim-telescope/telescope.nvim",
   -- 使用 fzf.lua 代替
   "nvim-telescope/telescope-file-browser.nvim",
+  "yetone/avante.nvim",
 }
 
 local disabled_plugins = {}
