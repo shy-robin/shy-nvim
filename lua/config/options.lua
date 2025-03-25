@@ -12,7 +12,7 @@ local opt = vim.opt
 opt.spelllang = nil
 
 -- 显示最大字数竖线
-opt.colorcolumn = "80"
+opt.colorcolumn = ""
 
 -- 滚动边距，影响 zt zb
 opt.scrolloff = 0 -- Lines of context
