@@ -509,6 +509,7 @@ return {
       -- "coc-yank",
       -- "coc-webview",
       "coc-translator",
+      "@yaegassy/coc-tailwindcss3",
     }
 
     -- Some servers have issues with backup files, see #649
