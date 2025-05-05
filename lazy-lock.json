@@ -57,6 +57,7 @@
   "onedarkpro.nvim": { "branch": "main", "commit": "88a69356c104f85c1794bc28522d8b939ab0a15e" },
   "onenord.nvim": { "branch": "main", "commit": "039f76baf948acfc7c7d987ad9392fdc2a0e8a1c" },
   "org-bullets.nvim": { "branch": "main", "commit": "21437cfa99c70f2c18977bffd423f912a7b832ea" },
+  "org-modern.nvim": { "branch": "main", "commit": "c024900b7ee78a0274036025569b47001ef3e6aa" },
   "org-roam.nvim": { "branch": "main", "commit": "5ff1c9b0d89ac4a142abe3723e535fb127a516e4" },
   "orgmode": { "branch": "master", "commit": "15d66ead1285d99f8a21c4ef4874ac62e9320fe6" },
   "outline.nvim": { "branch": "main", "commit": "321f89ef79f168a78685f70d70c52d0e7b563abb" },
