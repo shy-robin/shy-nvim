@@ -32,8 +32,13 @@
   },
   "UseState": {
     "prefix": "us",
-    "body": ["const [$1, set${1/(^.)/${1:/upcase}/}] = useState($2)"],
+    "body": ["const [$1, set${1/(^.)/${1:/upcase}/}] = useState${3}($2);"],
     "description": "Create useState."
+  },
+  "UseRef": {
+    "prefix": "ur",
+    "body": ["const $1 = useRef${3}($2);"],
+    "description": "Create useRef."
   },
   "UseImmer": {
     "prefix": "ui",
@@ -67,8 +72,13 @@
   },
   "UseMemo": {
     "prefix": "um",
-    "body": ["const $1 = useMemo(() => {$2}, [$3])"],
+    "body": ["const $1 = useMemo(() => {$2}, [$3]);"],
     "description": "Create useMemo"
+  },
+  "UseCallback": {
+    "prefix": "uc",
+    "body": ["const $1 = useCallback(() => {$2}, [$3]);"],
+    "description": "Create useCallback"
   },
   "JsDoc": {
     "prefix": ["jsdoc"],
