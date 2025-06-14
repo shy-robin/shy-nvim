@@ -2,11 +2,15 @@
   "FunctionComponent": {
     "prefix": "fc",
     "body": [
-      "function ${TM_FILENAME_BASE/(^.)/${1:/upcase}/}($1) {",
-      "\treturn ($2)",
+      "import React from 'react';",
+      "",
+      "export interface ${1:${TM_FILENAME_BASE/(^.)/${1:/upcase}/}}Props {",
+      "\t$2",
       "}",
       "",
-      "export default ${TM_FILENAME_BASE/(^.)/${1:/upcase}/}"
+      "export const ${1:${TM_FILENAME_BASE/(^.)/${1:/upcase}/}} = ({ $3 }: ${1:${TM_FILENAME_BASE/(^.)/${1:/upcase}/}}Props) => {",
+      "\treturn ${4:<div>${1:${TM_FILENAME_BASE/(^.)/${1:/upcase}/}}</div>;}",
+      "};"
     ],
     "description": "Create function component."
   },
