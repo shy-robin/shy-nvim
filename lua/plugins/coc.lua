@@ -505,6 +505,7 @@ return {
       "coc-pairs",
       "coc-snippets",
       "coc-markdownlint",
+      "coc-flutter",
       -- "coc-markdown-preview-enhanced",
       -- "coc-yank",
       -- "coc-webview",
