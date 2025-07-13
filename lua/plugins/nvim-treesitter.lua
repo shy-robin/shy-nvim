@@ -36,6 +36,7 @@ return {
       "css",
       "scss",
       "http",
+      "dart",
     },
   },
 }
