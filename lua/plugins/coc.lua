@@ -506,6 +506,7 @@ return {
       "coc-snippets",
       "coc-markdownlint",
       "coc-flutter",
+      "coc-go",
       -- "coc-markdown-preview-enhanced",
       -- "coc-yank",
       -- "coc-webview",
