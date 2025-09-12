@@ -38,6 +38,9 @@ return {
       "http",
       "dart",
       "go",
+      "latex",
+      "norg",
+      "typst",
     },
   },
 }
