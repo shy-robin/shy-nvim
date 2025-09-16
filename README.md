@@ -44,6 +44,9 @@
     1. 安装 python：`brew install python`，检查是否安装成功：`python3 --version`
     2. 安装 pynvim：`pip3 install pynvim`，如果安装提示 ssl 的报错，需要断开 vpn 进行安装，检查是否安装成功：`python3` -> `import pynvim` -> `print(pynvim.__vesion__)`
     3. 检查 nvim 是否安装 python 环境：`:echo has('python3')`，若返回 1 则有，若为 0 则无
+- 其他依赖
+  - `:checkhealth snacks`
+  * `:checkhealth img-clip`
 
 ## 🚀 开始使用
 
