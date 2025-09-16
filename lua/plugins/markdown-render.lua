@@ -44,22 +44,23 @@ return {
       render_modes = true, -- keep rendering while inserting
     },
     checkbox = {
+      enabled = true,
       unchecked = {
-        icon = '󰄱',
+        icon = '󰄱 ',
         highlight = 'RenderMarkdownCodeFallback',
         scope_highlight = 'RenderMarkdownCodeFallback',
       },
       checked = {
-        icon = '󰄵',
+        icon = '󰄵 ',
         highlight = 'RenderMarkdownUnchecked',
         scope_highlight = 'RenderMarkdownUnchecked',
       },
       custom = {
-        question = { raw = '[?]', rendered = '', highlight = 'RenderMarkdownError', scope_highlight = 'RenderMarkdownError' },
-        todo = { raw = '[>]', rendered = '󰦖', highlight = 'RenderMarkdownInfo', scope_highlight = 'RenderMarkdownInfo' },
-        canceled = { raw = '[-]', rendered = '', highlight = 'RenderMarkdownCodeFallback', scope_highlight = '@text.strike' },
-        important = { raw = '[!]', rendered = '', highlight = 'RenderMarkdownWarn', scope_highlight = 'RenderMarkdownWarn' },
-        favorite = { raw = '[~]', rendered = '', highlight = 'RenderMarkdownMath', scope_highlight = 'RenderMarkdownMath' },
+        question = { raw = '[?]', rendered = ' ', highlight = 'RenderMarkdownError', scope_highlight = 'RenderMarkdownError' },
+        todo = { raw = '[>]', rendered = '󰦖 ', highlight = 'RenderMarkdownInfo', scope_highlight = 'RenderMarkdownInfo' },
+        canceled = { raw = '[-]', rendered = ' ', highlight = 'RenderMarkdownCodeFallback', scope_highlight = '@text.strike' },
+        important = { raw = '[!]', rendered = ' ', highlight = 'RenderMarkdownWarn', scope_highlight = 'RenderMarkdownWarn' },
+        favorite = { raw = '[~]', rendered = ' ', highlight = 'RenderMarkdownMath', scope_highlight = 'RenderMarkdownMath' },
       },
     },
     pipe_table = {
