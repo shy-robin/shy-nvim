@@ -67,6 +67,9 @@ return {
       -- 设置所有浮动窗口边框透明
       backdrop = 100,
     },
+    image = {
+      enabled = true,
+    },
   },
   keys = {
     {
