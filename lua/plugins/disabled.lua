@@ -2,12 +2,12 @@ local plugins = {
   "nvimtools/none-ls.nvim",
   "goolord/alpha-nvim",
   "RRethy/vim-illuminate",
-  -- "williamboman/mason.nvim",
-  "williamboman/mason-lspconfig.nvim",
+  -- "mason-org/mason.nvim",
+  "mason-org/mason-lspconfig.nvim",
   "hrsh7th/nvim-cmp",
   "neovim/nvim-lspconfig",
   -- 禁用这个插件，使用 coc-pair
-  "echasnovski/mini.pairs",
+  "nvim-mini/mini.pairs",
   -- use coc-snippets instead
   -- coc 不支持 LuaSnip (https://github.com/neoclide/coc.nvim/discussions/4477)
   "L3MON4D3/LuaSnip",
