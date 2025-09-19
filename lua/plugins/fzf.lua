@@ -10,16 +10,22 @@ return {
       builtin = {
         true,
         ["<Esc>"] = "hide", -- hide fzf-lua, `:FzfLua resume` to continue
-        ["<C-h>"] = "toggle-help",
+        ["<C-f>"] = "toggle-help",
         -- 不能使用 <C-m> 因为它是 enter 的等效快捷键
-        ["<C-l>"] = "toggle-fullscreen",
-        ["<C-o>"] = "toggle-preview",
+        ["<C-o>"] = "toggle-fullscreen",
+        ["<C-a>"] = "toggle-preview",
         ["<C-n>"] = "preview-page-down",
         ["<C-p>"] = "preview-page-up",
+      },
+      fzf = {
+        true,
+        ["ctrl-h"] = "prev-history",
+        ["ctrl-l"] = "next-history",
       },
     },
     fzf_opts = {
       ["--cycle"] = true,
+      ["--history"] = vim.fn.stdpath("data") .. "/fzf-lua-history",
     },
     actions = {
       -- Below are the default actions, setting any value in these tables will override
