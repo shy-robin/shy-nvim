@@ -209,6 +209,8 @@
   ],
   // 不需要自动检查更新
   "stylua.checkUpdate": false,
+  // stylua 安装路径（使用用户安装的 stylua，否则无法使用 stylua 命令）
+  "stylua.styluaPath": "/opt/homebrew/bin/stylua",
   "markdownlint.config": {
     "line-length": false,
     "no-duplicate-heading": false
