@@ -1,5 +1,9 @@
 local actions = require("fzf-lua").actions
 
+-- NOTE: 一些技巧
+-- grep 时搜索内容后再按下 ctrl + g 可以进入模糊过滤
+-- 可以过滤指定目录下的文件，或者使用 ! 排除某些文件
+
 return {
   "ibhagwan/fzf-lua",
   opts = {
