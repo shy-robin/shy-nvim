@@ -161,3 +161,10 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.spell = false
   end,
 })
+
+-- 将当前 buffer 的文件转换成 http 格式
+vim.api.nvim_create_user_command("KulalaConvert", function()
+  vim.cmd("!kulala-fmt convert %")
+end, {
+  nargs = 0,
+})
