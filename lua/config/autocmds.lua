@@ -28,9 +28,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
       end
     end
 
-    require("lspconfig.ui.windows").default_options = {
-      border = "rounded",
-    }
+    -- NOTE: 切换到 http 文件会报错，暂时去掉
+    -- require("lspconfig.ui.windows").default_options = {
+    --   border = "rounded",
+    -- }
   end,
 })
 
