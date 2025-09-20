@@ -26,7 +26,6 @@ local plugins = {
   "LunarVim/bigfile.nvim",
   -- 使用 coc-markdown-preview-enhanced 代替
   -- "iamcco/markdown-preview.nvim",
-  "stevearc/conform.nvim",
   "mfussenegger/nvim-lint",
   -- 使用 LazyVim 提供的 Snacks.dashboard
   "nvimdev/dashboard-nvim",
