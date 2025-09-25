@@ -12,6 +12,5 @@ return {
     formatters_by_ft = {
       http = { "kulala" },
     },
-    format_on_save = true,
   },
 }
