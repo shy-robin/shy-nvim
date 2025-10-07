@@ -42,6 +42,7 @@ local plugins = {
   -- 使用 fzf.lua 代替
   "nvim-telescope/telescope-file-browser.nvim",
   "yetone/avante.nvim",
+  "HakonHarnes/img-clip.nvim",
 }
 
 local disabled_plugins = {}
