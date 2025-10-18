@@ -23,7 +23,6 @@ local plugins = {
   -- 初始化会报错缺少依赖，先禁用这个插件
   "rest-nvim/rest.nvim",
   "folke/trouble.nvim",
-  "LunarVim/bigfile.nvim",
   -- 使用 coc-markdown-preview-enhanced 代替
   -- "iamcco/markdown-preview.nvim",
   "mfussenegger/nvim-lint",

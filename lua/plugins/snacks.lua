@@ -1,3 +1,33 @@
+function DisableSyntaxTreesitter()
+  -- 1. 禁用 Treesitter
+  -- 检查 Treesitter highlight 和 autotag 模块是否存在
+  if vim.fn.exists(":TSBufDisable") == 1 then
+    -- 打印信息
+    vim.cmd('echomsg "Big file, disabling syntax, treesitter, and folding"')
+
+    -- 使用 vim.cmd 执行 TSBufDisable 命令
+    -- 注意: Treesitter 禁用通常需要分开执行
+    vim.cmd("TSBufDisable highlight")
+    vim.cmd("TSBufDisable autotag")
+    -- ... 可以在这里添加其他 Treesitter 模块的禁用
+  else
+    vim.cmd('echomsg "Big file, disabling syntax and folding"')
+  end
+
+  -- 2. 禁用语法高亮和文件类型识别
+  -- clear/off/filetype off
+  vim.cmd("syntax clear")
+  vim.cmd("syntax off")
+  vim.cmd("filetype off")
+
+  -- 3. 禁用其他功能以提高性能
+  -- 使用 vim.opt 设置选项（更推荐的 Lua API）
+  vim.opt.foldmethod = "manual"
+  vim.opt.noundofile = true -- 禁止生成 undo 文件
+  vim.opt.noswapfile = true -- 禁止生成 swap 文件
+  vim.opt.noloadplugins = true -- 禁止加载插件
+end
+
 return {
   "folke/snacks.nvim",
   opts = {
@@ -55,9 +85,30 @@ return {
       },
     },
     bigfile = {
+      enabled = true,
+      notify = true,
+      size = 0.4 * 1024 * 1024, -- 0.4MB
       -- 超过最大限制，不使用任何渲染，防止卡顿
-      setup = function()
+      -- Enable or disable features when big file detected
+      ---@param ctx {buf: number, ft:string}
+      setup = function(ctx)
+        -- 停止 Supermaven 插件
+        vim.cmd("SupermavenStop")
+        -- 增加缓冲区变量，标识大文件类型
+        vim.b.bigfile = true
+        -- 禁用 Treesitter
+        DisableSyntaxTreesitter()
+
+        if vim.fn.exists(":NoMatchParen") ~= 0 then
+          vim.cmd([[NoMatchParen]])
+        end
+        Snacks.util.wo(0, { foldmethod = "manual", statuscolumn = "", conceallevel = 0 })
         vim.b.minianimate_disable = true
+        vim.schedule(function()
+          if vim.api.nvim_buf_is_valid(ctx.buf) then
+            vim.bo[ctx.buf].syntax = ctx.ft
+          end
+        end)
       end,
     },
     scroll = {
