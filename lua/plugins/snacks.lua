@@ -97,7 +97,7 @@ return {
         -- 增加缓冲区变量，标识大文件类型
         vim.b.bigfile = true
         -- 禁用 Treesitter
-        DisableSyntaxTreesitter()
+        -- DisableSyntaxTreesitter()
 
         if vim.fn.exists(":NoMatchParen") ~= 0 then
           vim.cmd([[NoMatchParen]])
