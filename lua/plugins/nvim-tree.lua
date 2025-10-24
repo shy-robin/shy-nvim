@@ -212,6 +212,8 @@ return {
     },
     update_focused_file = {
       enable = true,
+      -- 当焦点文件切换时，更新 nvim-tree 的根目录
+      update_root = true,
     },
     on_attach = my_on_attach,
     view = {
