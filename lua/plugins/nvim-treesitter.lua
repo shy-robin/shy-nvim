@@ -5,10 +5,12 @@ return {
       enable = true,
       additional_vim_regex_highlighting = false,
       -- 当打开大文件时，禁用 treesitter，防止卡顿
-      disable = function(_, bufnr)
-        local buf_name = vim.api.nvim_buf_get_name(bufnr)
-        local file_size = vim.api.nvim_call_function("getfsize", { buf_name })
-        return file_size > 256 * 1024
+      disable = function(lang, buf)
+        local max_filesize = 400 * 1024 -- 400 KB
+        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+        if ok and stats and stats.size > max_filesize then
+          return true
+        end
       end,
     },
     ensure_installed = {

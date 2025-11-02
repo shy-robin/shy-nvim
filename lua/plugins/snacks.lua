@@ -132,6 +132,7 @@ return {
     },
   },
   init = function()
+    -- 注册快捷调试打印命令 dd，例如：`: lua dd(vim.fn.getcwd())`
     -- 参考：https://github.com/folke/snacks.nvim/blob/main/docs/debug.md
     vim.api.nvim_create_autocmd("User", {
       pattern = "VeryLazy",
