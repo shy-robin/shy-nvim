@@ -5,6 +5,9 @@
 local set = vim.keymap.set
 local del = vim.keymap.del
 
+-- NOTE: 这里 remap 设置为 false 表示非递归映射，因为 <C-o> 设置了打开浮动窗口，如果是递归映射会导致触发这个映射
+set({ "n", "i" }, "<C-y>", "<C-o>", { desc = "Jump List Backwards", remap = false })
+
 -- windows
 -- 删除默认配置，不然快速按下 <leader>wr 不会触发（新版本已修复）
 -- del("n", "<leader>w")
@@ -198,7 +201,6 @@ Snacks.toggle({
 
 -- 使用 <leader>N 代替，避免 org-roam 键位冲突
 del("n", "<leader>n")
-
 
 -- 显示最大字数竖线
 Snacks.toggle({
