@@ -165,9 +165,9 @@ return {
     sort_by = "case_sensitive",
     renderer = {
       special_files = {
-        "README.md",
-        "readme.md",
-        "package.json",
+        -- "README.md",
+        -- "readme.md",
+        -- "package.json",
       },
       highlight_git = true,
       highlight_diagnostics = true,
