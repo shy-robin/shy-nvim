@@ -214,5 +214,11 @@
   "markdownlint.config": {
     "line-length": false,
     "no-duplicate-heading": false
+  },
+  "languageserver": {
+    "go": {
+      "command": "~/go/bin/gopls",
+      "filetypes": ["go"]
+    }
   }
 }
