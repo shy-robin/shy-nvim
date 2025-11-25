@@ -66,6 +66,10 @@ return {
               return { fg = Snacks.util.color("Comment") }
             end,
           },
+          -- 显示 OpenCode 的状态
+          {
+            require("opencode").statusline,
+          },
           {
             "diagnostics",
             symbols = {

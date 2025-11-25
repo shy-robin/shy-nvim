@@ -42,6 +42,9 @@ local plugins = {
   "nvim-telescope/telescope-file-browser.nvim",
   "HakonHarnes/img-clip.nvim",
   "kevinhwang91/nvim-ufo",
+  -- 暂时禁用（使用 opencode）
+  "yetone/avante.nvim",
+  "Kurama622/llm.nvim",
 }
 
 local disabled_plugins = {}

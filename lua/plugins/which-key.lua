@@ -109,6 +109,10 @@ return {
         "<leader>nd",
         group = "+daily",
       },
+      {
+        "<leader>ao",
+        group = "+opencode",
+      },
     },
     triggers = {
       -- terminal 模式下禁用，否则按 esc 无法退出一些功能
