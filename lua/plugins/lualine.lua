@@ -67,9 +67,9 @@ return {
             end,
           },
           -- 显示 OpenCode 的状态
-          {
-            require("opencode").statusline,
-          },
+          -- {
+          --   require("opencode").statusline,
+          -- },
           {
             "diagnostics",
             symbols = {
