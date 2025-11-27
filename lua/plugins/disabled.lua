@@ -40,7 +40,7 @@ local plugins = {
   "nvim-telescope/telescope.nvim",
   -- 使用 fzf.lua 代替
   "nvim-telescope/telescope-file-browser.nvim",
-  "HakonHarnes/img-clip.nvim",
+  -- "HakonHarnes/img-clip.nvim",
   "kevinhwang91/nvim-ufo",
   -- 暂时禁用（使用 opencode）
   "yetone/avante.nvim",
