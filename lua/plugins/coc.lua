@@ -507,6 +507,7 @@ return {
       "coc-markdownlint",
       "coc-flutter",
       "coc-go",
+      "coc-pyright",
       -- "coc-markdown-preview-enhanced",
       -- "coc-yank",
       -- "coc-webview",
