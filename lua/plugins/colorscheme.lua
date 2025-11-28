@@ -64,6 +64,18 @@ return {
     event = "VeryLazy",
   },
   {
+    "nyoom-engineering/oxocarbon.nvim",
+    event = "VeryLazy",
+  },
+  {
+    "wuelnerdotexe/vim-enfocado",
+    event = "VeryLazy",
+  },
+  {
+    "cranberry-clockworks/coal.nvim",
+    event = "VeryLazy",
+  },
+  {
     "LazyVim/LazyVim",
     lazy = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
