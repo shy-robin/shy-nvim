@@ -114,6 +114,8 @@
     "eval",
     "floaterm",
     "gitsigns",
+    "gochat",
+    "gorm",
     "iconfont",
     "iframe",
     "instanceof",
