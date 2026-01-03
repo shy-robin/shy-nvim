@@ -513,6 +513,8 @@ return {
       -- "coc-webview",
       "coc-translator",
       "@yaegassy/coc-tailwindcss3",
+      "coc-sql",
+      "coc-db",
     }
 
     -- Some servers have issues with backup files, see #649
