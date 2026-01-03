@@ -41,7 +41,7 @@ return {
       "dart",
       "go",
       "latex",
-      "norg",
+      -- "norg",
       "typst",
     },
   },
