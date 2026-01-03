@@ -9,6 +9,15 @@ return {
     "DBUIAddConnection",
     "DBUIFindBuffer",
   },
+  keys = {
+    {
+      "<leader>Du",
+      "<cmd>DBUI<cr>",
+      silent = true,
+      desc = "Dadbod UI",
+      mode = { "n" },
+    },
+  },
   init = function()
     -- Your DBUI configuration
     vim.g.db_ui_use_nerd_fonts = 1
