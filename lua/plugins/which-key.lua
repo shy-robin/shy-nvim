@@ -10,6 +10,10 @@ return {
         group = "+diffview",
       },
       {
+        "<leader>Dc",
+        group = "+conflict",
+      },
+      {
         "<leader>C",
         group = "+coc",
       },
