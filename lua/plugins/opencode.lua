@@ -8,10 +8,14 @@ return {
     { "folke/snacks.nvim", opts = { input = {}, picker = {}, terminal = {} } },
   },
   config = function()
+    -- Genereate a random port to avoid conflicts between multiple neovim instances
+    math.randomseed(os.time() + vim.loop.os_getpid())
+    local port = math.random(49152, 65535)
+
     ---@type opencode.Opts
     vim.g.opencode_opts = {
       -- Your configuration, if any — see `lua/opencode/config.lua`, or "goto definition".
-      port = 60828, -- 任意未占用端口
+      port = port,
     }
 
     -- Required for `opts.events.reload`.
