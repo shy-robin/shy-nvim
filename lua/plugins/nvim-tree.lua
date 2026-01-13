@@ -89,8 +89,9 @@ local function my_on_attach(bufnr)
   set("n", "wb", api.node.open.horizontal, opts("Open: Split Bottom"))
 
   set("n", "i", api.node.show_info_popup, opts("Info"))
-  set("n", "gr", api.tree.change_root_to_node, opts("Change Root To Node"))
-  set("n", "gp", api.tree.change_root_to_parent, opts("Change Root To Parent"))
+  -- Change root directory (切换工作目录)
+  set("n", "gr", api.tree.change_root_to_node, opts("Change Root To Node")) -- 进入当前目录
+  set("n", "gp", api.tree.change_root_to_parent, opts("Change Root To Parent")) -- 返回上一级目录
 
   -- copy
   set("n", "yy", api.fs.copy.node, opts("Copy"))
