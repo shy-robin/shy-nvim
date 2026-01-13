@@ -103,6 +103,40 @@ nvim
 | 筛选路径             | 搜索框下按 <kbd>Ctrl</kbd> + <kbd>f</kbd>                                           | 筛选路径                                                              |
 | 冻结列表             | 搜索框下按 <kbd>Ctrl</kbd> + <kbd>space</kbd>                                       | 冻结列表，对列表进行二次搜索，比如可以使用 `!.lua` 排除指定的文件类型 |
 
+## 🤖 AI 助手
+
+本配置集成了多个 AI 插件，提供强大的 AI 编程辅助功能：
+
+| 插件                                                                     | 功能                                                                | 提供商                                         |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------- | ---------------------------------------------- |
+| **[avante.nvim](https://github.com/yetone/avante.nvim)**                 | AI 助手，支持代码解释、重构、优化等功能                             | Ollama、OpenRouter、Gemini、通义千问、Moonshot |
+| **[llm.nvim](https://github.com/Kurama622/llm.nvim)**                    | 提供 LLM 交互，支持代码解释、翻译、代码优化、生成 Commit Message 等 | 智谱 AI (GLM-4)                                |
+| **[supermaven-nvim](https://github.com/supermaven-inc/supermaven-nvim)** | AI 代码自动补全                                                     | Supermaven                                     |
+| **[opencode.nvim](https://github.com/NickvanDyke/opencode.nvim)**        | AI 编程助手，支持代码理解和执行                                     | OpenCode                                       |
+
+### 快捷键
+
+| 功能                | 快捷键        | 描述                         |
+| ------------------- | ------------- | ---------------------------- |
+| **avante**          | -             | -                            |
+| AI 对话             | `:AvanteChat` | 打开 AI 对话窗口             |
+| **llm.nvim**        | -             | -                            |
+| AI 聊天             | `<leader>ac`  | 切换 AI 聊天窗口             |
+| 代码解释            | `<leader>ae`  | 解释选中的代码               |
+| 翻译文本            | `<leader>at`  | 中英文互译选中文本           |
+| 翻译器              | `<leader>aT`  | 打开翻译器窗口               |
+| 优化代码（浮动）    | `<leader>ao`  | 在浮动窗口优化选中的代码     |
+| 优化代码（Diff）    | `<leader>aO`  | 在 Diff 窗口优化选中的代码   |
+| 生成 Commit Message | `<leader>ag`  | 根据 git diff 生成提交信息   |
+| **supermaven**      | -             | -                            |
+| 接受建议            | `<C-y>`       | 接受代码补全建议             |
+| 清除建议            | `<C-]>`       | 清除当前建议                 |
+| 接受单词            | `<C-w>`       | 接受下一个单词               |
+| **opencode**        | -             | -                            |
+| 提问                | `<C-a>`       | 向 AI 提问关于当前代码的问题 |
+| 执行操作            | `<C-x>`       | 执行 AI 操作                 |
+| 切换面板            | `<C-\>`       | 切换 opencode 面板           |
+
 ## 🎓 入门教程
 
 本配置基于 LazyVim，如果你不了解它的用法，可以参考以下入门教程：
