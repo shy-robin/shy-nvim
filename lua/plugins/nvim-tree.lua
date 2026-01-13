@@ -68,6 +68,146 @@ local function edit_or_open()
   api.node.open.edit()
 end
 
+local function get_image_info()
+  local api = require("nvim-tree.api")
+  local node = api.tree.get_node_under_cursor()
+
+  if not node then
+    return
+  end
+
+  if node.type ~= "file" then
+    api.node.show_info_popup()
+    return
+  end
+
+  local image_extensions =
+    { "png", "jpg", "jpeg", "gif", "webp", "avif", "svg", "ico", "bmp", "pbm", "pgm", "ppm", "tiff", "tif" }
+  local extension = node.extension and node.extension:lower() or ""
+  local is_image = false
+  for _, ext in ipairs(image_extensions) do
+    if extension == ext then
+      is_image = true
+      break
+    end
+  end
+
+  if not is_image then
+    api.node.show_info_popup()
+    return
+  end
+
+  local file_path = node.absolute_path
+  local stat = node.fs_stat
+  if not stat then
+    stat = (vim.uv or vim.loop).fs_stat(file_path)
+  end
+
+  if not stat then
+    api.node.show_info_popup()
+    return
+  end
+
+  -- 尝试加载 nvim-tree 工具以保持一致的格式
+  local status_utils, utils = pcall(require, "nvim-tree.utils")
+  local format_size = function(bytes)
+    if status_utils and utils.format_bytes then
+      return utils.format_bytes(bytes)
+    end
+    -- 后备实现 (如果无法加载 utils)
+    local units = { "B", "K", "M", "G", "T", "P", "E", "Z", "Y" }
+    bytes = math.max(bytes, 0)
+    local pow = math.floor((bytes and math.log(bytes) or 0) / math.log(1024))
+    pow = math.min(pow, #units)
+    local value = bytes / (1024 ^ pow)
+    value = math.floor((value * 100) + 0.5) / 100
+    pow = pow + 1
+    if units[pow] == nil or pow == 1 then
+      return bytes .. " " .. units[1]
+    else
+      return value .. " " .. units[pow] .. "i" .. units[1]
+    end
+  end
+
+  local cmd = { "sips", "-g", "pixelWidth", "-g", "pixelHeight", file_path }
+  -- 使用 pcall 避免 sips 失败导致错误
+  local success, output = pcall(vim.fn.system, cmd)
+  local width, height
+  if success and output then
+    width = output:match("pixelWidth: (%d+)")
+    height = output:match("pixelHeight: (%d+)")
+  end
+
+  local lines = {}
+  table.insert(lines, " fullpath: " .. file_path)
+  table.insert(lines, " size:     " .. format_size(stat.size))
+  table.insert(lines, " accessed: " .. os.date("%x %X", stat.atime.sec))
+  table.insert(lines, " modified: " .. os.date("%x %X", stat.mtime.sec))
+  table.insert(lines, " created:  " .. os.date("%x %X", stat.birthtime.sec))
+
+  if width and height then
+    table.insert(lines, " dimensions: " .. width .. "x" .. height)
+  end
+
+  -- 创建浮动窗口
+  local buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+
+  local max_width = 0
+  for _, line in ipairs(lines) do
+    if #line > max_width then
+      max_width = #line
+    end
+  end
+
+  local opts = {
+    relative = "cursor",
+    width = max_width + 1,
+    height = #lines,
+    col = 1,
+    row = 1,
+    style = "minimal",
+    border = "rounded",
+    noautocmd = true,
+    zindex = 60,
+  }
+
+  -- 打开窗口但不聚焦 (enter=false)，保持焦点在树上
+  local win = vim.api.nvim_open_win(buf, false, opts)
+
+  -- 关闭窗口辅助函数
+  local function close_win()
+    if vim.api.nvim_win_is_valid(win) then
+      vim.api.nvim_win_close(win, true)
+    end
+    -- 清除 buffer
+    if vim.api.nvim_buf_is_valid(buf) then
+      vim.api.nvim_buf_delete(buf, { force = true })
+    end
+  end
+
+  -- 当在当前 buffer (nvim-tree) 中移动光标时自动关闭
+  vim.api.nvim_create_autocmd("CursorMoved", {
+    buffer = 0, -- 当前 buffer (nvim-tree)
+    callback = close_win,
+    once = true,
+  })
+
+  -- 如果离开 buffer 或窗口也关闭
+  vim.api.nvim_create_autocmd({ "BufLeave", "WinLeave" }, {
+    buffer = 0,
+    callback = close_win,
+    once = true,
+  })
+
+  -- Keymaps to close window (in case user somehow focuses it or wants to force close)
+  -- Since we don't focus the window, these keys map to the tree buffer essentially,
+  -- but we want standard tree navigation to close the popup implicitly via CursorMoved.
+  -- We can map 'q' or 'Esc' in the tree buffer to close the popup IF it's open,
+  -- but that's complex. Standard nvim-tree behavior is: move cursor closes it.
+  -- So we rely on CursorMoved.
+end
+
 local function my_on_attach(bufnr)
   local api = require("nvim-tree.api")
   local function opts(desc)
@@ -88,7 +228,7 @@ local function my_on_attach(bufnr)
   set("n", "wr", api.node.open.vertical, opts("Open: Split Right"))
   set("n", "wb", api.node.open.horizontal, opts("Open: Split Bottom"))
 
-  set("n", "i", api.node.show_info_popup, opts("Info"))
+  set("n", "i", get_image_info, opts("Image Info"))
   -- Change root directory (切换工作目录)
   set("n", "gr", api.tree.change_root_to_node, opts("Change Root To Node")) -- 进入当前目录
   set("n", "gp", api.tree.change_root_to_parent, opts("Change Root To Parent")) -- 返回上一级目录
