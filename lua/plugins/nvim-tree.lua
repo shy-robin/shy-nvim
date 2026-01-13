@@ -52,6 +52,22 @@ local function grep_at_current_tree_node()
   })
 end
 
+local function edit_or_open()
+  local api = require("nvim-tree.api")
+  local node = api.tree.get_node_under_cursor()
+
+  if not node then
+    return
+  end
+
+  -- Prevent navigation up when pressing 'l' on the root node
+  if node.nodes and node.parent == nil then
+    return
+  end
+
+  api.node.open.edit()
+end
+
 local function my_on_attach(bufnr)
   local api = require("nvim-tree.api")
   local function opts(desc)
@@ -64,7 +80,7 @@ local function my_on_attach(bufnr)
 
   -- custom mappings
   set("n", "?", api.tree.toggle_help, opts("Help"))
-  set("n", "l", api.node.open.edit, opts("Edit Or Open"))
+  set("n", "l", edit_or_open, opts("Edit Or Open"))
   set("n", "L", vsplit_preview, opts("Vsplit Preview"))
   set("n", "h", api.node.navigate.parent_close, opts("Close"))
 
