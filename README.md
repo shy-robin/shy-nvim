@@ -112,7 +112,7 @@ nvim
 | **[avante.nvim](https://github.com/yetone/avante.nvim)**                 | AI 助手，支持代码解释、重构、优化等功能                             | Ollama、OpenRouter、Gemini、通义千问、Moonshot |
 | **[llm.nvim](https://github.com/Kurama622/llm.nvim)**                    | 提供 LLM 交互，支持代码解释、翻译、代码优化、生成 Commit Message 等 | 智谱 AI (GLM-4)                                |
 | **[supermaven-nvim](https://github.com/supermaven-inc/supermaven-nvim)** | AI 代码自动补全                                                     | Supermaven                                     |
-| **[opencode.nvim](https://github.com/NickvanDyke/opencode.nvim)**        | AI 编程助手，支持代码理解和执行                                     | OpenCode                                       |
+| **[opencode.nvim](https://github.com/NickvanDyke/opencode.nvim)**        | AI 编程助手，支持代码理解和执行，集成 Antigravity 能力              | OpenCode + Antigravity                         |
 
 ### 快捷键
 
@@ -136,6 +136,11 @@ nvim
 | 提问                | `<C-a>`       | 向 AI 提问关于当前代码的问题 |
 | 执行操作            | `<C-x>`       | 执行 AI 操作                 |
 | 切换面板            | `<C-\>`       | 切换 opencode 面板           |
+
+### 依赖
+
+- **opencode.nvim** 需要额外的认证插件：
+  - [opencode-antigravity-auth](https://github.com/NoeFabris/opencode-antigravity-auth) - 集成 Antigravity 认证能力
 
 ## 🎓 入门教程
 
