@@ -66,10 +66,6 @@ return {
               return { fg = Snacks.util.color("Comment") }
             end,
           },
-          -- 显示 OpenCode 的状态
-          -- {
-          --   require("opencode").statusline,
-          -- },
           {
             "diagnostics",
             symbols = {
@@ -139,10 +135,19 @@ return {
           --   color = Util.fg("Constant"),
           -- },
           -- stylua: ignore
+
+          -- 显示 OpenCode 的状态
           {
-            function() return "  " .. require("dap").status() end,
-            cond = function() return package.loaded["dap"] and require("dap").status() ~= "" end,
-            color = { fg = Snacks.util.color("Debug") }
+            require("opencode").statusline,
+          },
+          {
+            function()
+              return "  " .. require("dap").status()
+            end,
+            cond = function()
+              return package.loaded["dap"] and require("dap").status() ~= ""
+            end,
+            color = { fg = Snacks.util.color("Debug") },
           },
           {
             require("lazy.status").updates,
