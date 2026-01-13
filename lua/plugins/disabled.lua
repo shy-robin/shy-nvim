@@ -45,7 +45,6 @@ local plugins = {
   -- 暂时禁用（使用 opencode）
   "yetone/avante.nvim",
   "Kurama622/llm.nvim",
-  "NickvanDyke/opencode.nvim",
 }
 
 local disabled_plugins = {}
