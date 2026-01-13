@@ -152,6 +152,13 @@ return {
       "<cmd>FloatermNew yazi<cr>",
       desc = "Open Yazi",
     },
+    {
+      "<C-d>",
+      "<C-\\><C-n><C-d>",
+      desc = "Scroll Down",
+      ft = "floaterm",
+      mode = "t",
+    },
   },
   config = function()
     vim.g.floaterm_borderchars = "─│─│╭╮╯╰"
