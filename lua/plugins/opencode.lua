@@ -8,9 +8,17 @@ return {
     { "folke/snacks.nvim", opts = { input = {}, picker = {}, terminal = {} } },
   },
   config = function()
-    -- Genereate a random port to avoid conflicts between multiple neovim instances
-    math.randomseed(os.time() + vim.loop.os_getpid())
-    local port = math.random(49152, 65535)
+    -- 根据当前工作目录 (CWD) 生成确定性端口，以避免项目间冲突，
+    -- 同时确保连接稳定性（避免竞态条件）
+    local function get_port_from_cwd()
+      local cwd = vim.fn.getcwd()
+      local hash = 5381
+      for i = 1, #cwd do
+        hash = ((hash * 33) + string.byte(cwd, i)) % 4294967296
+      end
+      return 49152 + (hash % (65535 - 49152 + 1))
+    end
+    local port = get_port_from_cwd()
 
     ---@type opencode.Opts
     vim.g.opencode_opts = {
