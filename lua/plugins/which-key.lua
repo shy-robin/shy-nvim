@@ -114,7 +114,7 @@ return {
         group = "+daily",
       },
       {
-        "<leader>ao",
+        "<leader>o",
         group = "+opencode",
       },
     },
