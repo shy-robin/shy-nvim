@@ -14,6 +14,12 @@ return {
       org_agenda_files = "~/org-files/**/*",
       org_default_notes_file = "~/org-files/refile.org",
       org_startup_folded = "showeverything",
+      mappings = {
+        global = {
+          org_agenda = "<Leader>Oa",
+          org_capture = "<Leader>Oc",
+        },
+      },
       ui = {
         menu = {
           handler = function(data)

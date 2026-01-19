@@ -70,31 +70,31 @@ return {
         group = "+supermaven",
       },
       {
-        "<leader>o",
+        "<leader>O",
         group = "+org/outline",
       },
       {
-        "<leader>ob",
+        "<leader>Ob",
         group = "+buffer",
       },
       {
-        "<leader>od",
+        "<leader>Od",
         group = "+date",
       },
       {
-        "<leader>oi",
+        "<leader>Oi",
         group = "+insert",
       },
       {
-        "<leader>ol",
+        "<leader>Ol",
         group = "+link",
       },
       {
-        "<leader>on",
+        "<leader>On",
         group = "+note",
       },
       {
-        "<leader>ox",
+        "<leader>Ox",
         group = "+clock",
       },
       {
