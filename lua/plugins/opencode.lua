@@ -1,32 +1,26 @@
+local function get_deterministic_port()
+  local cwd = vim.fn.getcwd()
+  local hash = 5381
+  for i = 1, #cwd do
+    hash = ((hash * 33) + string.byte(cwd, i)) % 4294967296
+  end
+  return 49152 + (hash % (65535 - 49152 + 1))
+end
+
 return {
   "NickvanDyke/opencode.nvim",
   event = "VeryLazy",
   dependencies = {
-    -- Recommended for `ask()` and `select()`.
-    -- Required for `snacks` provider.
-    ---@module 'snacks' <- Loads `snacks.nvim` types for configuration intellisense.
+    ---@module 'snacks'
     { "folke/snacks.nvim", opts = { input = {}, picker = {}, terminal = {} } },
   },
-  config = function()
-    -- 根据当前工作目录 (CWD) 生成确定性端口，以避免项目间冲突，
-    -- 同时确保连接稳定性（避免竞态条件）
-    local function get_port_from_cwd()
-      local cwd = vim.fn.getcwd()
-      local hash = 5381
-      for i = 1, #cwd do
-        hash = ((hash * 33) + string.byte(cwd, i)) % 4294967296
-      end
-      return 49152 + (hash % (65535 - 49152 + 1))
-    end
-    local port = get_port_from_cwd()
-
+  init = function()
     ---@type opencode.Opts
     vim.g.opencode_opts = {
-      -- Your configuration, if any — see `lua/opencode/config.lua`, or "goto definition".
-      port = port,
+      port = get_deterministic_port(),
     }
-
-    -- Required for `opts.events.reload`.
+  end,
+  config = function()
     vim.o.autoread = true
 
     -- Recommended/example keymaps.
