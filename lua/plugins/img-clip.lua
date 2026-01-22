@@ -4,9 +4,9 @@ return {
   opts = {
     default = {
       drag_and_drop = {
-        -- 在终端缓冲区中禁用，避免粘贴文字时报错
+        -- 在终端缓冲区和 cmdline 模式下禁用，避免粘贴文字时报错
         enabled = function()
-          return vim.bo.buftype ~= "terminal"
+          return vim.bo.buftype ~= "terminal" and vim.fn.mode() ~= "c"
         end,
       },
     },
