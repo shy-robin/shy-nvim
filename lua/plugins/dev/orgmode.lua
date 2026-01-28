@@ -5,7 +5,6 @@ return {
     "chipsenkbeil/org-roam.nvim",
     "danilshvalov/org-modern.nvim"
   },
-  event = "VeryLazy",
   ft = { "org" },
   config = function()
     local Menu = require("org-modern.menu")

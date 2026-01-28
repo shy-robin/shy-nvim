@@ -1,6 +1,5 @@
 return {
   "LudoPinelli/comment-box.nvim",
-  event = "VeryLazy",
   keys = {
     {
       "<leader>cbb",

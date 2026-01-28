@@ -9,7 +9,7 @@ end
 
 return {
   "NickvanDyke/opencode.nvim",
-  event = "VeryLazy",
+  event = { "BufReadPre", "BufNewFile" },
   dependencies = {
     ---@module 'snacks'
     { "folke/snacks.nvim", opts = { input = {}, picker = {}, terminal = {} } },

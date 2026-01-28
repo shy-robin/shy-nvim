@@ -1,4 +1,4 @@
 return {
   "justinmk/vim-gtfo",
-  event = "VeryLazy"
+  keys = { "gf", "gF" }
 }

@@ -1,6 +1,6 @@
 return {
   "voldikss/vim-floaterm",
-  event = "VeryLazy",
+  
   keys = {
     {
       "<C-o>",

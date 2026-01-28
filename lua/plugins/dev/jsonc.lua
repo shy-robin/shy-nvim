@@ -1,4 +1,4 @@
 return {
   "neoclide/jsonc.vim",
-  event = "VeryLazy",
+  ft = { "json", "jsonc" },
 }

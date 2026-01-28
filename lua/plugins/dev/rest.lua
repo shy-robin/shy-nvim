@@ -1,6 +1,6 @@
 return {
   "rest-nvim/rest.nvim",
-  event = "VeryLazy",
+  ft = { "http", "rest" },
   dependencies = { { "nvim-lua/plenary.nvim" } },
   config = function()
     require("rest-nvim").setup({

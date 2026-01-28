@@ -8,46 +8,31 @@ return {
   version = false, -- Never set this value to "*"! Never!
   ---@module 'avante'
   ---@type avante.Config
-  opts = {
-    -- add any opts here
-    -- this file can contain specific instructions for your project
-    instructions_file = "avante.md",
-    -- for example
-    provider = "moonshot",
-    providers = {
-      -- Ollama 后端特定配置
-      ollama = {
-        -- !!! 将此处的模型名称替换为您下载的模型 !!!
-        model = "qwen3-coder:480b-cloud",
-        -- Ollama 默认运行在 11434 端口
-        url = "http://127.0.0.1:11434",
-      },
-      openrouter = {
-        __inherited_from = "openai",
-        endpoint = "https://openrouter.ai/api/v1",
-        api_key_name = "OPENROUTER_API_KEY",
-        model = "deepseek/deepseek-r1",
-      },
-      gemini = {
-        model = "gemini-2.5-pro",
-      },
-      qianwen = {
-        __inherited_from = "openai",
-        api_key_name = "QIANWEN_API_KEY",
-        endpoint = "https://apis.iflow.cn/v1",
-        model = "qwen3-coder-plus",
-      },
-      moonshot = {
-        endpoint = "https://api.moonshot.cn/v1",
-        model = "kimi-k2-0711-preview",
-        timeout = 30000, -- 超时时间（毫秒）
-        extra_request_body = {
-          temperature = 0.75,
-          max_tokens = 32768,
+  opts = function()
+    local env = require("core.env")
+    local ai_configs = env.setup_ai_configs()
+    
+    return {
+      -- add any opts here
+      -- this file can contain specific instructions for your project
+      instructions_file = "avante.md",
+      -- for example
+      provider = "moonshot",
+      providers = {
+        -- Ollama 后端特定配置
+        ollama = {
+          -- !!! 将此处的模型名称替换为您下载的模型 !!!
+          model = "qwen3-coder:480b-cloud",
+          -- Ollama 默认运行在 11434 端口
+          url = "http://127.0.0.1:11434",
         },
+        openrouter = ai_configs.openrouter or {},
+        gemini = ai_configs.gemini or {},
+        qianwen = ai_configs.qianwen or {},
+        moonshot = ai_configs.moonshot or {},
       },
-    },
-  },
+    }
+  end,
   dependencies = {
     "nvim-lua/plenary.nvim",
     "MunifTanjim/nui.nvim",

@@ -37,7 +37,7 @@ return {
       version = "^1.0.0",
     },
   },
-  event = "VeryLazy",
+  cmd = { "Telescope" },
   keys = {
     -- 自定义查询，支持增加筛选参数
     {

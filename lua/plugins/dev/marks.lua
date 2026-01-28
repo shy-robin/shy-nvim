@@ -1,6 +1,6 @@
 return {
   "chentoast/marks.nvim",
-  event = "VeryLazy",
+  event = { "BufReadPost", "BufNewFile" },
   opts = {
     default_mappings = false,
     force_write_shada = true,

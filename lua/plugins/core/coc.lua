@@ -1,7 +1,7 @@
 return {
   "neoclide/coc.nvim",
   branch = "release",
-  event = "VeryLazy",
+  event = { "BufReadPre", "BufNewFile" },
   keys = {
     {
       "<c-j>",
@@ -481,41 +481,64 @@ return {
     -- nmap <leader>x  <Plug>(coc-cursors-operator)
   },
   config = function()
-    vim.g.coc_global_extensions = {
-      "coc-lua",
-      -- 注意，如果有找不到 stylua 文件夹的报错，需要手动创建 stylua 数据文件夹：/home/shyrobin/.config/coc/extensions/coc-stylua-data/stylua
-      "coc-stylua",
-      "coc-json",
-      "coc-marketplace",
-      "coc-spell-checker",
+    -- 核心 Web 前端扩展 (高频率使用)
+    local core_extensions = {
+      "coc-tsserver",
+      "@yaegassy/coc-volar", 
+      "coc-svelte",
       "coc-html",
       "coc-css",
       "coc-emmet",
       "coc-prettier",
-      "@yaegassy/coc-volar",
-      "coc-tsserver",
-      "coc-cssmodules",
-      "coc-diagnostic",
       "coc-eslint",
-      "coc-htmlhint",
-      "coc-html-css-support",
-      "coc-sumneko-lua",
-      "coc-styled-components",
-      "coc-svelte",
+      "coc-diagnostic",
       "coc-pairs",
       "coc-snippets",
-      "coc-markdownlint",
-      "coc-flutter",
-      "coc-go",
-      "coc-pyright",
-      -- "coc-markdown-preview-enhanced",
-      -- "coc-yank",
-      -- "coc-webview",
-      "coc-translator",
+      "coc-json",
+    }
+    
+    -- Lua/Nvim 配置扩展 (中频率使用)
+    local config_extensions = {
+      "coc-lua",
+      "coc-stylua",
+      "coc-sumneko-lua",
+    }
+    
+    -- 高级前端扩展 (中等频率使用)
+    local advanced_frontend_extensions = {
+      "coc-cssmodules",
+      "coc-htmlhint", 
+      "coc-html-css-support",
+      "coc-styled-components",
       "@yaegassy/coc-tailwindcss3",
+    }
+    
+    -- 后端语言扩展 (低频率使用，按需启用)
+    local backend_extensions = {
+      "coc-go",
+      "coc-pyright", 
+      "coc-flutter",
       "coc-sql",
       "coc-db",
     }
+    
+    -- 工具类扩展 (低频率使用)
+    local utility_extensions = {
+      "coc-marketplace",
+      "coc-spell-checker",
+      "coc-translator",
+      "coc-markdownlint",
+    }
+    
+    -- 合并所有核心扩展
+    local all_extensions = {}
+    vim.list_extend(all_extensions, core_extensions)
+    vim.list_extend(all_extensions, config_extensions)
+    vim.list_extend(all_extensions, advanced_frontend_extensions)
+    vim.list_extend(all_extensions, backend_extensions)
+    vim.list_extend(all_extensions, utility_extensions)
+    
+    vim.g.coc_global_extensions = all_extensions
 
     -- Some servers have issues with backup files, see #649
     vim.opt.backup = false
