@@ -76,6 +76,18 @@ function M.check_api_keys()
   end
   
   if #available_services == 0 then
+    return false
+  end
+  
+  vim.notify(
+    "🤖 AI 服务已配置: " .. table.concat(available_services, " · "),
+    vim.log.levels.INFO
+  )
+  
+  return true
+end
+  
+  if #available_services == 0 then
     vim.notify(
       "💡 ShyNvim AI 准备就绪，如需使用 AI 功能请配置 API 密钥。" ..
       "运行 :help api-keys 查看配置指南",
