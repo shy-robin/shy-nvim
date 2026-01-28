@@ -10,6 +10,9 @@ require("core.health").setup_health_commands()
 -- 设置快捷键管理命令
 require("core.keymaps").setup_keymap_commands()
 
+-- 设置 API 密钥相关命令
+require("core.env").setup_help_commands()
+
 -- 延迟运行健康检查，避免影响启动速度
 vim.defer_fn(function()
   require("core.health").run_health_check()

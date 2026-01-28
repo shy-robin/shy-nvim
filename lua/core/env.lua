@@ -66,34 +66,30 @@ function M.setup_ai_configs()
   return configs
 end
 
--- 检查所有必需的 API 密钥
+-- 检查实际使用的 API 密钥
 function M.check_api_keys()
-  local required_keys = {
-    "openrouter",
-    "moonshot", 
-    "qianwen",
-    "gemini"
-  }
+  local available_configs = M.setup_ai_configs()
+  local available_services = {}
   
-  local missing_keys = {}
-  
-  for _, service in ipairs(required_keys) do
-    local env_var = string.upper(service .. "_API_KEY")
-    if not os.getenv(env_var) then
-      table.insert(missing_keys, env_var)
-    end
+  for service, _ in pairs(available_configs) do
+    table.insert(available_services, service)
   end
   
-  if #missing_keys > 0 then
+  if #available_services == 0 then
     vim.notify(
-      "Missing API keys: " .. table.concat(missing_keys, ", "),
-      vim.log.levels.WARN
+      "💡 ShyNvim AI 准备就绪，如需使用 AI 功能请配置 API 密钥。" ..
+      "运行 :help api-keys 查看配置指南",
+      vim.log.levels.INFO
     )
-  else
-    vim.notify("All API keys are configured", vim.log.levels.INFO)
+    return false
   end
   
-  return #missing_keys == 0
+  vim.notify(
+    "🤖 AI 服务已配置: " .. table.concat(available_services, " · "),
+    vim.log.levels.INFO
+  )
+  
+  return true
 end
 
 -- 获取当前用户信息（用于 AI 聊天个性化）
@@ -102,6 +98,18 @@ function M.get_user_info()
     name = os.getenv("USER") or os.getenv("USERNAME") or "User",
     email = "shy_robin@163.com",
   }
+end
+
+-- 设置 API 密钥相关的帮助命令
+function M.setup_help_commands()
+  vim.api.nvim_create_user_command("ApiKeys", function()
+    local guide_path = vim.fn.stdpath("config") .. "/API_KEYS_GUIDE.md"
+    if vim.fn.filereadable(guide_path) == 1 then
+      vim.cmd("edit " .. guide_path)
+    else
+      vim.notify("API 密钥配置指南未找到", vim.log.levels.ERROR)
+    end
+  end, { desc = "打开 API 密钥配置指南" })
 end
 
 return M
