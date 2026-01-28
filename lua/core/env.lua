@@ -4,7 +4,7 @@ local M = {}
 function M.get_api_key(service)
   local env_var = string.upper(service .. "_API_KEY")
   local key = os.getenv(env_var)
-  
+
   if not key then
     vim.notify(
       "Missing API key for " .. service .. ". Please set " .. env_var .. " environment variable.",
@@ -12,14 +12,14 @@ function M.get_api_key(service)
     )
     return nil
   end
-  
+
   return key
 end
 
 -- 设置 AI 配置的统一函数
 function M.setup_ai_configs()
   local configs = {}
-  
+
   -- OpenRouter 配置
   local openrouter_key = M.get_api_key("openrouter")
   if openrouter_key then
@@ -29,7 +29,7 @@ function M.setup_ai_configs()
       model = "deepseek/deepseek-r1",
     }
   end
-  
+
   -- Moonshot 配置
   local moonshot_key = M.get_api_key("moonshot")
   if moonshot_key then
@@ -44,7 +44,7 @@ function M.setup_ai_configs()
       },
     }
   end
-  
+
   -- Qianwen 配置
   local qianwen_key = M.get_api_key("qianwen")
   if qianwen_key then
@@ -54,7 +54,7 @@ function M.setup_ai_configs()
       model = "qwen3-coder-plus",
     }
   end
-  
+
   -- Gemini 配置
   local gemini_key = M.get_api_key("gemini")
   if gemini_key then
@@ -62,7 +62,7 @@ function M.setup_ai_configs()
       model = "gemini-2.5-pro",
     }
   end
-  
+
   return configs
 end
 
@@ -70,20 +70,17 @@ end
 function M.check_api_keys()
   local available_configs = M.setup_ai_configs()
   local available_services = {}
-  
+
   for service, _ in pairs(available_configs) do
     table.insert(available_services, service)
   end
-  
+
   if #available_services == 0 then
     return false
   end
-  
-  vim.notify(
-    "🤖 AI 服务已配置: " .. table.concat(available_services, " · "),
-    vim.log.levels.INFO
-  )
-  
+
+  vim.notify("🤖 AI 服务已配置: " .. table.concat(available_services, " · "), vim.log.levels.INFO)
+
   return true
 end
 
