@@ -47,13 +47,21 @@ return {
       return require("opencode").operator("@this ") .. "_"
     end, { expr = true, desc = "Add line to opencode" })
 
-    vim.keymap.set({ "n", "t" }, "<M-u>", function()
+    vim.keymap.set({ "n", "t" }, "<C-u>", function()
       require("opencode").command("session.half.page.up")
     end, { desc = "opencode half page up" })
 
-    vim.keymap.set({ "n", "t" }, "<M-d>", function()
+    vim.keymap.set({ "n", "t" }, "<C-d>", function()
       require("opencode").command("session.half.page.down")
     end, { desc = "opencode half page down" })
+
+    vim.keymap.set({ "n", "t" }, "<M-u>", function()
+      require("opencode").command("session.half.page.up")
+    end, { desc = "opencode half page up (Alt)" })
+
+    vim.keymap.set({ "n", "t" }, "<M-d>", function()
+      require("opencode").command("session.half.page.down")
+    end, { desc = "opencode half page down (Alt)" })
 
     -- You may want these if you stick with the opinionated "<C-a>" and "<C-x>" above — otherwise consider "<leader>o".
     -- 把原生功能"挪"到 + 和 - 键上
