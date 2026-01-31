@@ -1,22 +1,51 @@
 return {
-  "mason-org/mason.nvim",
+  "LazyVim/LazyVim",
   opts = {
-    -- 自动安装 lsp
-    ensure_installed = {
-      -- "stylua",
-      -- "shfmt",
-      -- "vue-language-server",
-      -- "html-lsp",
-      -- "css-lsp",
-      -- "svelte-language-server",
-      -- "prettierd",
-      -- "eslint_d",
-      -- emmet-ls 存在一些问题：
-      -- https://github.com/aca/emmet-ls/issues/42
-      -- "emmet-language-server"
+    mason = {
+      ensure_installed = {
+        -- LSP servers
+        "typescript-tools",
+        "vue-language-server",
+        "lua-language-server",
+        "json-lsp",
+        "yaml-language-server",
+        "html-lsp",
+        "css-lsp",
+        "svelte-language-server",
+        "pyright",
+        "ruff",
+        "gopls",
+        "rust-analyzer",
+        "tailwindcss-language-server",
+        "emmet-language-server",
+        
+        -- Formatters
+        "prettierd",
+        "stylua",
+        "black",
+        "isort",
+        "gofumpt",
+        "rustfmt",
+        "sqlfmt",
+        "shfmt",
+        
+        -- Linters
+        "eslint_d",
+        "markdownlint-cli2",
+        "shellcheck",
+        "golangci-lint",
+        "hadolint",
+        
+        -- Debuggers
+        "debugpy",
+        "delve",
+        
+        -- DAP adapters
+        "codelldb",
+      },
+      ui = {
+        border = "rounded",
+      },
     },
-    ui = {
-      border = "rounded"
-    }
   },
 }
