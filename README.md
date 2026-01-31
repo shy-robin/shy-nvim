@@ -12,7 +12,7 @@
 
 - 包管理器 [lazy.nvim](https://github.com/folke/lazy.nvim)
 - 文件浏览器 [nvim-tree](https://github.com/nvim-tree/nvim-tree.lua)
-- 代码补全、格式化、语法检查 [coc.nvim](https://github.com/neoclide/coc.nvim)
+- 代码补全、格式化、语法检查 [Native LSP](https://www.lazyvim.org/plugins/lsp) + [blink.cmp](https://github.com/Saghen/blink.cmp)
 - 语法高亮 [treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
 - Git 集成 [gitsigns](https://github.com/lewis6991/gitsigns.nvim) [lazygit](https://github.com/jesseduffield/lazygit)
 - 状态栏 [bufferline](https://github.com/akinsho/bufferline.nvim) [lualine](https://github.com/nvim-lualine/lualine.nvim)
@@ -36,14 +36,30 @@
     - [wezterm](https://github.com/wez/wezterm) (Linux, Macos & Windows)
     - [alacritty](https://github.com/alacritty/alacritty) (Linux, Macos & Windows)
     - [iterm2](https://iterm2.com/) (Macos)
-- [coc.nvim](https://github.com/neoclide/coc.nvim) 前置依赖
-  - [nodejs](https://nodejs.org/en/download/) >= 16.18.0
-  - [watchman](https://facebook.github.io/watchman/)（volar 服务会用到，具体参考：[[RECOMMENDED] Additional installation of "watchman"](https://github.com/yaegassy/coc-volar?tab=readme-ov-file#recommended-additional-installation-of-watchman)）
-- [ultisnips](https://github.com/SirVer/ultisnips) 前置依赖
-  - ultisnips 需要依赖 python，因此需要提前安装 python，否则无法正常使用代码片段
-    1. 安装 python：`brew install python`，检查是否安装成功：`python3 --version`
-    2. 安装 pynvim：`pip3 install pynvim`，如果安装提示 ssl 的报错，需要断开 vpn 进行安装，检查是否安装成功：`python3` -> `import pynvim` -> `print(pynvim.__vesion__)`
-    3. 检查 nvim 是否安装 python 环境：`:echo has('python3')`，若返回 1 则有，若为 0 则无
+- [Native LSP](https://www.lazyvim.org/plugins/lsp) 前置依赖
+  - [curl](https://curl.se/) 用于 [blink.cmp](https://github.com/Saghen/blink.cmp) **(必需)**
+  - [nodejs](https://nodejs.org/en/download/) >= 16.18.0 **(可选，用于某些语言服务器)**
+## 📄 迁移指南
+
+本配置已从 coc.nvim 迁移到 Native LSP，详细迁移文档请参考：
+
+- [MIGRATION_PLAN.md](./MIGRATION_PLAN.md) - 详细迁移计划
+- [QUICK_START.md](./QUICK_START.md) - 快速迁移指南  
+- [CONFIG_DIFF.md](./CONFIG_DIFF.md) - 配置文件差异对比
+- [migrate.sh](./migrate.sh) - 自动化迁移脚本
+
+如果您还在使用 coc.nvim 版本，可以使用自动化脚本进行迁移：
+
+```shell
+# 执行迁移
+./migrate.sh
+
+# 验证迁移
+./verify_migration.sh
+
+# 如需回滚
+./rollback.sh
+```
 - 其他依赖
   - `:checkhealth snacks`
   * `:checkhealth img-clip`
