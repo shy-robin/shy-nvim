@@ -47,11 +47,11 @@ return {
       return require("opencode").operator("@this ") .. "_"
     end, { expr = true, desc = "Add line to opencode" })
 
-    vim.keymap.set({ "n", "t" }, "<C-u>", function()
+    vim.keymap.set("t", "<C-u>", function()
       require("opencode").command("session.half.page.up")
     end, { desc = "opencode half page up" })
 
-    vim.keymap.set({ "n", "t" }, "<C-d>", function()
+    vim.keymap.set("t", "<C-d>", function()
       require("opencode").command("session.half.page.down")
     end, { desc = "opencode half page down" })
 
