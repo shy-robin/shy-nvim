@@ -18,9 +18,10 @@ return {
     vim.env.OPENCODE = nil
     vim.env.AGENT = nil
 
-    ---@type opencode.Opts
     vim.g.opencode_opts = {
-      port = get_deterministic_port(),
+      server = {
+        port = get_deterministic_port(),
+      },
     }
   end,
   config = function()
