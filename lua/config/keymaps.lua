@@ -215,3 +215,7 @@ Snacks.toggle({
     end
   end,
 }):map("<leader>uB")
+
+set({ "n", "t" }, "<c-\\>", function()
+  Snacks.terminal(nil, { cwd = LazyVim.root(), win = { position = "right" } })
+end, { desc = "Terminal (Root Dir)" })
