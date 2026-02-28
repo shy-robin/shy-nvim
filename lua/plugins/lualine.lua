@@ -137,9 +137,9 @@ return {
           -- stylua: ignore
 
           -- 显示 OpenCode 的状态
-          {
-            require("opencode").statusline,
-          },
+          -- {
+          --   require("opencode").statusline,
+          -- },
           {
             function()
               return "  " .. require("dap").status()
