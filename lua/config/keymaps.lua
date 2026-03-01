@@ -244,9 +244,9 @@ local function copy_location(is_visual)
   -- 3. 格式化：单行显示 "file:10"，范围显示 "file:10-20"
   local result
   if start_line == end_line then
-    result = string.format("%s:L%d", file_path, start_line)
+    result = string.format("%s:%d", file_path, start_line)
   else
-    result = string.format("%s:L%d-L%d", file_path, start_line, end_line)
+    result = string.format("%s:%d-%d", file_path, start_line, end_line)
   end
 
   -- 4. 写入剪贴板
