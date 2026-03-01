@@ -219,3 +219,49 @@ Snacks.toggle({
 set({ "n", "t" }, "<c-\\>", function()
   Snacks.terminal(nil, { cwd = LazyVim.root(), win = { position = "right" } })
 end, { desc = "Terminal (Root Dir)" })
+
+local function copy_location(is_visual)
+  -- 1. 处理模式差异
+  local start_line, end_line
+
+  if is_visual then
+    -- 退出可视模式以更新标记
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "x", false)
+    start_line = vim.api.nvim_buf_get_mark(0, "<")[1]
+    end_line = vim.api.nvim_buf_get_mark(0, ">")[1]
+  else
+    -- Normal 模式下，起始和结束行都是当前行
+    local cursor_line = vim.api.nvim_win_get_cursor(0)[1]
+    start_line, end_line = cursor_line, cursor_line
+  end
+
+  -- 2. 获取文件路径 (相对路径)
+  local file_path = vim.fn.expand("%:.")
+  if file_path == "" then
+    file_path = "[No Name]"
+  end
+
+  -- 3. 格式化：单行显示 "file:10"，范围显示 "file:10-20"
+  local result
+  if start_line == end_line then
+    result = string.format("%s:L%d", file_path, start_line)
+  else
+    result = string.format("%s:L%d-L%d", file_path, start_line, end_line)
+  end
+
+  -- 4. 写入剪贴板
+  vim.fn.setreg("+", result)
+  vim.fn.setreg('"', result)
+
+  vim.notify("已复制: " .. result, vim.log.levels.INFO)
+end
+
+-- Normal 模式：复制当前行号
+set("n", "<leader>cr", function()
+  copy_location(false)
+end, { desc = "Copy line range", silent = true })
+
+-- Visual 模式：复制选区行号范围
+set("v", "<leader>cr", function()
+  copy_location(true)
+end, { desc = "Copy line range", silent = true })
