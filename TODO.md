@@ -1,0 +1,6 @@
+- [ ] https://github.com/akinsho/toggleterm.nvim
+  - 结合 opencode 发送命令
+- [ ] coc.nvim -> lsp (v0.11.0)
+- [ ] https://github.com/esmuellert/codediff.nvim
+- [ ] https://gemini.google.com/app/68a2a6277627ba24
+- [ ] 使用 <ctrl-b>f 切换 tmux 窗口非常慢，<ctrl-b>w 很快
