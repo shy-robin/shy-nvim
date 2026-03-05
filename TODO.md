@@ -4,3 +4,4 @@
 - [ ] https://github.com/esmuellert/codediff.nvim
 - [ ] https://gemini.google.com/app/68a2a6277627ba24
 - [ ] 使用 <ctrl-b>f 切换 tmux 窗口非常慢，<ctrl-b>w 很快
+- [ ] AI commit
