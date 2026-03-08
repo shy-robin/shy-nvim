@@ -168,3 +168,32 @@
 -- end, {
 --   nargs = 0,
 -- })
+
+local function set_blink_highlights()
+  local set_hl = vim.api.nvim_set_hl
+  -- 基础标签：跟随注释颜色（淡灰色）
+  set_hl(0, "BlinkCmpLabel", { link = "Comment", default = true })
+  -- 匹配字符：跟随关键词颜色（亮色/主题色）
+  set_hl(0, "BlinkCmpLabelMatch", { link = "Keyword", bold = true, default = true })
+  -- 详情/参数：跟随 NonText（极淡色）
+  set_hl(0, "BlinkCmpLabelDetail", { link = "NonText", default = true })
+  -- 来源标签：[TSC] 等
+  set_hl(0, "BlinkCmpSource", { link = "NonText", italic = true, default = true })
+  -- 废弃标记：链接到特定的废弃样式
+  set_hl(0, "BlinkCmpLabelDeprecated", { strikethrough = true, fg = "#808080" })
+  -- 选中项的整体背景
+  set_hl(0, "BlinkCmpMenuSelection", { link = "PmenuSel" })
+  -- 如果你希望选中时匹配项依然闪亮，可以单独设置
+  set_hl(0, "BlinkCmpLabelMatchSelection", { link = "Keyword", bold = true, italic = true })
+end
+
+-- 立即执行一次（解决首次进入无效的问题）
+set_blink_highlights()
+
+-- 每当切换或加载主题后，重新应用 blink.cmp 的高亮设置
+vim.api.nvim_create_autocmd("ColorScheme", {
+  pattern = "*",
+  callback = function()
+    set_blink_highlights()
+  end,
+})
