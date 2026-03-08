@@ -1,0 +1,66 @@
+{
+  "jsd": {
+    "prefix": "jsd",
+    "body": [
+      "/**",
+      " * $1",
+      " */"
+    ],
+    "description": "Create jsdoc comment."
+  },
+  "cl": {
+    "prefix": "cl",
+    "body": [
+      "console.log($1);"
+    ],
+    "description": "Create Javascript console.log"
+  },
+  "afc": {
+    "prefix": "afc",
+    "body": [
+      "const $1 = $3($2) => {",
+      "\t$4",
+      "};"
+    ],
+    "description": "Create Javascript async arrow function."
+  },
+  "fc": {
+    "prefix": "fc",
+    "body": [
+      "const $1 = ($2) => {",
+      "\t$3",
+      "};"
+    ],
+    "description": "Create Javascript arrow function."
+  },
+  "fu": {
+    "prefix": "fu",
+    "body": [
+      "$3function $1($2) {",
+      "\t$1",
+      "}"
+    ],
+    "description": "Create Javascript function."
+  },
+  "im": {
+    "prefix": "im",
+    "body": [
+      "import { $2 } from '$1';"
+    ],
+    "description": "Create ES6 import."
+  },
+  "ia": {
+    "prefix": "ia",
+    "body": [
+      "import $2 as $3 from '$1';"
+    ],
+    "description": "Create ES6 import as."
+  },
+  "id": {
+    "prefix": "id",
+    "body": [
+      "import $2 from '$1';"
+    ],
+    "description": "Create ES6 import default."
+  }
+}

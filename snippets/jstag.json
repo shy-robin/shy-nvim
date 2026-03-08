@@ -1,0 +1,16 @@
+{
+  "t": {
+    "prefix": "t",
+    "body": [
+      "<$1$3>$2</$1>"
+    ],
+    "description": "Create a HTML tag."
+  },
+  "st": {
+    "prefix": "st",
+    "body": [
+      "<$1 />"
+    ],
+    "description": "Create a HTML self-closing tag."
+  }
+}
