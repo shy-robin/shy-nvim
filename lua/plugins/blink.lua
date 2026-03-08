@@ -41,6 +41,10 @@ return {
         preset = "super-tab",
         ["<C-j>"] = { "select_next", "fallback" },
         ["<C-k>"] = { "select_prev", "fallback" },
+        ["<C-l>"] = { "snippet_forward", "fallback" },
+        ["<C-h>"] = { "snippet_backward", "fallback" },
+        ["<C-d>"] = { "scroll_documentation_down", "fallback" },
+        ["<C-u>"] = { "scroll_documentation_up", "fallback" },
       },
 
       -- 2. 补全源配置
