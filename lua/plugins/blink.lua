@@ -39,12 +39,14 @@ return {
       -- -- 'super-tab' for mappings similar to vscode (tab to accept)
       keymap = {
         preset = "super-tab",
+        ["<C-y>"] = false,
         ["<C-j>"] = { "select_next", "fallback" },
         ["<C-k>"] = { "select_prev", "fallback" },
         ["<C-l>"] = { "snippet_forward", "fallback" },
         ["<C-h>"] = { "snippet_backward", "fallback" },
         ["<C-d>"] = { "scroll_documentation_down", "fallback" },
         ["<C-u>"] = { "scroll_documentation_up", "fallback" },
+        ["<C-f>"] = { "select_and_accept" },
       },
 
       -- 2. 补全源配置
