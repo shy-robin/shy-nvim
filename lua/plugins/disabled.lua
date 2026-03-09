@@ -1,7 +1,6 @@
 local plugins = {
   "neoclide/coc.nvim",
   "nvim-neo-tree/neo-tree.nvim",
-  "voldikss/vim-floaterm",
 }
 
 local disabled_plugins = {}

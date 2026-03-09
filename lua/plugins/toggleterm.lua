@@ -4,10 +4,7 @@ return {
     keys = {
       -- 显式绑定：每个键只触发特定的布局（加上 count=1, 2, 3 来隔离实例）
 
-      -- <C-o> 始终是浮动终端 (实例 1)
-      { "<C-o>", "<cmd>1ToggleTerm direction=float<cr>", mode = { "n" }, desc = "Floating Terminal" },
-
-      -- <C-/> 始终是水平终端 (实例 2)
+      -- <C-/> 始终是水平终端 (实例 1)
       -- 同时映射 <C-_> 处理你的终端兼容性问题
       { "<C-/>", "<cmd>2ToggleTerm direction=horizontal<cr>", mode = { "n" }, desc = "Horizontal Terminal" },
       { "<C-_>", "<cmd>2ToggleTerm direction=horizontal<cr>", mode = { "n" }, desc = "Horizontal Terminal" },
@@ -17,7 +14,6 @@ return {
     },
     opts = {
       open_mapping = nil,
-      direction = "float", -- 默认悬浮
       float_opts = {
         border = "rounded",
       },
@@ -81,12 +77,11 @@ return {
         -- 解决关闭问题：不要用固定的 <Cmd>1ToggleTerm
         -- 在终端内部，按对应键应该执行“关闭当前这个终端”的操作
         -- 使用 <Cmd>close<CR> 只是隐藏窗口，进程还在；
-        -- 如果你希望按 <C-o> 隐藏当前浮动终端：
-        vim.keymap.set("t", "<C-o>", [[<Cmd>close<CR>]], map_opts)
         -- 针对水平和垂直终端，也可以在终端内直接用 close 隐藏自己
         vim.keymap.set("t", "<C-/>", [[<Cmd>close<CR>]], map_opts)
         vim.keymap.set("t", "<C-_>", [[<Cmd>close<CR>]], map_opts)
         vim.keymap.set("t", [[<C-\>]], [[<Cmd>close<CR>]], map_opts)
+        vim.keymap.set("t", "<C-o>", "<cmd>ToggleTermToggleAll<cr>", map_opts)
       end
 
       -- 仅在进入终端时启用这些映射
