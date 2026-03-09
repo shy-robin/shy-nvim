@@ -32,3 +32,9 @@
 
 -- lazygit 不使用当前主题颜色
 -- vim.g.lazygit_config = false
+
+vim.diagnostic.config({
+  float = {
+    border = "rounded",
+  },
+})
