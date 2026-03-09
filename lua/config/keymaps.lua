@@ -97,12 +97,6 @@ set("n", "<leader>tL", "<cmd>tablast<cr>", { desc = "Tab Last", silent = true })
 -- https://vi.stackexchange.com/questions/6746/how-can-i-open-a-buffer-in-a-new-tab-leaving-the-current-window-and-buffer-intac
 set("n", "<leader>tn", "<cmd>tabe %<cr>", { desc = "Tab New", silent = true })
 
-set("n", "<leader>qq", function()
-  -- 退出之前，关闭所有 floaterm
-  vim.api.nvim_command("FloatermKill!")
-  vim.api.nvim_command("qa")
-end, { desc = "Quit All" })
-
 --lazygit
 set("n", "<leader>gb", function()
   -- 设置浮动窗口样式
@@ -118,6 +112,10 @@ set("n", "<leader>lr", "<cmd>Lazy restore<cr>", { desc = "Lazy Restore" })
 set("n", "<leader>lc", function()
   LazyVim.news.changelog()
 end, { desc = "LazyVim Changelog" })
+
+-- 禁用 LazyVim 默认的终端快捷键映射，防止冲突
+del("n", "<leader>ft")
+del("n", "<leader>fT")
 
 -- Supermaven 开关
 Snacks.toggle({
@@ -153,10 +151,6 @@ Snacks.toggle({
     end
   end,
 }):map("<leader>uB")
-
-set({ "n", "t" }, "<c-\\>", function()
-  Snacks.terminal(nil, { cwd = LazyVim.root(), win = { position = "right" } })
-end, { desc = "Terminal (Root Dir)" })
 
 local function copy_location(is_visual)
   -- 1. 处理模式差异
