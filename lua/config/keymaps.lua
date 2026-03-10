@@ -55,6 +55,13 @@ set("v", "p", '"_dp', { desc = "Paste with no register" })
 set("c", "<C-j>", "<C-n>", { desc = "Select Next Item", remap = true })
 set("c", "<C-k>", "<C-p>", { desc = "Select Prev Item", remap = true })
 
+-- quit all
+set("n", "<leader>qq", function()
+  -- 退出之前，关闭所有 floaterm
+  vim.api.nvim_command("FloatermKill!")
+  vim.api.nvim_command("qd")
+end, { desc = "Quit All" })
+
 -- spell check (use coc-spell-checker instead)
 -- set("n", "gns", "]s", { desc = "Next misspelled word", remap = true, silent = true })
 -- set("n", "gNs", "[s", { desc = "Prev misspelled word", remap = true, silent = true })
