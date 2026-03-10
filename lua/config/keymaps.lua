@@ -25,11 +25,6 @@ set("n", "<leader>wl", "5<C-W>>", { desc = "Increase window width", remap = true
 set("v", "J", ":move '>+1<cr>gv=gv", { desc = "Move down", silent = true })
 set("v", "K", ":move '<-2<cr>gv=gv", { desc = "Move up", silent = true })
 
--- clear highlight search
-del({ "i", "n" }, "<esc>")
--- 使用默认的 <leader>ur
--- set("n", "<leader>nh", "<cmd>nohl<cr>", { desc = "Clear hlsearch" })
-
 -- file
 del("n", "<leader>fn")
 -- 注意，避免写 : 加命令的形式执行命令，不然底部栏会切换到 command 模式而导致闪烁
