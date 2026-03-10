@@ -59,7 +59,7 @@ set("c", "<C-k>", "<C-p>", { desc = "Select Prev Item", remap = true })
 set("n", "<leader>qq", function()
   -- 退出之前，关闭所有 floaterm
   vim.api.nvim_command("FloatermKill!")
-  vim.api.nvim_command("qd")
+  vim.api.nvim_command("qa")
 end, { desc = "Quit All" })
 
 -- spell check (use coc-spell-checker instead)
