@@ -2,39 +2,6 @@
 -- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
 -- Add any additional autocmds here
 
--- 当开启 volar takeover 模式后，js 或 ts 文件会有两个 lsp 服务：volar + tsserver；
--- 这会导致一些问题，例如 ts 无法识别 import 的 vue 文件；
--- 解决办法是使用 autocmd，如果监测到 volar 和 tsserver 同时开启，则只使用 tsserver。
--- https://www.reddit.com/r/neovim/comments/117gopv/disable_tsserver_if_using_volar_takeover_mode/
--- local tsserverAttached = false
--- local volarAttached = false
---
--- vim.api.nvim_create_autocmd("LspAttach", {
---   callback = function(args)
---     local client = vim.lsp.get_client_by_id(args.data.client_id)
---     local name = client.name
---
---     if name == "tsserver" then
---       if volarAttached then
---         client.stop()
---       else
---         tsserverAttached = client
---       end
---     elseif name == "volar" then
---       volarAttached = client
---       if tsserverAttached then
---         tsserverAttached.stop()
---         tsserverAttached = false
---       end
---     end
---
---     -- NOTE: 切换到 http 文件会报错，暂时去掉
---     -- require("lspconfig.ui.windows").default_options = {
---     --   border = "rounded",
---     -- }
---   end,
--- })
---
 -- -- 拼写检查支持驼峰
 -- vim.api.nvim_create_autocmd("BufReadPre", {
 --   callback = function()
@@ -129,30 +96,6 @@
 --
 -- vim.cmd("command RandomString silent lua appendRandomString()")
 --
--- -- 当 ColorScheme 变化时自动触发
--- vim.api.nvim_create_autocmd("ColorScheme", {
---   pattern = "*",
---   callback = function()
---     -- 设置高亮组 CocMenuSel 的背景颜色
---     -- NOTE: 切换背景透明时，CocMenuSel 颜色会变化，需要重置（https://github.com/neoclide/coc.nvim/issues/4123）
---     vim.cmd("hi CocMenuSel ctermbg=23 guibg=#3e4d52")
---
---     local hl = vim.api.nvim_set_hl
---     hl(0, "GitSignsAdd", { fg = "#0EAA00" })
---     hl(0, "GitSignsChange", { fg = "#E5C07B" })
---     hl(0, "GitSignsDelete", { fg = "#E06C75" })
---     hl(0, "GitSignsTopdelete", { fg = "#E06C75" })
---     hl(0, "GitSignsChangedelete", { fg = "#E5C07B" })
---     hl(0, "GitSignsUntracked", { fg = "#E06C75" })
---     hl(0, "GitsignsCurrentLineBlame", { fg = "#62686E" })
---
---     -- 缓存选中的主题
---     local cache_file = vim.fn.stdpath("data") .. "/shy-nvim_theme_cache"
---     local colorscheme = vim.g.colors_name
---     vim.fn.writefile({ tostring(colorscheme) }, cache_file)
---   end,
--- })
---
 -- -- markdown 和 txt 文件不检查拼写
 -- -- 参考：<https://github.com/LazyVim/LazyVim/discussions/4021>
 -- vim.api.nvim_create_autocmd("FileType", {
@@ -192,15 +135,32 @@ local function set_highlights()
 
   -- 设置边框颜色，fg 设为明亮的颜色
   set_hl(0, "FloatBorder", { link = "Pmenu" })
+
+  -- 设置 gitsigns 的高亮
+  set_hl(0, "GitSignsAdd", { fg = "#0EAA00" })
+  set_hl(0, "GitSignsChange", { fg = "#E5C07B" })
+  set_hl(0, "GitSignsDelete", { fg = "#E06C75" })
+  set_hl(0, "GitSignsTopdelete", { fg = "#E06C75" })
+  set_hl(0, "GitSignsChangedelete", { fg = "#E5C07B" })
+  set_hl(0, "GitSignsUntracked", { fg = "#E06C75" })
+  set_hl(0, "GitsignsCurrentLineBlame", { fg = "#62686E" })
+end
+
+local function save_color_scheme()
+  -- 缓存选中的主题
+  local cache_file = vim.fn.stdpath("data") .. "/shy-nvim_theme_cache"
+  local colorscheme = vim.g.colors_name
+  vim.fn.writefile({ tostring(colorscheme) }, cache_file)
 end
 
 -- 立即执行一次（解决首次进入无效的问题）
 set_highlights()
 
--- 每当切换或加载主题后，重新应用 blink.cmp 的高亮设置
+-- 每当切换或加载主题后自动触发
 vim.api.nvim_create_autocmd("ColorScheme", {
   pattern = "*",
   callback = function()
     set_highlights()
+    save_color_scheme()
   end,
 })
