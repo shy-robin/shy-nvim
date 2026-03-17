@@ -99,6 +99,21 @@ return {
           },
         },
         lualine_x = {
+          {
+            -- flutter-tools 注册的自定义 lualine 组件
+            "g:flutter_tools_decorations.app_version",
+            icon = "",
+          },
+          {
+            -- flutter-tools 注册的自定义 lualine 组件
+            "g:flutter_tools_decorations.device",
+            icon = "",
+          },
+          {
+            -- flutter-tools 注册的自定义 lualine 组件
+            "g:flutter_tools_decorations.project_config",
+            icon = "",
+          },
           -- Setup lsp-progress component (use coc#status instead)
           -- {
           --   function()
