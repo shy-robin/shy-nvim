@@ -121,6 +121,12 @@ return {
     image = {
       enabled = true,
     },
+    lazygit = {
+      -- 专门针对 lazygit 浮窗的配置
+      win = {
+        border = "rounded", -- 给 lazygit 加上圆角边框
+      },
+    },
   },
   keys = {
     {
