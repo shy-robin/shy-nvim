@@ -3,7 +3,7 @@ return {
   opts = {
     options = {
       always_show_bufferline = false,
-      diagnostics = "coc",
+      diagnostics = "nvim_lsp",
       offsets = {
         {
           filetype = "NvimTree",
