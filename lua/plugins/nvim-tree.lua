@@ -327,7 +327,7 @@ return {
         -- "package.json",
       },
       highlight_git = true,
-      highlight_diagnostics = true,
+      highlight_diagnostics = false,
       highlight_opened_files = "name",
       highlight_bookmarks = "name",
       indent_markers = {
