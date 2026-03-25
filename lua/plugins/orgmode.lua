@@ -22,6 +22,7 @@ return {
       },
       ui = {
         menu = {
+          ---@diagnostic disable-next-line: redundant-parameter
           handler = function(data)
             Menu:new({
               window = {

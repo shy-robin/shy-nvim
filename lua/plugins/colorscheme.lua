@@ -1,4 +1,4 @@
-get_colorscheme = function()
+local get_colorscheme = function()
   local path = vim.fn.stdpath("data") .. "/shy-nvim_theme_cache"
   local exists, lines = pcall(vim.fn.readfile, path)
   if exists and lines[1] then
