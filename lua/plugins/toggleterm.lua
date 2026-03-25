@@ -14,6 +14,12 @@ return {
     },
     opts = {
       open_mapping = nil,
+      highlights = {
+        Normal = { link = "Normal" },
+        NormalFloat = { link = "Normal" },
+        StatusLine = { link = "Normal" },
+        StatusLineNC = { link = "Normal" },
+      },
       float_opts = {
         border = "rounded",
       },

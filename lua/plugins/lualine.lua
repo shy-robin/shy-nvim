@@ -197,12 +197,16 @@ return {
     }
   end,
   config = function(_, opts)
-    -- 将 lualine 的背景颜色设置为透明
+    -- 让 lualine c 段背景与 Normal 一致，实现沉浸式效果
     local auto = require("lualine.themes.auto")
-    local lualine_modes = { "insert", "normal", "visual", "command", "replace", "inactive", "terminal" }
-    for _, field in ipairs(lualine_modes) do
-      if auto[field] and auto[field].c then
-        auto[field].c.bg = "NONE"
+    local normal_bg = vim.api.nvim_get_hl(0, { name = "Normal" }).bg
+    if normal_bg then
+      local bg_hex = string.format("#%06x", normal_bg)
+      local lualine_modes = { "insert", "normal", "visual", "command", "replace", "inactive", "terminal" }
+      for _, field in ipairs(lualine_modes) do
+        if auto[field] and auto[field].c then
+          auto[field].c.bg = bg_hex
+        end
       end
     end
     opts.options.theme = auto

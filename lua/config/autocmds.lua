@@ -136,6 +136,16 @@ local function set_highlights()
   -- 设置边框颜色，fg 设为明亮的颜色
   set_hl(0, "FloatBorder", { link = "Pmenu" })
 
+  -- 沉浸式效果：统一所有窗口背景与 Normal 一致
+  -- NvimTree
+  set_hl(0, "NvimTreeNormal", { link = "Normal" })
+  set_hl(0, "NvimTreeNormalNC", { link = "Normal" })
+  set_hl(0, "NvimTreeWinSeparator", { fg = "bg", bg = "bg" })
+  set_hl(0, "NvimTreeEndOfBuffer", { link = "Normal" })
+  -- ToggleTerm
+  set_hl(0, "ToggleTermNormal", { link = "Normal" })
+  set_hl(0, "ToggleTermEndOfBuffer", { link = "Normal" })
+
   -- 设置 gitsigns 的高亮
   set_hl(0, "GitSignsAdd", { fg = "#0EAA00" })
   set_hl(0, "GitSignsChange", { fg = "#E5C07B" })
