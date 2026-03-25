@@ -5,6 +5,11 @@
 
 ## [unreleased]
 
+### Changed
+
+- 从 coc.nvim 迁移到 Native LSP + blink.cmp，使用 Neovim 内置 LSP 实现代码补全、诊断、格式化等功能
+- 最低 Neovim 版本要求升级至 0.11.0
+
 ### To be added
 
 - [ ] org-mode 支持 或者 neorg 支持

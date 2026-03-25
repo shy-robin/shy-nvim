@@ -23,7 +23,7 @@
 ## ⚡️ 前置条件
 
 - [LazyVim](https://www.lazyvim.org/) 前置依赖（具体参考：[LazyVim Requirements](https://www.lazyvim.org/#%EF%B8%8F-requirements)）
-  - [neovim](https://neovim.io/) >= **0.9.0** （需要用 **LuaJIT** 构建）
+  - [neovim](https://neovim.io/) >= **0.11.0** （需要用 **LuaJIT** 构建）
   - [git](https://git-scm.com/) >= **2.19.0** （用于部分克隆支持）
   - 一个 [Nerd Font](https://www.nerdfonts.com/) 字体 **_（可选）_**
   - [lazygit](https://github.com/jesseduffield/lazygit) **_（可选）_**
@@ -39,27 +39,6 @@
 - [Native LSP](https://www.lazyvim.org/plugins/lsp) 前置依赖
   - [curl](https://curl.se/) 用于 [blink.cmp](https://github.com/Saghen/blink.cmp) **(必需)**
   - [nodejs](https://nodejs.org/en/download/) >= 16.18.0 **(可选，用于某些语言服务器)**
-## 📄 迁移指南
-
-本配置已从 coc.nvim 迁移到 Native LSP，详细迁移文档请参考：
-
-- [MIGRATION_PLAN.md](./MIGRATION_PLAN.md) - 详细迁移计划
-- [QUICK_START.md](./QUICK_START.md) - 快速迁移指南  
-- [CONFIG_DIFF.md](./CONFIG_DIFF.md) - 配置文件差异对比
-- [migrate.sh](./migrate.sh) - 自动化迁移脚本
-
-如果您还在使用 coc.nvim 版本，可以使用自动化脚本进行迁移：
-
-```shell
-# 执行迁移
-./migrate.sh
-
-# 验证迁移
-./verify_migration.sh
-
-# 如需回滚
-./rollback.sh
-```
 - 其他依赖
   - `:checkhealth snacks`
   * `:checkhealth img-clip`
