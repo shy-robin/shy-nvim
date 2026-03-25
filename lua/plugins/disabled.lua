@@ -1,5 +1,4 @@
 local plugins = {
-  "neoclide/coc.nvim",
   "nvim-neo-tree/neo-tree.nvim",
 }
 
