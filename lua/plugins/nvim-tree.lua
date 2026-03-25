@@ -19,6 +19,11 @@ local function vsplit_preview()
   local api = require("nvim-tree.api")
   local node = api.tree.get_node_under_cursor()
 
+  if not node then
+    return
+  end
+
+  ---@diagnostic disable-next-line: undefined-field
   if node.nodes ~= nil then
     -- expand or collapse folder
     api.node.open.edit()
@@ -41,7 +46,7 @@ local function grep_at_current_tree_node()
     return
   end
 
-  local path = node.absolute_path or uv.cwd()
+  local path = node.absolute_path or vim.uv.cwd()
   if node.type ~= "directory" and node.parent then
     path = node.parent.absolute_path
   end
@@ -61,7 +66,8 @@ local function edit_or_open()
   end
 
   -- Prevent navigation up when pressing 'l' on the root node
-  if node.nodes and node.parent == nil then
+  ---@diagnostic disable-next-line: undefined-field
+  if node.nodes ~= nil and node.parent == nil then
     return
   end
 
@@ -83,7 +89,8 @@ local function get_image_info()
 
   local image_extensions =
     { "png", "jpg", "jpeg", "gif", "webp", "avif", "svg", "ico", "bmp", "pbm", "pgm", "ppm", "tiff", "tif" }
-  local extension = node.extension and node.extension:lower() or ""
+  local ext_raw = node.absolute_path and node.absolute_path:match("%.(%w+)$")
+  local extension = ext_raw and ext_raw:lower() or ""
   local is_image = false
   for _, ext in ipairs(image_extensions) do
     if extension == ext then
@@ -280,13 +287,13 @@ local function my_on_attach(bufnr)
   set("n", "bmv", api.marks.bulk.move, opts("Move Bookmarked"))
 
   -- filter
-  set("n", "f", api.live_filter.start, opts("Filter"))
-  set("n", "F", api.live_filter.clear, opts("Clean Filter"))
-  set("n", "B", api.tree.toggle_no_buffer_filter, opts("Toggle Filter: No Buffer"))
-  set("n", "C", api.tree.toggle_git_clean_filter, opts("Toggle Filter: Git Clean"))
-  set("n", "H", api.tree.toggle_hidden_filter, opts("Toggle Filter: Dotfiles"))
-  set("n", "I", api.tree.toggle_gitignore_filter, opts("Toggle Filter: Git Ignore"))
-  set("n", "U", api.tree.toggle_custom_filter, opts("Toggle Filter: Hidden"))
+  set("n", "f", api.filter.live.start, opts("Filter"))
+  set("n", "F", api.filter.live.clear, opts("Clean Filter"))
+  set("n", "B", api.filter.no_buffer.toggle, opts("Toggle Filter: No Buffer"))
+  set("n", "C", api.filter.git.clean.toggle, opts("Toggle Filter: Git Clean"))
+  set("n", "H", api.filter.dotfiles.toggle, opts("Toggle Filter: Dotfiles"))
+  set("n", "I", api.filter.git.ignored.toggle, opts("Toggle Filter: Git Ignore"))
+  set("n", "U", api.filter.custom.toggle, opts("Toggle Filter: Hidden"))
 
   -- git
   set("n", "[c", api.node.navigate.git.prev, opts("Prev Git"))
