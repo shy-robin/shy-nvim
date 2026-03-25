@@ -23,6 +23,8 @@ return {
       -- stylua: ignore start
       map("n", "<leader>gj", function() gs.nav_hunk('next') end, "Next Hunk")
       map("n", "<leader>gk", function() gs.nav_hunk('prev') end, "Prev Hunk")
+      map("n", "]g", function() gs.nav_hunk('next') end, "Next Hunk")
+      map("n", "[g", function() gs.nav_hunk('prev') end, "Prev Hunk")
       map("n", "<leader>gJ", function() gs.nav_hunk('last') end, "Last Hunk")
       map("n", "<leader>gK", function() gs.nav_hunk('first') end, "First Hunk")
       map({ "n", "v" }, "<leader>ghs", "<cmd>Gitsigns stage_hunk<cr>", "Stage Hunk")
