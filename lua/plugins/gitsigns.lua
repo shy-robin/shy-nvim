@@ -27,6 +27,8 @@ return {
       map("n", "[g", function() gs.nav_hunk('prev') end, "Prev Hunk")
       map("n", "<leader>gJ", function() gs.nav_hunk('last') end, "Last Hunk")
       map("n", "<leader>gK", function() gs.nav_hunk('first') end, "First Hunk")
+      map("n", "]G", function() gs.nav_hunk('last') end, "Last Hunk")
+      map("n", "[G", function() gs.nav_hunk('first') end, "First Hunk")
       map({ "n", "v" }, "<leader>ghs", "<cmd>Gitsigns stage_hunk<cr>", "Stage Hunk")
       map({ "n", "v" }, "<leader>ghr", "<cmd>Gitsigns reset_hunk<cr>", "Reset Hunk")
       map("n", "<leader>ghS", gs.stage_buffer, "Stage Buffer")
