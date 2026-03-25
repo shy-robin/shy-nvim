@@ -124,7 +124,7 @@ Snacks.toggle({
   name = "Supermaven",
   get = function()
     local api = require("supermaven-nvim.api")
-    return api.is_running()
+    return api.is_running() or false
   end,
   set = function(enabled)
     local api = require("supermaven-nvim.api")
@@ -143,7 +143,7 @@ del("n", "<leader>n")
 Snacks.toggle({
   name = "Char Boundary",
   get = function()
-    return vim.opt.colorcolumn._value ~= ""
+    return vim.o.colorcolumn ~= ""
   end,
   set = function(enabled)
     if enabled then
