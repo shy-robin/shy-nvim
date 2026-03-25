@@ -90,8 +90,10 @@ return {
           },
           -- 显示 macro 记录
           {
-            require("noice").api.statusline.mode.get,
-            cond = require("noice").api.statusline.mode.has,
+            ---@diagnostic disable-next-line: undefined-field
+            function() return require("noice").api.status.mode.get() end,
+            ---@diagnostic disable-next-line: undefined-field
+            cond = function() return require("noice").api.status.mode.has() end,
             color = function()
               return { fg = Snacks.util.color("WarningMsg") }
             end,
