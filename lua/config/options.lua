@@ -4,12 +4,8 @@
 
 -- local opt = vim.opt
 
--- 指定拼写检查的语言 (use coc-spell-checker instead)
---opt.spelllang = { 'en', 'cjk' }
--- 开启拼写检查
--- opt.spell = true
-
--- opt.spelllang = nil
+-- 拼写检查跳过中文（CJK）字符
+vim.opt.spelllang = { "en", "cjk" }
 
 -- 显示最大字数竖线
 -- opt.colorcolumn = ""
