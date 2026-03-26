@@ -82,6 +82,7 @@ return {
           },
         },
         documentation = { window = { border = "rounded" } },
+        ghost_text = { enabled = false },
       },
 
       -- 4. 签名帮助 (类似代码参数提示)
