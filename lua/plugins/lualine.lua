@@ -102,18 +102,28 @@ return {
         },
         lualine_x = {
           {
-            -- flutter-tools 注册的自定义 lualine 组件
-            "g:flutter_tools_decorations.app_version",
+            function()
+              local ok, decorations = pcall(vim.api.nvim_get_var, "flutter_tools_decorations")
+              return ok and decorations.app_version or ""
+            end,
             icon = "",
           },
           {
-            -- flutter-tools 注册的自定义 lualine 组件
-            "g:flutter_tools_decorations.device",
+            function()
+              local ok, decorations = pcall(vim.api.nvim_get_var, "flutter_tools_decorations")
+              if not ok or not decorations.device then return "" end
+              local device = decorations.device
+              return type(device) == "table" and device.name or tostring(device)
+            end,
             icon = "",
           },
           {
-            -- flutter-tools 注册的自定义 lualine 组件
-            "g:flutter_tools_decorations.project_config",
+            function()
+              local ok, decorations = pcall(vim.api.nvim_get_var, "flutter_tools_decorations")
+              if not ok or not decorations.project_config then return "" end
+              local conf = decorations.project_config
+              return type(conf) == "table" and (conf.name or vim.inspect(conf)) or tostring(conf)
+            end,
             icon = "",
           },
           -- Setup lsp-progress component (use coc#status instead)
