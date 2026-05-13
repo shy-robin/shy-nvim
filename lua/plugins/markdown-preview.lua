@@ -1,8 +1,47 @@
+local function patch_toc_sidebar()
+  local plugin_dir = vim.fn.stdpath("data") .. "/lazy/markdown-preview.nvim"
+  local static_dir = plugin_dir .. "/app/_static"
+  local out_html = plugin_dir .. "/app/out/index.html"
+  local src_dir = vim.fn.stdpath("config") .. "/assets/mkdp-toc"
+
+  if vim.fn.isdirectory(static_dir) == 0 or vim.fn.filereadable(out_html) == 0 then
+    return
+  end
+
+  local function copy_if_changed(src, dst)
+    if vim.fn.filereadable(src) == 0 then return end
+    local src_lines = vim.fn.readfile(src, "b")
+    if vim.fn.filereadable(dst) == 1 then
+      local dst_lines = vim.fn.readfile(dst, "b")
+      if vim.deep_equal(src_lines, dst_lines) then return end
+    end
+    vim.fn.writefile(src_lines, dst, "b")
+  end
+
+  copy_if_changed(src_dir .. "/toc-sidebar.js", static_dir .. "/toc-sidebar.js")
+  copy_if_changed(src_dir .. "/toc-sidebar.css", static_dir .. "/toc-sidebar.css")
+
+  local lines = vim.fn.readfile(out_html)
+  if not lines or #lines == 0 then return end
+  local html = table.concat(lines, "\n")
+  if html:find("toc%-sidebar%.css", 1, false) then return end
+
+  local inject = '<link rel="stylesheet" href="/_static/toc-sidebar.css"/>'
+    .. '<script src="/_static/toc-sidebar.js" defer></script>'
+  local patched, n = html:gsub("</head>", inject .. "</head>", 1)
+  if n == 1 then
+    vim.fn.writefile(vim.split(patched, "\n", { plain = true }), out_html)
+  end
+end
+
 return {
   "iamcco/markdown-preview.nvim",
   event = "VeryLazy",
   cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-  build = "cd app && yarn install",
+  build = function(plugin)
+    vim.fn.system({ "sh", "-c", "cd " .. vim.fn.shellescape(plugin.dir) .. "/app && npx --yes yarn install" })
+    patch_toc_sidebar()
+  end,
   init = function()
     vim.g.mkdp_filetypes = { "markdown" }
     vim.g.mkdp_browser = ""
@@ -10,6 +49,9 @@ return {
     vim.g.mkdp_page_title = "「${name}」"
     vim.g.mkdp_auto_close = 0
     vim.g.mkdp_theme = "light"
+  end,
+  config = function()
+    patch_toc_sidebar()
   end,
   ft = { "markdown" },
   keys = { { "gom", "<cmd>MarkdownPreviewToggle<cr>", desc = "Markdown Preview" } },

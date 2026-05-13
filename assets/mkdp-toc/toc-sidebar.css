@@ -1,0 +1,216 @@
+:root {
+  --mkdp-toc-width: 260px;
+  --mkdp-toc-collapsed-width: 36px;
+  --mkdp-toc-bg: #fafbfc;
+  --mkdp-toc-border: #eaecef;
+  --mkdp-toc-text: #57606a;
+  --mkdp-toc-text-hover: #1f2328;
+  --mkdp-toc-active-bg: #ddf4ff;
+  --mkdp-toc-active-text: #0969da;
+  --mkdp-toc-active-bar: #0969da;
+  --mkdp-toc-title: #6e7781;
+  --mkdp-toc-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+main[data-theme="dark"] {
+  --mkdp-toc-bg: #161b22;
+  --mkdp-toc-border: #30363d;
+  --mkdp-toc-text: #8b949e;
+  --mkdp-toc-text-hover: #e6edf3;
+  --mkdp-toc-active-bg: rgba(56, 139, 253, 0.15);
+  --mkdp-toc-active-text: #58a6ff;
+  --mkdp-toc-active-bar: #58a6ff;
+  --mkdp-toc-title: #7d8590;
+  --mkdp-toc-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+main {
+  position: relative;
+}
+
+#mkdp-toc-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: var(--mkdp-toc-width);
+  height: 100vh;
+  background: var(--mkdp-toc-bg);
+  border-left: 1px solid var(--mkdp-toc-border);
+  box-shadow: var(--mkdp-toc-shadow);
+  display: flex;
+  flex-direction: column;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  z-index: 100;
+  box-sizing: border-box;
+  overflow: hidden;
+  transition: width 0.22s ease;
+}
+
+body.mkdp-toc-collapsed #mkdp-toc-sidebar {
+  width: var(--mkdp-toc-collapsed-width);
+}
+
+.mkdp-toc-header {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 8px 0 6px;
+  border-bottom: 1px solid var(--mkdp-toc-border);
+  flex-shrink: 0;
+  gap: 8px;
+}
+
+.mkdp-toc-toggle {
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  color: var(--mkdp-toc-title);
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.mkdp-toc-toggle:hover {
+  background: rgba(175, 184, 193, 0.18);
+  color: var(--mkdp-toc-text-hover);
+}
+
+.mkdp-toc-toggle svg {
+  transition: transform 0.22s ease;
+}
+
+body.mkdp-toc-collapsed .mkdp-toc-toggle svg {
+  transform: rotate(180deg);
+}
+
+.mkdp-toc-title {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--mkdp-toc-title);
+  white-space: nowrap;
+  opacity: 1;
+  transition: opacity 0.15s ease;
+}
+
+body.mkdp-toc-collapsed .mkdp-toc-title,
+body.mkdp-toc-collapsed .mkdp-toc-list,
+body.mkdp-toc-collapsed .mkdp-toc-empty {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.mkdp-toc-list {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 8px 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--mkdp-toc-border) transparent;
+  transition: opacity 0.15s ease;
+}
+
+.mkdp-toc-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.mkdp-toc-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.mkdp-toc-list::-webkit-scrollbar-thumb {
+  background: var(--mkdp-toc-border);
+  border-radius: 3px;
+}
+
+.mkdp-toc-list::-webkit-scrollbar-thumb:hover {
+  background: var(--mkdp-toc-text);
+}
+
+.mkdp-toc-item {
+  display: block;
+  padding: 5px 16px 5px 12px;
+  color: var(--mkdp-toc-text);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.12s, background-color 0.12s, border-color 0.12s;
+  cursor: pointer;
+}
+
+.mkdp-toc-item:hover {
+  color: var(--mkdp-toc-text-hover);
+  background: rgba(175, 184, 193, 0.1);
+}
+
+.mkdp-toc-item.active {
+  color: var(--mkdp-toc-active-text);
+  background: var(--mkdp-toc-active-bg);
+  border-left-color: var(--mkdp-toc-active-bar);
+  font-weight: 500;
+}
+
+.mkdp-toc-level-1 {
+  padding-left: 14px;
+  font-weight: 500;
+  color: var(--mkdp-toc-text-hover);
+}
+
+.mkdp-toc-level-2 {
+  padding-left: 28px;
+}
+
+.mkdp-toc-level-3 {
+  padding-left: 44px;
+  font-size: 12.5px;
+}
+
+.mkdp-toc-level-4 {
+  padding-left: 60px;
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+.mkdp-toc-level-5 {
+  padding-left: 72px;
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.mkdp-toc-level-6 {
+  padding-left: 84px;
+  font-size: 12px;
+  opacity: 0.75;
+}
+
+.mkdp-toc-empty {
+  padding: 24px 16px;
+  text-align: center;
+  color: var(--mkdp-toc-title);
+  font-size: 12px;
+  font-style: italic;
+}
+
+@media (max-width: 720px) {
+  :root {
+    --mkdp-toc-width: 220px;
+  }
+}
+
+@media print {
+  #mkdp-toc-sidebar {
+    display: none;
+  }
+}
