@@ -44,6 +44,11 @@ return {
   end,
   init = function()
     vim.g.mkdp_filetypes = { "markdown" }
+    -- 全局注册 :MarkdownPreview* 命令，使其在任意 buffer 都可用。
+    -- 含超长行的 markdown 会被识别为 bigfile（见 config/options.lua），
+    -- 此时 filetype 不再是 markdown，但浏览器预览本身不占用 nvim 内存，
+    -- 故让命令对所有 buffer 生效，bigfile 下 gom 仍能正常预览。
+    vim.g.mkdp_command_for_global = 1
     vim.g.mkdp_browser = ""
     vim.g.mkdp_echo_preview_url = true
     vim.g.mkdp_page_title = "「${name}」"

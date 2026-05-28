@@ -36,10 +36,11 @@ vim.diagnostic.config({
 })
 
 -- 含超长行的 markdown（数据导出 / 超宽表格等）会触发 tree-sitter markdown 解析器
--- 的全量解析（Snacks indent 的 scope 检测对整个 buffer 做 parse(true)），内存会在
--- 几秒内飙到数十 G。把这类文件识别成 bigfile，复用 Snacks bigfile 机制关闭
--- tree-sitter / render-markdown 等重型功能。Snacks 自带检测只看总大小和“平均”行长，
--- 命不中“短行很多、仅个别行超长”的文件，故在这里按“最长行”补一层判断。
+-- 的全量解析（Snacks indent 的 scope 检测、treesitter 折叠都会对整个 buffer 做
+-- 全量 parse），内存几秒内飙到数十 G。把这类文件识别成 bigfile，复用 Snacks bigfile
+-- 机制一次性关掉 tree-sitter / 折叠 / render-markdown 等重型功能。Snacks 自带检测只看
+-- 总大小和“平均”行长，命不中“短行很多、仅个别行超长”的文件，故按“最长行”补一层判断。
+-- 注意：bigfile 下 markdown-preview 仍可用，见 mkdp_command_for_global。
 local function md_bigfile(path, buf)
   if not path or not buf then
     return
