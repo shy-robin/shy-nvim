@@ -4,14 +4,6 @@ return {
     highlight = {
       enable = true,
       additional_vim_regex_highlighting = false,
-      -- 当打开大文件时，禁用 treesitter，防止卡顿
-      disable = function(_lang, buf)
-        local max_filesize = 400 * 1024 -- 400 KB
-        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-        if ok and stats and stats.size > max_filesize then
-          return true
-        end
-      end,
     },
     ensure_installed = {
       "bash",
