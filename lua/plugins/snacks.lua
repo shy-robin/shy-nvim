@@ -1,33 +1,3 @@
-function DisableSyntaxTreesitter()
-  -- 1. 禁用 Treesitter
-  -- 检查 Treesitter highlight 和 autotag 模块是否存在
-  if vim.fn.exists(":TSBufDisable") == 1 then
-    -- 打印信息
-    vim.cmd('echomsg "Big file, disabling syntax, treesitter, and folding"')
-
-    -- 使用 vim.cmd 执行 TSBufDisable 命令
-    -- 注意: Treesitter 禁用通常需要分开执行
-    vim.cmd("TSBufDisable highlight")
-    vim.cmd("TSBufDisable autotag")
-    -- ... 可以在这里添加其他 Treesitter 模块的禁用
-  else
-    vim.cmd('echomsg "Big file, disabling syntax and folding"')
-  end
-
-  -- 2. 禁用语法高亮和文件类型识别
-  -- clear/off/filetype off
-  vim.cmd("syntax clear")
-  vim.cmd("syntax off")
-  vim.cmd("filetype off")
-
-  -- 3. 禁用其他功能以提高性能
-  -- 使用 vim.opt 设置选项（更推荐的 Lua API）
-  vim.opt.foldmethod = "manual"
-  vim.opt.noundofile = true -- 禁止生成 undo 文件
-  vim.opt.noswapfile = true -- 禁止生成 swap 文件
-  vim.opt.noloadplugins = true -- 禁止加载插件
-end
-
 return {
   "folke/snacks.nvim",
   opts = {

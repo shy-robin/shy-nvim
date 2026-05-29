@@ -1,5 +1,3 @@
-local mini_icons = require("mini.icons")
-
 local kind_text_map = {
   Text = "󰉿",
   Method = "󰆧",
@@ -74,7 +72,8 @@ return {
                   return kind_text_map[ctx.kind] or ctx.kind
                 end,
                 highlight = function(ctx)
-                  local _, hl, _ = mini_icons.get("lsp", ctx.kind)
+                  -- 在用到时才 require，避免在启动时急加载 mini.icons
+                  local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
                   return hl
                 end,
               },
