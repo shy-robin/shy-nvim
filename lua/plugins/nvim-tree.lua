@@ -146,26 +146,76 @@ local function open_info_popup(lines)
   return { close = close, update = update }
 end
 
+-- 把 stat.mode 转成 rwxr-xr-x (644) 形式
+local function format_mode(mode)
+  local triads = "rwxrwxrwx"
+  local out = {}
+  for i = 1, 9 do
+    local set = math.floor(mode / (2 ^ (9 - i))) % 2 == 1
+    out[i] = set and triads:sub(i, i) or "-"
+  end
+  return table.concat(out) .. string.format(" (%03o)", mode % 512)
+end
+
+-- 收集节点的通用信息行 (路径/symlink/大小/权限/时间); size 由调用方传入,
+-- extra 为可选的附加行 (如目录条目数), 紧跟在 size 之后显示
+local function common_info_lines(path, stat, size_str, extra)
+  local lines = { " fullpath: " .. path }
+
+  -- 仅当节点自身是符号链接时显示指向目标
+  local link = (vim.uv or vim.loop).fs_readlink(path)
+  if link then
+    table.insert(lines, " link:     → " .. link)
+  end
+
+  table.insert(lines, " size:     " .. size_str)
+  if extra then
+    table.insert(lines, extra)
+  end
+
+  if stat then
+    table.insert(lines, " perms:    " .. format_mode(stat.mode))
+    table.insert(lines, " accessed: " .. os.date("%x %X", stat.atime.sec))
+    table.insert(lines, " modified: " .. os.date("%x %X", stat.mtime.sec))
+    if stat.birthtime and stat.birthtime.sec and stat.birthtime.sec > 0 then
+      table.insert(lines, " created:  " .. os.date("%x %X", stat.birthtime.sec))
+    end
+  end
+
+  return lines
+end
+
+-- 统计目录的直接子项数 (libuv 单次 readdir, 同步且廉价); 返回 " items: ..." 行或 nil
+local function dir_items_line(path)
+  local uv = vim.uv or vim.loop
+  local handle = uv.fs_scandir(path)
+  if not handle then
+    return nil
+  end
+  local files, dirs = 0, 0
+  while true do
+    local name, t = uv.fs_scandir_next(handle)
+    if not name then
+      break
+    end
+    if t == "directory" then
+      dirs = dirs + 1
+    else
+      files = files + 1
+    end
+  end
+  return string.format(" items:    %d 文件, %d 目录", files, dirs)
+end
+
 -- 目录信息：递归统计目录内所有文件大小的总和 (等价 du -As)
 -- 注意: nvim-tree 内置的 show_info_popup 对目录显示的是 stat() 返回的目录 inode
 -- 自身的元数据大小, 而非内容总和, 因此这里改用 du 异步计算真实总大小。
 local function show_dir_info(node)
   local path = node.absolute_path
   local stat = node.fs_stat or (vim.uv or vim.loop).fs_stat(path)
+  local items = dir_items_line(path)
 
-  local function build(size_str)
-    local lines = {
-      " fullpath: " .. path,
-      " size:     " .. size_str,
-    }
-    if stat then
-      table.insert(lines, " accessed: " .. os.date("%x %X", stat.atime.sec))
-      table.insert(lines, " modified: " .. os.date("%x %X", stat.mtime.sec))
-    end
-    return lines
-  end
-
-  local popup = open_info_popup(build("计算中…"))
+  local popup = open_info_popup(common_info_lines(path, stat, "计算中…", items))
 
   -- 异步运行 du, 避免大目录阻塞 UI; -A 取 apparent size (各文件逻辑大小之和, 与 ls -l 一致)
   vim.system({ "du", "-A", "-s", "-k", path }, { text = true }, function(out)
@@ -178,129 +228,70 @@ local function show_dir_info(node)
     end
     size_str = size_str or "无法计算"
     vim.schedule(function()
-      popup.update(build(size_str))
+      popup.update(common_info_lines(path, stat, size_str, items))
     end)
   end)
 end
 
-local function get_image_info()
-  local api = require("nvim-tree.api")
-  local node = api.tree.get_node_under_cursor()
+local IMAGE_EXTENSIONS = {
+  png = true, jpg = true, jpeg = true, gif = true, webp = true, avif = true,
+  svg = true, ico = true, bmp = true, pbm = true, pgm = true, ppm = true,
+  tiff = true, tif = true,
+}
 
+-- 文件信息：立即显示基本信息, 若为图片再异步 (sips) 补充像素尺寸
+local function show_file_info(node)
+  local path = node.absolute_path
+  local stat = node.fs_stat or (vim.uv or vim.loop).fs_stat(path)
+
+  local ext = path:match("%.(%w+)$")
+  ext = ext and ext:lower() or ""
+  local is_image = IMAGE_EXTENSIONS[ext] or false
+
+  local function build(dimensions)
+    local lines = common_info_lines(path, stat, stat and format_size(stat.size) or "未知")
+    if dimensions then
+      table.insert(lines, " dimensions: " .. dimensions)
+    end
+    return lines
+  end
+
+  if not is_image then
+    open_info_popup(build())
+    return
+  end
+
+  -- 异步运行 sips, 避免大图阻塞 UI
+  local popup = open_info_popup(build("读取中…"))
+  vim.system({ "sips", "-g", "pixelWidth", "-g", "pixelHeight", path }, { text = true }, function(out)
+    local dimensions
+    if out.code == 0 and out.stdout then
+      local w = out.stdout:match("pixelWidth:%s*(%d+)")
+      local h = out.stdout:match("pixelHeight:%s*(%d+)")
+      if w and h then
+        dimensions = w .. "x" .. h
+      end
+    end
+    vim.schedule(function()
+      popup.update(build(dimensions or "未知"))
+    end)
+  end)
+end
+
+-- nvim-tree 按 i: 目录显示递归总大小, 文件显示基本信息 (图片附带尺寸)
+local function get_node_info()
+  local node = require("nvim-tree.api").tree.get_node_under_cursor()
   if not node then
     return
   end
 
-  if node.type ~= "file" then
+  -- 跟随符号链接判断真实类型, 优先用已解析的 stat
+  local stat = node.fs_stat or (vim.uv or vim.loop).fs_stat(node.absolute_path)
+  if (stat and stat.type == "directory") or node.type == "directory" then
     show_dir_info(node)
-    return
+  else
+    show_file_info(node)
   end
-
-  local image_extensions =
-    { "png", "jpg", "jpeg", "gif", "webp", "avif", "svg", "ico", "bmp", "pbm", "pgm", "ppm", "tiff", "tif" }
-  local ext_raw = node.absolute_path and node.absolute_path:match("%.(%w+)$")
-  local extension = ext_raw and ext_raw:lower() or ""
-  local is_image = false
-  for _, ext in ipairs(image_extensions) do
-    if extension == ext then
-      is_image = true
-      break
-    end
-  end
-
-  if not is_image then
-    api.node.show_info_popup()
-    return
-  end
-
-  local file_path = node.absolute_path
-  local stat = node.fs_stat
-  if not stat then
-    stat = (vim.uv or vim.loop).fs_stat(file_path)
-  end
-
-  if not stat then
-    api.node.show_info_popup()
-    return
-  end
-
-  local cmd = { "sips", "-g", "pixelWidth", "-g", "pixelHeight", file_path }
-  -- 使用 pcall 避免 sips 失败导致错误
-  local success, output = pcall(vim.fn.system, cmd)
-  local width, height
-  if success and output then
-    width = output:match("pixelWidth: (%d+)")
-    height = output:match("pixelHeight: (%d+)")
-  end
-
-  local lines = {}
-  table.insert(lines, " fullpath: " .. file_path)
-  table.insert(lines, " size:     " .. format_size(stat.size))
-  table.insert(lines, " accessed: " .. os.date("%x %X", stat.atime.sec))
-  table.insert(lines, " modified: " .. os.date("%x %X", stat.mtime.sec))
-  table.insert(lines, " created:  " .. os.date("%x %X", stat.birthtime.sec))
-
-  if width and height then
-    table.insert(lines, " dimensions: " .. width .. "x" .. height)
-  end
-
-  -- 创建浮动窗口
-  local buf = vim.api.nvim_create_buf(false, true)
-  vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
-
-  local max_width = 0
-  for _, line in ipairs(lines) do
-    if #line > max_width then
-      max_width = #line
-    end
-  end
-
-  local opts = {
-    relative = "cursor",
-    width = max_width + 1,
-    height = #lines,
-    col = 1,
-    row = 1,
-    style = "minimal",
-    border = "rounded",
-    noautocmd = true,
-    zindex = 60,
-  }
-
-  -- 打开窗口但不聚焦 (enter=false)，保持焦点在树上
-  local win = vim.api.nvim_open_win(buf, false, opts)
-
-  -- 关闭窗口辅助函数
-  local function close_win()
-    if vim.api.nvim_win_is_valid(win) then
-      vim.api.nvim_win_close(win, true)
-    end
-    -- 清除 buffer
-    if vim.api.nvim_buf_is_valid(buf) then
-      vim.api.nvim_buf_delete(buf, { force = true })
-    end
-  end
-
-  -- 当在当前 buffer (nvim-tree) 中移动光标时自动关闭
-  vim.api.nvim_create_autocmd("CursorMoved", {
-    buffer = 0, -- 当前 buffer (nvim-tree)
-    callback = close_win,
-    once = true,
-  })
-
-  -- 如果离开 buffer 或窗口也关闭
-  vim.api.nvim_create_autocmd({ "BufLeave", "WinLeave" }, {
-    buffer = 0,
-    callback = close_win,
-    once = true,
-  })
-
-  -- Keymaps to close window (in case user somehow focuses it or wants to force close)
-  -- Since we don't focus the window, these keys map to the tree buffer essentially,
-  -- but we want standard tree navigation to close the popup implicitly via CursorMoved.
-  -- We can map 'q' or 'Esc' in the tree buffer to close the popup IF it's open,
-  -- but that's complex. Standard nvim-tree behavior is: move cursor closes it.
-  -- So we rely on CursorMoved.
 end
 
 local function my_on_attach(bufnr)
@@ -323,7 +314,7 @@ local function my_on_attach(bufnr)
   set("n", "wr", api.node.open.vertical, opts("Open: Split Right"))
   set("n", "wb", api.node.open.horizontal, opts("Open: Split Bottom"))
 
-  set("n", "i", get_image_info, opts("Image Info"))
+  set("n", "i", get_node_info, opts("Node Info"))
   -- Change root directory (切换工作目录)
   set("n", "gr", api.tree.change_root_to_node, opts("Change Root To Node")) -- 进入当前目录
   set("n", "gp", api.tree.change_root_to_parent, opts("Change Root To Parent")) -- 返回上一级目录
