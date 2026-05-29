@@ -74,6 +74,115 @@ local function edit_or_open()
   api.node.open.edit()
 end
 
+-- 格式化字节数，优先复用 nvim-tree 的 format_bytes
+local function format_size(bytes)
+  local ok, utils = pcall(require, "nvim-tree.utils")
+  if ok and utils.format_bytes then
+    return utils.format_bytes(bytes)
+  end
+  -- 后备实现 (如果无法加载 utils)
+  local units = { "B", "K", "M", "G", "T", "P", "E", "Z", "Y" }
+  bytes = math.max(bytes, 0)
+  local pow = math.floor((bytes > 0 and math.log(bytes) or 0) / math.log(1024))
+  pow = math.min(pow, #units)
+  local value = bytes / (1024 ^ pow)
+  value = math.floor((value * 100) + 0.5) / 100
+  pow = pow + 1
+  if units[pow] == nil or pow == 1 then
+    return bytes .. " " .. units[1]
+  else
+    return value .. " " .. units[pow] .. "i" .. units[1]
+  end
+end
+
+-- 创建一个不抢焦点的浮动信息窗口，返回 { close, update } 句柄
+local function open_info_popup(lines)
+  local function width_of(ls)
+    local w = 0
+    for _, line in ipairs(ls) do
+      w = math.max(w, vim.fn.strdisplaywidth(line))
+    end
+    return w
+  end
+
+  local buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+
+  local win = vim.api.nvim_open_win(buf, false, {
+    relative = "cursor",
+    width = width_of(lines) + 1,
+    height = #lines,
+    col = 1,
+    row = 1,
+    style = "minimal",
+    border = "rounded",
+    noautocmd = true,
+    zindex = 60,
+  })
+
+  local function close()
+    if vim.api.nvim_win_is_valid(win) then
+      vim.api.nvim_win_close(win, true)
+    end
+    if vim.api.nvim_buf_is_valid(buf) then
+      vim.api.nvim_buf_delete(buf, { force = true })
+    end
+  end
+
+  -- 当在树 buffer 中移动光标或离开时自动关闭
+  vim.api.nvim_create_autocmd("CursorMoved", { buffer = 0, callback = close, once = true })
+  vim.api.nvim_create_autocmd({ "BufLeave", "WinLeave" }, { buffer = 0, callback = close, once = true })
+
+  local function update(new_lines)
+    if not vim.api.nvim_buf_is_valid(buf) then
+      return
+    end
+    vim.api.nvim_buf_set_lines(buf, 0, -1, false, new_lines)
+    if vim.api.nvim_win_is_valid(win) then
+      vim.api.nvim_win_set_config(win, { width = width_of(new_lines) + 1, height = #new_lines })
+    end
+  end
+
+  return { close = close, update = update }
+end
+
+-- 目录信息：递归统计目录内所有文件大小的总和 (等价 du -As)
+-- 注意: nvim-tree 内置的 show_info_popup 对目录显示的是 stat() 返回的目录 inode
+-- 自身的元数据大小, 而非内容总和, 因此这里改用 du 异步计算真实总大小。
+local function show_dir_info(node)
+  local path = node.absolute_path
+  local stat = node.fs_stat or (vim.uv or vim.loop).fs_stat(path)
+
+  local function build(size_str)
+    local lines = {
+      " fullpath: " .. path,
+      " size:     " .. size_str,
+    }
+    if stat then
+      table.insert(lines, " accessed: " .. os.date("%x %X", stat.atime.sec))
+      table.insert(lines, " modified: " .. os.date("%x %X", stat.mtime.sec))
+    end
+    return lines
+  end
+
+  local popup = open_info_popup(build("计算中…"))
+
+  -- 异步运行 du, 避免大目录阻塞 UI; -A 取 apparent size (各文件逻辑大小之和, 与 ls -l 一致)
+  vim.system({ "du", "-A", "-s", "-k", path }, { text = true }, function(out)
+    local size_str
+    if out.code == 0 and out.stdout then
+      local kb = out.stdout:match("^(%d+)")
+      if kb then
+        size_str = format_size(tonumber(kb) * 1024)
+      end
+    end
+    size_str = size_str or "无法计算"
+    vim.schedule(function()
+      popup.update(build(size_str))
+    end)
+  end)
+end
+
 local function get_image_info()
   local api = require("nvim-tree.api")
   local node = api.tree.get_node_under_cursor()
@@ -83,7 +192,7 @@ local function get_image_info()
   end
 
   if node.type ~= "file" then
-    api.node.show_info_popup()
+    show_dir_info(node)
     return
   end
 
@@ -113,27 +222,6 @@ local function get_image_info()
   if not stat then
     api.node.show_info_popup()
     return
-  end
-
-  -- 尝试加载 nvim-tree 工具以保持一致的格式
-  local status_utils, utils = pcall(require, "nvim-tree.utils")
-  local format_size = function(bytes)
-    if status_utils and utils.format_bytes then
-      return utils.format_bytes(bytes)
-    end
-    -- 后备实现 (如果无法加载 utils)
-    local units = { "B", "K", "M", "G", "T", "P", "E", "Z", "Y" }
-    bytes = math.max(bytes, 0)
-    local pow = math.floor((bytes and math.log(bytes) or 0) / math.log(1024))
-    pow = math.min(pow, #units)
-    local value = bytes / (1024 ^ pow)
-    value = math.floor((value * 100) + 0.5) / 100
-    pow = pow + 1
-    if units[pow] == nil or pow == 1 then
-      return bytes .. " " .. units[1]
-    else
-      return value .. " " .. units[pow] .. "i" .. units[1]
-    end
   end
 
   local cmd = { "sips", "-g", "pixelWidth", "-g", "pixelHeight", file_path }
