@@ -65,7 +65,7 @@ local function patch_link_handler()
     return
   end
   local html = table.concat(lines, "\n")
-  if html:find("links%.js", 1, false) then
+  if html:find("/_static/links%.js", 1, false) then
     return
   end
   local inject = '<script src="/_static/links.js" defer></script>'
