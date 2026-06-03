@@ -54,10 +54,19 @@ return {
     vim.g.mkdp_page_title = "「${name}」"
     vim.g.mkdp_auto_close = 0
     vim.g.mkdp_theme = "light"
+    -- 用官方钩子捕获每个 buffer 的精确预览 URL，并由管理器统一打开浏览器。
+    vim.g.mkdp_browserfunc = "MkdpBrowserFunc"
+    vim.cmd([[
+      function! MkdpBrowserFunc(url) abort
+        call luaeval('require("util.mkdp").browserfunc(_A)', a:url)
+      endfunction
+    ]])
   end,
   config = function()
     patch_toc_sidebar()
   end,
   ft = { "markdown" },
-  keys = { { "gom", "<cmd>MarkdownPreviewToggle<cr>", desc = "Markdown Preview" } },
+  keys = {
+    { "gom", function() require("util.mkdp").toggle() end, desc = "Markdown Preview Toggle", ft = "markdown" },
+  },
 }
