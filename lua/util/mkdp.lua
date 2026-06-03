@@ -118,7 +118,8 @@ function M.pick()
         local e = selected and selected[1] and lookup[selected[1]]
         if e then
           M.stop_one(e.bufnr)
-          vim.notify("已停止预览：" .. (e.name ~= "" and vim.fn.fnamemodify(e.name, ":t") or e.bufnr))
+          local label = (e.name ~= "" and vim.fn.fnamemodify(e.name, ":t")) or tostring(e.bufnr)
+          vim.notify("已停止预览：" .. label, vim.log.levels.INFO)
         end
       end,
       ["ctrl-q"] = function()
