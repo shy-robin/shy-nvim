@@ -15,4 +15,11 @@ eq(M.bufnr_from_url("http://localhost:8090/"), nil, "no page segment")
 eq(M.bufnr_from_url("http://localhost:8090/page/3/extra"), nil, "anchored: non-terminal page segment")
 eq(M.bufnr_from_url(nil), nil, "nil input")
 
+-- stop_one 对 nil / 失效 bufnr 不应报错
+M.registry = {}
+local ok_nil = pcall(M.stop_one, nil)
+eq(ok_nil, true, "stop_one(nil) must not error")
+local ok_invalid = pcall(M.stop_one, 999999)
+eq(ok_invalid, true, "stop_one(invalid bufnr) must not error")
+
 print("OK mkdp bufnr_from_url")

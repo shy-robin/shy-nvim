@@ -49,11 +49,15 @@ end
 -- 停止单个 buffer 的预览（服务保留）。
 -- 用 nvim_buf_call 让 mkdp#rpc#preview_close 内部的 bufnr('%') 命中目标 buffer。
 function M.stop_one(bufnr)
-  if bufnr and vim.api.nvim_buf_is_valid(bufnr) then
+  if not bufnr then
+    return
+  end
+  if vim.api.nvim_buf_is_valid(bufnr) then
     vim.api.nvim_buf_call(bufnr, function()
       vim.fn["mkdp#rpc#preview_close"]()
     end)
   end
+  -- buffer 已失效时仅清理注册表；node 侧页面将自然孤立（设计已接受此权衡）。
   M.registry[bufnr] = nil
 end
 
