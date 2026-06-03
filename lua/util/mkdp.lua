@@ -83,4 +83,50 @@ function M.active_entries()
   return items
 end
 
+-- fzf-lua 选择窗口：列出所有活动预览。
+-- Enter=浏览器打开/聚焦该页；ctrl-x=停止选中（服务保留）；ctrl-q=停止全部并关服务。
+function M.pick()
+  local entries = M.active_entries()
+  if #entries == 0 then
+    vim.notify("当前没有活动的预览", vim.log.levels.INFO)
+    return
+  end
+
+  local display, lookup = {}, {}
+  for _, e in ipairs(entries) do
+    local full = (e.name ~= "" and e.name) or ("[buffer " .. e.bufnr .. "]")
+    local label = vim.fn.fnamemodify(full, ":t")
+    local rel = vim.fn.fnamemodify(full, ":~:.")
+    local line = string.format("%s\t%s", label, rel)
+    table.insert(display, line)
+    lookup[line] = e
+  end
+
+  local fzf = require("fzf-lua")
+  fzf.fzf_exec(display, {
+    prompt = "MarkdownPreview❯ ",
+    actions = {
+      ["default"] = function(selected)
+        local e = selected and selected[1] and lookup[selected[1]]
+        if e and e.url then
+          vim.ui.open(e.url)
+        elseif e then
+          vim.notify("该预览尚未就绪（URL 未回填）", vim.log.levels.WARN)
+        end
+      end,
+      ["ctrl-x"] = function(selected)
+        local e = selected and selected[1] and lookup[selected[1]]
+        if e then
+          M.stop_one(e.bufnr)
+          vim.notify("已停止预览：" .. (e.name ~= "" and vim.fn.fnamemodify(e.name, ":t") or e.bufnr))
+        end
+      end,
+      ["ctrl-q"] = function()
+        M.stop_all()
+        vim.notify("已停止全部预览并关闭服务", vim.log.levels.INFO)
+      end,
+    },
+  })
+end
+
 return M
