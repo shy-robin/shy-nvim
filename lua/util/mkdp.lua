@@ -11,7 +11,7 @@ function M.bufnr_from_url(url)
   if type(url) ~= "string" then
     return nil
   end
-  local n = url:match("/page/(%d+)")
+  local n = url:match("/page/(%d+)$")
   return n and tonumber(n) or nil
 end
 

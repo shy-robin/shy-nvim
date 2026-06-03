@@ -12,6 +12,7 @@ end
 eq(M.bufnr_from_url("http://localhost:8090/page/3"), 3, "localhost host")
 eq(M.bufnr_from_url("http://127.0.0.1:8080/page/12"), 12, "ip host")
 eq(M.bufnr_from_url("http://localhost:8090/"), nil, "no page segment")
+eq(M.bufnr_from_url("http://localhost:8090/page/3/extra"), nil, "anchored: non-terminal page segment")
 eq(M.bufnr_from_url(nil), nil, "nil input")
 
 print("OK mkdp bufnr_from_url")
