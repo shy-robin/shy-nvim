@@ -67,6 +67,6 @@ return {
   end,
   ft = { "markdown" },
   keys = {
-    { "gom", function() require("util.mkdp").toggle() end, desc = "Markdown Preview Toggle", ft = "markdown" },
+    { "gom", function() require("util.mkdp").toggle() end, desc = "Markdown Preview Toggle" },
   },
 }
