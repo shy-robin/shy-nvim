@@ -34,6 +34,47 @@ local function patch_toc_sidebar()
   end
 end
 
+local function patch_link_handler()
+  local plugin_dir = vim.fn.stdpath("data") .. "/lazy/markdown-preview.nvim"
+  local static_dir = plugin_dir .. "/app/_static"
+  local out_html = plugin_dir .. "/app/out/index.html"
+  local src = vim.fn.stdpath("config") .. "/assets/mkdp/links.js"
+
+  if vim.fn.isdirectory(static_dir) == 0 or vim.fn.filereadable(out_html) == 0 then
+    return
+  end
+  if vim.fn.filereadable(src) == 0 then
+    return
+  end
+
+  -- 复制（变更才写）
+  local dst = static_dir .. "/links.js"
+  local src_lines = vim.fn.readfile(src, "b")
+  if vim.fn.filereadable(dst) == 1 then
+    local dst_lines = vim.fn.readfile(dst, "b")
+    if not vim.deep_equal(src_lines, dst_lines) then
+      vim.fn.writefile(src_lines, dst, "b")
+    end
+  else
+    vim.fn.writefile(src_lines, dst, "b")
+  end
+
+  -- 注入（幂等）
+  local lines = vim.fn.readfile(out_html)
+  if not lines or #lines == 0 then
+    return
+  end
+  local html = table.concat(lines, "\n")
+  if html:find("links%.js", 1, false) then
+    return
+  end
+  local inject = '<script src="/_static/links.js" defer></script>'
+  local patched, n = html:gsub("</head>", inject .. "</head>", 1)
+  if n == 1 then
+    vim.fn.writefile(vim.split(patched, "\n", { plain = true }), out_html)
+  end
+end
+
 return {
   "iamcco/markdown-preview.nvim",
   event = "VeryLazy",
@@ -41,6 +82,7 @@ return {
   build = function(plugin)
     vim.fn.system({ "sh", "-c", "cd " .. vim.fn.shellescape(plugin.dir) .. "/app && npx --yes yarn install" })
     patch_toc_sidebar()
+    patch_link_handler()
   end,
   init = function()
     vim.g.mkdp_filetypes = { "markdown" }
@@ -64,6 +106,7 @@ return {
   end,
   config = function()
     patch_toc_sidebar()
+    patch_link_handler()
   end,
   ft = { "markdown" },
   keys = {
