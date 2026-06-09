@@ -75,6 +75,48 @@ local function patch_link_handler()
   end
 end
 
+local function patch_route_fix()
+  local plugin_dir = vim.fn.stdpath("data") .. "/lazy/markdown-preview.nvim"
+  local static_dir = plugin_dir .. "/app/_static"
+  local out_html = plugin_dir .. "/app/out/index.html"
+  local src = vim.fn.stdpath("config") .. "/assets/mkdp/route-fix.js"
+
+  if vim.fn.isdirectory(static_dir) == 0 or vim.fn.filereadable(out_html) == 0 then
+    return
+  end
+  if vim.fn.filereadable(src) == 0 then
+    return
+  end
+
+  -- 复制（变更才写）
+  local dst = static_dir .. "/route-fix.js"
+  local src_lines = vim.fn.readfile(src, "b")
+  if vim.fn.filereadable(dst) == 1 then
+    local dst_lines = vim.fn.readfile(dst, "b")
+    if not vim.deep_equal(src_lines, dst_lines) then
+      vim.fn.writefile(src_lines, dst, "b")
+    end
+  else
+    vim.fn.writefile(src_lines, dst, "b")
+  end
+
+  -- 注入（幂等）。必须同步执行且早于前端 hydration，
+  -- 故插在 <head> 顶部、不加 defer/async（与页面其它 head 脚本一致）。
+  local lines = vim.fn.readfile(out_html)
+  if not lines or #lines == 0 then
+    return
+  end
+  local html = table.concat(lines, "\n")
+  if html:find("/_static/route%-fix%.js", 1, false) then
+    return
+  end
+  local inject = '<script src="/_static/route-fix.js"></script>'
+  local patched, n = html:gsub("<head>", "<head>" .. inject, 1)
+  if n == 1 then
+    vim.fn.writefile(vim.split(patched, "\n", { plain = true }), out_html)
+  end
+end
+
 -- 让 git 忽略我们对被跟踪文件 app/out/index.html 的注入改动。
 -- 否则 lazy.nvim 更新前的 `git ls-files -m` 脏树检查会拒绝更新（status failed）。
 -- skip-worktree 标记存于本地 .git/index，会被 x+I 重装清掉，故在 build 钩子里重设。
@@ -94,6 +136,7 @@ return {
     vim.fn.system({ "sh", "-c", "cd " .. vim.fn.shellescape(plugin.dir) .. "/app && npx --yes yarn install" })
     patch_toc_sidebar()
     patch_link_handler()
+    patch_route_fix()
     ignore_index_html_changes()
   end,
   init = function()
@@ -119,6 +162,7 @@ return {
   config = function()
     patch_toc_sidebar()
     patch_link_handler()
+    patch_route_fix()
   end,
   ft = { "markdown" },
   keys = {
