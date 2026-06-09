@@ -7,10 +7,33 @@ return {
   -- 用函数形式包裹 opts，把 require 推迟到 fzf-lua 真正加载时执行，避免在启动时被急加载
   opts = function()
     local actions = require("fzf-lua").actions
+    local utils = require("fzf-lua.utils")
+    -- 自定义紧凑 header：fzf-lua 自动生成的格式是写死的 `<ctrl-x> to xxx`，
+    -- 占地太大；设置 opts.header 字符串可整体覆盖（core.lua set_header 提前返回）。
+    -- 用 <c-x> 简写并去掉 "to"，单行显示所有 toggle 提示。
+    local function hbind(key, desc)
+      return utils.ansi_from_hl("FzfLuaHeaderBind", "<" .. key .. ">")
+        .. " "
+        .. utils.ansi_from_hl("FzfLuaHeaderText", desc)
+    end
+    local toggle_hints = {
+      hbind("c-w", "hidden"),
+      hbind("c-e", ".gitignore"),
+      hbind("c-r", "follow"),
+    }
+    -- files picker（<leader><leader>）不是 live 模式，没有 fuzzy 切换
+    local files_header = table.concat(toggle_hints, "  ")
+    -- grep（<leader>/）额外有 <c-g> 切模糊搜索
+    local grep_header = table.concat(vim.list_extend(vim.deepcopy(toggle_hints), {
+      hbind("c-g", "fuzzy"),
+    }), "  ")
     return {
       winopts = {
         backdrop = 100,
       },
+      -- live_grep 内部也走 grep 配置，所以这里一处即覆盖 <leader>/
+      grep = { header = grep_header },
+      files = { header = files_header },
       keymap = {
         builtin = {
           true,
@@ -41,9 +64,11 @@ return {
           ["ctrl-t"] = actions.file_sel_to_qf,
           -- 将所选文件添加到 location 列表，使用 :lopen 打开列表（使用 ctrl+i 多选文件）
           ["ctrl-y"] = actions.file_sel_to_ll,
-          ["ctrl-w"] = actions.toggle_hidden,
-          ["ctrl-e"] = { fn = actions.toggle_ignore },
-          ["ctrl-r"] = actions.toggle_follow,
+          -- NOTE: reuse=true 必须保留，否则会被规范化为 exec_silent 动作：
+          -- 切换后不会重新加载结果（toggle 看似无效），且失去 header 提示
+          ["ctrl-w"] = { fn = actions.toggle_hidden, reuse = true },
+          ["ctrl-e"] = { fn = actions.toggle_ignore, reuse = true },
+          ["ctrl-r"] = { fn = actions.toggle_follow, reuse = true },
         },
       },
     }
