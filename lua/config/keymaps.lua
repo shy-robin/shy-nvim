@@ -112,6 +112,8 @@ set("n", "<leader>ll", "<cmd>Lazy<cr>", { desc = "Lazy" })
 -- 将插件版本重置到 lock 版本
 set("n", "<leader>lr", "<cmd>Lazy restore<cr>", { desc = "Lazy Restore" })
 set("n", "<leader>lc", function()
+  -- 给 changelog 浮窗补上边框、并调大到与 Lazy(<leader>ll) 一致的尺寸
+  Snacks.config.style("news", { border = "rounded", width = 0.8, height = 0.8 })
   LazyVim.news.changelog()
 end, { desc = "LazyVim Changelog" })
 
