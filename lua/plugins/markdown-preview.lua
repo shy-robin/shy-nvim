@@ -75,6 +75,17 @@ local function patch_link_handler()
   end
 end
 
+-- 让 git 忽略我们对被跟踪文件 app/out/index.html 的注入改动。
+-- 否则 lazy.nvim 更新前的 `git ls-files -m` 脏树检查会拒绝更新（status failed）。
+-- skip-worktree 标记存于本地 .git/index，会被 x+I 重装清掉，故在 build 钩子里重设。
+local function ignore_index_html_changes()
+  local plugin_dir = vim.fn.stdpath("data") .. "/lazy/markdown-preview.nvim"
+  if vim.fn.isdirectory(plugin_dir .. "/.git") == 0 then
+    return
+  end
+  vim.fn.system({ "git", "-C", plugin_dir, "update-index", "--skip-worktree", "app/out/index.html" })
+end
+
 return {
   "iamcco/markdown-preview.nvim",
   event = "VeryLazy",
@@ -83,6 +94,7 @@ return {
     vim.fn.system({ "sh", "-c", "cd " .. vim.fn.shellescape(plugin.dir) .. "/app && npx --yes yarn install" })
     patch_toc_sidebar()
     patch_link_handler()
+    ignore_index_html_changes()
   end,
   init = function()
     vim.g.mkdp_filetypes = { "markdown" }
