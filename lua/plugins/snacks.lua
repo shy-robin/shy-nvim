@@ -95,6 +95,9 @@ return {
       -- 专门针对 lazygit 浮窗的配置
       win = {
         border = "rounded", -- 给 lazygit 加上圆角边框
+        -- 与 fzf-lua、vim-floaterm 统一浮窗尺寸（屏幕占比 0.9×0.9）
+        width = 0.9,
+        height = 0.9,
       },
     },
   },

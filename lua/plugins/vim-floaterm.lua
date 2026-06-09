@@ -132,6 +132,10 @@ return {
     },
   },
   config = function()
+    -- 与 fzf-lua、Snacks lazygit 统一浮窗尺寸（屏幕占比 0.9×0.9）
+    -- 注：<C-j> 仍可临时在 0.6 / 0.95 之间切换
+    vim.g.floaterm_width = 0.9
+    vim.g.floaterm_height = 0.9
     vim.g.floaterm_borderchars = "─│─│╭╮╯╰"
     -- 设置从 floaterm 打开文件的状态
     vim.g.floaterm_opener = "edit"

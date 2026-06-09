@@ -30,6 +30,9 @@ return {
     return {
       winopts = {
         backdrop = 100,
+        -- 与 Snacks lazygit、vim-floaterm 统一浮窗尺寸（屏幕占比 0.9×0.9）
+        width = 0.9,
+        height = 0.9,
       },
       -- live_grep 内部也走 grep 配置，所以这里一处即覆盖 <leader>/
       grep = { header = grep_header },
