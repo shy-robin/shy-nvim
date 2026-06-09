@@ -16,15 +16,17 @@ return {
         .. " "
         .. utils.ansi_from_hl("FzfLuaHeaderText", desc)
     end
-    local toggle_hints = {
+    local base_hints = {
       hbind("c-h", "hidden"),
       hbind("c-y", ".gitignore"),
       hbind("c-f", "follow"),
+      hbind("c-q", "quickfix"),
+      hbind("c-l", "loclist"),
     }
     -- files picker（<leader><leader>）不是 live 模式，没有 fuzzy 切换
-    local files_header = table.concat(toggle_hints, "  ")
+    local files_header = table.concat(base_hints, "  ")
     -- grep（<leader>/）额外有 <c-g> 切模糊搜索
-    local grep_header = table.concat(vim.list_extend(vim.deepcopy(toggle_hints), {
+    local grep_header = table.concat(vim.list_extend(vim.deepcopy(base_hints), {
       hbind("c-g", "fuzzy"),
     }), "  ")
     return {
