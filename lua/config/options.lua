@@ -7,6 +7,13 @@
 -- 拼写检查跳过中文（CJK）字符
 vim.opt.spelllang = { "en", "cjk" }
 
+-- 修复 snacks dashboard 启动时偶发的「闪一下 + 启动页下移一两行」：
+-- noice 启动后会挂载 ext_cmdline/ext_messages，Neovim 内核随即把 cmdheight 从 1
+-- 改成 0（多出一行）。这发生在 dashboard 首次居中绘制之后，触发 snacks 的
+-- WinResized 重新居中 → 重绘抖动。提前把 cmdheight 设为它最终的稳定值 0，
+-- 让首屏就以正确高度绘制，消除这次 resize。
+vim.opt.cmdheight = 0
+
 -- 显示最大字数竖线
 -- opt.colorcolumn = ""
 
