@@ -17,6 +17,11 @@ return {
   },
   opts = {
     global_keymaps = true,
+    kulala_keymaps = {
+      -- 禁用响应 buffer 内的 <C-h>/<C-l>，避免和全局跳光标快捷键冲突
+      ["Previous tab"] = false,
+      ["Next tab"] = false,
+    },
     ui = {
       pickers = {
         snacks = {
