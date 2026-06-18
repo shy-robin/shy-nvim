@@ -1,6 +1,11 @@
 return {
   "folke/noice.nvim",
-  event = "UIEnter",
+  -- 启动期加载（而非 UIEnter 懒加载），消除启动页明显闪烁。
+  -- 根因：noice 的 ext_ui(接管 messages/cmdline)在 attach 时会让 Neovim 整屏 redraw。
+  -- 懒加载时 attach 发生在 snacks dashboard 已渲染之后(~180ms)，把启动页清掉再重画
+  -- ≈100ms = 明显闪烁。改为 lazy=false：noice 在启动期就注册 UIEnter 处理，
+  -- UIEnter(~66ms)即 attach，早于 dashboard 渲染(~81ms)，故无画后 redraw。
+  lazy = false,
   opts = {
     presets = {
       bottom_search = false, -- use a classic bottom cmdline for search
