@@ -52,15 +52,17 @@ return {
           -- 显示 supermaven 的状态
           {
             function()
-              local api = require("supermaven-nvim.api")
-              if api.is_running() then
+              -- 用 package.loaded 守卫：未加载时不 require，避免启动期把
+              -- 本应 InsertEnter 懒加载的 supermaven 提前拽到启动加载。
+              local api = package.loaded["supermaven-nvim.api"]
+              if api and api.is_running() then
                 return " "
               end
               return " "
             end,
             color = function()
-              local api = require("supermaven-nvim.api")
-              if api.is_running() then
+              local api = package.loaded["supermaven-nvim.api"]
+              if api and api.is_running() then
                 return { fg = Snacks.util.color("Special") }
               end
               return { fg = Snacks.util.color("Comment") }

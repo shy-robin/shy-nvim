@@ -7,74 +7,31 @@ local get_colorscheme = function()
   return "material"
 end
 
+-- 备选配色插件：默认懒加载（defaults.lazy = true），不挂 VeryLazy。
+-- lazy.nvim 会在 `:colorscheme xxx` 被调用时按需自动加载对应插件，
+-- 因此这些用不到的主题不会在启动/VeryLazy 时白白 source colors 文件。
 return {
-  {
-    "sainnhe/everforest",
-    event = "VeryLazy",
-  },
-  {
-    "folke/tokyonight.nvim",
-    event = "VeryLazy",
-  },
-  {
-    "catppuccin/nvim",
-    event = "VeryLazy",
-  },
-  {
-    "sainnhe/sonokai",
-    event = "VeryLazy",
-  },
-  {
-    "mhartington/oceanic-next",
-    event = "VeryLazy",
-  },
-  {
-    "rockerBOO/boo-colorscheme-nvim",
-    event = "VeryLazy",
-  },
-  {
-    "marko-cerovac/material.nvim",
-    event = "VeryLazy",
-  },
-  {
-    "Mofiqul/vscode.nvim",
-    event = "VeryLazy",
-  },
-  {
-    "rmehri01/onenord.nvim",
-    event = "VeryLazy",
-  },
-  {
-    "projekt0n/github-nvim-theme",
-    event = "VeryLazy",
-  },
+  { "sainnhe/everforest" },
+  { "folke/tokyonight.nvim" },
+  { "catppuccin/nvim" },
+  { "sainnhe/sonokai" },
+  { "mhartington/oceanic-next" },
+  { "rockerBOO/boo-colorscheme-nvim" },
+  { "marko-cerovac/material.nvim" },
+  { "Mofiqul/vscode.nvim" },
+  { "rmehri01/onenord.nvim" },
+  { "projekt0n/github-nvim-theme" },
   {
     "olimorris/onedarkpro.nvim",
-    event = "VeryLazy",
     opts = {
       transparency = false,
     },
   },
-  {
-    "shaunsingh/nord.nvim",
-    event = "VeryLazy",
-  },
-  {
-    "lunarvim/darkplus.nvim",
-    event = "VeryLazy",
-  },
-  {
-    "nyoom-engineering/oxocarbon.nvim",
-    event = "VeryLazy",
-  },
-  {
-    "wuelnerdotexe/vim-enfocado",
-    event = "VeryLazy",
-  },
-  {
-    "cranberry-clockworks/coal.nvim",
-    event = "VeryLazy",
-  },
+  { "shaunsingh/nord.nvim" },
+  { "lunarvim/darkplus.nvim" },
+  { "nyoom-engineering/oxocarbon.nvim" },
+  { "wuelnerdotexe/vim-enfocado" },
+  { "cranberry-clockworks/coal.nvim" },
   {
     "LazyVim/LazyVim",
     lazy = false, -- make sure we load this during startup if it is your main colorscheme

@@ -62,7 +62,8 @@ require("lazy").setup({
   install = { colorscheme = { "material-oceanic", "tokyonight", "habamax" } },
   checker = {
     enabled = true, -- check for plugin updates periodically
-    notify = false, -- notify on update
+    notify = false, -- 不弹窗（更新数仍显示在 lualine 的 lazy.status 组件 & :Lazy）
+    frequency = 86400, -- 降频：最多每天检查一次（缓存命中即跳过），省每次启动的后台 git fetch
   }, -- automatically check for plugin updates
   performance = {
     rtp = {
@@ -71,7 +72,8 @@ require("lazy").setup({
         "gzip",
         -- "matchit",
         -- "matchparen",
-        -- "netrwPlugin",
+        "netrwPlugin", -- 已用 nvim-tree，netrw 冗余
+        "rplugin", -- 无 remote(python/ruby 等)插件，跳过 rplugin 扫描
         "tarPlugin",
         "tohtml",
         "tutor",

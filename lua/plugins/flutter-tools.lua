@@ -1,6 +1,9 @@
 return {
   "nvim-flutter/flutter-tools.nvim",
-  lazy = false,
+  -- 改为按需加载（原 lazy=false 每次启动都加载，连带依赖 dressing 一起加载）。
+  -- 打开 dart 文件即加载并注册全部 :Flutter* 命令；非 Flutter 场景启动更快。
+  ft = "dart",
+  cmd = { "FlutterRun", "FlutterDevices", "FlutterEmulators", "FlutterDevTools", "FlutterLspRestart" },
   dependencies = {
     "nvim-lua/plenary.nvim",
     "stevearc/dressing.nvim", -- optional for vim.ui.select
