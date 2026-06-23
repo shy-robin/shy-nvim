@@ -91,5 +91,10 @@ vim.api.nvim_create_autocmd("BufReadPre", {
     -- 不记录 undo + 关闭持久化 undo：避免编辑时内存暴涨（代价：该 buffer 无法撤销）
     vim.bo[buf].undofile = false
     vim.bo[buf].undolevels = -1
+    -- LazyVim 全局 foldmethod=indent，会在读入时对全文件逐行计算缩进折叠（千万行 ≈1s）。
+    -- 必须在读入「前」把当前窗口改成 manual 折叠，否则 Snacks bigfile 在 FileType（读完后）
+    -- 才改 manual，折叠已经算过、白白多花 ~1s。实测打开耗时因此 ~2.0s → ~1.0s。
+    vim.wo.foldmethod = "manual"
+    vim.wo.foldenable = false
   end,
 })
