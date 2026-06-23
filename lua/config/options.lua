@@ -68,3 +68,28 @@ vim.filetype.add({
     [".*%.markdown"] = { md_bigfile, { priority = 100 } },
   },
 })
+
+-- 针对超大文件（几百 MB 的数据/日志/导出文件）的「打开速度」优化。
+-- 这些设置必须在文件被读入「之前」生效（BufReadPre），否则 swapfile 已经建好、
+-- undo 开销也已产生。Snacks 的 bigfile 走 FileType（读入之后）才介入，对“打开”
+-- 这一段为时已晚，故在此补一层、专门压打开成本；“编辑”那一段由 snacks bigfile 负责。
+local huge_file_group = vim.api.nvim_create_augroup("huge_file_optim", { clear = true })
+vim.api.nvim_create_autocmd("BufReadPre", {
+  group = huge_file_group,
+  callback = function(ev)
+    local ok, stats = pcall(vim.uv.fs_stat, ev.match)
+    if not (ok and stats) then
+      return
+    end
+    -- 阈值 10MB：超过则进入“超大文件”模式
+    if stats.size < 10 * 1024 * 1024 then
+      return
+    end
+    local buf = ev.buf
+    -- 关闭交换文件：避免打开时额外写入数百 MB 的 swap
+    vim.bo[buf].swapfile = false
+    -- 不记录 undo + 关闭持久化 undo：避免编辑时内存暴涨（代价：该 buffer 无法撤销）
+    vim.bo[buf].undofile = false
+    vim.bo[buf].undolevels = -1
+  end,
+})

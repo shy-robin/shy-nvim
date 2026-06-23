@@ -62,22 +62,88 @@ return {
       -- Enable or disable features when big file detected
       ---@param ctx {buf: number, ft:string}
       setup = function(ctx)
-        -- 停止 Supermaven 插件
-        vim.cmd("SupermavenStop")
-        -- 增加缓冲区变量，标识大文件类型
+        -- 标识大文件类型（LazyVim/Supermaven 据此不挂载 Treesitter/LSP/补全）。
+        -- 必须放在最前：之前把它放在 SupermavenStop 之后，而 Supermaven 是 InsertEnter
+        -- 懒加载，打开大文件时命令尚不存在，vim.cmd("SupermavenStop") 抛错会中断整个
+        -- setup，导致所有减负操作都没生效（vim.b.bigfile 一直是 nil，依旧卡顿）。
         vim.b.bigfile = true
-        -- 禁用 Treesitter
-        -- DisableSyntaxTreesitter()
+
+        -- 停止 Supermaven 插件（仅当已加载、命令存在时；否则会报错）
+        if vim.fn.exists(":SupermavenStop") ~= 0 then
+          vim.cmd("SupermavenStop")
+        end
 
         if vim.fn.exists(":NoMatchParen") ~= 0 then
           vim.cmd([[NoMatchParen]])
         end
-        Snacks.util.wo(0, { foldmethod = "manual", statuscolumn = "", conceallevel = 0 })
+        Snacks.util.wo(0, {
+          foldmethod = "manual",
+          statuscolumn = "",
+          conceallevel = 0,
+          cursorline = false, -- 关闭当前行高亮，减少滚动重绘成本
+          list = false,
+        })
         vim.b.minianimate_disable = true
-        vim.schedule(function()
-          if vim.api.nvim_buf_is_valid(ctx.buf) then
-            vim.bo[ctx.buf].syntax = ctx.ft
+        vim.b.miniindentscope_disable = true -- 关闭 mini.indentscope（若启用）
+        vim.b.snacks_indent = false -- 关闭 snacks 缩进引导/作用域（每次重绘都会跑装饰器）
+        vim.b.completion = false
+
+        -- gitsigns 每次改动都会对整个 buffer 做 diff，几百 MB 的文件极慢，直接 detach
+        pcall(function()
+          require("gitsigns").detach(ctx.buf)
+        end)
+
+        -- noice 用居中浮窗显示命令行，进/出命令模式都要创建/销毁浮窗并整屏重绘，
+        -- 超大 buffer 下这次重绘很贵（实测进出命令模式明显卡顿）。noice 没有按 buffer
+        -- 关闭的开关，故打开超大文件时整体关掉 noice，待它（及所有其他超大文件）关闭后
+        -- 再恢复——只在“打开/关闭超大文件”两个时机各重绘一次，不会在频繁切 buffer 时反复闪烁。
+        local function kill_noice()
+          if vim.g._bigfile_noice_disabled then
+            return
           end
+          local ok_noice, noice = pcall(require, "noice")
+          -- 注意：disable() 必须 pcall，且仅在成功后置 flag。
+          if ok_noice and pcall(noice.disable) then
+            vim.g._bigfile_noice_disabled = true
+          end
+        end
+        -- 启动顺序竞态：用 `nvim 大文件` 直接打开时，bigfile 的 FileType 在启动期就触发，
+        -- 而 noice(lazy=false) 的 enable() 注册在 VimEnter（晚于 FileType）。若此刻直接
+        -- disable，随后 VimEnter 又会把 noice 打开。故启动期打开时，把 disable 推迟到
+        -- VimEnter 之后（schedule_wrap 确保排在 noice 的 enable 之后）再执行。
+        if vim.v.vim_did_enter == 1 then
+          kill_noice()
+        else
+          vim.api.nvim_create_autocmd("VimEnter", { once = true, callback = vim.schedule_wrap(kill_noice) })
+        end
+        vim.api.nvim_create_autocmd({ "BufDelete", "BufWipeout" }, {
+          buffer = ctx.buf,
+          once = true,
+          callback = function(args)
+            -- 仅当已无任何其他超大文件 buffer 还开着时，才恢复 noice
+            for _, b in ipairs(vim.api.nvim_list_bufs()) do
+              if b ~= args.buf and vim.api.nvim_buf_is_loaded(b) and vim.b[b].bigfile then
+                return
+              end
+            end
+            if vim.g._bigfile_noice_disabled then
+              vim.g._bigfile_noice_disabled = false
+              pcall(function()
+                require("noice").enable()
+              end)
+            end
+          end,
+        })
+
+        -- 仅对“中等偏大”（< 10MB）的文件恢复内置正则语法高亮；几百 MB 的文件一旦
+        -- 开启 syntax，每次滚动/编辑都会触发巨量正则扫描，这才是编辑卡顿的主因，
+        -- 故对超大文件彻底关闭语法高亮。
+        local fsize = vim.fn.getfsize(vim.api.nvim_buf_get_name(ctx.buf))
+        vim.schedule(function()
+          if not vim.api.nvim_buf_is_valid(ctx.buf) then
+            return
+          end
+          vim.bo[ctx.buf].syntax = (fsize > 0 and fsize < 10 * 1024 * 1024) and ctx.ft or "off"
         end)
       end,
     },

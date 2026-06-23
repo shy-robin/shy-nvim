@@ -53,6 +53,29 @@ return {
         -- providers = { ... }
       },
 
+      -- 命令行（: / ?）补全源：blink 此处支持传函数动态决定（见 sources/lib/init.lua）。
+      -- 修两个问题：
+      -- 1) bigfile（超大 buffer）下直接返回空，避免 buffer 源每次按键扫描上千万行 →
+      --    这是“快速输入命令仍卡顿”的真凶（blink 命令行的 enabled 早于 vim.b.completion
+      --    判断，故仅设 vim.b.completion=false 挡不住命令行补全）。
+      -- 2) blink 原始默认对所有模式都含 buffer 源，连 `:` 也会扫描整个 buffer；这里让
+      --    `:`/`@` 只用命令源，`/`、`?` 才用 buffer 源做搜索词补全（普通文件也更跟手）。
+      cmdline = {
+        sources = function()
+          if vim.b.bigfile then
+            return {}
+          end
+          local t = vim.fn.getcmdtype()
+          if t == "/" or t == "?" then
+            return { "buffer" }
+          end
+          if t == ":" or t == "@" then
+            return { "cmdline" }
+          end
+          return {}
+        end,
+      },
+
       -- 3. 界面美化
       completion = {
         menu = {
