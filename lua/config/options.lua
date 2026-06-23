@@ -96,5 +96,11 @@ vim.api.nvim_create_autocmd("BufReadPre", {
     -- 才改 manual，折叠已经算过、白白多花 ~1s。实测打开耗时因此 ~2.0s → ~1.0s。
     vim.wo.foldmethod = "manual"
     vim.wo.foldenable = false
+    -- cmdheight=0（见上方）依赖 noice 接管消息/命令行；但超大文件会被 snacks bigfile
+    -- 关掉 noice，此时原生消息（如读取文件的 "X lines, Y bytes"）无处显示，cmdheight=0
+    -- 会触发 “Press ENTER/any key to continue” 的 hit-enter 提示，且 noice 恰在此提示
+    -- 显示期间被 disable → 提示框卡死无法消除。故在读入「前」（早于文件读取消息）把
+    -- cmdheight 设回 1 留出空间。关闭大文件、noice 恢复后再还原为 0（见 snacks.lua）。
+    vim.o.cmdheight = 1
   end,
 })

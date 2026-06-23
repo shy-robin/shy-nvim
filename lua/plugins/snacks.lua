@@ -105,6 +105,10 @@ return {
           -- 注意：disable() 必须 pcall，且仅在成功后置 flag。
           if ok_noice and pcall(noice.disable) then
             vim.g._bigfile_noice_disabled = true
+            -- 关键：noice 在 enable 时会把 cmdheight 置 0。启动竞态下它的 VimEnter enable
+            -- 会覆盖 BufReadPre 设的 1，故在 disable 之后再强制设回 1——保证“noice 关闭”
+            -- 期间 cmdheight≥1，否则原生消息会触发 hit-enter 卡死提示框。
+            vim.o.cmdheight = 1
           end
         end
         -- 启动顺序竞态：用 `nvim 大文件` 直接打开时，bigfile 的 FileType 在启动期就触发，
@@ -132,6 +136,9 @@ return {
                 require("noice").enable()
               end)
             end
+            -- noice 恢复后还原 cmdheight=0（打开大文件时 BufReadPre 把它设成了 1，
+            -- 见 options.lua：cmdheight=0 仅在 noice 接管消息时才可用）。
+            vim.o.cmdheight = 0
           end,
         })
 
