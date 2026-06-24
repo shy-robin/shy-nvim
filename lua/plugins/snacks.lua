@@ -90,6 +90,7 @@ return {
         vim.b.miniindentscope_disable = true -- 关闭 mini.indentscope（若启用）
         vim.b.snacks_indent = false -- 关闭 snacks 缩进引导/作用域（每次重绘都会跑装饰器）
         vim.b.completion = false
+        vim.b.autoformat = false -- 关闭 format-on-save：对千万行跑 prettier 会卡死保存
 
         -- gitsigns 每次改动都会对整个 buffer 做 diff，几百 MB 的文件极慢，直接 detach
         pcall(function()
