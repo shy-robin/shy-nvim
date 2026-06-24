@@ -56,7 +56,10 @@ return {
     },
     bigfile = {
       enabled = true,
-      notify = true,
+      -- 关闭“Big file detected”提示：它是两行消息，启动期(noice/notifier 尚未就绪)会作为
+      -- 原生多行消息显示，超过命令行高度→触发 “Press any key to continue” 阻塞提示；该阻塞
+      -- 又让 VimEnter 之后才跑的 kill_noice 无法执行，于是提示框卡死。关掉即从源头消除。
+      notify = false,
       size = 0.4 * 1024 * 1024, -- 0.4MB
       -- 超过最大限制，不使用任何渲染，防止卡顿
       -- Enable or disable features when big file detected
