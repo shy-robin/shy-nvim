@@ -142,9 +142,6 @@ local function set_highlights()
   set_hl(0, "NvimTreeNormalNC", { link = "Normal" })
   set_hl(0, "NvimTreeWinSeparator", { fg = "bg", bg = "bg" })
   set_hl(0, "NvimTreeEndOfBuffer", { link = "Normal" })
-  -- ToggleTerm
-  set_hl(0, "ToggleTermNormal", { link = "Normal" })
-  set_hl(0, "ToggleTermEndOfBuffer", { link = "Normal" })
 
   -- 设置 gitsigns 的高亮
   set_hl(0, "GitSignsAdd", { fg = "#0EAA00" })

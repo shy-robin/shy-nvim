@@ -11,7 +11,6 @@ return {
         "lazy",
         "mason",
         "notify",
-        "toggleterm",
         "lazyterm",
         "floaterm",
         "NvimTree",
