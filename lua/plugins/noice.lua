@@ -15,6 +15,10 @@ return {
       progress = {
         enabled = false,
       },
+      hover = {
+        -- 光标下没有 LSP 文档时不弹出 "No information available"
+        silent = true,
+      },
     },
     commands = {
       history = {
