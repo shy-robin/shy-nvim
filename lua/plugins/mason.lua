@@ -1,62 +1,42 @@
 return {
-  {
-    "LazyVim/LazyVim",
-    opts = {
-      mason = {
-        ensure_installed = {
-          -- LSP servers
-          "typescript-tools",
-          "vue-language-server",
-          "lua-language-server",
-          "json-lsp",
-          "yaml-language-server",
-          "html-lsp",
-          "css-lsp",
-          "svelte-language-server",
-          "pyright",
-          "ruff",
-          "gopls",
-          "rust-analyzer",
-          "tailwindcss-language-server",
-          "emmet-language-server",
+  "mason-org/mason.nvim",
+  opts = {
+    ensure_installed = {
+      -- LSP servers
+      "vtsls",
+      "vue-language-server",
+      "lua-language-server",
+      "json-lsp",
+      "yaml-language-server",
+      "html-lsp",
+      "css-lsp",
+      "svelte-language-server",
+      "pyright",
+      "ruff",
+      "gopls",
+      "rust-analyzer",
+      "tailwindcss-language-server",
+      "emmet-language-server",
 
-          -- Formatters
-          "prettierd",
-          "stylua",
-          "black",
-          "isort",
-          "gofumpt",
-          "rustfmt",
-          "sqlfmt",
-          "shfmt",
+      -- Formatters
+      "prettierd",
+      "black",
+      "isort",
+      "sqlfmt",
+      "kulala-fmt",
 
-          -- Linters
-          "eslint_d",
-          "markdownlint-cli2",
-          "shellcheck",
-          "golangci-lint",
-          "hadolint",
+      -- Linters
+      "eslint_d",
+      "shellcheck",
+      "hadolint",
 
-          -- Debuggers
-          "debugpy",
-          "delve",
-
-          -- DAP adapters
-          "codelldb",
-        },
-        ui = {
-          border = "rounded",
-        },
-      },
+      -- Debuggers and DAP adapters
+      "debugpy",
+      "codelldb",
     },
-  },
-  {
-    "mason-org/mason.nvim",
-    opts = {
-      ui = {
-        border = "rounded",
-        backdrop = 100,
-      },
+    ui = {
+      border = "rounded",
+      backdrop = 100,
     },
   },
 }
