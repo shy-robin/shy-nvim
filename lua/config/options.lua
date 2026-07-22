@@ -73,6 +73,7 @@ vim.filetype.add({
 -- 这些设置必须在文件被读入「之前」生效（BufReadPre），否则 swapfile 已经建好、
 -- undo 开销也已产生。Snacks 的 bigfile 走 FileType（读入之后）才介入，对“打开”
 -- 这一段为时已晚，故在此补一层、专门压打开成本；“编辑”那一段由 snacks bigfile 负责。
+local Bigfile = require("util.bigfile")
 local huge_file_group = vim.api.nvim_create_augroup("huge_file_optim", { clear = true })
 vim.api.nvim_create_autocmd("BufReadPre", {
   group = huge_file_group,
@@ -94,8 +95,7 @@ vim.api.nvim_create_autocmd("BufReadPre", {
     -- LazyVim 全局 foldmethod=indent，会在读入时对全文件逐行计算缩进折叠（千万行 ≈1s）。
     -- 必须在读入「前」把当前窗口改成 manual 折叠，否则 Snacks bigfile 在 FileType（读完后）
     -- 才改 manual，折叠已经算过、白白多花 ~1s。实测打开耗时因此 ~2.0s → ~1.0s。
-    vim.wo.foldmethod = "manual"
-    vim.wo.foldenable = false
+    Bigfile.prepare(buf)
     -- cmdheight=0（见上方）依赖 noice 接管消息/命令行；但超大文件会被 snacks bigfile
     -- 关掉 noice，此时原生消息（如读取文件的 "X lines, Y bytes"）无处显示，cmdheight=0
     -- 会触发 “Press ENTER/any key to continue” 的 hit-enter 提示，且 noice 恰在此提示

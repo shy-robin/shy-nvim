@@ -1,3 +1,5 @@
+local Bigfile = require("util.bigfile")
+
 return {
   "folke/snacks.nvim",
   opts = {
@@ -66,26 +68,12 @@ return {
       ---@param ctx {buf: number, ft:string}
       setup = function(ctx)
         -- 标识大文件类型（LazyVim/Supermaven 据此不挂载 Treesitter/LSP/补全）。
-        -- 必须放在最前：之前把它放在 SupermavenStop 之后，而 Supermaven 是 InsertEnter
-        -- 懒加载，打开大文件时命令尚不存在，vim.cmd("SupermavenStop") 抛错会中断整个
-        -- setup，导致所有减负操作都没生效（vim.b.bigfile 一直是 nil，依旧卡顿）。
+        -- 必须放在最前，避免后续可选插件减负失败时遗漏 bigfile 标志。
         vim.b.bigfile = true
 
-        -- 停止 Supermaven 插件（仅当已加载、命令存在时；否则会报错）
-        if vim.fn.exists(":SupermavenStop") ~= 0 then
-          vim.cmd("SupermavenStop")
-        end
-
-        if vim.fn.exists(":NoMatchParen") ~= 0 then
-          vim.cmd([[NoMatchParen]])
-        end
-        Snacks.util.wo(0, {
-          foldmethod = "manual",
-          statuscolumn = "",
-          conceallevel = 0,
-          cursorline = false, -- 关闭当前行高亮，减少滚动重绘成本
-          list = false,
-        })
+        -- 窗口选项由生命周期模块按窗口保存/恢复；MatchParen 只在首个 bigfile
+        -- 进入时关闭，并仅在确由此处关闭且最后一个 bigfile 删除后恢复。
+        local new_buffer = Bigfile.enter(ctx.buf)
         vim.b.minianimate_disable = true
         vim.b.miniindentscope_disable = true -- 关闭 mini.indentscope（若启用）
         vim.b.snacks_indent = false -- 关闭 snacks 缩进引导/作用域（每次重绘都会跑装饰器）
@@ -101,50 +89,86 @@ return {
         -- 超大 buffer 下这次重绘很贵（实测进出命令模式明显卡顿）。noice 没有按 buffer
         -- 关闭的开关，故打开超大文件时整体关掉 noice，待它（及所有其他超大文件）关闭后
         -- 再恢复——只在“打开/关闭超大文件”两个时机各重绘一次，不会在频繁切 buffer 时反复闪烁。
+        local function noice_running()
+          local ok_config, noice_config = pcall(require, "noice.config")
+          if not (ok_config and type(noice_config.is_running) == "function") then
+            return nil
+          end
+          local ok_running, running = pcall(noice_config.is_running)
+          if not ok_running then
+            return nil
+          end
+          return running
+        end
+
         local function kill_noice()
-          if vim.g._bigfile_noice_disabled then
+          if Bigfile.count() == 0 or vim.g._bigfile_noice_disabled then
             return
           end
           local ok_noice, noice = pcall(require, "noice")
-          -- 注意：disable() 必须 pcall，且仅在成功后置 flag。
+          local was_running = noice_running()
+          if was_running == false then
+            return
+          end
+          -- noice.disable() may set _running=false before a later step fails. If that
+          -- happens, immediately roll it back; if rollback fails, retain ownership so
+          -- the final bigfile cleanup can retry while cmdheight remains protected.
           if ok_noice and pcall(noice.disable) then
             vim.g._bigfile_noice_disabled = true
             -- 关键：noice 在 enable 时会把 cmdheight 置 0。启动竞态下它的 VimEnter enable
             -- 会覆盖 BufReadPre 设的 1，故在 disable 之后再强制设回 1——保证“noice 关闭”
             -- 期间 cmdheight≥1，否则原生消息会触发 hit-enter 卡死提示框。
             vim.o.cmdheight = 1
+          elseif was_running == true then
+            if noice_running() == false then
+              if pcall(noice.enable) then
+                vim.o.cmdheight = 0
+              else
+                vim.g._bigfile_noice_disabled = true
+                vim.o.cmdheight = 1
+              end
+            elseif noice_running() == true then
+              vim.o.cmdheight = 0
+            end
           end
         end
         -- 启动顺序竞态：用 `nvim 大文件` 直接打开时，bigfile 的 FileType 在启动期就触发，
         -- 而 noice(lazy=false) 的 enable() 注册在 VimEnter（晚于 FileType）。若此刻直接
         -- disable，随后 VimEnter 又会把 noice 打开。故启动期打开时，把 disable 推迟到
         -- VimEnter 之后（schedule_wrap 确保排在 noice 的 enable 之后）再执行。
-        if vim.v.vim_did_enter == 1 then
-          kill_noice()
-        else
-          vim.api.nvim_create_autocmd("VimEnter", { once = true, callback = vim.schedule_wrap(kill_noice) })
-        end
-        vim.api.nvim_create_autocmd({ "BufDelete", "BufWipeout" }, {
-          buffer = ctx.buf,
-          once = true,
-          callback = function(args)
-            -- 仅当已无任何其他超大文件 buffer 还开着时，才恢复 noice
-            for _, b in ipairs(vim.api.nvim_list_bufs()) do
-              if b ~= args.buf and vim.api.nvim_buf_is_loaded(b) and vim.b[b].bigfile then
+        if new_buffer then
+          if vim.v.vim_did_enter == 1 then
+            kill_noice()
+          else
+            vim.api.nvim_create_autocmd("VimEnter", { once = true, callback = vim.schedule_wrap(kill_noice) })
+          end
+          vim.api.nvim_create_autocmd({ "BufDelete", "BufWipeout" }, {
+            buffer = ctx.buf,
+            once = true,
+            callback = function(args)
+              if not Bigfile.leave(args.buf) then
                 return
               end
-            end
-            if vim.g._bigfile_noice_disabled then
-              vim.g._bigfile_noice_disabled = false
-              pcall(function()
-                require("noice").enable()
-              end)
-            end
-            -- noice 恢复后还原 cmdheight=0（打开大文件时 BufReadPre 把它设成了 1，
-            -- 见 options.lua：cmdheight=0 仅在 noice 接管消息时才可用）。
-            vim.o.cmdheight = 0
-          end,
-        })
+              if vim.g._bigfile_noice_disabled then
+                local ok = pcall(function()
+                  require("noice").enable()
+                end)
+                if not ok then
+                  vim.o.cmdheight = 1
+                  return
+                end
+                vim.g._bigfile_noice_disabled = false
+                -- noice 恢复后还原 cmdheight=0（打开大文件时 BufReadPre 把它设成了 1，
+                -- 见 options.lua：cmdheight=0 仅在 noice 接管消息时才可用）。
+                vim.o.cmdheight = 0
+              elseif noice_running() == true then
+                -- 启动期 scheduled disable 尚未来得及执行时，最后一个 bigfile 已
+                -- 删除；Noice 仍在运行，才可安全撤销 BufReadPre 的 cmdheight=1。
+                vim.o.cmdheight = 0
+              end
+            end,
+          })
+        end
 
         -- 仅对“中等偏大”（< 10MB）的文件恢复内置正则语法高亮；几百 MB 的文件一旦
         -- 开启 syntax，每次滚动/编辑都会触发巨量正则扫描，这才是编辑卡顿的主因，
