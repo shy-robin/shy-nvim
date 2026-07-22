@@ -1,8 +1,5 @@
--- Run with Bash from the repository root without touching the user's XDG state:
--- bash -c 'tmp=$(mktemp -d); XDG_CONFIG_HOME="$tmp/config" XDG_DATA_HOME="$tmp/data" \
--- XDG_STATE_HOME="$tmp/state" XDG_CACHE_HOME="$tmp/cache" \
--- NVIM_TEST_LAZY_ROOT="$HOME/.local/share/nvim/lazy" \
--- nvim --headless -u NORC +"luafile tests/spec_opts_spec.lua" +qa; code=$?; rm -rf "$tmp"; exit $code'
+-- Run through scripts/check.sh. The runner supplies an isolated data/nvim/lazy
+-- snapshot so this test can execute production config.lazy without its clone fallback.
 
 local repo = vim.fn.getcwd()
 local lazy_root = vim.env.NVIM_TEST_LAZY_ROOT
@@ -11,9 +8,20 @@ assert(lazy_root and lazy_root ~= "", "NVIM_TEST_LAZY_ROOT must point to the ins
 for _, path in ipairs({ repo, lazy_root .. "/LazyVim", lazy_root .. "/lazy.nvim" }) do
   vim.opt.runtimepath:prepend(path)
 end
+assert(vim.uv.fs_stat(vim.fn.stdpath("data") .. "/lazy/lazy.nvim"), "temporary data must expose lazy.nvim")
+
+local captured_opts
+package.loaded.lazy = {
+  setup = function(opts)
+    captured_opts = opts
+  end,
+}
+dofile(repo .. "/lua/config/lazy.lua")
+assert(captured_opts, "production config.lazy must call lazy.setup")
+package.loaded.lazy = nil
 
 local Config = require("lazy.core.config")
-Config.options = vim.tbl_deep_extend("force", vim.deepcopy(Config.defaults), {
+Config.options = vim.tbl_deep_extend("force", vim.deepcopy(Config.defaults), captured_opts, {
   root = lazy_root,
   local_spec = false,
   pkg = { enabled = false },
@@ -22,27 +30,7 @@ Config.options = vim.tbl_deep_extend("force", vim.deepcopy(Config.defaults), {
 local Plugin = require("lazy.core.plugin")
 local spec = Plugin.Spec.new(nil, { pkg = false })
 Config.spec = spec
--- Keep this import graph synchronized with lua/config/lazy.lua.
-spec:parse({
-  { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-  { import = "lazyvim.plugins.extras.coding.blink" },
-  { import = "lazyvim.plugins.extras.lang.json" },
-  { import = "lazyvim.plugins.extras.lang.typescript" },
-  { import = "lazyvim.plugins.extras.lang.markdown" },
-  { import = "lazyvim.plugins.extras.lang.go" },
-  { import = "lazyvim.plugins.extras.lang.python" },
-  { import = "lazyvim.plugins.extras.lang.sql" },
-  { import = "lazyvim.plugins.extras.lang.svelte" },
-  { import = "lazyvim.plugins.extras.lang.vue" },
-  { import = "lazyvim.plugins.extras.lang.tailwind" },
-  { import = "lazyvim.plugins.extras.lang.yaml" },
-  { import = "lazyvim.plugins.extras.formatting.prettier" },
-  { import = "lazyvim.plugins.extras.coding.neogen" },
-  { import = "lazyvim.plugins.extras.util.rest" },
-  { import = "lazyvim.plugins.extras.editor.outline" },
-  { import = "lazyvim.plugins.extras.dap.core" },
-  { import = "plugins" },
-})
+spec:parse(captured_opts.spec)
 
 local load_errors = {}
 for _, notif in ipairs(spec.notifs) do

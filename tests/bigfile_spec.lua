@@ -411,7 +411,8 @@ test("direct huge-file startup disables Noice after VimEnter without hit-enter r
   local child_root = tempdir .. "/child-xdg"
   local result_path = tempdir .. "/startup-result.txt"
   local init_path = tempdir .. "/startup-init.lua"
-  vim.fn.mkdir(child_root, "p")
+  vim.fn.mkdir(child_root .. "/home", "p")
+  vim.fn.mkdir(child_root .. "/tmp", "p")
   local init = string.format(
     [[
 vim.opt.runtimepath:prepend(%q)
@@ -443,6 +444,8 @@ vim.api.nvim_create_autocmd("VimEnter", {
         "noice_enabled=" .. tostring(state.enabled),
         "disable_calls=" .. tostring(state.disable_calls),
         "cmdheight=" .. tostring(vim.o.cmdheight),
+        "home=" .. vim.env.HOME,
+        "tmpdir=" .. vim.env.TMPDIR,
       }, %q)
       vim.cmd("qa!")
     end, 100)
@@ -467,6 +470,8 @@ vim.api.nvim_create_autocmd("VimEnter", {
         XDG_DATA_HOME = child_root .. "/data",
         XDG_STATE_HOME = child_root .. "/state",
         XDG_CACHE_HOME = child_root .. "/cache",
+        HOME = child_root .. "/home",
+        TMPDIR = child_root .. "/tmp",
       },
       text = true,
     })
@@ -484,13 +489,16 @@ vim.api.nvim_create_autocmd("VimEnter", {
   assert(result:find("noice_enabled=false", 1, true), "Noice must be disabled after its VimEnter enable")
   assert(result:find("disable_calls=1", 1, true), "Noice must be disabled exactly once during startup")
   assert(result:find("cmdheight=1", 1, true), "cmdheight must be 1 after startup Noice disable")
+  assert(result:find("home=" .. child_root .. "/home", 1, true), "child must use its own HOME")
+  assert(result:find("tmpdir=" .. child_root .. "/tmp", 1, true), "child must use its own TMPDIR")
 end)
 
 test("startup deletion before scheduled Noice disable restores cmdheight for running Noice", function()
   local child_root = tempdir .. "/startup-delete-xdg"
   local result_path = tempdir .. "/startup-delete-result.txt"
   local init_path = tempdir .. "/startup-delete-init.lua"
-  vim.fn.mkdir(child_root, "p")
+  vim.fn.mkdir(child_root .. "/home", "p")
+  vim.fn.mkdir(child_root .. "/tmp", "p")
   local init = string.format(
     [[
 vim.opt.runtimepath:prepend(%q)
@@ -541,6 +549,8 @@ vim.api.nvim_create_autocmd("FileType", {
             "noice_running=" .. tostring(state.running),
             "disable_calls=" .. tostring(state.disable_calls),
               "cmdheight=" .. tostring(vim.o.cmdheight),
+              "home=" .. vim.env.HOME,
+              "tmpdir=" .. vim.env.TMPDIR,
             }, %q)
             vim.cmd("qa!")
           end, 100)
@@ -571,6 +581,8 @@ require("snacks").setup({ bigfile = spec.opts.bigfile })
         XDG_DATA_HOME = child_root .. "/data",
         XDG_STATE_HOME = child_root .. "/state",
         XDG_CACHE_HOME = child_root .. "/cache",
+        HOME = child_root .. "/home",
+        TMPDIR = child_root .. "/tmp",
       },
       text = true,
     })
@@ -587,6 +599,8 @@ require("snacks").setup({ bigfile = spec.opts.bigfile })
   assert(result:find("noice_running=true", 1, true), "Noice must stay running when deletion wins the startup race")
   assert(result:find("disable_calls=0", 1, true), "scheduled disable must observe that the final bigfile was deleted")
   assert(result:find("cmdheight=0", 1, true), "running Noice must restore cmdheight after startup deletion")
+  assert(result:find("home=" .. child_root .. "/home", 1, true), "child must use its own HOME")
+  assert(result:find("tmpdir=" .. child_root .. "/tmp", 1, true), "child must use its own TMPDIR")
 end)
 
 vim.fn.delete(tempdir, "rf")
