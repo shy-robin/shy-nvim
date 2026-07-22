@@ -130,7 +130,6 @@ end
 
 return {
   "iamcco/markdown-preview.nvim",
-  event = "VeryLazy",
   cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
   build = function(plugin)
     vim.fn.system({ "sh", "-c", "cd " .. vim.fn.shellescape(plugin.dir) .. "/app && npx --yes yarn install" })

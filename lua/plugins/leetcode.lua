@@ -1,13 +1,14 @@
 return {
   "kawre/leetcode.nvim",
-  event = "VeryLazy",
+  cmd = { "Leet" },
   build = ":TSUpdate html",
   dependencies = {
-    "nvim-telescope/telescope.nvim",
-    "nvim-lua/plenary.nvim", -- required by telescope
+    "ibhagwan/fzf-lua",
+    "nvim-lua/plenary.nvim",
     "MunifTanjim/nui.nvim",
   },
   opts = {
+    picker = { provider = "fzf-lua" },
     lang = "javascript",
     cn = { -- leetcode.cn
       enabled = true,

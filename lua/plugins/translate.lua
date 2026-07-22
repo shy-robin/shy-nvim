@@ -1,6 +1,6 @@
 return {
   "uga-rosa/translate.nvim",
-  event = "VeryLazy",
+  cmd = { "Translate" },
   opts = {
     default = {
       output = "split",

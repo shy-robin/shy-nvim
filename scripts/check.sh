@@ -71,7 +71,9 @@ run_nvim_lua_test() {
   test_file=$1
   (
     cd "$repo_dir"
-    run_nvim --headless -u NORC "+luafile $test_file" +qa
+    NVIM_CHECK_LUA_TEST="$test_file" \
+      NVIM_CHECK_LUA_TEST_LOADER="$lua_test_loader" \
+      run_nvim --headless -u NORC --cmd 'lua dofile(vim.env.NVIM_CHECK_LUA_TEST_LOADER)'
   )
 }
 
@@ -214,6 +216,20 @@ exit 126
 EOF
   "$chmod_bin" a+rx "$blocked_bin/$blocked_command"
 done
+
+lua_test_loader=$temp_root/run-nvim-lua-test.lua
+"$cat_bin" >"$lua_test_loader" <<'LUA'
+local test_file = vim.env.NVIM_CHECK_LUA_TEST
+local ok, err = xpcall(function()
+  assert(test_file and test_file ~= "", "NVIM_CHECK_LUA_TEST must name a Lua test file")
+  dofile(test_file)
+end, debug.traceback)
+if not ok then
+  vim.api.nvim_err_writeln(err)
+  vim.cmd("cquit 1")
+end
+vim.cmd("qa!")
+LUA
 
 run_stage 'Lua syntax' check_lua_syntax
 run_stage 'JSON parsing' check_json

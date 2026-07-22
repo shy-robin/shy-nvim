@@ -240,8 +240,98 @@ check(
   "Mason UI settings were not preserved"
 )
 
+local function has_trigger(plugin, property, value)
+  local triggers = Plugin.values(plugin, property, false)
+  if type(triggers) == "string" then
+    return triggers == value
+  end
+  return contains(triggers, value)
+end
+
+local function has_key(plugin, lhs)
+  local keys = Plugin.values(plugin, "keys", false)
+  for _, key in ipairs(keys or {}) do
+    if key[1] == lhs then
+      return true
+    end
+  end
+  return false
+end
+
+local function has_dependency(plugin, name)
+  return contains(Plugin.values(plugin, "dependencies", false), name)
+end
+
+local precise_plugins = {
+  ["orgmode"] = { ft = "org", cmd = "Org", keys = { "<Leader>Oa", "<Leader>Oc" } },
+  ["leetcode.nvim"] = { cmd = "Leet" },
+  ["markdown-preview.nvim"] = { ft = "markdown", cmd = "MarkdownPreviewToggle", keys = { "gom", "goM" } },
+  ["vim-floaterm"] = { cmd = "FloatermKill", keys = { "<C-o>" } },
+  ["comment-box.nvim"] = { keys = { "<leader>cbb" } },
+  ["img-clip.nvim"] = { keys = { "<leader>pi" } },
+  ["translate.nvim"] = { cmd = "Translate", keys = { "<leader>tz", "<leader>te" } },
+  ["nvim-picgo"] = { keys = { "<leader>pp", "<leader>pP" } },
+  ["nvim-tree.lua"] = { keys = { "<leader>e" } },
+}
+
+for name, expected in pairs(precise_plugins) do
+  local plugin = assert(spec.plugins[name], "missing plugin in merged spec: " .. name)
+  check(name, plugin.event == nil, "must not load on VeryLazy or another broad event")
+  if expected.ft then
+    check(name, has_trigger(plugin, "ft", expected.ft), "is missing filetype trigger " .. expected.ft)
+  end
+  if expected.cmd then
+    check(name, has_trigger(plugin, "cmd", expected.cmd), "is missing command trigger " .. expected.cmd)
+  end
+  for _, lhs in ipairs(expected.keys or {}) do
+    check(name, has_key(plugin, lhs), "is missing key trigger " .. lhs)
+  end
+end
+
+local leetcode = assert(spec.plugins["leetcode.nvim"], "missing leetcode.nvim plugin spec")
+check("leetcode.nvim", has_dependency(leetcode, "fzf-lua"), "must use the existing fzf-lua picker")
+check("leetcode.nvim", not has_dependency(leetcode, "nvim-telescope/telescope.nvim"), "must not retain Telescope")
+check("scope.nvim", spec.plugins["scope.nvim"] == nil, "must be removed because it has no reachable trigger")
+
+local directory_startup_ok, directory_startup = pcall(require, "config.directory_startup")
+check("nvim-tree.lua", directory_startup_ok, "directory-only startup helper is missing")
+if directory_startup_ok then
+  check(
+    "nvim-tree.lua",
+    type(directory_startup.startup_action) == "function",
+    "directory startup helper must schedule opening after VimEnter has already run"
+  )
+  if type(directory_startup.startup_action) == "function" then
+    check(
+      "nvim-tree.lua",
+      directory_startup.startup_action(0) == "VimEnter",
+      "must wait for VimEnter before startup has completed"
+    )
+    check(
+      "nvim-tree.lua",
+      directory_startup.startup_action(1) == "schedule",
+      "must schedule opening when lazy initialization runs after VimEnter"
+    )
+  end
+  check(
+    "nvim-tree.lua",
+    directory_startup.directory_argument({}, function() return { type = "directory" } end) == nil,
+    "must not load nvim-tree with no startup argument"
+  )
+  check(
+    "nvim-tree.lua",
+    directory_startup.directory_argument({ "/tmp/file" }, function() return { type = "file" } end) == nil,
+    "must not load nvim-tree for an ordinary file argument"
+  )
+  check(
+    "nvim-tree.lua",
+    directory_startup.directory_argument({ "/tmp/project" }, function() return { type = "directory" } end) == "/tmp/project",
+    "must load nvim-tree for exactly one directory argument"
+  )
+end
+
 if #failures > 0 then
   error("merged plugin opts assertions failed:\n- " .. table.concat(failures, "\n- "))
 end
 
-print("OK merged nvim-lspconfig, conform.nvim, and mason.nvim opts")
+print("OK merged nvim-lspconfig, conform.nvim, mason.nvim, and precise lazy triggers")

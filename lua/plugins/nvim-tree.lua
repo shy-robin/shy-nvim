@@ -392,7 +392,6 @@ end
 
 return {
   "nvim-tree/nvim-tree.lua",
-  event = "VeryLazy",
   init = function()
     -- disable netrw at the very start of your init.lua
     vim.g.loaded_netrw = 1
@@ -400,6 +399,8 @@ return {
 
     -- set termguicolors to enable highlight groups
     vim.opt.termguicolors = true
+
+    require("config.directory_startup").open_nvim_tree_for_directory()
   end,
   keys = {
     { "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "Explorer NvimTree (root dir)", silent = true },

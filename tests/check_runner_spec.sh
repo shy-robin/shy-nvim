@@ -108,6 +108,17 @@ case ":$PATH:" in
   *) printf 'runner did not restrict Neovim PATH\n' >&2; exit 97 ;;
 esac
 printf '%s|%s|%s|%s|%s|%s|%s\n' "$snapshot" "$HOME" "$XDG_CONFIG_HOME" "$XDG_DATA_HOME" "$XDG_STATE_HOME" "$XDG_CACHE_HOME" "$TMPDIR" >>"$CHECK_RUNNER_NVIM_LOG"
+if [ "${CHECK_RUNNER_FAIL_FIRST_LUA_TEST:-}" = 1 ]; then
+  case " $* " in
+    *' +luafile tests/mkdp_spec.lua '*)
+      set -- --headless -u NORC "+luafile $CHECK_RUNNER_FAILING_LUA_TEST" +qa
+      ;;
+    *'dofile(vim.env.NVIM_CHECK_LUA_TEST_LOADER)'*)
+      NVIM_CHECK_LUA_TEST=$CHECK_RUNNER_FAILING_LUA_TEST
+      export NVIM_CHECK_LUA_TEST
+      ;;
+  esac
+fi
 exec "$CHECK_RUNNER_REAL_NVIM" "$@"
 EOF
 chmod +x "$wrapper_dir/nvim"
@@ -181,6 +192,36 @@ assert_no_caller_xdg_writes "$caller_root"
 assert_removed_mktemp_roots
 find "$lazy_root/lazy.nvim" "$lazy_root/LazyVim" "$lazy_root/snacks.nvim" -type f -exec shasum {} \; >"$source_hashes_after"
 cmp "$source_hashes_before" "$source_hashes_after" >/dev/null || fail 'runner modified the real lazy plugin source'
+
+failing_lua_test="$work_dir/failing-lua-test.lua"
+printf 'error("intentional check runner Lua test failure")\n' >"$failing_lua_test"
+failure_lua_output="$work_dir/failure-lua.out"
+if (
+  cd "$outside_dir"
+  PATH="$wrapper_dir:$external_bin:$PATH" \
+    CHECK_RUNNER_REAL_GIT="$real_git" \
+    CHECK_RUNNER_REAL_NVIM="$real_nvim" \
+    CHECK_RUNNER_SOURCE_LAZY_ROOT="$lazy_root" \
+    CHECK_RUNNER_MKTEMP_LOG="$mktemp_log" \
+    CHECK_RUNNER_NVIM_LOG="$nvim_log" \
+    CHECK_RUNNER_FAIL_FIRST_LUA_TEST=1 \
+    CHECK_RUNNER_FAILING_LUA_TEST="$failing_lua_test" \
+    HOME="$caller_root/home" \
+    XDG_CONFIG_HOME="$caller_root/config" \
+    XDG_DATA_HOME="$caller_root/data" \
+    XDG_STATE_HOME="$caller_root/state" \
+    XDG_CACHE_HOME="$caller_root/cache" \
+    NVIM_TEST_LAZY_ROOT="$relative_lazy_root" \
+    check.sh
+) >"$failure_lua_output" 2>&1; then
+  fail 'runner must return non-zero when a real Lua test fails'
+fi
+
+assert_contains "$failure_lua_output" 'CHECK: tests/mkdp_spec.lua'
+assert_contains "$failure_lua_output" 'intentional check runner Lua test failure'
+assert_contains "$failure_lua_output" 'FAIL: tests/mkdp_spec.lua'
+assert_no_caller_xdg_writes "$caller_root"
+assert_removed_mktemp_roots
 
 cat >"$wrapper_dir/nvim" <<'EOF'
 #!/bin/sh

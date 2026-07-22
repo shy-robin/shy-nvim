@@ -5,8 +5,12 @@ return {
     "chipsenkbeil/org-roam.nvim",
     "danilshvalov/org-modern.nvim"
   },
-  event = "VeryLazy",
   ft = { "org" },
+  cmd = { "Org" },
+  keys = {
+    { "<Leader>Oa", "<cmd>Org agenda<cr>", desc = "Org Agenda" },
+    { "<Leader>Oc", "<cmd>Org capture<cr>", desc = "Org Capture" },
+  },
   config = function()
     local Menu = require("org-modern.menu")
 
