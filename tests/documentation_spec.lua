@@ -33,9 +33,12 @@ local supermaven = read("lua/plugins/supermaven.lua")
 local lazygit = read("lua/plugins/lazygit.lua")
 local floaterm = read("lua/plugins/vim-floaterm.lua")
 local markdown_preview = read("lua/plugins/markdown-preview.lua")
+local markdown_preview_util = read("lua/util/markdown_preview.lua")
 local keymaps = read("lua/config/keymaps.lua")
 local flash = read("lua/plugins/flash.lua")
 local nvim_tree = read("lua/plugins/nvim-tree.lua")
+local scissors = read("lua/plugins/scissors.lua")
+local external_commands = read("lua/util/external_commands.lua")
 
 check(fzf, '"ibhagwan/fzf-lua"', "configured search provider")
 check(fzf, 'hbind("c-g", "grep/live")', "configured fzf-lua Ctrl-G header")
@@ -112,6 +115,14 @@ for _, mapping in ipairs(floaterm_mappings) do
 end
 check(readme, "`:FloatermToggle`", "documented Floaterm toggle behavior")
 check(readme, "`:FloatermKill`", "documented Floaterm quit behavior")
+for _, optional_terminal in ipairs({
+  { command = "ranger", key = "`<leader>tor`" },
+  { command = "yazi", key = "`<leader>y`" },
+}) do
+  check(floaterm, 'open_optional_terminal("' .. optional_terminal.command .. '")', "guarded optional Floaterm command")
+  check(readme, optional_terminal.command, "documented optional Floaterm dependency")
+  check(readme, optional_terminal.key, "documented optional Floaterm mapping")
+end
 check(keymaps, 'set("n", "<leader>qq", function()', "configured quit-all mapping")
 check(keymaps, 'vim.api.nvim_command("FloatermKill!")', "configured quit-all Floaterm cleanup")
 check(keymaps, 'vim.api.nvim_command("qa")', "configured quit-all Neovim behavior")
@@ -123,13 +134,21 @@ check(
   'cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" }',
   "configured Markdown Preview commands"
 )
-check(markdown_preview, "npx --yes yarn install", "configured Markdown Preview build command")
+check(markdown_preview_util, "npx --yes yarn install", "configured Markdown Preview build command")
 check(markdown_preview, '{ "gom", function() require("util.mkdp").toggle() end', "configured Markdown Preview toggle")
 check(markdown_preview, '{ "goM", function() require("util.mkdp").pick() end', "configured Markdown Preview list")
 check(readme, "https://github.com/iamcco/markdown-preview.nvim", "documented Markdown Preview provider")
 check(readme, "Node.js", "Markdown Preview dependency")
 check(readme, "npm", "Markdown Preview dependency")
 check(readme, "npx", "Markdown Preview dependency")
+check(readme, "`sh`", "Markdown Preview shell dependency")
+check(readme, "安装会停止", "Markdown Preview build failure behavior")
+check(readme, "ImageMagick", "documented non-macOS image dimensions fallback")
+check(readme, "sips", "documented macOS image dimensions provider")
+check(readme, "不需要 `jq`", "documented built-in Scissors formatter")
+reject(scissors, "jsonFormatter", "obsolete Scissors formatter option")
+check(external_commands, 'if sysname == "Darwin" then', "platform-specific du command")
+check(external_commands, 'pcall(vim.system', "guarded process spawning")
 check(readme, "`gom`", "documented Markdown Preview toggle")
 check(readme, "`goM`", "documented Markdown Preview list")
 for _, command in ipairs({ ":MarkdownPreviewToggle", ":MarkdownPreview", ":MarkdownPreviewStop" }) do

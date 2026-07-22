@@ -28,6 +28,5 @@ return {
     snippetSelection = {
       picker = "snacks",
     },
-    jsonFormatter = "jq",
   },
 }

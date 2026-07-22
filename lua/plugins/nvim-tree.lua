@@ -1,3 +1,5 @@
+local external_commands = require("util.external_commands")
+
 -- close tree automatically when open file
 -- local function edit_or_open()
 --   local api = require("nvim-tree.api")
@@ -217,16 +219,15 @@ local function show_dir_info(node)
 
   local popup = open_info_popup(common_info_lines(path, stat, "计算中…", items))
 
-  -- 异步运行 du, 避免大目录阻塞 UI; -A 取 apparent size (各文件逻辑大小之和, 与 ls -l 一致)
-  vim.system({ "du", "-A", "-s", "-k", path }, { text = true }, function(out)
-    local size_str
-    if out.code == 0 and out.stdout then
-      local kb = out.stdout:match("^(%d+)")
-      if kb then
-        size_str = format_size(tonumber(kb) * 1024)
-      end
-    end
-    size_str = size_str or "无法计算"
+  -- 异步运行 du, 避免大目录阻塞 UI; macOS 和 GNU du 使用不同参数。
+  local command = external_commands.du_command(path)
+  if not command then
+    popup.update(common_info_lines(path, stat, "无法计算", items))
+    return
+  end
+  external_commands.safe_system(command, { text = true }, function(result)
+    local kb = external_commands.parse_du_result(result)
+    local size_str = kb and format_size(kb * 1024) or "无法计算"
     vim.schedule(function()
       popup.update(common_info_lines(path, stat, size_str, items))
     end)
@@ -261,19 +262,18 @@ local function show_file_info(node)
     return
   end
 
-  -- 异步运行 sips, 避免大图阻塞 UI
+  -- macOS 使用 sips，其它平台可选 ImageMagick identify；均不可用时不显示尺寸。
+  local command = external_commands.image_command(path)
+  if not command then
+    open_info_popup(build())
+    return
+  end
+
   local popup = open_info_popup(build("读取中…"))
-  vim.system({ "sips", "-g", "pixelWidth", "-g", "pixelHeight", path }, { text = true }, function(out)
-    local dimensions
-    if out.code == 0 and out.stdout then
-      local w = out.stdout:match("pixelWidth:%s*(%d+)")
-      local h = out.stdout:match("pixelHeight:%s*(%d+)")
-      if w and h then
-        dimensions = w .. "x" .. h
-      end
-    end
+  external_commands.safe_system(command, { text = true }, function(result)
+    local dimensions = external_commands.parse_image_result(command[1], result)
     vim.schedule(function()
-      popup.update(build(dimensions or "未知"))
+      popup.update(build(dimensions or "无法读取"))
     end)
   end)
 end

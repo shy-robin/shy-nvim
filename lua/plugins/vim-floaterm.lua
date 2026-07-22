@@ -1,3 +1,13 @@
+local function open_optional_terminal(command)
+  return function()
+    if vim.fn.executable(command) ~= 1 then
+      vim.notify("Floaterm requires `" .. command .. "` in PATH; install it and try again", vim.log.levels.ERROR)
+      return
+    end
+    vim.cmd("FloatermNew " .. command)
+  end
+end
+
 return {
   "voldikss/vim-floaterm",
   cmd = { "FloatermKill" },
@@ -100,7 +110,7 @@ return {
     },
     {
       "<leader>tor",
-      "<cmd>FloatermNew ranger<cr>",
+      open_optional_terminal("ranger"),
       desc = "Open Ranger Floaterm",
     },
     {
@@ -120,7 +130,7 @@ return {
     },
     {
       "<leader>y",
-      "<cmd>FloatermNew yazi<cr>",
+      open_optional_terminal("yazi"),
       desc = "Open Yazi",
     },
     {

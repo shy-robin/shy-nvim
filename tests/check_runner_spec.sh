@@ -168,6 +168,7 @@ for stage in \
   'migration_cleanup_spec.lua' \
   'documentation_spec.lua' \
   'bigfile_spec.lua' \
+  'external_commands_spec.lua' \
   'minimal headless startup' \
   'SUCCESS:'; do
   assert_contains "$success_output" "$stage"

@@ -42,7 +42,11 @@
   - [curl](https://curl.se/) 用于 [blink.cmp](https://github.com/Saghen/blink.cmp) **(必需)**
   - [Node.js](https://nodejs.org/en/download/) >= 16.18.0 **(可选，用于某些语言服务器)**
 - [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim) 前置依赖
-  - Node.js、npm 和 npx（插件安装时执行 `npx --yes yarn install`，因此需要网络连接；不需要全局安装 Yarn）
+  - `sh`、Node.js、npm 和 npx（插件安装时执行 `npx --yes yarn install`，因此需要网络连接；不需要全局安装 Yarn）。缺少任一命令或安装失败时，安装会停止且不会应用本地 patch。
+- 可选外部工具
+  - nvim-tree 图片信息：macOS 使用 `sips` 读取尺寸；其它平台可安装 ImageMagick 以提供 `identify`。两者都不存在时只省略尺寸信息。
+  - [nvim-scissors](https://github.com/chrisgrieser/nvim-scissors) 使用插件当前内置的 JSON 格式化；不需要 `jq`。
+  - Floaterm：`<leader>tor` 需要 `ranger`，`<leader>y` 需要 `yazi`。缺少时会显示安装提示，而不会启动无效终端。
 - 其他依赖
   - `:checkhealth snacks`
   - `:checkhealth img-clip`
