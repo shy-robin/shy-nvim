@@ -57,10 +57,6 @@ set("n", "<leader>qq", function()
   vim.api.nvim_command("qa")
 end, { desc = "Quit All" })
 
--- spell check (use coc-spell-checker instead)
--- set("n", "gns", "]s", { desc = "Next misspelled word", remap = true, silent = true })
--- set("n", "gNs", "[s", { desc = "Prev misspelled word", remap = true, silent = true })
-
 -- reload
 set("n", "<leader>rh", "<cmd>syntax sync fromstart<cr>", { desc = "Reload Syntax Highlight", silent = true })
 

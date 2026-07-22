@@ -77,19 +77,6 @@ return {
               hint = icons.diagnostics.Hint,
             },
           },
-          -- stylua: ignore
-          -- useless because using coc
-          -- {
-          --   function() return require("nvim-navic").get_location() end,
-          --   cond = function() return package.loaded["nvim-navic"] and require("nvim-navic").is_available() end,
-          -- },
-          -- see: https://github.com/nvim-lualine/lualine.nvim/issues/906
-          {
-            "%{get(g:, 'coc_status', '')}",
-            color = function()
-              return { fg = Snacks.util.color("DiagnosticInfo") }
-            end,
-          },
           -- 显示 macro 记录
           {
             ---@diagnostic disable-next-line: undefined-field
@@ -128,28 +115,6 @@ return {
             end,
             icon = "",
           },
-          -- Setup lsp-progress component (use coc#status instead)
-          -- {
-          --   function()
-          --     return require("lsp-progress").progress({
-          --       max_size = 80,
-          --       format = function(messages)
-          --         local active_clients = vim.lsp.get_active_clients()
-          --         if #messages > 0 then
-          --           return table.concat(messages, " ")
-          --         end
-          --         local client_names = {}
-          --         for _, client in ipairs(active_clients) do
-          --           if client and client.name ~= "" then
-          --             table.insert(client_names, 1, client.name)
-          --           end
-          --         end
-          --         return table.concat(client_names, "/")
-          --       end,
-          --     })
-          --   end,
-          --   icon = { "", align = "right" },
-          -- },
           -- stylua: ignore
           -- 显示按下的键位
           -- {

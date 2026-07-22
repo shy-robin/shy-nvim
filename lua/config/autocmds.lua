@@ -5,7 +5,7 @@
 -- -- 拼写检查支持驼峰
 -- vim.api.nvim_create_autocmd("BufReadPre", {
 --   callback = function()
---     -- spell check (use coc-spell-checker instead)
+--     -- spell check
 --     -- vim.cmd('set spelloptions=camel')
 --
 --     -- vim.api.nvim_set_hl(0, 'SpellBad', { fg = '#F44336', underdashed = true })

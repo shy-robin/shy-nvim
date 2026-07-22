@@ -8,6 +8,7 @@
 ### Changed
 
 - 从 coc.nvim 迁移到 Native LSP + blink.cmp，使用 Neovim 内置 LSP 实现代码补全、诊断、格式化等功能
+- 清理 Coc、ToggleTerm、OpenCode、Avante 和 llm.nvim 的失效配置与迁移残留
 - 最低 Neovim 版本要求升级至 0.11.0
 
 ### To be added

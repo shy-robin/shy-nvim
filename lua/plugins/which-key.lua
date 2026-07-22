@@ -14,10 +14,6 @@ return {
         group = "+conflict",
       },
       {
-        "<leader>C",
-        group = "+coc",
-      },
-      {
         "<leader>ca",
         group = "+code-action",
       },
