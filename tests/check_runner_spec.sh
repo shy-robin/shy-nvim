@@ -166,6 +166,7 @@ for stage in \
   'lazygit_spec.lua' \
   'spec_opts_spec.lua' \
   'migration_cleanup_spec.lua' \
+  'documentation_spec.lua' \
   'bigfile_spec.lua' \
   'minimal headless startup' \
   'SUCCESS:'; do

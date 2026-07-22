@@ -238,5 +238,6 @@ run_stage 'tests/mkdp_route_fix_test.js' "$node_bin" "$repo_dir/tests/mkdp_route
 run_stage 'tests/lazygit_spec.lua' run_nvim_lua_test tests/lazygit_spec.lua
 run_stage 'tests/spec_opts_spec.lua' run_nvim_lua_test tests/spec_opts_spec.lua
 run_stage 'tests/migration_cleanup_spec.lua' run_nvim_lua_test tests/migration_cleanup_spec.lua
+run_stage 'tests/documentation_spec.lua' run_nvim_lua_test tests/documentation_spec.lua
 run_stage 'tests/bigfile_spec.lua' run_nvim_lua_test tests/bigfile_spec.lua
 run_stage 'minimal headless startup' check_minimal_startup

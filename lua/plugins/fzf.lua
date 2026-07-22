@@ -23,11 +23,11 @@ return {
       hbind("c-q", "quickfix"),
       hbind("c-l", "loclist"),
     }
-    -- files picker（<leader><leader>）不是 live 模式，没有 fuzzy 切换
+    -- files picker 不是 live 模式，没有 grep/live_grep 切换
     local files_header = table.concat(base_hints, "  ")
-    -- grep（<leader>/）额外有 <c-g> 切模糊搜索
+    -- grep picker 额外用 <c-g> 在 grep 与 live_grep 之间切换
     local grep_header = table.concat(vim.list_extend(vim.deepcopy(base_hints), {
-      hbind("c-g", "fuzzy"),
+      hbind("c-g", "grep/live"),
     }), "  ")
     return {
       winopts = {
@@ -36,7 +36,7 @@ return {
         width = 0.9,
         height = 0.9,
       },
-      -- live_grep 内部也走 grep 配置，所以这里一处即覆盖 <leader>/
+      -- live_grep 内部也走 grep 配置，所以这里一处即可覆盖两种 grep picker
       grep = { header = grep_header },
       files = { header = files_header },
       keymap = {

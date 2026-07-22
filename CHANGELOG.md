@@ -9,18 +9,14 @@
 
 - 从 coc.nvim 迁移到 Native LSP + blink.cmp，使用 Neovim 内置 LSP 实现代码补全、诊断、格式化等功能
 - 清理 Coc、ToggleTerm、OpenCode、Avante 和 llm.nvim 的失效配置与迁移残留
-- 最低 Neovim 版本要求升级至 0.11.0
+- 最低 Neovim 版本要求升级至 0.11.2
+- README 更新为当前 fzf-lua、Supermaven、vim-floaterm 与 Markdown Preview 依赖说明，并注明 `nvim-0.11` 维护分支
 
 ### To be added
 
-- [ ] org-mode 支持 或者 neorg 支持
-- [ ] 生成注释（使用 neogen 或者 snippet），如 jsdoc，以及文件注释（如文件作者，描述等信息）
 - [ ] 回退上次跳转文件（使用 `<leader>sj` 查找 jump list）
 - [ ] fzf 持久化 (fzf 暂不支持)
 - [ ] colorizer-picker
-- [x] 折叠代码区域，vscode 里的 #region #endregion 范围内折叠
-  - 暂时无法实现（参考：<https://github.com/kevinhwang91/nvim-ufo/issues/233>）
-  - 代替方法：visual mode 选中多行代码，使用 `zf` 折叠
 - [ ] 生成随机的字符（人名、邮箱、诗句等）
 - [ ] easy-commands（<https://www.bilibili.com/video/BV1EV411G7UK/?spm_id_from=333.788.recommend_more_video.1&vd_source=4ef7b6657238565af69458e77de87682>）
 - [ ] 会话管理（<https://docs.astronvim.com/mappings#session-manager-mappings>）
@@ -29,11 +25,15 @@
 - [ ] 注释画图（[venn.nvim](https://github.com/jbyuki/venn.nvim)）
 - [ ] lualine 闪烁问题（<https://github.com/nvim-lualine/lualine.nvim/issues/1280>）
 
-### To be fixed
+### Not planned
 
-- [x] 主题持久化 [b0cf6ac]
-- [x] 移除 markdown spell check [ab2da2a]
-- [x] colorizer [646ba4c]
+- VS Code 风格的 `#region` / `#endregion` 折叠：nvim-ufo 目前无法实现（参考：<https://github.com/kevinhwang91/nvim-ufo/issues/233>）；可在 Visual mode 选中多行后使用 `zf` 折叠。
+
+### Fixed
+
+- 主题持久化 [b0cf6ac]
+- 移除 markdown spell check [ab2da2a]
+- colorizer [646ba4c]
 
 ## [1.1.0](https://github.com/shy-robin/shy-nvim/compare/v1.0.3...v1.1.0) (2025-01-04)
 

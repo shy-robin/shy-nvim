@@ -1,7 +1,7 @@
 <h1 align="center">ShyNvim</h1>
 
 <p align="center">
-这是我个人维护的一套 Neovim 配置（基于  <a href="https://github.com/LazyVim">💤 LazyNvim</a>），配置简单灵活，预设一套 <b>Web 前端</b> 的开发环境。
+这是我个人维护的一套 Neovim 配置（基于 <a href="https://github.com/LazyVim/LazyVim">💤 LazyVim</a>），配置简单灵活，预设一套 <b>Web 前端</b> 的开发环境。
 </p>
 
 ## 🌟 预览
@@ -12,36 +12,40 @@
 
 - 包管理器 [lazy.nvim](https://github.com/folke/lazy.nvim)
 - 文件浏览器 [nvim-tree](https://github.com/nvim-tree/nvim-tree.lua)
-- 代码补全、格式化、语法检查 [Native LSP](https://www.lazyvim.org/plugins/lsp) + [blink.cmp](https://github.com/Saghen/blink.cmp)
+- 代码补全、格式化、语法检查 [Native LSP](https://github.com/neovim/nvim-lspconfig) + [blink.cmp](https://github.com/Saghen/blink.cmp)
 - 语法高亮 [treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
-- Git 集成 [gitsigns](https://github.com/lewis6991/gitsigns.nvim) [lazygit](https://github.com/jesseduffield/lazygit)
+- Git 集成 [gitsigns](https://github.com/lewis6991/gitsigns.nvim) [lazygit.nvim](https://github.com/kdheepak/lazygit.nvim)
 - 状态栏 [bufferline](https://github.com/akinsho/bufferline.nvim) [lualine](https://github.com/nvim-lualine/lualine.nvim)
 - 浮动终端 [vim-floaterm](https://github.com/voldikss/vim-floaterm)
-- 模糊搜索 [telescope](https://github.com/nvim-telescope/telescope.nvim)
+- 模糊搜索 [fzf-lua](https://github.com/ibhagwan/fzf-lua)
+- Markdown 预览 [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim)
+- AI 代码补全 [supermaven-nvim](https://github.com/supermaven-inc/supermaven-nvim)
 - 代码调试 [nvim-dap](https://github.com/mfussenegger/nvim-dap)
 
 ## ⚡️ 前置条件
 
 - [LazyVim](https://www.lazyvim.org/) 前置依赖（具体参考：[LazyVim Requirements](https://www.lazyvim.org/#%EF%B8%8F-requirements)）
-  - [neovim](https://neovim.io/) >= **0.11.0** （需要用 **LuaJIT** 构建）
+  - [neovim](https://neovim.io/) >= **0.11.2** （需要用 **LuaJIT** 构建）
   - [git](https://git-scm.com/) >= **2.19.0** （用于部分克隆支持）
   - 一个 [Nerd Font](https://www.nerdfonts.com/) 字体 **_（可选）_**
   - [lazygit](https://github.com/jesseduffield/lazygit) **_（可选）_**
   - 一个用于 `nvim-treesitter` 的 **C** 编译器。看 [这里](https://github.com/nvim-treesitter/nvim-treesitter#requirements)
-  - [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) 依赖 **_（可选）_**
-    - [ripgrep](https://github.com/BurntSushi/ripgrep)（搜索字符 ）
-    - [fd](https://github.com/sharkdp/fd)（搜索文件 ）
+  - [fzf-lua](https://github.com/ibhagwan/fzf-lua) 搜索依赖 **_（可选）_**
+    - [ripgrep](https://github.com/BurntSushi/ripgrep)（文本搜索）
+    - [fd](https://github.com/sharkdp/fd)（文件搜索）
   - 终端（支持展示颜色和下划线样式的终端）
-    - [kitty](https://github.com/kovidgoyal/kitty) (Linux & Macos)
-    - [wezterm](https://github.com/wez/wezterm) (Linux, Macos & Windows)
-    - [alacritty](https://github.com/alacritty/alacritty) (Linux, Macos & Windows)
-    - [iterm2](https://iterm2.com/) (Macos)
-- [Native LSP](https://www.lazyvim.org/plugins/lsp) 前置依赖
+    - [kitty](https://github.com/kovidgoyal/kitty) (Linux & macOS)
+    - [wezterm](https://github.com/wez/wezterm) (Linux, macOS & Windows)
+    - [alacritty](https://github.com/alacritty/alacritty) (Linux, macOS & Windows)
+    - [iTerm2](https://iterm2.com/) (macOS)
+- [Native LSP](https://github.com/neovim/nvim-lspconfig) 前置依赖
   - [curl](https://curl.se/) 用于 [blink.cmp](https://github.com/Saghen/blink.cmp) **(必需)**
-  - [nodejs](https://nodejs.org/en/download/) >= 16.18.0 **(可选，用于某些语言服务器)**
+  - [Node.js](https://nodejs.org/en/download/) >= 16.18.0 **(可选，用于某些语言服务器)**
+- [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim) 前置依赖
+  - Node.js、npm 和 npx（插件安装时执行 `npx --yes yarn install`，因此需要网络连接；不需要全局安装 Yarn）
 - 其他依赖
   - `:checkhealth snacks`
-  * `:checkhealth img-clip`
+  - `:checkhealth img-clip`
 
 ## 🚀 开始使用
 
@@ -54,11 +58,13 @@ mv ~/.local/state/nvim ~/.local/state/nvim.bak
 mv ~/.cache/nvim ~/.cache/nvim.bak
 ```
 
-2. 克隆我的配置
+2. 克隆当前维护分支 `nvim-0.11`
 
 ```shell
-git clone --depth 1 https://github.com/shy-robin/shy-nvim ~/.config/nvim
+git clone --depth 1 --branch nvim-0.11 https://github.com/shy-robin/shy-nvim ~/.config/nvim
 ```
+
+> 此命令不会改变 GitHub 默认分支；需要切换默认分支时请另行决定并在 GitHub 上操作。
 
 3. 删除 `.git` 文件夹，以便稍后将其添加到您自己的仓库
 
@@ -74,77 +80,75 @@ nvim
 
 ## 📄 功能指南
 
-### 搜索文件
+### fzf-lua 搜索
 
-| 功能                 | 快捷键                                                                                   | 描述                                                           |
-| -------------------- | ---------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
-| 搜索文件（Root Dir） | <kbd>leader</kbd> + <kbd>leader</kbd> 或 <kbd>leader</kbd> + <kbd>f</kbd> + <kbd>f</kbd> | 搜索当前 buffer 根目录下的文件（不包含 ignore 和 hidden 文件） |
-| 搜索文件（cwd）      | <kbd>leader</kbd> + <kbd>f</kbd> + <kbd>F</kbd>                                          | 搜索当前工作目录下的文件（不包含 ignore 和 hidden 文件）       |
-| 搜索隐藏文件         | 搜索框下按 <kbd>Ctrl</kbd> + <kbd>u</kbd>                                                | 搜索 hidden 文件（比如 `.git` 等）                             |
-| 搜索 git 忽略文件    | 搜索框下按 <kbd>Ctrl</kbd> + <kbd>i</kbd>                                                | 搜索 ignore 文件（比如 `.gitignore` 里的文件等）               |
+| 功能 | 快捷键 | 描述 |
+| --- | --- | --- |
+| 搜索文件 | `:FzfLua files` | 在当前工作目录启动文件选择器 |
+| 搜索文本 | `:FzfLua live_grep` | 在当前工作目录启动实时文本搜索 |
+| 在 nvim-tree 内搜索文本 | <kbd>Ctrl</kbd> + <kbd>f</kbd> | 对当前树节点（文件时取其父目录）执行 fzf-lua live grep |
+| 隐藏 fzf-lua | <kbd>Esc</kbd> | 隐藏当前 picker；用 `:FzfLua resume` 恢复 |
+| 切换 hidden 文件 | <kbd>Ctrl</kbd> + <kbd>h</kbd> | 在 fzf-lua picker 内切换隐藏文件 |
+| 切换 `.gitignore` 过滤 | <kbd>Ctrl</kbd> + <kbd>y</kbd> | 在 fzf-lua picker 内切换 ignore 过滤 |
+| 切换符号链接跟随 | <kbd>Ctrl</kbd> + <kbd>f</kbd> | 在 fzf-lua picker 内切换 follow |
+| 发送到 quickfix / location list | <kbd>Ctrl</kbd> + <kbd>q</kbd> / <kbd>Ctrl</kbd> + <kbd>l</kbd> | 将多选结果发送到相应列表 |
+| 切换 grep / live_grep | <kbd>Ctrl</kbd> + <kbd>g</kbd> | 仅在 grep picker 内切换两种搜索方式 |
+| 切换全屏 / 预览 | <kbd>Ctrl</kbd> + <kbd>o</kbd> / <kbd>Ctrl</kbd> + <kbd>a</kbd> | 在 fzf-lua picker 内切换显示 |
 
-> Root Dir 是指当前 buffer 的根目录，cwd 是指当前工作目录。
-> 比如，在 `~/.config/nvim/` 打开 nvim 时，cwd 为 `~/.config/nvim/`，Root Dir 为 `~/.config/nvim`，如果在项目内打开 `~/Projects/demo/index.js` 文件，
-> cwd 为 `~/.config/nvim/`，Root Dir 为 `~/Projects/demo/`。
+> `:FzfLua files` 和 `:FzfLua live_grep` 默认使用 Neovim 当前工作目录；nvim-tree 中的 `<C-f>` 则使用光标节点目录。该配置使用上述 fzf-lua 输入控制，而不是 Telescope 的 `<C-u>` / `<C-i>` 绑定。
 
-### 搜索文本
+### Markdown Preview
 
-| 功能                 | 快捷键                                                                              | 描述                                                                  |
-| -------------------- | ----------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| 搜索文本（Root Dir） | <kbd>leader</kbd> + <kbd>/</kbd> 或 <kbd>leader</kbd> + <kbd>s</kbd> + <kbd>g</kbd> | 搜索当前 buffer 根目录下的文本（不包含 ignore 和 hidden 文件）        |
-| 搜索文本（cwd）      | <kbd>leader</kbd> + <kbd>s</kbd> + <kbd>G</kbd>                                     | 搜索当前工作目录下的文本（不包含 ignore 和 hidden 文件）              |
-| 搜索 git 忽略文本    | 搜索框下按 <kbd>Ctrl</kbd> + <kbd>i</kbd>                                           | 搜索 ignore 文本（比如 `.gitignore` 里的文本等）                      |
-| glob 模式搜索        | 搜索框下按 <kbd>Ctrl</kbd> + <kbd>g</kbd>                                           | 搜索 glob 模式（比如 `**/*.js` 等）                                   |
-| 筛选路径             | 搜索框下按 <kbd>Ctrl</kbd> + <kbd>f</kbd>                                           | 筛选路径                                                              |
-| 冻结列表             | 搜索框下按 <kbd>Ctrl</kbd> + <kbd>space</kbd>                                       | 冻结列表，对列表进行二次搜索，比如可以使用 `!.lua` 排除指定的文件类型 |
+| 功能 | 快捷键或命令 | 描述 |
+| --- | --- | --- |
+| 切换当前 buffer 预览 | `gom` 或 `:MarkdownPreviewToggle` | 打开或关闭当前 Markdown buffer 的预览 |
+| 预览列表 | `goM` | 打开当前预览列表 |
+| 开始 / 停止预览 | `:MarkdownPreview` / `:MarkdownPreviewStop` | 管理 Markdown Preview 服务 |
+
+### Floaterm 终端
+
+| 功能 | 快捷键 | 描述 |
+| --- | --- | --- |
+| 切换浮动终端 | <kbd>Ctrl</kbd> + <kbd>o</kbd> | 执行 `:FloatermToggle` |
+| 新建、前一个、后一个终端 | <kbd>Ctrl</kbd> + <kbd>n</kbd> / <kbd>h</kbd> / <kbd>l</kbd> | 仅 Floaterm 终端模式 |
+| 退出 Floaterm | <kbd>Ctrl</kbd> + <kbd>q</kbd> | 仅 Floaterm 终端模式，执行 `:FloatermKill` |
+| 底部 / 右侧终端 | `<leader>tb` / `<leader>tr` | 新建 split 或 vertical split Floaterm |
+| 退出全部 | `<leader>qq` | 先执行 `:FloatermKill!`，再退出 Neovim |
+
+### 个性化键位
+
+以下普通编辑 buffer 的键位有意偏离标准 Vim，以避免删除或修改时覆盖默认寄存器：
+
+| 按键 | 模式 | 行为 |
+| --- | --- | --- |
+| `d`、`dd`、`D` | Normal、Visual | 删除到黑洞寄存器 |
+| `c`、`cc`、`C` | Normal、Visual | 修改到黑洞寄存器 |
+| `s`、`S` | Normal、Visual | 替换/修改到黑洞寄存器 |
+| `X` | Normal | `yydd`：复制当前行后删除，相当于剪切整行 |
+| `f` | Normal、Visual、Operator-pending | Flash jump，而非标准字符查找 |
+| `F` | Normal、Visual、Operator-pending | Flash Treesitter jump，而非标准反向字符查找 |
+
+在 nvim-tree buffer 内，这些树专用键位有不同含义：`d` 删除节点、`s` 执行系统命令、`f` 开始实时过滤、`F` 清除实时过滤。
 
 ## 🤖 AI 助手
 
-本配置集成了多个 AI 插件，提供强大的 AI 编程辅助功能：
+本配置只集成 Supermaven，用于 AI 代码自动补全：
 
-| 插件                                                                     | 功能                                                                | 提供商                                         |
-| ------------------------------------------------------------------------ | ------------------------------------------------------------------- | ---------------------------------------------- |
-| **[avante.nvim](https://github.com/yetone/avante.nvim)**                 | AI 助手，支持代码解释、重构、优化等功能                             | Ollama、OpenRouter、Gemini、通义千问、Moonshot |
-| **[llm.nvim](https://github.com/Kurama622/llm.nvim)**                    | 提供 LLM 交互，支持代码解释、翻译、代码优化、生成 Commit Message 等 | 智谱 AI (GLM-4)                                |
-| **[supermaven-nvim](https://github.com/supermaven-inc/supermaven-nvim)** | AI 代码自动补全                                                     | Supermaven                                     |
-| **[opencode.nvim](https://github.com/NickvanDyke/opencode.nvim)**        | AI 编程助手，支持代码理解和执行，集成 Antigravity 能力              | OpenCode + Antigravity                         |
-
-### 快捷键
-
-| 功能                | 快捷键        | 描述                         |
-| ------------------- | ------------- | ---------------------------- |
-| **avante**          | -             | -                            |
-| AI 对话             | `:AvanteChat` | 打开 AI 对话窗口             |
-| **llm.nvim**        | -             | -                            |
-| AI 聊天             | `<leader>ac`  | 切换 AI 聊天窗口             |
-| 代码解释            | `<leader>ae`  | 解释选中的代码               |
-| 翻译文本            | `<leader>at`  | 中英文互译选中文本           |
-| 翻译器              | `<leader>aT`  | 打开翻译器窗口               |
-| 优化代码（浮动）    | `<leader>ao`  | 在浮动窗口优化选中的代码     |
-| 优化代码（Diff）    | `<leader>aO`  | 在 Diff 窗口优化选中的代码   |
-| 生成 Commit Message | `<leader>ag`  | 根据 git diff 生成提交信息   |
-| **supermaven**      | -             | -                            |
-| 接受建议            | `<C-y>`       | 接受代码补全建议             |
-| 清除建议            | `<C-]>`       | 清除当前建议                 |
-| 接受单词            | `<C-w>`       | 接受下一个单词               |
-| **opencode**        | -             | -                            |
-| 提问                | `<C-a>`       | 向 AI 提问关于当前代码的问题 |
-| 执行操作            | `<C-x>`       | 执行 AI 操作                 |
-| 切换面板            | `<C-\>`       | 切换 opencode 面板           |
-
-### 依赖
-
-- **opencode.nvim** 需要额外的认证插件：
-  - [opencode-antigravity-auth](https://github.com/NoeFabris/opencode-antigravity-auth) - 集成 Antigravity 认证能力
+| 功能 | 快捷键 | 描述 |
+| --- | --- | --- |
+| 接受建议 | `<C-y>` | 接受代码补全建议 |
+| 清除建议 | `<C-]>` | 清除当前建议 |
+| 接受单词 | `<C-w>` | 接受下一个单词 |
+| 查看日志 | `<leader>asl` | 执行 `:SupermavenShowLog` |
+| 重启服务 | `<leader>asr` | 执行 `:SupermavenRestart` |
+| 开关服务 | `<leader>ast` | 通过 Snacks toggle 启动或停止 Supermaven |
 
 ## 🎓 入门教程
 
 本配置基于 LazyVim，如果你不了解它的用法，可以参考以下入门教程：
 
 - [@elijahmanor](https://github.com/elijahmanor) 制作了一个很棒的视频，可以带领你快速入门。[![查看这个视频](https://img.youtube.com/vi/N93cTbtLCIM/hqdefault.jpg)](https://www.youtube.com/watch?v=N93cTbtLCIM)
-- [@dusty-phillips](https://github.com/dusty-phillips) 为 LazyVim 编写了一本全面的书籍
-  [《LazyVim for Ambitious Developers》](https://lazyvim-ambitious-devs.phillips.codes)
-  ，可在线上免费阅读。
+- [@dusty-phillips](https://github.com/dusty-phillips) 为 LazyVim 编写了一本全面的书籍 [《LazyVim for Ambitious Developers》](https://lazyvim-ambitious-devs.phillips.codes)，可在线上免费阅读。
 
 ---
 
