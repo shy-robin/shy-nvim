@@ -1,4 +1,4 @@
 return {
-  'bullets-vim/bullets.vim',
-  ft = { 'markdown' },
+  "bullets-vim/bullets.vim",
+  ft = { "markdown" },
 }

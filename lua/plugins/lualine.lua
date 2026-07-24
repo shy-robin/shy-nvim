@@ -80,9 +80,13 @@ return {
           -- 显示 macro 记录
           {
             ---@diagnostic disable-next-line: undefined-field
-            function() return require("noice").api.status.mode.get() end,
+            function()
+              return require("noice").api.status.mode.get()
+            end,
             ---@diagnostic disable-next-line: undefined-field
-            cond = function() return require("noice").api.status.mode.has() end,
+            cond = function()
+              return require("noice").api.status.mode.has()
+            end,
             color = function()
               return { fg = Snacks.util.color("WarningMsg") }
             end,
@@ -100,7 +104,9 @@ return {
           {
             function()
               local ok, decorations = pcall(vim.api.nvim_get_var, "flutter_tools_decorations")
-              if not ok or not decorations.device then return "" end
+              if not ok or not decorations.device then
+                return ""
+              end
               local device = decorations.device
               return type(device) == "table" and device.name or tostring(device)
             end,
@@ -109,20 +115,20 @@ return {
           {
             function()
               local ok, decorations = pcall(vim.api.nvim_get_var, "flutter_tools_decorations")
-              if not ok or not decorations.project_config then return "" end
+              if not ok or not decorations.project_config then
+                return ""
+              end
               local conf = decorations.project_config
               return type(conf) == "table" and (conf.name or vim.inspect(conf)) or tostring(conf)
             end,
             icon = "",
           },
-          -- stylua: ignore
           -- 显示按下的键位
           -- {
           --   function() return require("noice").api.status.command.get() end,
           --   cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
           --   color = Util.fg("Statement"),
           -- },
-          -- stylua: ignore
           -- {
           --   function() return require("noice").api.status.mode.get() end,
           --   cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,

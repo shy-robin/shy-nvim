@@ -57,7 +57,10 @@ local fzf_controls = {
   { source = '["<C-o>"] = "toggle-fullscreen"', docs = "切换全屏 / 预览" },
   { source = '["<C-a>"] = "toggle-preview"', docs = "<kbd>Ctrl</kbd> + <kbd>o</kbd> / <kbd>Ctrl</kbd> + <kbd>a</kbd>" },
   { source = '["ctrl-q"] = actions.file_sel_to_qf', docs = "发送到 quickfix / location list" },
-  { source = '["ctrl-l"] = actions.file_sel_to_ll', docs = "<kbd>Ctrl</kbd> + <kbd>q</kbd> / <kbd>Ctrl</kbd> + <kbd>l</kbd>" },
+  {
+    source = '["ctrl-l"] = actions.file_sel_to_ll',
+    docs = "<kbd>Ctrl</kbd> + <kbd>q</kbd> / <kbd>Ctrl</kbd> + <kbd>l</kbd>",
+  },
   { source = '["ctrl-h"] = { fn = actions.toggle_hidden', docs = "切换 hidden 文件" },
   { source = '["ctrl-y"] = { fn = actions.toggle_ignore', docs = "切换 `.gitignore` 过滤" },
   { source = '["ctrl-f"] = { fn = actions.toggle_follow', docs = "切换符号链接跟随" },
@@ -126,7 +129,11 @@ end
 check(keymaps, 'set("n", "<leader>qq", function()', "configured quit-all mapping")
 check(keymaps, 'vim.api.nvim_command("FloatermKill!")', "configured quit-all Floaterm cleanup")
 check(keymaps, 'vim.api.nvim_command("qa")', "configured quit-all Neovim behavior")
-check(readme, "| 退出全部 | `<leader>qq` | 先执行 `:FloatermKill!`，再退出 Neovim |", "documented quit-all behavior")
+check(
+  readme,
+  "| 退出全部 | `<leader>qq` | 先执行 `:FloatermKill!`，再退出 Neovim |",
+  "documented quit-all behavior"
+)
 
 check(markdown_preview, '"iamcco/markdown-preview.nvim"', "configured Markdown Preview provider")
 check(
@@ -135,8 +142,8 @@ check(
   "configured Markdown Preview commands"
 )
 check(markdown_preview_util, "npx --yes yarn install", "configured Markdown Preview build command")
-check(markdown_preview, '{ "gom", function() require("util.mkdp").toggle() end', "configured Markdown Preview toggle")
-check(markdown_preview, '{ "goM", function() require("util.mkdp").pick() end', "configured Markdown Preview list")
+check(mapping_block(markdown_preview, "gom"), 'require("util.mkdp").toggle()', "configured Markdown Preview toggle")
+check(mapping_block(markdown_preview, "goM"), 'require("util.mkdp").pick()', "configured Markdown Preview list")
 check(readme, "https://github.com/iamcco/markdown-preview.nvim", "documented Markdown Preview provider")
 check(readme, "Node.js", "Markdown Preview dependency")
 check(readme, "npm", "Markdown Preview dependency")
@@ -148,7 +155,7 @@ check(readme, "sips", "documented macOS image dimensions provider")
 check(readme, "不需要 `jq`", "documented built-in Scissors formatter")
 reject(scissors, "jsonFormatter", "obsolete Scissors formatter option")
 check(external_commands, 'if sysname == "Darwin" then', "platform-specific du command")
-check(external_commands, 'pcall(vim.system', "guarded process spawning")
+check(external_commands, "pcall(vim.system", "guarded process spawning")
 check(readme, "`gom`", "documented Markdown Preview toggle")
 check(readme, "`goM`", "documented Markdown Preview list")
 for _, command in ipairs({ ":MarkdownPreviewToggle", ":MarkdownPreview", ":MarkdownPreviewStop" }) do
@@ -157,10 +164,22 @@ end
 check(readme, "git clone --depth 1 --branch nvim-0.11", "maintenance branch clone command")
 
 local edit_mappings = {
-  { source = [[set({ "n", "v" }, "d", '"_d']], docs = "| `d`、`dd`、`D` | Normal、Visual | 删除到黑洞寄存器 |" },
-  { source = [[set({ "n", "v" }, "c", '"_c']], docs = "| `c`、`cc`、`C` | Normal、Visual | 修改到黑洞寄存器 |" },
-  { source = [[set({ "n", "v" }, "s", '"_s']], docs = "| `s`、`S` | Normal、Visual | 替换/修改到黑洞寄存器 |" },
-  { source = [[set("n", "X", "yydd"]], docs = "| `X` | Normal | `yydd`：复制当前行后删除，相当于剪切整行 |" },
+  {
+    source = [[set({ "n", "v" }, "d", '"_d']],
+    docs = "| `d`、`dd`、`D` | Normal、Visual | 删除到黑洞寄存器 |",
+  },
+  {
+    source = [[set({ "n", "v" }, "c", '"_c']],
+    docs = "| `c`、`cc`、`C` | Normal、Visual | 修改到黑洞寄存器 |",
+  },
+  {
+    source = [[set({ "n", "v" }, "s", '"_s']],
+    docs = "| `s`、`S` | Normal、Visual | 替换/修改到黑洞寄存器 |",
+  },
+  {
+    source = [[set("n", "X", "yydd"]],
+    docs = "| `X` | Normal | `yydd`：复制当前行后删除，相当于剪切整行 |",
+  },
 }
 for _, mapping in ipairs(edit_mappings) do
   check(keymaps, mapping.source, "configured personalized edit behavior")
@@ -177,7 +196,11 @@ check(
   '"F",\n      mode = { "n", "o", "x" },\n      function()\n        require("flash").treesitter()',
   "configured F Flash mapping modes and behavior"
 )
-check(readme, "| `f` | Normal、Visual、Operator-pending | Flash jump，而非标准字符查找 |", "documented f mapping behavior")
+check(
+  readme,
+  "| `f` | Normal、Visual、Operator-pending | Flash jump，而非标准字符查找 |",
+  "documented f mapping behavior"
+)
 check(
   readme,
   "| `F` | Normal、Visual、Operator-pending | Flash Treesitter jump，而非标准反向字符查找 |",
@@ -196,7 +219,11 @@ for _, mapping in ipairs(tree_mappings) do
 end
 check(nvim_tree, 'require("fzf-lua").live_grep({', "configured nvim-tree grep behavior")
 check(readme, "在 nvim-tree 内搜索文本", "documented nvim-tree grep mapping")
-check(readme, "`d` 删除节点、`s` 执行系统命令、`f` 开始实时过滤、`F` 清除实时过滤", "documented nvim-tree mapping behavior")
+check(
+  readme,
+  "`d` 删除节点、`s` 执行系统命令、`f` 开始实时过滤、`F` 清除实时过滤",
+  "documented nvim-tree mapping behavior"
+)
 
 local changelog = read("CHANGELOG.md")
 local unreleased_start = assert(changelog:find("## [unreleased]", 1, true), "cannot find unreleased changelog")

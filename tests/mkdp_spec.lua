@@ -5,8 +5,7 @@ package.path = vim.fn.getcwd() .. "/lua/?.lua;" .. vim.fn.getcwd() .. "/lua/?/in
 local M = require("util.mkdp")
 
 local function eq(actual, expected, msg)
-  assert(actual == expected,
-    string.format("%s: expected %s, got %s", msg, vim.inspect(expected), vim.inspect(actual)))
+  assert(actual == expected, string.format("%s: expected %s, got %s", msg, vim.inspect(expected), vim.inspect(actual)))
 end
 
 eq(M.bufnr_from_url("http://localhost:8090/page/3"), 3, "localhost host")

@@ -20,7 +20,10 @@ local function check()
   }
   dofile(repo .. "/lua/config/lazy.lua")
   assert(captured_opts, "production config.lazy must call lazy.setup")
-  assert(captured_opts.checker and captured_opts.checker.enabled == true, "captured production checker setting is missing")
+  assert(
+    captured_opts.checker and captured_opts.checker.enabled == true,
+    "captured production checker setting is missing"
+  )
 
   -- Now load lazy.core from the snapshot. No call to the real lazy.setup is made.
   vim.opt.runtimepath:prepend(lazy_root .. "/LazyVim")

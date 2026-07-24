@@ -235,9 +235,20 @@ local function show_dir_info(node)
 end
 
 local IMAGE_EXTENSIONS = {
-  png = true, jpg = true, jpeg = true, gif = true, webp = true, avif = true,
-  svg = true, ico = true, bmp = true, pbm = true, pgm = true, ppm = true,
-  tiff = true, tif = true,
+  png = true,
+  jpg = true,
+  jpeg = true,
+  gif = true,
+  webp = true,
+  avif = true,
+  svg = true,
+  ico = true,
+  bmp = true,
+  pbm = true,
+  pgm = true,
+  ppm = true,
+  tiff = true,
+  tif = true,
 }
 
 -- 文件信息：立即显示基本信息, 若为图片再异步 (sips) 补充像素尺寸

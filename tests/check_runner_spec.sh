@@ -130,6 +130,8 @@ ln -s "$runner" "$external_bin/check.sh"
 caller_root="$work_dir/caller-xdg"
 outside_dir="$work_dir/outside"
 mkdir -p "$caller_root/config" "$caller_root/data" "$caller_root/state" "$caller_root/cache" "$caller_root/home" "$outside_dir"
+# The runner must use the repository policy, not a caller-directory StyLua config.
+printf 'column_width = 20\n' >"$outside_dir/stylua.toml"
 printf 'config sentinel\n' >"$caller_root/config/sentinel"
 printf 'data sentinel\n' >"$caller_root/data/sentinel"
 printf 'state sentinel\n' >"$caller_root/state/sentinel"
@@ -159,6 +161,7 @@ success_output="$work_dir/success.out"
 ) >"$success_output" 2>&1
 
 for stage in \
+  'StyLua formatting' \
   'Lua syntax' \
   'JSON parsing' \
   'mkdp_spec.lua' \
@@ -258,7 +261,7 @@ assert_removed_mktemp_roots
 
 dependency_bin="$work_dir/dependency-bin"
 mkdir -p "$dependency_bin"
-for command_name in git nvim node python3 rm mkdir ln cp chmod find cat readlink; do
+for command_name in git nvim node python3 stylua rm mkdir ln cp chmod find cat readlink; do
   ln -s "$(command -v "$command_name")" "$dependency_bin/$command_name"
 done
 missing_dependency_output="$work_dir/missing-dependency.out"
@@ -270,7 +273,7 @@ assert_contains "$missing_dependency_output" 'FAIL: dependency check'
 
 complete_dependency_bin="$work_dir/complete-dependency-bin"
 mkdir -p "$complete_dependency_bin"
-for command_name in git nvim node python3 rm mkdir ln cp chmod find cat mktemp readlink; do
+for command_name in git nvim node python3 stylua rm mkdir ln cp chmod find cat mktemp readlink; do
   ln -s "$(command -v "$command_name")" "$complete_dependency_bin/$command_name"
 done
 missing_node_bin="$work_dir/missing-node-bin"
@@ -284,6 +287,18 @@ if PATH="$missing_node_bin" /bin/bash "$runner" >"$missing_node_output" 2>&1; th
 fi
 assert_contains "$missing_node_output" 'ERROR: required command not found: node'
 assert_contains "$missing_node_output" 'FAIL: dependency check'
+
+missing_stylua_bin="$work_dir/missing-stylua-bin"
+mkdir -p "$missing_stylua_bin"
+for command_name in git nvim node python3 rm mkdir ln cp chmod find cat mktemp readlink; do
+  ln -s "$(command -v "$command_name")" "$missing_stylua_bin/$command_name"
+done
+missing_stylua_output="$work_dir/missing-stylua.out"
+if PATH="$missing_stylua_bin" /bin/bash "$runner" >"$missing_stylua_output" 2>&1; then
+  fail 'runner must return non-zero when stylua is unavailable'
+fi
+assert_contains "$missing_stylua_output" 'ERROR: required command not found: stylua'
+assert_contains "$missing_stylua_output" 'FAIL: dependency check'
 
 missing_home_output="$work_dir/missing-home.out"
 if HOME= XDG_DATA_HOME= NVIM_TEST_LAZY_ROOT= PATH="$complete_dependency_bin" /bin/bash "$runner" >"$missing_home_output" 2>&1; then

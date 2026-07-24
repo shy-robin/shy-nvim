@@ -313,21 +313,15 @@ if directory_startup_ok then
       "must schedule opening when lazy initialization runs after VimEnter"
     )
   end
-  check(
-    "nvim-tree.lua",
-    directory_startup.directory_argument({}, function() return { type = "directory" } end) == nil,
-    "must not load nvim-tree with no startup argument"
-  )
-  check(
-    "nvim-tree.lua",
-    directory_startup.directory_argument({ "/tmp/file" }, function() return { type = "file" } end) == nil,
-    "must not load nvim-tree for an ordinary file argument"
-  )
-  check(
-    "nvim-tree.lua",
-    directory_startup.directory_argument({ "/tmp/project" }, function() return { type = "directory" } end) == "/tmp/project",
-    "must load nvim-tree for exactly one directory argument"
-  )
+  check("nvim-tree.lua", directory_startup.directory_argument({}, function()
+    return { type = "directory" }
+  end) == nil, "must not load nvim-tree with no startup argument")
+  check("nvim-tree.lua", directory_startup.directory_argument({ "/tmp/file" }, function()
+    return { type = "file" }
+  end) == nil, "must not load nvim-tree for an ordinary file argument")
+  check("nvim-tree.lua", directory_startup.directory_argument({ "/tmp/project" }, function()
+    return { type = "directory" }
+  end) == "/tmp/project", "must load nvim-tree for exactly one directory argument")
 end
 
 if #failures > 0 then

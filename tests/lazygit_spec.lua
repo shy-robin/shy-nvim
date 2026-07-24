@@ -9,10 +9,13 @@ if spec.config ~= nil then
 end
 
 local after = vim.fn.maparg("<C-c>", "t", false, true)
-assert(vim.deep_equal(after, before), string.format(
-  "LazyGit spec/config must not add a global terminal <C-c> mapping: before=%s, after=%s",
-  vim.inspect(before),
-  vim.inspect(after)
-))
+assert(
+  vim.deep_equal(after, before),
+  string.format(
+    "LazyGit spec/config must not add a global terminal <C-c> mapping: before=%s, after=%s",
+    vim.inspect(before),
+    vim.inspect(after)
+  )
+)
 
 print("OK lazygit preserves global terminal <C-c>")

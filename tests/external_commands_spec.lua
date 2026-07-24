@@ -5,21 +5,17 @@ local commands = require("util.external_commands")
 local markdown = require("util.markdown_preview")
 
 local function eq(actual, expected, message)
-  assert(vim.deep_equal(actual, expected), string.format(
-    "%s: expected %s, got %s",
-    message,
-    vim.inspect(expected),
-    vim.inspect(actual)
-  ))
+  assert(
+    vim.deep_equal(actual, expected),
+    string.format("%s: expected %s, got %s", message, vim.inspect(expected), vim.inspect(actual))
+  )
 end
 
 local function match(actual, expected, message)
-  assert(type(actual) == "string" and actual:find(expected, 1, true), string.format(
-    "%s: expected %q in %s",
-    message,
-    expected,
-    vim.inspect(actual)
-  ))
+  assert(
+    type(actual) == "string" and actual:find(expected, 1, true),
+    string.format("%s: expected %q in %s", message, expected, vim.inspect(actual))
+  )
 end
 
 local function with_restore(restore, callback)
@@ -125,7 +121,11 @@ end)
 
 eq(commands.parse_du_result({ code = 1, stdout = "42\t/tmp/project" }), nil, "nonzero du exits have no size")
 eq(commands.parse_image_result("sips", { code = 1, stdout = "" }), nil, "nonzero sips exits have no dimensions")
-eq(commands.parse_image_result("identify", { code = 0, stdout = "1920 1080" }), "1920x1080", "identify output parses dimensions")
+eq(
+  commands.parse_image_result("identify", { code = 0, stdout = "1920 1080" }),
+  "1920x1080",
+  "identify output parses dimensions"
+)
 
 local spawn_error
 with_value(vim, "system", function()
@@ -296,7 +296,11 @@ with_executables({ git = true }, function()
       end,
     })
     eq(patched, true, "protected directory checkout patches successfully")
-    eq(calls, { { "git", "-C", plugin_dir, "update-index", "--skip-worktree", "app/out/index.html" } }, "directory checkout protects index first")
+    eq(
+      calls,
+      { { "git", "-C", plugin_dir, "update-index", "--skip-worktree", "app/out/index.html" } },
+      "directory checkout protects index first"
+    )
     local html = contents(index_html)
     assert(html:find("route%-fix", 1, false), "route patch remains applied")
     assert(html:find("links%.js", 1, false), "link patch remains applied")

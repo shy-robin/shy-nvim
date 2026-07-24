@@ -43,7 +43,19 @@ return {
   end,
   ft = { "markdown" },
   keys = {
-    { "gom", function() require("util.mkdp").toggle() end, desc = "Markdown Preview Toggle" },
-    { "goM", function() require("util.mkdp").pick() end, desc = "Markdown Preview List" },
+    {
+      "gom",
+      function()
+        require("util.mkdp").toggle()
+      end,
+      desc = "Markdown Preview Toggle",
+    },
+    {
+      "goM",
+      function()
+        require("util.mkdp").pick()
+      end,
+      desc = "Markdown Preview List",
+    },
   },
 }

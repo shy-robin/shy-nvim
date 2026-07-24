@@ -249,7 +249,11 @@ function M.build(plugin, options)
   local ok, detail = run_system(install, options)
   if not ok then
     local suffix = type(detail) == "number" and "exit " .. detail or detail
-    notify("Markdown Preview: Yarn install failed (" .. suffix .. "); patches were not applied", vim.log.levels.ERROR, options)
+    notify(
+      "Markdown Preview: Yarn install failed (" .. suffix .. "); patches were not applied",
+      vim.log.levels.ERROR,
+      options
+    )
     return false
   end
 

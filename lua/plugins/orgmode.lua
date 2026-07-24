@@ -3,7 +3,7 @@ return {
   dependencies = {
     "nvim-orgmode/org-bullets.nvim",
     "chipsenkbeil/org-roam.nvim",
-    "danilshvalov/org-modern.nvim"
+    "danilshvalov/org-modern.nvim",
   },
   ft = { "org" },
   cmd = { "Org" },

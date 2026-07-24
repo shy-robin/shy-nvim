@@ -26,9 +26,12 @@ return {
     -- files picker 不是 live 模式，没有 grep/live_grep 切换
     local files_header = table.concat(base_hints, "  ")
     -- grep picker 额外用 <c-g> 在 grep 与 live_grep 之间切换
-    local grep_header = table.concat(vim.list_extend(vim.deepcopy(base_hints), {
-      hbind("c-g", "grep/live"),
-    }), "  ")
+    local grep_header = table.concat(
+      vim.list_extend(vim.deepcopy(base_hints), {
+        hbind("c-g", "grep/live"),
+      }),
+      "  "
+    )
     return {
       winopts = {
         backdrop = 100,

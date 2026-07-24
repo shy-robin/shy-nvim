@@ -129,7 +129,7 @@ check_minimal_startup() {
   run_nvim --headless -u "$repo_dir/tests/minimal_init.lua" +qa
 }
 
-for command_name in git nvim node python3 rm mkdir ln cp chmod find cat mktemp readlink; do
+for command_name in git nvim node python3 stylua rm mkdir ln cp chmod find cat mktemp readlink; do
   require_command "$command_name"
 done
 
@@ -137,6 +137,7 @@ git_bin=$(command -v git)
 nvim_bin=$(command -v nvim)
 node_bin=$(command -v node)
 python_bin=$(command -v python3)
+stylua_bin=$(command -v stylua)
 rm_bin=$(command -v rm)
 mkdir_bin=$(command -v mkdir)
 ln_bin=$(command -v ln)
@@ -231,6 +232,7 @@ end
 vim.cmd("qa!")
 LUA
 
+run_stage 'StyLua formatting' "$stylua_bin" --config-path "$repo_dir/stylua.toml" --check "$repo_dir/init.lua" "$repo_dir/lua" "$repo_dir/tests"
 run_stage 'Lua syntax' check_lua_syntax
 run_stage 'JSON parsing' check_json
 run_stage 'tests/mkdp_spec.lua' run_nvim_lua_test tests/mkdp_spec.lua
