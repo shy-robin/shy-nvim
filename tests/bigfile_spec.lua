@@ -47,6 +47,29 @@ write_lines(huge, 105000, 100)
 assert(vim.fn.getfsize(medium1) > 0.4 * 1024 * 1024, "medium fixture must cross Snacks threshold")
 assert(vim.fn.getfsize(huge) > 10 * 1024 * 1024, "huge fixture must cross pre-read threshold")
 
+local colorizer = {
+  detach_calls = {},
+  is_attached = true,
+  fail_is_attached = false,
+  fail_detach = false,
+}
+
+function colorizer.is_buffer_attached(buf)
+  if colorizer.fail_is_attached then
+    error("Colorizer attachment check failed")
+  end
+  return colorizer.is_attached
+end
+
+function colorizer.detach_from_buffer(buf)
+  if colorizer.fail_detach then
+    error("Colorizer detach failed")
+  end
+  colorizer.detach_calls[#colorizer.detach_calls + 1] = buf
+end
+
+package.loaded.colorizer = colorizer
+
 local noice = {
   disable_calls = 0,
   enable_calls = 0,
@@ -186,6 +209,12 @@ local function cleanup_test_state()
   noice.enable_calls = 0
   noice.disable_mode = nil
   noice.fail_enable = false
+  package.loaded.colorizer = colorizer
+  package.preload.colorizer = nil
+  colorizer.detach_calls = {}
+  colorizer.is_attached = true
+  colorizer.fail_is_attached = false
+  colorizer.fail_detach = false
   supermaven_stop_calls = 0
   vim.o.cmdheight = 0
   if vim.g.loaded_matchparen == nil and vim.fn.exists(":DoMatchParen") ~= 0 then
@@ -202,6 +231,51 @@ local function test(name, fn)
     failures[#failures + 1] = name .. ":\n" .. err
   end
 end
+
+test("detaches an already-loaded Colorizer only for bigfiles", function()
+  edit(normal1)
+  eq(colorizer.detach_calls, {}, "ordinary buffers must not run bigfile Colorizer cleanup")
+
+  local big = edit(medium1)
+  eq(colorizer.detach_calls, { big }, "bigfile setup must detach Colorizer from the detected buffer")
+  delete_buffer(big)
+end)
+
+test("skips detach for an unattached loaded Colorizer on a detected bigfile", function()
+  colorizer.is_attached = false
+  assert(package.loaded.colorizer == colorizer, "test precondition: Colorizer must already be loaded")
+
+  local big = edit(medium1)
+  assert(vim.b[big].bigfile == true, "unattached Colorizer must not interrupt bigfile detection")
+  eq(colorizer.detach_calls, {}, "unattached Colorizer must not be detached from the detected bigfile")
+  delete_buffer(big)
+end)
+
+test("does not load Colorizer while opening a bigfile", function()
+  package.loaded.colorizer = nil
+  package.preload.colorizer = function()
+    error("bigfile setup must not require Colorizer")
+  end
+
+  local big = edit(medium1)
+  assert(package.loaded.colorizer == nil, "bigfile setup must leave unloaded Colorizer unloaded")
+  delete_buffer(big)
+end)
+
+test("continues bigfile setup when Colorizer attachment checks fail", function()
+  colorizer.fail_is_attached = true
+  local big = edit(medium1)
+  assert(vim.b[big].bigfile == true, "Colorizer check failure must not interrupt bigfile setup")
+  eq(colorizer.detach_calls, {}, "failed attachment checks must not call detach")
+  delete_buffer(big)
+end)
+
+test("continues bigfile setup when Colorizer detach fails", function()
+  colorizer.fail_detach = true
+  local big = edit(medium1)
+  assert(vim.b[big].bigfile == true, "Colorizer detach failure must not interrupt bigfile setup")
+  delete_buffer(big)
+end)
 
 test("restores one window after normal to huge to normal and keeps memory undo", function()
   vim.o.swapfile = true

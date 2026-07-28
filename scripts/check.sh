@@ -241,6 +241,7 @@ run_stage 'tests/lazygit_spec.lua' run_nvim_lua_test tests/lazygit_spec.lua
 run_stage 'tests/spec_opts_spec.lua' run_nvim_lua_test tests/spec_opts_spec.lua
 run_stage 'tests/migration_cleanup_spec.lua' run_nvim_lua_test tests/migration_cleanup_spec.lua
 run_stage 'tests/documentation_spec.lua' run_nvim_lua_test tests/documentation_spec.lua
+run_stage 'tests/colorizer_spec.lua' run_nvim_lua_test tests/colorizer_spec.lua
 run_stage 'tests/bigfile_spec.lua' run_nvim_lua_test tests/bigfile_spec.lua
 run_stage 'tests/external_commands_spec.lua' run_nvim_lua_test tests/external_commands_spec.lua
 run_stage 'minimal headless startup' check_minimal_startup

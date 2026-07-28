@@ -74,6 +74,19 @@ return {
         -- 窗口选项由生命周期模块按窗口保存/恢复；MatchParen 只在首个 bigfile
         -- 进入时关闭，并仅在确由此处关闭且最后一个 bigfile 删除后恢复。
         local new_buffer = Bigfile.enter(ctx.buf)
+        -- Colorizer 会注册 TextChanged* 和 WinScrolled 重绘；大文件只清理
+        -- 已加载并附加的实例，不能因减负逻辑反向加载插件。
+        local colorizer = package.loaded.colorizer
+        if
+          colorizer
+          and type(colorizer.is_buffer_attached) == "function"
+          and type(colorizer.detach_from_buffer) == "function"
+        then
+          local ok_attached, attached = pcall(colorizer.is_buffer_attached, ctx.buf)
+          if ok_attached and attached then
+            pcall(colorizer.detach_from_buffer, ctx.buf)
+          end
+        end
         vim.b.minianimate_disable = true
         vim.b.miniindentscope_disable = true -- 关闭 mini.indentscope（若启用）
         vim.b.snacks_indent = false -- 关闭 snacks 缩进引导/作用域（每次重绘都会跑装饰器）

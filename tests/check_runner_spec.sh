@@ -170,6 +170,7 @@ for stage in \
   'spec_opts_spec.lua' \
   'migration_cleanup_spec.lua' \
   'documentation_spec.lua' \
+  'colorizer_spec.lua' \
   'bigfile_spec.lua' \
   'external_commands_spec.lua' \
   'minimal headless startup' \
