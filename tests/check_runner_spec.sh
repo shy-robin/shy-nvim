@@ -173,6 +173,7 @@ for stage in \
   'colorizer_spec.lua' \
   'bigfile_spec.lua' \
   'external_commands_spec.lua' \
+  'ci_workflow_spec.sh' \
   'minimal headless startup' \
   'SUCCESS:'; do
   assert_contains "$success_output" "$stage"

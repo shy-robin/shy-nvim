@@ -1,0 +1,60 @@
+name: Test
+
+on:
+  push:
+    branches: [nvim-0.11]
+  pull_request:
+    branches: [nvim-0.11]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: test-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: check (${{ matrix.neovim }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        neovim: [v0.11.2, stable]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          package-manager-cache: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+
+      - name: Set up Neovim
+        uses: rhysd/action-setup-vim@v1
+        with:
+          neovim: true
+          version: ${{ matrix.neovim }}
+
+      - name: Set up StyLua
+        uses: JohnnyMorganz/stylua-action@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          version: 2.0.2
+          args: false
+
+      - name: Prepare locked test plugins
+        run: ./scripts/bootstrap-test-plugins.sh "$RUNNER_TEMP/nvim-check-lazy"
+
+      - name: Run repository checks
+        env:
+          NVIM_TEST_LAZY_ROOT: ${{ runner.temp }}/nvim-check-lazy
+        run: ./scripts/check.sh

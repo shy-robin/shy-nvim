@@ -244,4 +244,5 @@ run_stage 'tests/documentation_spec.lua' run_nvim_lua_test tests/documentation_s
 run_stage 'tests/colorizer_spec.lua' run_nvim_lua_test tests/colorizer_spec.lua
 run_stage 'tests/bigfile_spec.lua' run_nvim_lua_test tests/bigfile_spec.lua
 run_stage 'tests/external_commands_spec.lua' run_nvim_lua_test tests/external_commands_spec.lua
+run_stage 'tests/ci_workflow_spec.sh' "$repo_dir/tests/ci_workflow_spec.sh"
 run_stage 'minimal headless startup' check_minimal_startup
