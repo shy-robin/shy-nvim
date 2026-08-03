@@ -240,5 +240,29 @@ return {
         vim.print = _G.dd -- Override print to use snacks for `:=` command
       end,
     })
+
+    -- 图片 buffer 离开窗口时，snacks.image 会把 placement 标记为 hidden，但只有 markdown
+    -- 里的 inline 图片会被重新 show，独立图片 buffer（如 `H`/`L` 切换 buffer）切回来后
+    -- 渲染出的 extmark 不带 virt_text，表现为图片消失。这里在切回时重新 attach，图片数据
+    -- 按转换后的文件缓存，不会重复转换或重传。
+    local group = vim.api.nvim_create_augroup("snacks_image_rerender", { clear = true })
+    vim.api.nvim_create_autocmd("BufWinLeave", {
+      group = group,
+      callback = function(ev)
+        if vim.bo[ev.buf].filetype == "image" then
+          vim.b[ev.buf].snacks_image_stale = true
+        end
+      end,
+    })
+    vim.api.nvim_create_autocmd("BufWinEnter", {
+      group = group,
+      callback = function(ev)
+        if not vim.b[ev.buf].snacks_image_stale or vim.bo[ev.buf].filetype ~= "image" then
+          return
+        end
+        vim.b[ev.buf].snacks_image_stale = nil
+        Snacks.image.buf.attach(ev.buf)
+      end,
+    })
   end,
 }
