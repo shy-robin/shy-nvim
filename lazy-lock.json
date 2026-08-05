@@ -70,6 +70,7 @@
   "orgmode": { "branch": "master", "commit": "f32a06d4b5399dad8bf0478c772bf6c513f02dcf" },
   "outline.nvim": { "branch": "main", "commit": "2a132953b944561d45b52e4541ebfff71934a742" },
   "oxocarbon.nvim": { "branch": "main", "commit": "488dca6e3ff01acd88a648b83244073037261e64" },
+  "pdfreader.nvim": { "branch": "main", "commit": "f8c067648b0c0d332a8d241111787a6b4d7ba061" },
   "persistence.nvim": { "branch": "main", "commit": "b20b2a7887bd39c1a356980b45e03250f3dce49c" },
   "plenary.nvim": { "branch": "master", "commit": "74b06c6c75e4eeb3108ec01852001636d85a932b" },
   "render-markdown.nvim": { "branch": "main", "commit": "f422cb5c6855f150e2ddcfaf44e7157b98b34f6a" },

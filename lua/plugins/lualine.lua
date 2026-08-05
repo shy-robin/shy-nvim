@@ -49,6 +49,18 @@ return {
             "filename",
             symbols = { modified = "󰳻", readonly = "󰍁", unnamed = "󰡯" },
           },
+          -- 显示 PDF 页码。pdfreader.nvim 原本写窗口局部 statusline，会被 lualine 的
+          -- globalstatus 周期性覆盖，所以页码改由它写进 b:pdfreader_page，见
+          -- lua/plugins/pdfreader.lua。
+          {
+            function()
+              return vim.b.pdfreader_page
+            end,
+            cond = function()
+              return vim.b.pdfreader_page ~= nil
+            end,
+            icon = "󰈦",
+          },
           -- 显示 supermaven 的状态
           {
             function()

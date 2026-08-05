@@ -47,6 +47,7 @@
   - nvim-tree 图片信息：macOS 使用 `sips` 读取尺寸；其它平台可安装 ImageMagick 以提供 `identify`。两者都不存在时只省略尺寸信息。
   - [nvim-scissors](https://github.com/chrisgrieser/nvim-scissors) 使用插件当前内置的 JSON 格式化；不需要 `jq`。
   - Floaterm：`<leader>tor` 需要 `ranger`，`<leader>y` 需要 `yazi`。缺少时会显示安装提示，而不会启动无效终端。
+  - [pdfreader.nvim](https://github.com/r-pletnev/pdfreader.nvim) 阅读 PDF：需要 ImageMagick（`magick`）、Ghostscript（`gs`）和 poppler（`pdftotext`、`pdfinfo`）。终端需支持 kitty graphics protocol（kitty / Ghostty），否则自动降级为纯文本模式。未安装 telescope，因此书签、目录、最近阅读的选择器不可用，翻页与缩放不受影响。
 - 其他依赖
   - `:checkhealth snacks`
   - `:checkhealth img-clip`

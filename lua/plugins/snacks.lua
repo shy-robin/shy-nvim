@@ -246,10 +246,18 @@ return {
     -- 渲染出的 extmark 不带 virt_text，表现为图片消失。这里在切回时重新 attach，图片数据
     -- 按转换后的文件缓存，不会重复转换或重传。
     local group = vim.api.nvim_create_augroup("snacks_image_rerender", { clear = true })
+
+    -- PDF 也被 snacks.image 接管成 filetype=image，但页码由 pdfreader.nvim 维护，它在
+    -- BufEnter 时重绘当前页。这里的 attach 会先 placement.clean 再贴原始 pdf 的第 1 页，
+    -- 且 BufWinEnter 晚于 BufEnter，会把正在读的页码打回第 1 页，所以要跳过 pdf。
+    local function is_pdf(buf)
+      return vim.api.nvim_buf_get_name(buf):lower():match("%.pdf$") ~= nil
+    end
+
     vim.api.nvim_create_autocmd("BufWinLeave", {
       group = group,
       callback = function(ev)
-        if vim.bo[ev.buf].filetype == "image" then
+        if vim.bo[ev.buf].filetype == "image" and not is_pdf(ev.buf) then
           vim.b[ev.buf].snacks_image_stale = true
         end
       end,
