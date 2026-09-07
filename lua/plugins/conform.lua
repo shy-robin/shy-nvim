@@ -43,6 +43,7 @@ return {
       rust = { "rustfmt" },
       sql = { "sqlfmt" },
       http = { "kulala" },
+      gdscript = { "gdformat" },
     },
   },
 }
