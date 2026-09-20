@@ -1,8 +1,120 @@
+local function git_branches()
+  local branches = vim.fn.systemlist({
+    "git",
+    "for-each-ref",
+    "--format=%(refname:short)",
+    "refs/heads",
+    "refs/remotes",
+  })
+
+  branches = vim.tbl_filter(function(branch)
+    return branch ~= "" and not branch:match("/HEAD$")
+  end, branches)
+
+  return branches
+end
+
+local function select_branch(prompt, on_select)
+  local branches = git_branches()
+
+  require("fzf-lua").fzf_exec(branches, {
+    prompt = prompt,
+    actions = {
+      ["default"] = function(selected)
+        local branch = selected[1]
+        if branch then
+          on_select(branch)
+        end
+      end,
+    },
+  })
+end
+
+local function diff_with_branch()
+  select_branch("Diff with branch> ", function(branch)
+    vim.cmd("DiffviewOpen " .. vim.fn.fnameescape(branch) .. "...HEAD")
+  end)
+end
+
+local function diff_between_branches()
+  select_branch("Base branch> ", function(base)
+    vim.schedule(function()
+      select_branch("Compare branch> ", function(compare)
+        if base == compare then
+          vim.notify("请选择两个不同的分支", vim.log.levels.WARN)
+          return
+        end
+
+        local range = vim.fn.fnameescape(base) .. "..." .. vim.fn.fnameescape(compare)
+        vim.cmd("DiffviewOpen " .. range)
+      end)
+    end)
+  end)
+end
+
+local function resize_file_panel(delta)
+  local win = vim.api.nvim_get_current_win()
+  local width = vim.api.nvim_win_get_width(win)
+  vim.api.nvim_win_set_width(win, math.max(20, width + delta))
+end
+
 return {
   "sindrets/diffview.nvim",
   event = "VeryLazy",
   opts = {
+    view = {
+      default = {
+        winbar_info = true,
+      },
+      file_history = {
+        winbar_info = true,
+      },
+    },
+    file_panel = {
+      listing_style = "tree",
+      tree_options = {
+        flatten_dirs = false,
+        folder_statuses = "only_folded",
+      },
+      win_config = {
+        position = "left",
+        width = 38,
+        win_opts = {
+          number = false,
+          relativenumber = false,
+          cursorline = true,
+          signcolumn = "no",
+        },
+      },
+    },
     keymaps = {
+      file_panel = {
+        {
+          "n",
+          "wl",
+          function()
+            resize_file_panel(10)
+          end,
+          { desc = "Increase the Diffview file panel width" },
+        },
+        {
+          "n",
+          "wh",
+          function()
+            resize_file_panel(-10)
+          end,
+          { desc = "Decrease the Diffview file panel width" },
+        },
+        {
+          "n",
+          "<leader>e",
+          function()
+            local actions = require("diffview.actions")
+            return actions.toggle_files()
+          end,
+          { desc = "Toggle the Diffview file panel" },
+        },
+      },
       view = {
         {
           "n",
@@ -171,6 +283,16 @@ return {
     },
   },
   keys = {
+    {
+      "<leader>DB",
+      diff_between_branches,
+      desc = "Diffview: compare two branches",
+    },
+    {
+      "<leader>Dr",
+      diff_with_branch,
+      desc = "Diffview: select branch",
+    },
     {
       "<leader>Dd",
       "<cmd>DiffviewOpen<cr>",
