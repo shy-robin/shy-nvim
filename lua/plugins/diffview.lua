@@ -87,6 +87,13 @@ return {
         },
       },
     },
+    commit_log_panel = {
+      win_config = {
+        type = "split",
+        position = "bottom",
+        height = 12,
+      },
+    },
     keymaps = {
       file_panel = {
         {
