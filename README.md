@@ -6,7 +6,7 @@
 
 ## 🌟 预览
 
-![Preview Image](https://s2.loli.net/2024/12/05/sUzNPo2hX8CyeR7.png)
+![Preview Image](./assets/images/preview.png)
 
 ## ✨ 功能
 

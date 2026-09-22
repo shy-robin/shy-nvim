@@ -4,7 +4,7 @@ local get_colorscheme = function()
   if exists and lines[1] then
     return lines[1]
   end
-  return "material"
+  return "darkplus"
 end
 
 -- 备选配色插件：默认懒加载（defaults.lazy = true），不挂 VeryLazy。
