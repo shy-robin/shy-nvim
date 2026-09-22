@@ -6,6 +6,7 @@
 
 -- 拼写检查跳过中文（CJK）字符
 vim.opt.spelllang = { "en", "cjk" }
+vim.opt.spellfile = vim.fn.stdpath("config") .. "/spell/en.utf-8.add"
 
 -- 修复 snacks dashboard 启动时偶发的「闪一下 + 启动页下移一两行」：
 -- noice 启动后会挂载 ext_cmdline/ext_messages，Neovim 内核随即把 cmdheight 从 1

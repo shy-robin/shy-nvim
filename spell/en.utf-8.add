@@ -25,3 +25,4 @@ keymaps
 cmdline
 webpack
 str
+fzf
