@@ -59,7 +59,7 @@ require("lazy").setup({
     version = false, -- always use the latest git commit
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
-  install = { colorscheme = { "material-oceanic", "tokyonight", "habamax" } },
+  install = { colorscheme = { "darkplus", "habamax" } },
   checker = {
     enabled = true, -- check for plugin updates periodically
     notify = false, -- 不弹窗（更新数仍显示在 lualine 的 lazy.status 组件 & :Lazy）
