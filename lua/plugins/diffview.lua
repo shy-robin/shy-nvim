@@ -61,7 +61,16 @@ end
 return {
   "sindrets/diffview.nvim",
   event = "VeryLazy",
+  config = function(_, opts)
+    require("diffview").setup(opts)
+    require("util.diffview_review").setup()
+  end,
   opts = {
+    hooks = {
+      diff_buf_win_enter = function(...)
+        require("util.diffview_review").enter(...)
+      end,
+    },
     view = {
       default = {
         winbar_info = true,
