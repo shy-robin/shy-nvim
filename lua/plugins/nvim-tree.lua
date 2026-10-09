@@ -313,7 +313,7 @@ local function my_on_attach(bufnr)
   local set = vim.keymap.set
 
   -- 前缀超时后打开菜单，避免执行原生按键；保留等待以匹配快速输入的组合键。
-  for _, group in ipairs({ { "y", "Copy" }, { "w", "Window" }, { "b", "Bookmarked" } }) do
+  for _, group in ipairs({ { "y", "Copy" }, { "w", "Window" }, { "b", "Bulk" } }) do
     local prefix, name = group[1], group[2]
     set("n", prefix, function()
       require("which-key").show({ keys = prefix, mode = "n" })
@@ -381,11 +381,14 @@ local function my_on_attach(bufnr)
   set("n", "s", api.node.run.system, opts("Run System"))
   set("n", "S", api.tree.search_node, opts("Search"))
 
-  -- bookmarked
-  set("n", "m", api.marks.toggle, opts("Toggle Bookmark"))
-  set("n", "bd", api.marks.bulk.delete, opts("Delete Bookmarked"))
-  set("n", "bt", api.marks.bulk.trash, opts("Trash Bookmarked"))
-  set("n", "bmv", api.marks.bulk.move, opts("Move Bookmarked"))
+  -- bulk operations on marked nodes
+  set("n", "m", api.marks.toggle, opts("Toggle Mark"))
+  set("n", "bd", api.marks.bulk.delete, opts("Bulk Delete"))
+  set("n", "bt", api.marks.bulk.trash, opts("Bulk Trash"))
+  set("n", "bmv", api.marks.bulk.move, opts("Bulk Move"))
+  require("which-key").add({
+    { "bm", group = "Move", mode = "n", buffer = bufnr },
+  })
 
   -- filter
   set("n", "f", api.filter.live.start, opts("Filter"))
