@@ -10,6 +10,7 @@ return {
     "DBUIFindBuffer",
   },
   keys = {
+    { "<leader>D", false }, -- 保留 D 作为菜单前缀，覆盖 SQL extra 的 DBUIToggle。
     {
       "<leader>Du",
       "<cmd>DBUI<cr>",

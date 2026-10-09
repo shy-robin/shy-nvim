@@ -258,6 +258,15 @@ local function has_key(plugin, lhs)
   return false
 end
 
+local Keys = require("lazy.core.handler.keys")
+local db_keys = Keys.resolve(Plugin.values(assert(spec.plugins["vim-dadbod-ui"]), "keys", false))
+check("vim-dadbod-ui", db_keys[Keys.parse("<leader>D").id] == nil, "D must remain a menu prefix")
+check(
+  "vim-dadbod-ui",
+  vim.tbl_get(db_keys, Keys.parse("<leader>Du").id, "rhs") == "<cmd>DBUI<cr>",
+  "Du must retain the database UI action"
+)
+
 local function has_dependency(plugin, name)
   return contains(Plugin.values(plugin, "dependencies", false), name)
 end
