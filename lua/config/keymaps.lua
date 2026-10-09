@@ -99,8 +99,9 @@ set("n", "<leader>tL", "<cmd>tablast<cr>", { desc = "Tab Last", silent = true })
 -- https://vi.stackexchange.com/questions/6746/how-can-i-open-a-buffer-in-a-new-tab-leaving-the-current-window-and-buffer-intac
 set("n", "<leader>tn", "<cmd>tabe %<cr>", { desc = "Open Current File in New Tab", silent = true })
 
---lazygit
-set("n", "<leader>gb", function()
+-- 当前行的 Git 历史
+del("n", "<leader>gb")
+set("n", "<leader>gl", function()
   -- 设置浮动窗口样式
   Snacks.git.blame_line({ win = { backdrop = 100, width = 0.9, height = 0.9 } })
 end, { desc = "Git Line History" })

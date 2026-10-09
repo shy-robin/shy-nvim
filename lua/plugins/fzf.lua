@@ -4,6 +4,10 @@
 
 return {
   "ibhagwan/fzf-lua",
+  keys = {
+    { "<leader>gc", "<cmd>FzfLua git_commits<CR>", desc = "Git Commit History" },
+    { "<leader>gl", false }, -- 行历史由 config.keymaps 提供，取消继承的提交列表。
+  },
   -- 用函数形式包裹 opts，把 require 推迟到 fzf-lua 真正加载时执行，避免在启动时被急加载
   opts = function()
     local actions = require("fzf-lua").actions

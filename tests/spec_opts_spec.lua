@@ -259,6 +259,15 @@ local function has_key(plugin, lhs)
 end
 
 local Keys = require("lazy.core.handler.keys")
+local fzf_keys = Keys.resolve(Plugin.values(assert(spec.plugins["fzf-lua"]), "keys", false))
+check("fzf-lua", fzf_keys[Keys.parse("<leader>gl").id] == nil, "gl must not retain the commits picker")
+check(
+  "fzf-lua",
+  vim.tbl_get(fzf_keys, Keys.parse("<leader>gc").id, "rhs") == "<cmd>FzfLua git_commits<CR>"
+    and vim.tbl_get(fzf_keys, Keys.parse("<leader>gc").id, "desc") == "Git Commit History",
+  "gc must retain the commits picker with an explicit description"
+)
+
 local db_keys = Keys.resolve(Plugin.values(assert(spec.plugins["vim-dadbod-ui"]), "keys", false))
 check("vim-dadbod-ui", db_keys[Keys.parse("<leader>D").id] == nil, "D must remain a menu prefix")
 check(
