@@ -316,8 +316,8 @@ return {
     },
     {
       "<leader>Dq",
-      "<cmd>tabclose<cr>",
-      desc = "Close Current Tab",
+      "<cmd>DiffviewClose<cr>",
+      desc = "Close Diffview",
     },
     {
       "<leader>Db",
