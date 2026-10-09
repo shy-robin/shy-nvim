@@ -26,7 +26,7 @@ return {
       "<leader>cbd",
       "<cmd>CBd<cr>",
       silent = true,
-      desc = "Comment Box Delete",
+      desc = "Remove Comment Box Borders",
       mode = { "n", "v" },
     },
   },

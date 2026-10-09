@@ -329,8 +329,8 @@ local function my_on_attach(bufnr)
   -- custom mappings
   set("n", "?", api.tree.toggle_help, opts("Help"))
   set("n", "l", edit_or_open, opts("Edit Or Open"))
-  set("n", "L", vsplit_preview, opts("Vsplit Preview"))
-  set("n", "h", api.node.navigate.parent_close, opts("Close"))
+  set("n", "L", vsplit_preview, opts("Open Vertical Split (Keep Tree Focus)"))
+  set("n", "h", api.node.navigate.parent_close, opts("Close Directory"))
 
   -- split
   set("n", "wr", api.node.open.vertical, opts("Open: Split Right"))
@@ -342,14 +342,14 @@ local function my_on_attach(bufnr)
   set("n", "gp", api.tree.change_root_to_parent, opts("Change Root To Parent")) -- 返回上一级目录
 
   -- copy
-  set("n", "yy", api.fs.copy.node, opts("Copy"))
+  set("n", "yy", api.fs.copy.node, opts("Copy Node"))
   set("n", "yp", api.fs.copy.absolute_path, opts("Copy Absolute Path"))
   set("n", "yP", api.fs.copy.relative_path, opts("Copy Relative Path"))
-  set("n", "yn", api.fs.copy.filename, opts("Copy Name"))
+  set("n", "yn", api.fs.copy.filename, opts("Copy Filename"))
 
   -- rename
   set("n", "<C-r>", api.fs.rename_sub, opts("Rename: Omit Filename"))
-  set("n", "e", api.fs.rename_basename, opts("Rename: Basename"))
+  set("n", "e", api.fs.rename_basename, opts("Rename Without Extension"))
   set("n", "r", api.fs.rename, opts("Rename"))
 
   -- open
@@ -378,8 +378,8 @@ local function my_on_attach(bufnr)
   set("n", "P", api.node.navigate.parent, opts("Parent Directory"))
   set("n", "q", api.tree.close, opts("Close"))
   set("n", "R", api.tree.reload, opts("Refresh"))
-  set("n", "s", api.node.run.system, opts("Run System"))
-  set("n", "S", api.tree.search_node, opts("Search"))
+  set("n", "s", api.node.run.system, opts("Open with System Default App"))
+  set("n", "S", api.tree.search_node, opts("Search Node"))
 
   -- bulk operations on marked nodes
   set("n", "m", api.marks.toggle, opts("Toggle Mark"))
@@ -391,20 +391,20 @@ local function my_on_attach(bufnr)
   })
 
   -- filter
-  set("n", "f", api.filter.live.start, opts("Filter"))
-  set("n", "F", api.filter.live.clear, opts("Clean Filter"))
+  set("n", "f", api.filter.live.start, opts("Start Live Filter"))
+  set("n", "F", api.filter.live.clear, opts("Clear Live Filter"))
   set("n", "B", api.filter.no_buffer.toggle, opts("Toggle Filter: No Buffer"))
   set("n", "C", api.filter.git.clean.toggle, opts("Toggle Filter: Git Clean"))
   set("n", "H", api.filter.dotfiles.toggle, opts("Toggle Filter: Dotfiles"))
   set("n", "I", api.filter.git.ignored.toggle, opts("Toggle Filter: Git Ignore"))
-  set("n", "U", api.filter.custom.toggle, opts("Toggle Filter: Hidden"))
+  set("n", "U", api.filter.custom.toggle, opts("Toggle Custom Filter"))
 
   -- git
-  set("n", "[c", api.node.navigate.git.prev, opts("Prev Git"))
-  set("n", "]c", api.node.navigate.git.next, opts("Next Git"))
+  set("n", "[c", api.node.navigate.git.prev, opts("Previous Git Change"))
+  set("n", "]c", api.node.navigate.git.next, opts("Next Git Change"))
 
   -- diagnostics
-  set("n", "[e", api.node.navigate.diagnostics.prev, opts("Prev Diagnostics"))
+  set("n", "[e", api.node.navigate.diagnostics.prev, opts("Previous Diagnostics"))
   set("n", "]e", api.node.navigate.diagnostics.next, opts("Next Diagnostics"))
 
   -- resize
@@ -412,7 +412,7 @@ local function my_on_attach(bufnr)
   set("n", "wh", "<cmd>NvimTreeResize -10<cr>", opts("Decrease Width"))
 
   -- grep in directory
-  set("n", "<C-f>", grep_at_current_tree_node, opts("Grep Current Node"))
+  set("n", "<C-f>", grep_at_current_tree_node, opts("Search Text in Node Directory"))
 end
 
 return {
@@ -428,7 +428,7 @@ return {
     require("config.directory_startup").open_nvim_tree_for_directory()
   end,
   keys = {
-    { "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "Explorer NvimTree (root dir)", silent = true },
+    { "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "Toggle File Tree", silent = true },
   },
   opts = {
     sort_by = "case_sensitive",

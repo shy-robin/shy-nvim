@@ -96,17 +96,17 @@ return {
     {
       "<leader>tb",
       "<cmd>FloatermNew --wintype=split --height=20<cr>",
-      desc = "Toggle Bottom Terminal",
+      desc = "New Bottom Terminal",
     },
     {
       "<leader>tr",
       "<cmd>FloatermNew --wintype=vsplit --width=80<cr>",
-      desc = "Toggle Right Terminal",
+      desc = "New Right Terminal",
     },
     {
       "<leader>tob",
       "<cmd>FloatermNew --cwd=<buffer><cr>",
-      desc = "Open Floaterm in Current Buffer",
+      desc = "New Terminal in File Directory",
     },
     {
       "<leader>tor",

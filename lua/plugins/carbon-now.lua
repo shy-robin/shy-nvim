@@ -13,7 +13,7 @@ return {
     {
       "<leader>cn",
       "<cmd>CarbonNow<cr>",
-      desc = "Carbon Now",
+      desc = "Open Selection in Carbon",
       mode = { "v" },
       silent = true,
     },

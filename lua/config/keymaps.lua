@@ -28,23 +28,27 @@ set("v", "K", ":move '<-2<cr>gv=gv", { desc = "Move up", silent = true })
 -- file
 del("n", "<leader>fn")
 -- 注意，避免写 : 加命令的形式执行命令，不然底部栏会切换到 command 模式而导致闪烁
-set("n", "<leader>fs", "<cmd>w!<cr>", { desc = "Save and format", silent = true })
-set("n", "<leader>fq", "<cmd>wq<cr>", { desc = "Save and format and Quit", silent = true })
-set("n", "<leader>fn", "<cmd>noa w!<cr>", { desc = "Save but Not format", silent = true })
-set("n", "<leader>fN", "<cmd>enew<cr>", { desc = "New File", silent = true })
+set("n", "<leader>fs", "<cmd>w!<cr>", { desc = "Force Save", silent = true })
+set("n", "<leader>fq", "<cmd>wq<cr>", { desc = "Save and Quit", silent = true })
+set("n", "<leader>fn", "<cmd>noa w!<cr>", { desc = "Force Save Without Autocommands", silent = true })
+set("n", "<leader>fN", "<cmd>enew<cr>", { desc = "New Buffer", silent = true })
 
 -- edit
 -- bug with WhichKey: https://github.com/folke/which-key.nvim/issues/271
-set({ "n", "v" }, "d", '"_d', { desc = "Delete with no register" })
-set({ "n", "v" }, "dd", '"_dd', { desc = "Delete a line with no register" })
-set({ "n", "v" }, "D", '"_D', { desc = "Delete backward with no register" })
-set({ "n", "v" }, "c", '"_c', { desc = "Change with no register" })
-set({ "n", "v" }, "cc", '"_cc', { desc = "Change a line with no register" })
-set({ "n", "v" }, "C", '"_C', { desc = "Change backward with no register" })
-set({ "n", "v" }, "s", '"_s', { desc = "Replace with no register" })
-set({ "n", "v" }, "S", '"_S', { desc = "Replace a line with no register" })
-set("n", "X", "yydd", { desc = "Cut a line" })
-set("v", "p", '"_dp', { desc = "Paste with no register" })
+set({ "n", "v" }, "d", '"_d', { desc = "Delete (Keep Registers)" })
+set({ "n", "v" }, "dd", '"_dd', { desc = "Delete Line (Keep Registers)" })
+set("n", "D", '"_D', { desc = "Delete to End of Line (Keep Registers)" })
+set("v", "D", '"_D', { desc = "Delete Lines or Block to End (Keep Registers)" })
+set({ "n", "v" }, "c", '"_c', { desc = "Change (Keep Registers)" })
+set({ "n", "v" }, "cc", '"_cc', { desc = "Change Line (Keep Registers)" })
+set("n", "C", '"_C', { desc = "Change to End of Line (Keep Registers)" })
+set("v", "C", '"_C', { desc = "Change Lines or Block to End (Keep Registers)" })
+set("n", "s", '"_s', { desc = "Substitute Character (Keep Registers)" })
+set("v", "s", '"_s', { desc = "Substitute Selection (Keep Registers)" })
+set("n", "S", '"_S', { desc = "Substitute Line (Keep Registers)" })
+set("v", "S", '"_S', { desc = "Substitute Selected Lines (Keep Registers)" })
+set("n", "X", "yydd", { desc = "Cut Line" })
+set("v", "p", '"_dp', { desc = "Paste (Keep Registers)" })
 
 -- cmdline
 set("c", "<C-j>", "<C-n>", { desc = "Select Next Item", remap = true })
@@ -58,15 +62,15 @@ set("n", "<leader>qq", function()
 end, { desc = "Quit All" })
 
 -- reload
-set("n", "<leader>rh", "<cmd>syntax sync fromstart<cr>", { desc = "Reload Syntax Highlight", silent = true })
+set("n", "<leader>rh", "<cmd>syntax sync fromstart<cr>", { desc = "Resync Syntax from Start", silent = true })
 
 -- diff file
 -- 标记一个 buffer，当标记到两个及以上 buffer 后，开启 diff
-set("n", "<leader>Dt", "<cmd>diffthis<cr>", { desc = "Diff This", silent = true })
+set("n", "<leader>Dt", "<cmd>diffthis<cr>", { desc = "Enable Diff in Current Window", silent = true })
 -- 当有 split 时，直接开启 diff
-set("n", "<leader>Ds", "<cmd>windo diffthis<cr>", { desc = "Diff Split", silent = true })
+set("n", "<leader>Ds", "<cmd>windo diffthis<cr>", { desc = "Enable Diff in All Windows", silent = true })
 -- 退出 diff
-set("n", "<leader>Do", "<cmd>diffoff<cr>", { desc = "Diff Off", silent = true })
+set("n", "<leader>Do", "<cmd>diffoff<cr>", { desc = "Disable Diff in Current Window", silent = true })
 
 -- 用法参考 LazyVim（https://github.dev/LazyVim/LazyVim）搜索 snacks.toggle
 Snacks.toggle({
@@ -93,13 +97,13 @@ set("n", "<leader>tH", "<cmd>tabfirst<cr>", { desc = "Tab First", silent = true 
 set("n", "<leader>tL", "<cmd>tablast<cr>", { desc = "Tab Last", silent = true })
 -- 新建一个 tab 时，不创建一个新的 buffer 而是使用当前 buffer
 -- https://vi.stackexchange.com/questions/6746/how-can-i-open-a-buffer-in-a-new-tab-leaving-the-current-window-and-buffer-intac
-set("n", "<leader>tn", "<cmd>tabe %<cr>", { desc = "Tab New", silent = true })
+set("n", "<leader>tn", "<cmd>tabe %<cr>", { desc = "Open Current File in New Tab", silent = true })
 
 --lazygit
 set("n", "<leader>gb", function()
   -- 设置浮动窗口样式
   Snacks.git.blame_line({ win = { backdrop = 100, width = 0.9, height = 0.9 } })
-end, { desc = "Git Blame Line" })
+end, { desc = "Git Line History" })
 
 -- lazy
 del("n", "<leader>l")
@@ -139,7 +143,7 @@ del("n", "<leader>n")
 
 -- 显示最大字数竖线
 Snacks.toggle({
-  name = "Char Boundary",
+  name = "Column Guide (80)",
   get = function()
     return vim.o.colorcolumn ~= ""
   end,
@@ -191,9 +195,9 @@ end
 -- Normal 模式：复制当前行号
 set("n", "<leader>cr", function()
   copy_location(false)
-end, { desc = "Copy line range", silent = true })
+end, { desc = "Copy File Location", silent = true })
 
 -- Visual 模式：复制选区行号范围
 set("v", "<leader>cr", function()
   copy_location(true)
-end, { desc = "Copy line range", silent = true })
+end, { desc = "Copy File Location Range", silent = true })

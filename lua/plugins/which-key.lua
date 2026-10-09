@@ -7,107 +7,109 @@ return {
     spec = {
       {
         "<leader>D",
-        group = "+diffview",
+        group = "Diff / Database",
       },
       {
         "<leader>Dc",
-        group = "+conflict",
-      },
-      {
-        "<leader>ca",
-        group = "+code-action",
+        group = "Conflicts",
       },
       {
         "<leader>cb",
-        group = "+comment-box",
+        group = "Comment Boxes",
       },
       {
         "<leader>cs",
-        group = "+snippets",
-      },
-      {
-        "<leader>Ct",
-        group = "+translator",
+        group = "Snippets",
       },
       {
         "<leader>t",
-        group = "+tabs/terminal",
+        group = "Tabs / Terminals / TODO",
+        mode = "n",
+      },
+      {
+        "<leader>t",
+        group = "Translate",
+        mode = "v",
       },
       {
         "<leader>to",
-        group = "+open",
+        group = "Open Terminal",
       },
       {
         "<leader>m",
-        group = "+marks",
+        group = "Marks",
       },
       {
         "<leader>md",
-        group = "+delete",
+        group = "Delete Marks",
       },
       {
         "<leader>r",
-        group = "+refactor",
+        group = "Reload",
       },
       {
         "<leader>p",
-        group = "+picgo",
+        group = "Images",
       },
       {
         "<leader>a",
-        group = "+ai",
+        group = "AI",
       },
       {
         "<leader>l",
-        group = "+lazy",
+        group = "Lazy",
       },
       {
         "<leader>as",
-        group = "+supermaven",
+        group = "Supermaven",
       },
       {
         "<leader>O",
-        group = "+org/outline",
+        group = "Org / Outline",
       },
       {
-        "<leader>Ob",
-        group = "+buffer",
+        "<leader>o",
+        group = "Org",
       },
       {
-        "<leader>Od",
-        group = "+date",
+        "<leader>ob",
+        group = "Babel",
       },
       {
-        "<leader>Oi",
-        group = "+insert",
+        "<leader>od",
+        group = "Timestamp",
       },
       {
-        "<leader>Ol",
-        group = "+link",
+        "<leader>oi",
+        group = "Insert",
       },
       {
-        "<leader>On",
-        group = "+note",
+        "<leader>ol",
+        group = "Links",
       },
       {
-        "<leader>Ox",
-        group = "+clock",
+        "<leader>on",
+        group = "Notes",
+      },
+      {
+        "<leader>ox",
+        group = "Clock / Effort",
       },
       {
         "<leader>n",
-        group = "+org-roam",
+        group = "Org Roam",
       },
       {
         "<leader>na",
-        group = "+alias",
+        group = "Aliases",
       },
       {
         "<leader>no",
-        group = "+origin",
+        group = "Origin",
       },
       {
         "<leader>nd",
-        group = "+daily",
+        group = "Daily Notes",
       },
     },
     triggers = {

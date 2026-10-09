@@ -192,7 +192,11 @@ local edit_mappings = {
     docs = "| `c`、`cc`、`C` | Normal、Visual | 修改到黑洞寄存器 |",
   },
   {
-    source = [[set({ "n", "v" }, "s", '"_s']],
+    source = [[set("n", "s", '"_s']],
+    docs = "| `s`、`S` | Normal、Visual | 替换/修改到黑洞寄存器 |",
+  },
+  {
+    source = [[set("v", "s", '"_s']],
     docs = "| `s`、`S` | Normal、Visual | 替换/修改到黑洞寄存器 |",
   },
   {

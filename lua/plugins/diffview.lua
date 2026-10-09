@@ -307,27 +307,27 @@ return {
     {
       "<leader>Dr",
       diff_with_branch,
-      desc = "Diffview: select branch",
+      desc = "Diff Current Branch Against Selected Branch",
     },
     {
       "<leader>Dd",
       "<cmd>DiffviewOpen<cr>",
-      desc = "DiffviewOpen",
+      desc = "Show Working Tree Changes",
     },
     {
       "<leader>Dq",
       "<cmd>tabclose<cr>",
-      desc = "Diffview Quit",
+      desc = "Close Current Tab",
     },
     {
       "<leader>Db",
       "<cmd>DiffviewFileHistory<cr>",
-      desc = "DiffviewFileHistory (Branch)",
+      desc = "Repository History",
     },
     {
       "<leader>Df",
       "<cmd>DiffviewFileHistory %<cr>",
-      desc = "DiffviewFileHistory (Current File)",
+      desc = "Current File History",
     },
   },
 }

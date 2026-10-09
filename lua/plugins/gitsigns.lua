@@ -53,10 +53,10 @@ return {
       map("n", "<leader>ghb", function()
         gs.blame_line({ full = true })
       end, "Blame Line")
-      map("n", "<leader>ghd", gs.diffthis, "Diff This")
+      map("n", "<leader>ghd", gs.diffthis, "Diff Against Base")
       map("n", "<leader>ghD", function()
         gs.diffthis("~")
-      end, "Diff This ~")
+      end, "Diff Against Previous Revision")
       -- 选择 hunk
       -- yih 复制 hunk 内容
       -- vih 选中 hunk 内容
