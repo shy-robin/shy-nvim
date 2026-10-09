@@ -312,6 +312,17 @@ local function my_on_attach(bufnr)
   end
   local set = vim.keymap.set
 
+  -- 前缀超时后打开菜单，避免执行原生按键；保留等待以匹配快速输入的组合键。
+  for _, group in ipairs({ { "y", "Copy" }, { "w", "Window" }, { "b", "Bookmarked" } }) do
+    local prefix, name = group[1], group[2]
+    set("n", prefix, function()
+      require("which-key").show({ keys = prefix, mode = "n" })
+    end, vim.tbl_extend("force", opts(name), { nowait = false }))
+    require("which-key").add({
+      { prefix, group = name, mode = "n", buffer = bufnr },
+    })
+  end
+
   -- default mappings
   -- api.config.mappings.default_on_attach(bufnr)
 
