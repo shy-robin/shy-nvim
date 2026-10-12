@@ -37,9 +37,9 @@ local function diff_with_branch()
 end
 
 local function diff_between_branches()
-  select_branch("Base branch> ", function(base)
+  select_branch("Base branch (left)> ", function(base)
     vim.schedule(function()
-      select_branch("Compare branch> ", function(compare)
+      select_branch("Compare branch (right)> ", function(compare)
         if base == compare then
           vim.notify("请选择两个不同的分支", vim.log.levels.WARN)
           return
@@ -47,6 +47,45 @@ local function diff_between_branches()
 
         local range = vim.fn.fnameescape(base) .. "..." .. vim.fn.fnameescape(compare)
         vim.cmd("DiffviewOpen " .. range)
+      end)
+    end)
+  end)
+end
+
+local function diff_between_commits()
+  local cwd = vim.fn.getcwd()
+  local commits = vim.fn.systemlist({ "git", "-C", cwd, "log", "--format=%h %ad %s", "--date=short", "HEAD" })
+  if vim.v.shell_error ~= 0 then
+    vim.notify("无法读取当前分支的提交历史：" .. table.concat(commits, "\n"), vim.log.levels.WARN)
+    return
+  end
+  if #commits == 0 then
+    vim.notify("当前分支没有提交记录", vim.log.levels.WARN)
+    return
+  end
+
+  local function select_commit(prompt, on_select)
+    require("fzf-lua").fzf_exec(commits, {
+      prompt = prompt,
+      fzf_opts = { ["--no-multi"] = true },
+      actions = {
+        ["default"] = function(selected)
+          if selected[1] then
+            on_select(selected[1]:match("^%x+"))
+          end
+        end,
+      },
+    })
+  end
+
+  select_commit("Base commit (left)> ", function(base)
+    vim.schedule(function()
+      select_commit("Compare commit (right)> ", function(compare)
+        if base == compare then
+          vim.notify("请选择两个不同的 commit", vim.log.levels.WARN)
+          return
+        end
+        vim.cmd("DiffviewOpen " .. base .. ".." .. compare .. " -C=" .. vim.fn.fnameescape(cwd))
       end)
     end)
   end)
@@ -299,6 +338,11 @@ return {
     },
   },
   keys = {
+    {
+      "<leader>DC",
+      diff_between_commits,
+      desc = "Diffview: compare two commits",
+    },
     {
       "<leader>DB",
       diff_between_branches,

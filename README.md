@@ -102,6 +102,10 @@ nvim
 
 > `:FzfLua files` 和 `:FzfLua live_grep` 默认使用 Neovim 当前工作目录；nvim-tree 中的 `<C-f>` 则使用光标节点目录。该配置使用上述 fzf-lua 输入控制，而不是 Telescope 的 `<C-u>` / `<C-i>` 绑定。
 
+### Diffview commit 对比
+
+普通模式下按 `<leader>DC`，通过 fzf 依次选择左侧基准 commit 和右侧对比 commit，打开两者的差异。列表显示 Neovim 当前工作目录所在仓库的 `HEAD` 历史（包含合并进来的提交），支持按 hash、日期和提交说明搜索。选择相同 commit 会提示重新选择；取消任一步选择即可退出。
+
 ### Markdown Preview
 
 | 功能 | 快捷键或命令 | 描述 |

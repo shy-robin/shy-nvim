@@ -238,6 +238,7 @@ run_stage 'JSON parsing' check_json
 run_stage 'tests/mkdp_spec.lua' run_nvim_lua_test tests/mkdp_spec.lua
 run_stage 'tests/mkdp_route_fix_test.js' "$node_bin" "$repo_dir/tests/mkdp_route_fix_test.js"
 run_stage 'tests/lazygit_spec.lua' run_nvim_lua_test tests/lazygit_spec.lua
+run_stage 'tests/diffview_spec.lua' run_nvim_lua_test tests/diffview_spec.lua
 run_stage 'tests/spec_opts_spec.lua' run_nvim_lua_test tests/spec_opts_spec.lua
 run_stage 'tests/migration_cleanup_spec.lua' run_nvim_lua_test tests/migration_cleanup_spec.lua
 run_stage 'tests/documentation_spec.lua' run_nvim_lua_test tests/documentation_spec.lua
