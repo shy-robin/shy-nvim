@@ -247,6 +247,30 @@ return {
     -- 按转换后的文件缓存，不会重复转换或重传。
     local group = vim.api.nvim_create_augroup("snacks_image_rerender", { clear = true })
 
+    -- Snacks 的 progress/error 会写入预览文字，却没有重置 modified。
+    -- 图片 buffer 只用于展示，禁止写回原文件，并在异步渲染后清除修改标记。
+    vim.api.nvim_create_autocmd("FileType", {
+      group = group,
+      pattern = "image",
+      callback = function(ev)
+        vim.bo[ev.buf].buftype = "nowrite"
+        vim.bo[ev.buf].swapfile = false
+        if vim.b[ev.buf].image_preview_guard then
+          return
+        end
+        vim.b[ev.buf].image_preview_guard = true
+        vim.api.nvim_buf_attach(ev.buf, false, {
+          on_lines = function()
+            vim.schedule(function()
+              if vim.api.nvim_buf_is_valid(ev.buf) and vim.bo[ev.buf].filetype == "image" then
+                vim.bo[ev.buf].modified = false
+              end
+            end)
+          end,
+        })
+      end,
+    })
+
     -- PDF 也被 snacks.image 接管成 filetype=image，但页码由 pdfreader.nvim 维护，它在
     -- BufEnter 时重绘当前页。这里的 attach 会先 placement.clean 再贴原始 pdf 的第 1 页，
     -- 且 BufWinEnter 晚于 BufEnter，会把正在读的页码打回第 1 页，所以要跳过 pdf。
