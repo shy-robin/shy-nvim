@@ -72,21 +72,29 @@ local function run_system(command, options)
   return exit_code == 0, exit_code
 end
 
-local function protect_index_html(plugin_dir, options)
+local function protect_index_html(plugin_dir, relpath, options)
   if not path_exists(plugin_dir .. "/.git") then
     return true
   end
   if not commands.executable("git") then
-    return fail("git is unavailable; cannot protect patched index.html", options)
+    return fail("git is unavailable; cannot protect patched " .. relpath, options)
   end
 
-  local command = { "git", "-C", plugin_dir, "update-index", "--skip-worktree", "app/out/index.html" }
+  local command = { "git", "-C", plugin_dir, "update-index", "--skip-worktree", relpath }
   local ok, detail = run_system(command, options)
   if not ok then
     local suffix = type(detail) == "number" and " (exit " .. detail .. ")" or " (" .. detail .. ")"
-    return fail("cannot protect patched index.html before mutation" .. suffix, options)
+    return fail("cannot protect patched " .. relpath .. " before mutation" .. suffix, options)
   end
   return true
+end
+
+local function highlight_bundle(p)
+  local matches = vim.fn.glob(p.plugin_dir .. "/app/out/_next/static/*/pages/index.js", false, true)
+  if #matches ~= 1 then
+    return nil
+  end
+  return matches[1]
 end
 
 local function copy_if_changed(source, target, options)
@@ -211,6 +219,83 @@ local function patch_link_handler(p, options)
   )
 end
 
+local function patch_theme_toggle(p, options)
+  if not copy_if_changed(p.mkdp_dir .. "/theme-toggle.js", p.static_dir .. "/theme-toggle.js", options) then
+    return false
+  end
+  return inject_html(
+    p.out_html,
+    "/_static/theme-toggle.js",
+    "</head>",
+    '<script src="/_static/theme-toggle.js" defer></script></head>',
+    options
+  )
+end
+
+local function patch_highlight_language(p, options)
+  local path = highlight_bundle(p)
+  if not path then
+    return fail("highlight bundle is missing or ambiguous under " .. p.plugin_dir .. "/app/out/_next/static", options)
+  end
+  local lines = read_file(path, nil, "target", options)
+  if not lines then
+    return false
+  end
+  local html = table.concat(lines, "\n")
+  local old = [['<pre class="hljs"><code>']]
+  local new = [['<pre class="hljs"><code class="language-'+(t||"").replace(/[^\w+#.-]/g,"")+'">']]
+  if html:find(new, 1, true) then
+    return true
+  end
+
+  local parts = {}
+  local count = 0
+  local start = 1
+  while true do
+    local s, e = html:find(old, start, true)
+    if not s then
+      break
+    end
+    count = count + 1
+    table.insert(parts, html:sub(start, s - 1))
+    table.insert(parts, new)
+    start = e + 1
+  end
+  table.insert(parts, html:sub(start))
+  if count ~= 2 then
+    return fail("cannot find highlight injection point in: " .. path, options)
+  end
+  return write_html(path, table.concat(parts), function(verified)
+    return verified:find(new, 1, true) ~= nil
+  end, options)
+end
+
+local function patch_heading_copy(p, options)
+  if not copy_if_changed(p.mkdp_dir .. "/heading-copy.js", p.static_dir .. "/heading-copy.js", options) then
+    return false
+  end
+  return inject_html(
+    p.out_html,
+    "/_static/heading-copy.js",
+    "</head>",
+    '<script src="/_static/heading-copy.js" defer></script></head>',
+    options
+  )
+end
+
+local function patch_code_block(p, options)
+  if not copy_if_changed(p.mkdp_dir .. "/code-block.js", p.static_dir .. "/code-block.js", options) then
+    return false
+  end
+  return inject_html(
+    p.out_html,
+    "/_static/code-block.js",
+    "</head>",
+    '<script src="/_static/code-block.js" defer></script></head>',
+    options
+  )
+end
+
 local function patch_route_fix(p, options)
   if not copy_if_changed(p.mkdp_dir .. "/route-fix.js", p.static_dir .. "/route-fix.js", options) then
     return false
@@ -232,10 +317,23 @@ function M.patch_all(options)
   if not require_file(p.out_html, "target", options) then
     return false
   end
-  if not protect_index_html(p.plugin_dir, options) then
+  local bundle = highlight_bundle(p)
+  if not bundle then
+    return fail("highlight bundle is missing or ambiguous under " .. p.plugin_dir .. "/app/out/_next/static", options)
+  end
+  if not protect_index_html(p.plugin_dir, "app/out/index.html", options) then
     return false
   end
-  return patch_toc_sidebar(p, options) and patch_link_handler(p, options) and patch_route_fix(p, options)
+  if not protect_index_html(p.plugin_dir, bundle:sub(#p.plugin_dir + 2), options) then
+    return false
+  end
+  return patch_toc_sidebar(p, options)
+    and patch_link_handler(p, options)
+    and patch_route_fix(p, options)
+    and patch_theme_toggle(p, options)
+    and patch_code_block(p, options)
+    and patch_heading_copy(p, options)
+    and patch_highlight_language(p, options)
 end
 
 function M.build(plugin, options)

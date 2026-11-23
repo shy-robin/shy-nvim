@@ -60,10 +60,18 @@ local function create_checkout(temp, git_kind)
   vim.fn.mkdir(config_dir .. "/assets/mkdp-toc", "p")
   vim.fn.mkdir(config_dir .. "/assets/mkdp", "p")
   write(plugin_dir .. "/app/out/index.html", { "<html><head></head><body></body></html>" })
+  vim.fn.mkdir(plugin_dir .. "/app/out/_next/static/build/pages", "p")
+  write(plugin_dir .. "/app/out/_next/static/build/pages/index.js", {
+    [[x='<pre class="hljs"><code>'.concat(a,"</code></pre>")]],
+    [[y='<pre class="hljs"><code>'.concat(b,"</code></pre>")]],
+  })
   write(config_dir .. "/assets/mkdp-toc/toc-sidebar.js", { "toc script" })
   write(config_dir .. "/assets/mkdp-toc/toc-sidebar.css", { "toc style" })
   write(config_dir .. "/assets/mkdp/links.js", { "links" })
   write(config_dir .. "/assets/mkdp/route-fix.js", { "route" })
+  write(config_dir .. "/assets/mkdp/theme-toggle.js", { "theme toggle" })
+  write(config_dir .. "/assets/mkdp/code-block.js", { "code block" })
+  write(config_dir .. "/assets/mkdp/heading-copy.js", { "heading copy" })
   if git_kind == "directory" then
     vim.fn.mkdir(plugin_dir .. "/.git", "p")
   elseif git_kind == "file" then
@@ -296,11 +304,17 @@ with_executables({ git = true }, function()
       end,
     })
     eq(patched, true, "protected directory checkout patches successfully")
-    eq(
-      calls,
-      { { "git", "-C", plugin_dir, "update-index", "--skip-worktree", "app/out/index.html" } },
-      "directory checkout protects index first"
-    )
+    eq(calls, {
+      { "git", "-C", plugin_dir, "update-index", "--skip-worktree", "app/out/index.html" },
+      {
+        "git",
+        "-C",
+        plugin_dir,
+        "update-index",
+        "--skip-worktree",
+        "app/out/_next/static/build/pages/index.js",
+      },
+    }, "directory checkout protects index and highlight bundle first")
     local html = contents(index_html)
     assert(html:find("route%-fix", 1, false), "route patch remains applied")
     assert(html:find("links%.js", 1, false), "link patch remains applied")

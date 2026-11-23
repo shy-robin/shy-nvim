@@ -28,6 +28,7 @@ return {
     vim.g.mkdp_page_title = "「${name}」"
     vim.g.mkdp_auto_close = 0
     vim.g.mkdp_theme = "light"
+    vim.g.mkdp_markdown_css = vim.fn.stdpath("config") .. "/assets/mkdp/markdown.css"
     -- 用官方钩子捕获每个 buffer 的精确预览 URL，并由管理器统一打开浏览器。
     vim.g.mkdp_browserfunc = "MkdpBrowserFunc"
     vim.cmd([[
