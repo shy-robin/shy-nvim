@@ -1293,3 +1293,25 @@ body:has([data-theme="dark"]) #mkdp-toc-sidebar {
   border-bottom-width: 2px;
   box-shadow: none;
 }
+
+/* 折叠块悬浮效果：手型光标、图标放大、文字加深 */
+.markdown-body details > summary {
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.markdown-body details > summary:hover {
+  color: #1f0909;
+}
+
+.markdown-body details > summary:hover::before {
+  transform: scale(1.12);
+}
+
+.markdown-body details[open] > summary:hover::before {
+  transform: rotate(90deg) scale(1.12);
+}
+
+[data-theme="dark"] .markdown-body details > summary:hover {
+  color: #f2ede3;
+}
