@@ -105,3 +105,9 @@ vim.api.nvim_create_autocmd("BufReadPre", {
     vim.o.cmdheight = 1
   end,
 })
+
+-- 提前注册依赖检查命令，避免 VeryLazy 尚未触发时命令不可用。
+local deps_ok, deps = pcall(require, "util.dependencies")
+if deps_ok then
+  deps.setup()
+end

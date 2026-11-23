@@ -171,3 +171,20 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     save_color_scheme()
   end,
 })
+
+-- 启动时静默检查第三方依赖；仅在存在未忽略的缺失项时弹窗。
+local deps_ok, deps = pcall(require, "util.dependencies")
+if deps_ok then
+  deps.setup()
+  if vim.v.vim_did_enter == 1 then
+    vim.schedule(deps.maybe_open)
+  else
+    local deps_group = vim.api.nvim_create_augroup("shy_nvim_deps", { clear = true })
+    vim.api.nvim_create_autocmd("VimEnter", {
+      group = deps_group,
+      callback = function()
+        vim.schedule(deps.maybe_open)
+      end,
+    })
+  end
+end
