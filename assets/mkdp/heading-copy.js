@@ -31,6 +31,8 @@
     var heading = event.target.closest && event.target.closest('.markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4, .markdown-body h5, .markdown-body h6')
     if (!heading || !heading.id) return
     if (window.getSelection && window.getSelection().toString()) return
+    var rect = heading.getBoundingClientRect()
+    if (event.clientX < rect.left + parseFloat(getComputedStyle(heading).paddingLeft)) return
     var base = window.location.href.split('#')[0]
     copy(base + '#' + heading.id, heading)
   })

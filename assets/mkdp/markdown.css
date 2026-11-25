@@ -1320,3 +1320,308 @@ body:has([data-theme="dark"]) #mkdp-toc-sidebar {
 .markdown-body img {
   cursor: zoom-in;
 }
+
+/* 标题徽章与分割线融为一体：分割线延伸到左侧页边，徽章压在线的左端 */
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin-left: -56px;
+  padding-left: 56px;
+  border-bottom-style: solid;
+}
+
+.markdown-body h1 { border-bottom-width: 2px; border-bottom-color: #1f0909; }
+.markdown-body h2 { border-bottom-width: 1px; border-bottom-color: #b9b2a4; }
+.markdown-body h3 { border-bottom-width: 1px; border-bottom-color: #cfc9bd; }
+.markdown-body h4 { border-bottom-width: 1px; border-bottom-color: #dcd6c9; }
+.markdown-body h5 { border-bottom-width: 1px; border-bottom-color: #e3ded3; }
+.markdown-body h6 { border-bottom-width: 1px; border-bottom-color: #e8e4da; }
+
+[data-theme="dark"] .markdown-body h1 { border-bottom-width: 2px; border-bottom-color: #f2ede3; }
+[data-theme="dark"] .markdown-body h2 { border-bottom-width: 1px; border-bottom-color: #5b626a; }
+[data-theme="dark"] .markdown-body h3 { border-bottom-width: 1px; border-bottom-color: #474d54; }
+[data-theme="dark"] .markdown-body h4 { border-bottom-width: 1px; border-bottom-color: #3f454c; }
+[data-theme="dark"] .markdown-body h5 { border-bottom-width: 1px; border-bottom-color: #3a4046; }
+[data-theme="dark"] .markdown-body h6 { border-bottom-width: 1px; border-bottom-color: #363c42; }
+
+.markdown-body h1::before,
+.markdown-body h2::before,
+.markdown-body h3::before,
+.markdown-body h4::before,
+.markdown-body h5::before,
+.markdown-body h6::before {
+  top: auto;
+  right: auto;
+  left: 0;
+  bottom: -1px;
+  margin: 0;
+  height: auto;
+  min-width: 0;
+  padding: 0 6px;
+  border: 0;
+  border-radius: 4px;
+  background: #f3f2ee;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  transform: translateY(50%);
+}
+
+.markdown-body h1::before { color: #1f0909; }
+.markdown-body h2::before { color: #3d2f25; }
+.markdown-body h3::before { color: #6b5f52; }
+.markdown-body h4::before { color: #7a6e5f; }
+.markdown-body h5::before { color: #8a7e6e; }
+.markdown-body h6::before { color: #9a8f7f; }
+
+[data-theme="dark"] .markdown-body h1::before { color: #f2ede3; background: #363b40; border: 0; }
+[data-theme="dark"] .markdown-body h2::before { color: #d6d0c4; background: #363b40; border: 0; }
+[data-theme="dark"] .markdown-body h3::before { color: #b3ada2; background: #363b40; border: 0; }
+[data-theme="dark"] .markdown-body h4::before { color: #9da2a6; background: #363b40; border: 0; }
+[data-theme="dark"] .markdown-body h5::before { color: #8f877b; background: #363b40; border: 0; }
+[data-theme="dark"] .markdown-body h6::before { color: #7d7770; background: #363b40; border: 0; }
+
+/* 徽章文字底部对齐分割线；分割线整体减淡 */
+.markdown-body h1::before,
+.markdown-body h2::before,
+.markdown-body h3::before,
+.markdown-body h4::before,
+.markdown-body h5::before,
+.markdown-body h6::before {
+  bottom: 0;
+  padding: 0 6px;
+  background: transparent;
+  line-height: 1;
+  transform: none;
+}
+
+.markdown-body h1 { border-bottom-width: 1px; border-bottom-color: #b9b2a4; }
+.markdown-body h2 { border-bottom-color: #d6d0c4; }
+.markdown-body h3 { border-bottom-color: #dfd9cc; }
+.markdown-body h4 { border-bottom-color: #e6e1d6; }
+.markdown-body h5 { border-bottom-color: #ebe7de; }
+.markdown-body h6 { border-bottom-color: #efebe3; }
+
+[data-theme="dark"] .markdown-body h1 { border-bottom-width: 1px; border-bottom-color: #5b626a; }
+[data-theme="dark"] .markdown-body h2 { border-bottom-color: #474d54; }
+[data-theme="dark"] .markdown-body h3 { border-bottom-color: #41474e; }
+[data-theme="dark"] .markdown-body h4 { border-bottom-color: #3c4248; }
+[data-theme="dark"] .markdown-body h5 { border-bottom-color: #373d43; }
+[data-theme="dark"] .markdown-body h6 { border-bottom-color: #33393f; }
+
+[data-theme="dark"] .markdown-body h1,
+[data-theme="dark"] .markdown-body h2,
+[data-theme="dark"] .markdown-body h3,
+[data-theme="dark"] .markdown-body h4,
+[data-theme="dark"] .markdown-body h5,
+[data-theme="dark"] .markdown-body h6 {
+  margin-left: -56px;
+  padding-left: 56px;
+  border-left: 0;
+}
+
+/* 方案 A：去掉标题分割线，只保留页边徽章 */
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6,
+[data-theme="dark"] .markdown-body h1,
+[data-theme="dark"] .markdown-body h2,
+[data-theme="dark"] .markdown-body h3,
+[data-theme="dark"] .markdown-body h4,
+[data-theme="dark"] .markdown-body h5,
+[data-theme="dark"] .markdown-body h6 {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.markdown-body h1::before,
+.markdown-body h2::before,
+.markdown-body h3::before,
+.markdown-body h4::before,
+.markdown-body h5::before,
+.markdown-body h6::before {
+  top: 50%;
+  bottom: auto;
+  transform: translateY(-50%);
+}
+
+/* 徽章底部对齐标题文字底部，并加一条与文字同色的短下划线作为装饰 */
+.markdown-body h1::before,
+.markdown-body h2::before,
+.markdown-body h3::before,
+.markdown-body h4::before,
+.markdown-body h5::before,
+.markdown-body h6::before {
+  top: auto;
+  bottom: 6px;
+  transform: none;
+  min-width: 2.6em;
+  padding: 0 4px 3px;
+  text-align: center;
+  border-bottom: 1.5px solid currentColor;
+  border-radius: 0;
+}
+
+/* 标题徽章：线框 + 箭头图标；点击徽章折叠/展开该标题下的内容 */
+.markdown-body h1::before,
+.markdown-body h2::before,
+.markdown-body h3::before,
+.markdown-body h4::before,
+.markdown-body h5::before,
+.markdown-body h6::before {
+  min-width: 0;
+  padding: 2px 16px 2px 6px;
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M2 3.5 L5 6.5 L8 3.5' fill='none' stroke='%233d2f25' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 4px center / 9px 9px;
+  cursor: pointer;
+}
+
+.markdown-body h1.md-folded::before,
+.markdown-body h2.md-folded::before,
+.markdown-body h3.md-folded::before,
+.markdown-body h4.md-folded::before,
+.markdown-body h5.md-folded::before,
+.markdown-body h6.md-folded::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M3.5 2 L6.5 5 L3.5 8' fill='none' stroke='%233d2f25' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+[data-theme="dark"] .markdown-body h1::before,
+[data-theme="dark"] .markdown-body h2::before,
+[data-theme="dark"] .markdown-body h3::before,
+[data-theme="dark"] .markdown-body h4::before,
+[data-theme="dark"] .markdown-body h5::before,
+[data-theme="dark"] .markdown-body h6::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M2 3.5 L5 6.5 L8 3.5' fill='none' stroke='%23d6d0c4' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  border: 1px solid currentColor;
+}
+
+[data-theme="dark"] .markdown-body h1.md-folded::before,
+[data-theme="dark"] .markdown-body h2.md-folded::before,
+[data-theme="dark"] .markdown-body h3.md-folded::before,
+[data-theme="dark"] .markdown-body h4.md-folded::before,
+[data-theme="dark"] .markdown-body h5.md-folded::before,
+[data-theme="dark"] .markdown-body h6.md-folded::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M3.5 2 L6.5 5 L3.5 8' fill='none' stroke='%23d6d0c4' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+.md-fold-hidden {
+  display: none !important;
+}
+
+/* 徽章底部按各级标题的基线位置对齐（H1 已验收的偏移量为基准） */
+.markdown-body h1::before { bottom: 6px; }
+.markdown-body h2::before { bottom: 3px; }
+.markdown-body h3::before { bottom: 2px; }
+.markdown-body h4::before { bottom: 0; }
+.markdown-body h5::before { bottom: 0; }
+.markdown-body h6::before { bottom: -1px; }
+
+/* 徽章缩小、降低存在感；背景使用完整简写，修复暗色下箭头拉伸覆盖文字的问题 */
+.markdown-body h1::before,
+.markdown-body h2::before,
+.markdown-body h3::before,
+.markdown-body h4::before,
+.markdown-body h5::before,
+.markdown-body h6::before {
+  font-size: 9px;
+  line-height: 1;
+  padding: 1px 11px 1px 4px;
+  opacity: 0.7;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M2 3.5 L5 6.5 L8 3.5' fill='none' stroke='%233d2f25' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 3px center / 7px 7px;
+}
+
+.markdown-body h1.md-folded::before,
+.markdown-body h2.md-folded::before,
+.markdown-body h3.md-folded::before,
+.markdown-body h4.md-folded::before,
+.markdown-body h5.md-folded::before,
+.markdown-body h6.md-folded::before {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M3.5 2 L6.5 5 L3.5 8' fill='none' stroke='%233d2f25' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 3px center / 7px 7px;
+}
+
+[data-theme="dark"] .markdown-body h1::before,
+[data-theme="dark"] .markdown-body h2::before,
+[data-theme="dark"] .markdown-body h3::before,
+[data-theme="dark"] .markdown-body h4::before,
+[data-theme="dark"] .markdown-body h5::before,
+[data-theme="dark"] .markdown-body h6::before {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M2 3.5 L5 6.5 L8 3.5' fill='none' stroke='%23d6d0c4' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 3px center / 7px 7px;
+}
+
+[data-theme="dark"] .markdown-body h1.md-folded::before,
+[data-theme="dark"] .markdown-body h2.md-folded::before,
+[data-theme="dark"] .markdown-body h3.md-folded::before,
+[data-theme="dark"] .markdown-body h4.md-folded::before,
+[data-theme="dark"] .markdown-body h5.md-folded::before,
+[data-theme="dark"] .markdown-body h6.md-folded::before {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M3.5 2 L6.5 5 L3.5 8' fill='none' stroke='%23d6d0c4' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 3px center / 7px 7px;
+}
+
+/* H4 及以下徽章底部上移，与标题文字底部对齐 */
+.markdown-body h4::before { bottom: 4px; }
+.markdown-body h5::before { bottom: 3px; }
+.markdown-body h6::before { bottom: 3px; }
+
+/* 任务列表：圆角复选框，勾选时填充并显示对勾；覆盖主题原始的符号样式 */
+.markdown-body .task-list-item input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  position: relative;
+  top: 0;
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  margin: 0 0.6em 0 0;
+  vertical-align: -0.13em;
+  border: 1.5px solid #8a7e6e;
+  border-radius: 5px;
+  background: transparent;
+  cursor: default;
+}
+
+.markdown-body .task-list-item input[type="checkbox"]:before,
+.markdown-body .task-list-item input[type="checkbox"]:after,
+.markdown-body .task-list-item input:checked:before,
+.markdown-body .task-list-item input[checked]:before {
+  content: none;
+  display: none;
+}
+
+.markdown-body .task-list-item input[type="checkbox"]:checked {
+  border-color: #1f0909;
+  background: #1f0909 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.2 L5 8.5 L9.5 3.8' fill='none' stroke='%23f3f2ee' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / 11px 11px;
+}
+
+[data-theme="dark"] .markdown-body .task-list-item input[type="checkbox"] {
+  border-color: #8f877b;
+}
+
+[data-theme="dark"] .markdown-body .task-list-item input[type="checkbox"]:checked {
+  border-color: #f2ede3;
+  background: #f2ede3 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.2 L5 8.5 L9.5 3.8' fill='none' stroke='%23363b40' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / 11px 11px;
+}
+
+/* 任务列表缩进统一：去掉主题原始的负偏移，嵌套只保留一层缩进 */
+.markdown-body .task-list,
+[data-theme="dark"] .markdown-body .task-list {
+  padding-left: 0;
+}
+
+.markdown-body .task-list .task-list,
+[data-theme="dark"] .markdown-body .task-list .task-list {
+  padding-left: 1.4em;
+}
+
+.markdown-body .task-list-item,
+[data-theme="dark"] .markdown-body .task-list-item {
+  margin-left: 0;
+  padding-left: 0;
+  list-style: none;
+}

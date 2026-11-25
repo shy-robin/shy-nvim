@@ -296,6 +296,19 @@ local function patch_image_viewer(p, options)
   )
 end
 
+local function patch_heading_fold(p, options)
+  if not copy_if_changed(p.mkdp_dir .. "/heading-fold.js", p.static_dir .. "/heading-fold.js", options) then
+    return false
+  end
+  return inject_html(
+    p.out_html,
+    "/_static/heading-fold.js",
+    "</head>",
+    '<script src="/_static/heading-fold.js" defer></script></head>',
+    options
+  )
+end
+
 local function patch_code_block(p, options)
   if not copy_if_changed(p.mkdp_dir .. "/code-block.js", p.static_dir .. "/code-block.js", options) then
     return false
@@ -347,6 +360,7 @@ function M.patch_all(options)
     and patch_code_block(p, options)
     and patch_heading_copy(p, options)
     and patch_image_viewer(p, options)
+    and patch_heading_fold(p, options)
     and patch_highlight_language(p, options)
 end
 
