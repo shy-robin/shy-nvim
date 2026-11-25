@@ -72,6 +72,7 @@ local function create_checkout(temp, git_kind)
   write(config_dir .. "/assets/mkdp/theme-toggle.js", { "theme toggle" })
   write(config_dir .. "/assets/mkdp/code-block.js", { "code block" })
   write(config_dir .. "/assets/mkdp/heading-copy.js", { "heading copy" })
+  write(config_dir .. "/assets/mkdp/image-viewer.js", { "image viewer" })
   if git_kind == "directory" then
     vim.fn.mkdir(plugin_dir .. "/.git", "p")
   elseif git_kind == "file" then

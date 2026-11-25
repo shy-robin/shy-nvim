@@ -283,6 +283,19 @@ local function patch_heading_copy(p, options)
   )
 end
 
+local function patch_image_viewer(p, options)
+  if not copy_if_changed(p.mkdp_dir .. "/image-viewer.js", p.static_dir .. "/image-viewer.js", options) then
+    return false
+  end
+  return inject_html(
+    p.out_html,
+    "/_static/image-viewer.js",
+    "</head>",
+    '<script src="/_static/image-viewer.js" defer></script></head>',
+    options
+  )
+end
+
 local function patch_code_block(p, options)
   if not copy_if_changed(p.mkdp_dir .. "/code-block.js", p.static_dir .. "/code-block.js", options) then
     return false
@@ -333,6 +346,7 @@ function M.patch_all(options)
     and patch_theme_toggle(p, options)
     and patch_code_block(p, options)
     and patch_heading_copy(p, options)
+    and patch_image_viewer(p, options)
     and patch_highlight_language(p, options)
 end
 

@@ -1315,3 +1315,8 @@ body:has([data-theme="dark"]) #mkdp-toc-sidebar {
 [data-theme="dark"] .markdown-body details > summary:hover {
   color: #f2ede3;
 }
+
+/* 正文图片可点击放大 */
+.markdown-body img {
+  cursor: zoom-in;
+}
